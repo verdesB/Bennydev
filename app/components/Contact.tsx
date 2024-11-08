@@ -1,5 +1,5 @@
 'use client'
-import { log } from 'console';
+
 import { Mail, Phone, MapPin, Linkedin, Github } from 'lucide-react';
 import { useState } from 'react';
 
