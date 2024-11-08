@@ -83,3 +83,12 @@ body {
 #menu-toggle:checked ~ div div a {
   animation: slideDown 0.3s ease-out forwards;
 }
+
+@layer utilities {
+  .safe-area-p {
+    padding-top: env(safe-area-inset-top);
+    padding-right: env(safe-area-inset-right);
+    padding-bottom: env(safe-area-inset-bottom);
+    padding-left: env(safe-area-inset-left);
+  }
+}

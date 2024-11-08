@@ -5,7 +5,7 @@ export default function Header() {
   const menuItems = ['Accueil', 'À propos', 'Projets', 'Solutions', 'Contact'];
 
   return (
-    <div className="fixed top-0 left-0 right-0 z-50 mt-8 px-4">
+    <div className="fixed top-0 left-0 right-0 z-50 pt-[env(safe-area-inset-top)] px-[env(safe-area-inset-right)] pl-[env(safe-area-inset-left)] mt-8">
       <header className="max-w-6xl mx-auto bg-black/90 backdrop-blur-sm rounded-lg">
         <nav className="relative">
           <input type="checkbox" id="menu-toggle" className="peer hidden" />
