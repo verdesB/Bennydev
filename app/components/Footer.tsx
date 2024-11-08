@@ -13,7 +13,7 @@ export default function Footer() {
           <div className="col-span-1 md:col-span-2">
             <Link href="/" className="flex items-center">
               <Image
-                src="/bennydev.webp"
+                src="/Bennydev.webp"
                 alt="BennyDev Logo"
                 width={100}
                 height={100}

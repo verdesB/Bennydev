@@ -29,7 +29,7 @@ export default function About() {
             {/* Image de fond */}
             <div className="relative h-[400px] rounded-2xl overflow-hidden shadow-xl">
               <Image
-                src="/bennydev.webp"
+                src="/Bennydev.webp"
                 alt="BennyDev workspace"
                 fill
                 className="object-cover"
