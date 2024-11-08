@@ -1,4 +1,5 @@
 'use client'
+import { log } from 'console';
 import { Mail, Phone, MapPin, Linkedin, Github } from 'lucide-react';
 import { useState } from 'react';
 
@@ -32,6 +33,7 @@ export default function Contact() {
       }
     } catch (_error) {
       setStatus('error');
+      console.error(_error);
     }
   };
 

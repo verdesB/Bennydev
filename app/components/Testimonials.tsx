@@ -49,7 +49,7 @@ export default function Testimonials() {
               {/* Contenu du témoignage */}
               <div className="relative">
                 <p className="text-gray-600 mb-6 italic">
-                  "{testimonial.content}"
+                  &quot;{testimonial.content}&quot;
                 </p>
 
                 {/* Informations client */}

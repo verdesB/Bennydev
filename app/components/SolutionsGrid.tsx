@@ -3,7 +3,7 @@ import {
   Globe, 
   ShoppingCart, 
   LayoutDashboard, 
- 
+
   Rocket,
   Code,
   RefreshCcw

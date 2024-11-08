@@ -73,7 +73,7 @@ export default function About() {
             
             <div className="border-l-4 border-purple-600 pl-4 my-8">
               <p className="text-gray-900 font-medium italic">
-                "Ma mission est d&apos;accompagner mes clients dans la réalisation de leurs projets web, de la conception à la livraison, et au-delà."
+                &quot;Ma mission est d&apos;accompagner mes clients dans la réalisation de leurs projets web, de la conception à la livraison, et au-delà.&quot;
               </p>
             </div>
           </div>
