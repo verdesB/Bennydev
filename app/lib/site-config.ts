@@ -117,7 +117,7 @@ export const siteConfig = {
   ]
 };
 
-// Initialisation du client Together
+// Correction de l'initialisation du client Together
 if (!process.env.TOGETHER_API_KEY) {
   throw new Error('TOGETHER_API_KEY is not defined');
 }
