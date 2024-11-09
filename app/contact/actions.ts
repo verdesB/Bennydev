@@ -34,6 +34,7 @@ export async function sendEmail(formData: FormData) {
     redirect('/contact/success');
 
   } catch (error) {
+    console.log(error)
     // Rediriger vers une page d'erreur
     redirect('/contact/error');
   }

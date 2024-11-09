@@ -1,6 +1,6 @@
 'use client'
 import React, { useState } from 'react';
-import Hero2 from '../components/Hero2';
+
 
 // Définition des types
 type ProjectType = 'ecommerce' | 'vitrine' | 'application' | 'mobile';

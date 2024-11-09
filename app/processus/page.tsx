@@ -1,5 +1,6 @@
 import Hero2 from '@/app/components/Hero2';
-import ProcessusSteps from '@/app/components/ProcessusSteps';
+import ProcessusSteps from '../components/ProcessusSteps';
+
 
 export default function ProcessusPage() {
   return (
