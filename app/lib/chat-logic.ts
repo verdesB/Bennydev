@@ -109,8 +109,8 @@ Pour des questions techniques spécifiques, je peux organiser un appel avec notr
       return `Bienvenue chez BennyDev ! Je suis là pour vous aider à concrétiser votre projet web. 
 
 Nous sommes spécialisés dans :
-${siteConfig.services.map(s => `- ${s.title}`).join('\n')}
+${Object.values(siteConfig.services).map(s => `- ${s.title}`).join('\n')}
 
 Comment puis-je vous aider aujourd'hui ?`;
   }
-}; 
+};
