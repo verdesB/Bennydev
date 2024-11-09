@@ -59,9 +59,10 @@ Souhaitez-vous que je vous guide vers le formulaire de contact ?`;
 3. Délai souhaité
 
 Voulez-vous me donner ces informations ou préférez-vous passer directement par le formulaire de contact ?`;
-
     case 'services':
-      const services = siteConfig.services.map(s => `- ${s.title}: ${s.description}`).join('\n');
+      const services = Object.values(siteConfig.services)
+        .map(s => `- ${s.title}: ${s.description}`)
+        .join('\n');
       return `Voici nos principaux services :\n\n${services}\n\nQuel type de service vous intéresse particulièrement ?`;
 
     case 'contact':
