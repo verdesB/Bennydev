@@ -11,7 +11,7 @@ export default function Header() {
           <input type="checkbox" id="menu-toggle" className="peer hidden" />
           
           {/* Contenu principal du header */}
-          <div className="flex items-center justify-between py-4 px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-between py-1 px-1 sm:px-6 lg:px-8">
             <Link href="/" className="text-foreground">
               <Image
                 src="/Bd.webp"
