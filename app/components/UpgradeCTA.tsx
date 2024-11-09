@@ -9,7 +9,7 @@ export default function UpgradeCTA() {
         </h2>
         <p className="text-lg text-gray-600 mb-6 max-w-2xl mx-auto">
           Nous pouvons partir de cette base et adapter le prix selon vos besoins spécifiques. 
-          L'offre de départ évoluera en fonction des fonctionnalités demandées.
+          L&apos;offre de départ évoluera en fonction des fonctionnalités demandées.
         </p>
         <Link 
           href="/contact" 

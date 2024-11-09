@@ -1,3 +1,4 @@
+
 import { siteConfig } from './site-config';
 
 type MessageIntent = 
@@ -39,6 +40,7 @@ export const analyzeIntent = (message: string): MessageIntent => {
 };
 
 export const generateResponse = (intent: MessageIntent, message: string): string => {
+  console.log(message)
   switch (intent) {
     case 'pricing':
       return `Les tarifs varient selon la complexité du projet. Pour vous donner une estimation précise, je vous invite à remplir notre formulaire de contact en détaillant vos besoins. 

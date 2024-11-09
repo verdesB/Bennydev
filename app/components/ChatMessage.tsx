@@ -1,5 +1,4 @@
-import { MDXRemote } from 'next-mdx-remote';
-import { serialize } from 'next-mdx-remote/serialize';
+
 
 interface ChatMessageProps {
   content: string;
