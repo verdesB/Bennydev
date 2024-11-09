@@ -66,27 +66,32 @@ Voulez-vous me donner ces informations ou préférez-vous passer directement par
 
     case 'contact':
       return `Vous pouvez nous contacter de plusieurs façons :
-- Email : ${siteConfig.general.contact.email}
-- Téléphone : ${siteConfig.general.contact.phone}
-- En personne : ${siteConfig.general.location}
+- Email : ${siteConfig.companyInfo.contact.email}
+- En personne : ${siteConfig.companyInfo.location}
 
 Vous pouvez également utiliser notre formulaire de contact sur le site. Que préférez-vous ?`;
 
     case 'support':
       return `Nous proposons deux niveaux de support :
 
-${siteConfig.support.standard.title}:
-${siteConfig.support.standard.features.map(f => `- ${f}`).join('\n')}
+Support Standard:
+- Assistance par email
+- Temps de réponse sous 24h
+- Documentation complète
+- Mises à jour de sécurité
 
-${siteConfig.support.premium.title}:
-${siteConfig.support.premium.features.map(f => `- ${f}`).join('\n')}
+Support Premium: 
+- Assistance prioritaire 24/7
+- Temps de réponse sous 2h
+- Support téléphonique dédié
+- Maintenance préventive
+- Audits de performance
 
 Quel type de support vous intéresse ?`;
 
     case 'portfolio':
       return `BennyDev a réalisé de nombreux projets variés. Voici quelques retours clients :
 
-${siteConfig.testimonials.map(t => `"${t.content}" - ${t.name}, ${t.role}`).slice(0, 2).join('\n\n')}
 
 Souhaitez-vous voir plus de projets ou discuter d'un projet similaire ?`;
 
