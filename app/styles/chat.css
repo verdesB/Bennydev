@@ -1,0 +1,24 @@
+.chat-message {
+  @apply w-full max-w-4xl mx-auto;
+}
+
+.chat-message h3 {
+  @apply text-xl font-bold;
+}
+
+.chat-message ul {
+  @apply space-y-2;
+}
+
+.chat-message li {
+  @apply ml-4;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.chat-message {
+  animation: fadeIn 0.3s ease-out forwards;
+} 
