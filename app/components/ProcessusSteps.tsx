@@ -1,18 +1,7 @@
 import { siteConfig } from '../lib/site-config';
 import { ChevronDown } from 'lucide-react';
 import { processusDetails } from '../data/processus-details';
-type ProcessusStep = {
-    description: string;
-    points: string[];
-  };
-  
-  type ProcessusPhase = {
-    [key: string]: ProcessusStep;
-  };
-  
-  type ProcessusDetails = {
-    [key: string]: ProcessusPhase;
-  };
+
 export default function ProcessusSteps() {
   return (
     <section className="relative py-16 px-4 z-20 max-w-6xl mx-auto">
