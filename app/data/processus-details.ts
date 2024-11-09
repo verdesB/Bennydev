@@ -1,4 +1,17 @@
-export const processusDetails = {
+type ProcessusStep = {
+    description: string;
+    points: string[];
+  };
+  
+  type ProcessusPhase = {
+    [key: string]: ProcessusStep;
+  };
+  
+  type ProcessusDetails = {
+    [key: string]: ProcessusPhase;
+  };
+
+export const processusDetails: ProcessusDetails = {
   "Consultation": {
     "Analyse des besoins": {
       description: "Nous commençons par une réunion approfondie pour comprendre vos objectifs, votre public cible et vos exigences spécifiques.",

@@ -1,7 +1,18 @@
 import { siteConfig } from '../lib/site-config';
 import { ChevronDown } from 'lucide-react';
 import { processusDetails } from '../data/processus-details';
-
+type ProcessusStep = {
+    description: string;
+    points: string[];
+  };
+  
+  type ProcessusPhase = {
+    [key: string]: ProcessusStep;
+  };
+  
+  type ProcessusDetails = {
+    [key: string]: ProcessusPhase;
+  };
 export default function ProcessusSteps() {
   return (
     <section className="relative py-16 px-4 z-20 max-w-6xl mx-auto">
@@ -38,7 +49,9 @@ export default function ProcessusSteps() {
                   </summary>
 
                   <div className="px-6 pb-6 pt-2 ml-14">
-                    {processusDetails[phase.name as keyof typeof processusDetails]?.[step as string] && (
+                    {processusDetails[phase.name as keyof typeof processusDetails]?.[
+                      step as keyof (typeof processusDetails)[keyof typeof processusDetails]
+                    ] && (
                       <div className="space-y-4">
                         {/* Description principale */}
                         <p className="text-gray-700">
