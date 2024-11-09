@@ -1,171 +1,52 @@
-'use client'
+"use client";
+import { ArrowRight } from 'lucide-react';
+import Link from 'next/link';
+import { cn } from '@/lib/utils';
 
-import { Mail, Phone, MapPin, Linkedin, Github } from 'lucide-react';
-import { useState } from 'react';
-
-export default function Contact() {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    subject: '',
-    message: ''
-  });
-  const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setStatus('loading');
-
-    try {
-      const response = await fetch('/api/send', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
-      });
-
-      if (response.ok) {
-        setStatus('success');
-        setFormData({ name: '', email: '', subject: '', message: '' });
-      } else {
-        setStatus('error');
-      }
-    } catch (_error) {
-      setStatus('error');
-      console.error(_error);
-    }
-  };
-
+export default function CTA() {
   return (
-    <section className="relative py-20 bg-gradient-to-b from-purple-50 to-white">
-      <div className="absolute inset-0 bg-[linear-gradient(rgba(139,92,246,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(139,92,246,0.02)_1px,transparent_1px)] bg-[size:4rem_4rem]" />
+    <div className="relative">
+      {/* Effet Aurora avec gradient */}
+      <div className="max-w-6xl rounded-2xl mb-24 mx-auto px-6 py-20 relative">
+        <div className={cn(`
+          [--white-gradient:repeating-linear-gradient(100deg,var(--purple-600)_0%,var(--purple-600)_7%,var(--transparent)_10%,var(--transparent)_12%,var(--purple-900)_16%)]
+          [--dark-gradient:repeating-linear-gradient(100deg,var(--purple-800)_0%,var(--purple-800)_7%,var(--transparent)_10%,var(--transparent)_12%,var(--purple-900)_16%)]
+          [--aurora:repeating-linear-gradient(100deg,var(--purple-700)_10%,var(--purple-600)_15%,var(--purple-500)_20%,var(--purple-400)_25%,var(--purple-700)_30%)]
+          [background-image:var(--white-gradient),var(--aurora)]
+          dark:[background-image:var(--dark-gradient),var(--aurora)]
+          [background-size:300%,_200%]
+          [background-position:50%_50%,50%_50%]
+          filter blur-[15px]
+          after:content-[""] after:absolute after:inset-0 
+          after:[background-image:var(--white-gradient),var(--aurora)] 
+          after:dark:[background-image:var(--dark-gradient),var(--aurora)]
+          after:[background-size:200%,_100%] 
+          after:animate-aurora after:[background-attachment:fixed] 
+          after:mix-blend-overlay
+          pointer-events-none
+          absolute inset-0 opacity-99 will-change-transform rounded-2xl
+          [mask-image:radial-gradient(ellipse_at_100%_100%,black_90%,var(--transparent)_100%)]
+        `)} />
 
-      <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-purple-800 to-pink-700 inline-block">
-            Contactez-moi
+        {/* Contenu */}
+        <div className="relative z-10 text-center">
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-white">
+            Prêt à démarrer votre prochain projet ?
           </h2>
-          <p className="mt-4 text-gray-600 max-w-2xl mx-auto">
-            Une idée de projet ? N&apos;hésitez pas à me contacter pour en discuter
+          
+          <p className="text-xl md:text-2xl text-gray-200 mb-10">
+            Discutons de vos idées et transformons-les en réalité.
           </p>
-        </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-          {/* Formulaire */}
-          <div className="bg-white rounded-2xl p-8 shadow-[0_0_50px_rgba(139,92,246,0.1)]">
-            <form onSubmit={handleSubmit} className="space-y-6">
-              <div>
-                <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">
-                  Nom complet
-                </label>
-                <input
-                  type="text"
-                  id="name"
-                  required
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600 focus:border-transparent"
-                  value={formData.name}
-                  onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                />
-              </div>
-
-              <div>
-                <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
-                  Email
-                </label>
-                <input
-                  type="email"
-                  id="email"
-                  required
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600 focus:border-transparent"
-                  value={formData.email}
-                  onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                />
-              </div>
-
-              <div>
-                <label htmlFor="subject" className="block text-sm font-medium text-gray-700 mb-1">
-                  Sujet
-                </label>
-                <input
-                  type="text"
-                  id="subject"
-                  required
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600 focus:border-transparent"
-                  value={formData.subject}
-                  onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
-                />
-              </div>
-
-              <div>
-                <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-1">
-                  Message
-                </label>
-                <textarea
-                  id="message"
-                  required
-                  rows={4}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600 focus:border-transparent"
-                  value={formData.message}
-                  onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                />
-              </div>
-
-              <button
-                type="submit"
-                disabled={status === 'loading'}
-                className="w-full px-8 py-4 bg-purple-600 text-white rounded-lg font-medium hover:bg-purple-700 transform hover:scale-105 transition-all duration-200 disabled:opacity-50"
-              >
-                {status === 'loading' ? 'Envoi en cours...' : 'Envoyer le message'}
-              </button>
-
-              {status === 'success' && (
-                <p className="text-green-600 text-center">Message envoyé avec succès !</p>
-              )}
-              {status === 'error' && (
-                <p className="text-red-600 text-center">Une erreur est survenue. Veuillez réessayer.</p>
-              )}
-            </form>
-          </div>
-
-          {/* Informations de contact */}
-          <div className="space-y-8">
-            <div className="bg-white rounded-2xl p-8 shadow-[0_0_50px_rgba(139,92,246,0.1)]">
-              <h3 className="text-xl font-semibold text-gray-900 mb-6">
-                Autres moyens de me contacter
-              </h3>
-              <div className="space-y-4">
-                <a href="mailto:contact@bennydev.fr" className="flex items-center space-x-3 text-gray-600 hover:text-purple-600">
-                  <Mail className="w-5 h-5" />
-                  <span>contact@bennydev.fr</span>
-                </a>
-                <a href="tel:+33612345678" className="flex items-center space-x-3 text-gray-600 hover:text-purple-600">
-                  <Phone className="w-5 h-5" />
-                  <span>+33 6 12 34 56 78</span>
-                </a>
-                <div className="flex items-center space-x-3 text-gray-600">
-                  <MapPin className="w-5 h-5" />
-                  <span>Montpellier, France</span>
-                </div>
-              </div>
-            </div>
-
-            <div className="bg-white rounded-2xl p-8 shadow-[0_0_50px_rgba(139,92,246,0.1)]">
-              <h3 className="text-xl font-semibold text-gray-900 mb-6">
-                Réseaux sociaux
-              </h3>
-              <div className="flex space-x-4">
-                <a href="https://linkedin.com/in/votre-profil" target="_blank" rel="noopener noreferrer" className="p-3 bg-gray-100 rounded-lg hover:bg-purple-100 transition-colors">
-                  <Linkedin className="w-6 h-6 text-gray-600 hover:text-purple-600" />
-                </a>
-                <a href="https://github.com/votre-profil" target="_blank" rel="noopener noreferrer" className="p-3 bg-gray-100 rounded-lg hover:bg-purple-100 transition-colors">
-                  <Github className="w-6 h-6 text-gray-600 hover:text-purple-600" />
-                </a>
-              </div>
-            </div>
-          </div>
+          <Link 
+            href="/contact"
+            className="group inline-flex items-center gap-2 bg-white text-purple-700 px-8 py-4 rounded-full font-semibold hover:bg-gray-100 transition-all duration-300 transform hover:scale-105"
+          >
+            Contactez-moi
+            <ArrowRight className="w-6 h-6 group-hover:translate-x-1 transition-transform" />
+          </Link>
         </div>
       </div>
-    </section>
+    </div>
   );
 } 

@@ -1,4 +1,5 @@
 import type { Config } from 'tailwindcss'
+import flattenColorPalette from "tailwindcss/lib/util/flattenColorPalette"
 
 const config: Config = {
   content: [
@@ -24,9 +25,37 @@ const config: Config = {
           900: '#111827',   
         },
       },
+      animation: {
+        aurora: "aurora 60s linear infinite",
+      },
+      keyframes: {
+        aurora: {
+          from: {
+            backgroundPosition: "50% 50%, 50% 50%",
+          },
+          to: {
+            backgroundPosition: "350% 50%, 350% 50%",
+          },
+        },
+      },
     },
   },
-  plugins: [],
+  plugins: [addVariablesForColors],
+}
+
+// Définition du type pour la fonction plugin
+function addVariablesForColors({ addBase, theme }: { 
+  addBase: (base: Record<string, any>) => void;
+  theme: (path: string) => Record<string, string>;
+}) {
+  let allColors = flattenColorPalette(theme("colors"));
+  let newVars = Object.fromEntries(
+    Object.entries(allColors).map(([key, val]) => [`--${key}`, val])
+  );
+
+  addBase({
+    ":root": newVars,
+  });
 }
 
 export default config 
