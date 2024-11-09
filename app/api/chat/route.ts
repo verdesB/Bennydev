@@ -40,7 +40,7 @@ export async function POST(request: Request) {
     return NextResponse.json(
       { 
         error: 'Une erreur est survenue lors du traitement de votre demande',
-        details: error.message,
+        details: error instanceof Error ? error.message : 'Erreur inconnue',
         timestamp: new Date().toISOString()
       },
       { status: 500 }
