@@ -6,7 +6,7 @@ import { SparklesCore } from './ui/sparkles';
 
 export default function CTA() {
   return (
-    <div className="relative overflow-hidden max-w-6xl mx-auto rounded-2xl my-16  h-full">
+    <div className="relative overflow-hidden max-w-6xl mx-4 xl:mx-auto rounded-2xl my-16  h-full">
       {/* SparklesCore avec le z-index le plus bas */}
       <SparklesCore
         className="absolute inset-0 w-full h-full rounded-2xl pointer-events-none z-10 "
