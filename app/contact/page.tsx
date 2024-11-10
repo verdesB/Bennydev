@@ -1,9 +1,12 @@
 import { Mail, Phone, MapPin, Linkedin, Github } from 'lucide-react';
 import { sendEmail } from './actions';
 import Hero2 from '@/app/components/Hero2';
+import Header from '../components/Header';
 
 export default function ContactPage() {
   return (
+    <>
+    <Header pathname={'/contact'} />  
     <main className="relative bg-gradient-to-b from-purple-50 to-white min-h-screen">
       <div className="absolute inset-0 bg-[linear-gradient(rgba(139,92,246,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(139,92,246,0.02)_1px,transparent_1px)] bg-[size:4rem_4rem]" />
 
@@ -117,5 +120,6 @@ export default function ContactPage() {
         </div>
       </div>
     </main>
+    </>
   );
 } 

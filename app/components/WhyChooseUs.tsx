@@ -57,8 +57,7 @@ export default function WhyChooseUs() {
   ];
 
   return (
-    <section className="relative py-20 bg-gradient-to-b from-white to-purple-50">
-      <div className="absolute inset-0 bg-[linear-gradient(rgba(139,92,246,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(139,92,246,0.02)_1px,transparent_1px)] bg-[size:4rem_4rem]" />
+    <section className="relative z-20 py-20 ">
 
       <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">

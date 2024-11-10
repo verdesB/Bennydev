@@ -21,9 +21,8 @@ export default function Testimonials() {
   ];
 
   return (
-    <section className="relative py-20 bg-gradient-to-b from-purple-50 to-white">
+    <section className="relative z-20 py-20 ">
       {/* Effet de grille */}
-      <div className="absolute inset-0 bg-[linear-gradient(rgba(139,92,246,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(139,92,246,0.02)_1px,transparent_1px)] bg-[size:4rem_4rem]" />
 
       <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* En-tête */}

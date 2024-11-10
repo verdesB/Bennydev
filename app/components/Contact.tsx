@@ -2,34 +2,31 @@
 import { ArrowRight } from 'lucide-react';
 import Link from 'next/link';
 import { cn } from '@/lib/utils';
+import { SparklesCore } from './ui/sparkles';
 
 export default function CTA() {
   return (
-    <div className="relative">
-      {/* Effet Aurora avec gradient */}
-      <div className="max-w-6xl rounded-2xl mb-24 mx-auto px-6 py-20 relative">
-        <div className={cn(`
-          [--white-gradient:repeating-linear-gradient(100deg,var(--purple-600)_0%,var(--purple-600)_7%,var(--transparent)_10%,var(--transparent)_12%,var(--purple-900)_16%)]
-          [--dark-gradient:repeating-linear-gradient(100deg,var(--purple-800)_0%,var(--purple-800)_7%,var(--transparent)_10%,var(--transparent)_12%,var(--purple-900)_16%)]
-          [--aurora:repeating-linear-gradient(100deg,var(--purple-700)_10%,var(--purple-600)_15%,var(--purple-500)_20%,var(--purple-400)_25%,var(--purple-700)_30%)]
-          [background-image:var(--white-gradient),var(--aurora)]
-          dark:[background-image:var(--dark-gradient),var(--aurora)]
-          [background-size:300%,_200%]
-          [background-position:50%_50%,50%_50%]
-          filter blur-[15px]
-          after:content-[""] after:absolute after:inset-0 
-          after:[background-image:var(--white-gradient),var(--aurora)] 
-          after:dark:[background-image:var(--dark-gradient),var(--aurora)]
-          after:[background-size:200%,_100%] 
-          after:animate-aurora after:[background-attachment:fixed] 
-          after:mix-blend-overlay
-          pointer-events-none
-          absolute inset-0 opacity-99 will-change-transform rounded-2xl
-          [mask-image:radial-gradient(ellipse_at_100%_100%,black_90%,var(--transparent)_100%)]
-        `)} />
+    <div className="relative overflow-hidden max-w-6xl mx-auto rounded-2xl my-8 h-full">
+      {/* SparklesCore avec le z-index le plus bas */}
+      <SparklesCore
+        className="absolute inset-0 w-full h-full rounded-2xl pointer-events-none z-10 "
+        background="rgba(0,0,0,0.85)"
+        particleColor="#8b5cf6"
+        particleDensity={100}
+        speed={2}
+        minSize={0.6}
+        maxSize={1.4}
+      />
 
-        {/* Contenu */}
-        <div className="relative z-10 text-center">
+      {/* Div avec les effets violets en z-index intermédiaire */}
+      <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-20">
+        <div className="absolute top-[50%] w-[600px] h-[600px] bg-purple-500/40 blur-[80px] rounded-full" />
+        <div className="absolute top-[50%] w-[400px] h-[400px] bg-purple-400/50 blur-[60px] rounded-full" />
+      </div>
+
+      {/* Contenu et bouton avec le z-index le plus élevé */}
+      <div className="max-w-6xl rounded-2xl mb-24 mx-auto px-6 py-20 relative overflow-hidden backdrop-blur-s z-30">
+        <div className="relative text-center rounded-2xl">
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-white">
             Prêt à démarrer votre prochain projet ?
           </h2>
@@ -40,7 +37,7 @@ export default function CTA() {
 
           <Link 
             href="/contact"
-            className="group inline-flex items-center gap-2 bg-white text-purple-700 px-8 py-4 rounded-full font-semibold hover:bg-gray-100 transition-all duration-300 transform hover:scale-105"
+            className="group relative inline-flex items-center gap-2 bg-white text-purple-700 px-8 py-4 rounded-full font-semibold hover:bg-gray-100 transition-all duration-300 transform hover:scale-105"
           >
             Contactez-moi
             <ArrowRight className="w-6 h-6 group-hover:translate-x-1 transition-transform" />
@@ -49,4 +46,4 @@ export default function CTA() {
       </div>
     </div>
   );
-} 
+}
