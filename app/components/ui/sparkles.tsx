@@ -80,7 +80,7 @@ export const SparklesCore = (props: ParticlesProps) => {
                   enable: false,
                   mode: "repulse",
                 },
-                // @ts-ignore
+                // @typescript-eslint/no-explicit-any
                 resize: true as any,
               },
               modes: {
