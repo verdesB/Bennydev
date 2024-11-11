@@ -2,7 +2,7 @@ import Link from 'next/link';
 
 export default function UpgradeCTA() {
   return (
-    <section className="py-16 px-4 max-w-6xl mx-auto text-center">
+    <section className="py-16 px-4 max-w-6xl mx-auto text-center relative z-20">
       <div className="bg-white rounded-2xl shadow-lg p-8 border border-purple-100">
         <h2 className="text-3xl font-bold mb-4 text-gray-800">
           Vous souhaitez plus de fonctionnalités ?

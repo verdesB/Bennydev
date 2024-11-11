@@ -3,6 +3,11 @@ import TargetAudience from "@/app/components/TargetAudience";
 import OffreDepart from "@/app/components/OffreDepart";
 import UpgradeCTA from "@/app/components/UpgradeCTA";
 import { sitesVitrinesData } from "@/app/data/solutions/sitesVitrines";
+import PricingTable from "@/components/PricingTable";
+import { pricingData } from "./site.data";
+import Header from "@/app/components/Header";
+import { vitrinesTechnologies } from "@/app/data/technologies";
+import TechnologyStack from "@/components/TechnologyStack";
 
 export default function SitesVitrines() {
   const audienceData = {
@@ -24,6 +29,8 @@ export default function SitesVitrines() {
   };
 
   return (
+    <>
+    <Header pathname="/solutions" />
     <main className="relative bg-gradient-to-b from-purple-50 to-white min-h-screen">
       <Hero2
         title="Sites Vitrines"
@@ -34,10 +41,12 @@ export default function SitesVitrines() {
       
       <OffreDepart {...sitesVitrinesData} />
       
-      <UpgradeCTA />
-
-      <div className="absolute inset-0 bg-[linear-gradient(rgba(139,92,246,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(139,92,246,0.02)_1px,transparent_1px)] bg-[size:4rem_4rem] z-1" />
+      
+      <PricingTable plans={pricingData.plans} features={pricingData.features} />
+     <UpgradeCTA />
+     <TechnologyStack technologies={vitrinesTechnologies} />
     </main>
+    </>
   );
 }
 

@@ -14,7 +14,6 @@ export default function ProjetsPage() {
         subtitle="Découvrez nos réalisations innovantes et créatives"
       />
       <Projets />
-      <div className="absolute inset-0 bg-[linear-gradient(rgba(139,92,246,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(139,92,246,0.02)_1px,transparent_1px)] bg-[size:4rem_4rem] z-1" />
     </main>
     </>
   );

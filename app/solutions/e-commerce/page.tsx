@@ -1,9 +1,14 @@
+import Header from "@/app/components/Header";
 import Hero2 from "@/app/components/Hero2";
 import OffreDepart from "@/app/components/OffreDepart";
 import TargetAudience from "@/app/components/TargetAudience";
 
 import UpgradeCTA from "@/app/components/UpgradeCTA";
 import { ecommerceData } from "@/app/data/solutions/ecommerce";
+import { ecommerceTechnologies } from "@/app/data/technologies";
+import PricingTable from "@/components/PricingTable";
+import TechnologyStack from "@/components/TechnologyStack";
+import { pricingData } from "./ec.data";
 
 export default function Ecommerce() {
   const audienceData = {
@@ -25,6 +30,8 @@ export default function Ecommerce() {
   };
 
   return (
+    <>
+    <Header pathname="/solutions"   />
     <main className="relative bg-gradient-to-b from-purple-50 to-white min-h-screen">
       <Hero2
         title="E-commerce"
@@ -34,10 +41,11 @@ export default function Ecommerce() {
       <TargetAudience {...audienceData} />
       
       <OffreDepart {...ecommerceData} />
-      
+      <PricingTable plans={pricingData.plans} features={pricingData.features} />
       <UpgradeCTA />
+      <TechnologyStack technologies={ecommerceTechnologies} />
 
-      <div className="absolute inset-0 bg-[linear-gradient(rgba(139,92,246,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(139,92,246,0.02)_1px,transparent_1px)] bg-[size:4rem_4rem] z-1" />
     </main>
+    </>
   );
 } 

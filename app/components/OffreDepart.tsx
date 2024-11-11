@@ -50,7 +50,7 @@ export default function OffreDepart({ titre, sousTitre, prix, etapes, inclus }: 
       </div>
 
       <div className="relative z-20 mt-16 bg-gradient-to-br from-purple-50 to-white p-8 rounded-2xl shadow-lg border border-purple-100">
-        <h3 className="text-2xl font-semibold mb-6 text-center text-purple-800">L&apos;offre comprend également :</h3>
+        <h3 className="text-2xl font-semibold mb-6 text-center text-purple-800">La solution dans ces grands axes :</h3>
         <ul className="grid md:grid-cols-2 gap-6">
           {inclus.map((item, index) => (
             <li key={index} className="flex items-center gap-3 bg-white p-4 rounded-lg shadow-sm">

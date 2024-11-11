@@ -3,6 +3,11 @@ import OffreDepart from "@/app/components/OffreDepart";
 import TargetAudience from "@/app/components/TargetAudience";
 import UpgradeCTA from "@/app/components/UpgradeCTA";
 import { webappData } from "@/app/data/solutions/webapp";
+import PricingTable from "@/components/PricingTable";
+import { pricingData } from "./aw.data";
+import TechnologyStack from "@/components/TechnologyStack";
+import { webappTechnologies } from "@/app/data/technologies";
+import Header from "@/app/components/Header";
 
 export default function WebApplication() {
   const audienceData = {
@@ -24,6 +29,8 @@ export default function WebApplication() {
   };
 
   return (
+    <>
+    <Header pathname="/solutions" />
     <main className="relative bg-gradient-to-b from-purple-50 to-white min-h-screen">
       <Hero2
         title="Application Web"
@@ -33,10 +40,12 @@ export default function WebApplication() {
       <TargetAudience {...audienceData} />
       
       <OffreDepart {...webappData} />
-      
+      <PricingTable plans={pricingData.plans} features={pricingData.features} />
       <UpgradeCTA />
+      <TechnologyStack technologies={webappTechnologies} />
 
-      <div className="absolute inset-0 bg-[linear-gradient(rgba(139,92,246,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(139,92,246,0.02)_1px,transparent_1px)] bg-[size:4rem_4rem] z-1" />
+
     </main>
+    </>
   );
 } 

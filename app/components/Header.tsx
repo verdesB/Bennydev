@@ -23,11 +23,13 @@ export default function Header({ pathname }: { pathname: string }) {
           <div className="flex items-center justify-between py-1 px-2 sm:px-6 lg:px-8">
             <Link href="/" className="text-foreground">
               <Image
-                src="/Bd.webp"
+                src="/Bennydev.webp"
                 alt="Logo du site"
-                width={50}
+                width={150}
                 height={50}
-                className="object-contain rounded-lg"
+                objectFit='cover'
+                objectPosition='center'
+                className="max-h-16 object-cover rounded-lg"
                 priority
               />
             </Link>

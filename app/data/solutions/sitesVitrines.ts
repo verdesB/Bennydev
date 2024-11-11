@@ -1,7 +1,7 @@
 export const sitesVitrinesData = {
   titre: "Notre Offre de Départ",
-  sousTitre: "Découvrez notre processus étape par étape pour créer votre site vitrine professionnel et performant.",
-  prix: "À partir de 999€",
+  sousTitre: "Découvrez nos différentes offres pour créer votre site vitrine professionnel et performant.",
+  prix: "À partir de 800€",
   etapes: [
     {
       numero: "1",
@@ -26,9 +26,9 @@ export const sitesVitrinesData = {
   ],
   inclus: [
     "Design responsive adapté à tous les écrans",
-    "Optimisation SEO de base",
+    "Optimisation SEO pour une visibilité optimale sans payer des Ads",
     "Formulaire de contact sécurisé",
-    "Intégration de vos réseaux sociaux",
+    "Hébergement inclus pendant 1 an",
     "Galerie d'images optimisée",
     "Support technique pendant 1 mois",
     "Formation à l'utilisation basique",
