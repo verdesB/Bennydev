@@ -39,7 +39,7 @@ const PricingTable: React.FC<PricingTableProps> = ({ plans, features }) => {
             </tr>
           </thead>
           <tbody className="divide-y divide-gray-200">
-            {features.map((feature, featureIdx) => (
+            {features.map((feature) => (
               <tr 
                 key={feature.name}
                 className={`divide-x divide-gray-200 hover:bg-gray-50 transition-colors`}
