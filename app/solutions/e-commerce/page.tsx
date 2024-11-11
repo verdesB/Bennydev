@@ -6,9 +6,10 @@ import TargetAudience from "@/app/components/TargetAudience";
 import UpgradeCTA from "@/app/components/UpgradeCTA";
 import { ecommerceData } from "@/app/data/solutions/ecommerce";
 import { ecommerceTechnologies } from "@/app/data/technologies";
-import PricingTable from "@/components/PricingTable";
-import TechnologyStack from "@/components/TechnologyStack";
+import PricingTable from "@/app/components/PricingTable";
+import TechnologyStack from "@/app/components/TechnologyStack";
 import { pricingData } from "./ec.data";
+
 
 export default function Ecommerce() {
   const audienceData = {

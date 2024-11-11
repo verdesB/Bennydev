@@ -3,11 +3,11 @@ import TargetAudience from "@/app/components/TargetAudience";
 import OffreDepart from "@/app/components/OffreDepart";
 import UpgradeCTA from "@/app/components/UpgradeCTA";
 import { sitesVitrinesData } from "@/app/data/solutions/sitesVitrines";
-import PricingTable from "@/components/PricingTable";
+import PricingTable from "@/app/components/PricingTable";
 import { pricingData } from "./site.data";
 import Header from "@/app/components/Header";
 import { vitrinesTechnologies } from "@/app/data/technologies";
-import TechnologyStack from "@/components/TechnologyStack";
+import TechnologyStack from "@/app/components/TechnologyStack";
 
 export default function SitesVitrines() {
   const audienceData = {

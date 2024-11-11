@@ -22,12 +22,12 @@ interface PricingTableProps {
 
 const PricingTable: React.FC<PricingTableProps> = ({ plans, features }) => {
   return (
-    <div className="max-w-6xl mx-auto overflow-x-auto px-4 sm:px-6 lg:px-8 relative z-20 ">
+    <div className="max-w-6xl mx-auto overflow-x-auto px-4 sm:px-6 lg:px-8 relative z-20 -mx-4 sm:mx-0">
       <div className="mt-8 shadow-lg rounded-lg overflow-hidden mb-16">
-        <table className="w-full divide-y divide-gray-200 bg-white">
+        <table className="w-full divide-y divide-gray-200 bg-white min-w-[640px]">
           <thead>
             <tr className="divide-x divide-gray-200">
-              <th className="py-6 px-6 text-left bg-gray-50">
+              <th className="py-6 px-6 text-left bg-gray-50 min-w-[200px]">
                 <span className="text-sm font-semibold text-gray-900">Caractéristiques</span>
               </th>
               {plans.map((plan) => (

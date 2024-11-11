@@ -3,9 +3,9 @@ import OffreDepart from "@/app/components/OffreDepart";
 import TargetAudience from "@/app/components/TargetAudience";
 import UpgradeCTA from "@/app/components/UpgradeCTA";
 import { webappData } from "@/app/data/solutions/webapp";
-import PricingTable from "@/components/PricingTable";
+import PricingTable from "@/app/components/PricingTable";
 import { pricingData } from "./aw.data";
-import TechnologyStack from "@/components/TechnologyStack";
+import TechnologyStack from "@/app/components/TechnologyStack";
 import { webappTechnologies } from "@/app/data/technologies";
 import Header from "@/app/components/Header";
 

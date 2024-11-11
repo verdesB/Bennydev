@@ -122,3 +122,7 @@ details[open] > div {
     transform: translateY(0);
   }
 }
+.overflow-x-auto {
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+}
