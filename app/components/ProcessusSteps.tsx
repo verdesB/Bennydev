@@ -68,7 +68,7 @@ export default function ProcessusSteps() {
         ))}
 
         {/* Section des garanties */}
-        <div className="mt-20 bg-gradient-to-br from-purple-600 to-purple-800 text-white p-8 rounded-2xl">
+        <article className="mt-20 bg-gradient-to-br from-purple-600 to-purple-800 text-white p-8 rounded-2xl">
           <h3 className="text-2xl font-bold mb-6">Nos Garanties</h3>
           <div className="grid md:grid-cols-2 gap-8">
             <div>
@@ -101,7 +101,7 @@ export default function ProcessusSteps() {
               </ul>
             </div>
           </div>
-        </div>
+        </article>
       </div>
     </section>
   );

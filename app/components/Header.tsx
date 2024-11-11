@@ -21,7 +21,7 @@ export default function Header({ pathname }: { pathname: string }) {
           <input type="checkbox" id="menu-toggle" className="peer hidden" />
           
           <div className="flex items-center justify-between py-1 px-2 sm:px-6 lg:px-8">
-            <Link href="/" className="text-foreground">
+            <Link title='Accueil' href="/" className="text-foreground">
               <Image
                 src="/Bennydev.webp"
                 alt="Logo du site"
@@ -37,6 +37,7 @@ export default function Header({ pathname }: { pathname: string }) {
             <div className="hidden md:flex items-center space-x-8">
               {menuItems.map((item) => (
                 <Link
+                  title={item}
                   key={item}
                   href={item === 'Accueil' ? '/' : `/${item.toLowerCase().replace('à ', '')}`}
                   className={`relative text-gris-100 font-medium group px-4 py-2 transition-colors duration-200 rounded-md
@@ -63,7 +64,7 @@ export default function Header({ pathname }: { pathname: string }) {
                   const href = item === 'Accueil' ? '/' : `/${item.toLowerCase().replace('à ', '')}`;
                   return (
                     <div key={item} className="block">
-                      <Link href={href} className={`block text-gris-100 hover:text-violet-300 transition-colors duration-200 px-4 py-2 rounded-md
+                      <Link title={item} href={href} className={`block text-gris-100 hover:text-violet-300 transition-colors duration-200 px-4 py-2 rounded-md
                         ${isActive(item) ? 'bg-violet-500/20 text-violet-300' : ''}`}>
                         <label htmlFor="menu-toggle" className="cursor-pointer block w-full h-full">
                           {item}

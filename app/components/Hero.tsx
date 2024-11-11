@@ -2,7 +2,7 @@ import Link from 'next/link';
 
 export default function Hero() {
   return (
-    <div className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-white via-pink-100 to-purple-200">
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-white via-pink-100 to-purple-200">
       {/* Gradient overlay */}
       <div className="absolute inset-0">
         <div className="absolute inset-0 bg-gradient-to-br from-white/90 via-pink-100/80 to-purple-300/70 opacity-90" />
@@ -12,7 +12,7 @@ export default function Hero() {
       </div>
 
       {/* Contenu principal */}
-      <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center pt-20">
+      <article className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center pt-20">
         <div className="space-y-8">
           {/* Petit texte d'introduction */}
           <p className="text-gray-600 font-mono uppercase tracking-wider animate-fade-in">
@@ -33,20 +33,22 @@ export default function Hero() {
           {/* CTA Buttons avec couleurs adaptées */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mt-12 animate-fade-in-up">
             <Link 
+              title='Démarrer un projet'
               href="/contact"
               className="px-8 py-4 bg-purple-600 text-white rounded-full font-medium hover:bg-purple-700 transform hover:scale-105 transition-all duration-200 shadow-[0_0_20px_rgba(147,51,234,0.3)] hover:shadow-[0_0_25px_rgba(147,51,234,0.4)]"
             >
               Démarrer un projet
             </Link>
             <Link 
-              href="/projects"
+              title='Voir mes projets'
+              href="/projets"
               className="px-8 py-4 border border-purple-300 text-purple-800 rounded-full font-medium hover:bg-purple-50 transform hover:scale-105 transition-all duration-200"
             >
               Voir mes projets
             </Link>
           </div>
         </div>
-      </div>
+      </article>
 
       {/* Scroll indicator avec nouvelle couleur */}
       <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
@@ -62,6 +64,6 @@ export default function Hero() {
           <path d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
         </svg>
       </div>
-    </div>
+    </section>
   );
 } 

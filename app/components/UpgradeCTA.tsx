@@ -13,6 +13,7 @@ export default function UpgradeCTA() {
         </p>
         <Link 
           href="/contact" 
+          title='Discutons de votre projet'
           className="inline-block bg-purple-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-purple-700 transition-colors"
         >
           Discutons de votre projet

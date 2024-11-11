@@ -1,6 +1,7 @@
 'use client'
 import React, { useState } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 
 
 // Définition des types
@@ -110,48 +111,50 @@ const Projets: React.FC = () => {
         {/* Grille de projets */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {filteredProjects.map((project) => (
-            <article 
-              key={project.id}
-              className="group bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-2xl transition-all duration-500"
-            >
-              <div className="relative overflow-hidden">
-                <Image 
-                  src={project.image} 
-                  alt={project.title}
-                  width={800}
-                  height={600}
-                  className="w-full h-64 object-cover transform group-hover:scale-105 transition-transform duration-500"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                  <div className="absolute bottom-4 left-4 right-4">
-                    <a 
-                      href={project.link}
-                      className="inline-block px-6 py-2 bg-white text-gray-900 rounded-full hover:bg-purple-600 hover:text-white transition-colors duration-300"
-                    >
-                      Découvrir le projet
-                    </a>
-                  </div>
-                </div>
-              </div>
-              
-              <div className="p-6">
-                <div className="flex justify-between items-start mb-3">
-                  <h3 className="text-xl font-bold text-gray-900">{project.title}</h3>
-                  <span className="text-sm text-gray-500">{project.year}</span>
-                </div>
-                <p className="text-gray-600 mb-4 line-clamp-2">{project.description}</p>
-                <div className="flex flex-wrap gap-2">
-                  {project.technologies.map((tech, index) => (
-                    <span 
-                      key={index}
-                      className={`px-3 py-1 rounded-full text-sm ${tech.color}`}
-                    >
-                      {tech.name}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            </article>
+           <article 
+           key={project.id}
+           className="group bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-2xl transition-all duration-500"
+         >
+           <figure className="relative overflow-hidden">
+             <Image 
+               src={project.image} 
+               alt={project.title}
+               width={800}
+               height={600}
+               className="w-full h-64 object-cover transform group-hover:scale-105 transition-transform duration-500"
+             />
+             <figcaption className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+               <div className="absolute bottom-4 left-4 right-4">
+                 <Link 
+                   title={project.title}
+                   href={project.link}
+                   className="inline-block px-6 py-2 bg-white text-gray-900 rounded-full hover:bg-purple-600 hover:text-white transition-colors duration-300"
+                 >
+                   Découvrir le projet
+                 </Link>
+               </div>
+             </figcaption>
+           </figure>
+           
+           <div className="p-6">
+             <div className="flex justify-between items-start mb-3">
+               <h3 className="text-xl font-bold text-gray-900">{project.title}</h3>
+               <span className="text-sm text-gray-500">{project.year}</span>
+             </div>
+             <p className="text-gray-600 mb-4 line-clamp-2">{project.description}</p>
+             <ul className="flex flex-wrap gap-2">
+               {project.technologies.map((tech, index) => (
+                 <li 
+                   key={index}
+                   className={`px-3 py-1 rounded-full text-sm ${tech.color}`}
+                 >
+                   {tech.name}
+                 </li>
+               ))}
+             </ul>
+           </div>
+         </article>
+         
           ))}
         </div>
       </section>

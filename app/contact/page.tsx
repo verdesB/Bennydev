@@ -109,10 +109,10 @@ export default function ContactPage() {
               Réseaux sociaux
             </h3>
             <div className="flex space-x-4">
-              <a href="https://linkedin.com/in/votre-profil" target="_blank" rel="noopener noreferrer" className="p-3 bg-gray-100 rounded-lg hover:bg-purple-100 transition-colors">
+              <a title='Linkedin' href="https://linkedin.com/in/votre-profil" target="_blank" rel="noopener noreferrer" className="p-3 bg-gray-100 rounded-lg hover:bg-purple-100 transition-colors">
                 <Linkedin className="w-6 h-6 text-gray-600 hover:text-purple-600" />
               </a>
-              <a href="https://github.com/votre-profil" target="_blank" rel="noopener noreferrer" className="p-3 bg-gray-100 rounded-lg hover:bg-purple-100 transition-colors">
+              <a title='Github' href="https://github.com/votre-profil" target="_blank" rel="noopener noreferrer" className="p-3 bg-gray-100 rounded-lg hover:bg-purple-100 transition-colors">
                 <Github className="w-6 h-6 text-gray-600 hover:text-purple-600" />
               </a>
             </div>

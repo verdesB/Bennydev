@@ -6,7 +6,7 @@ import { SparklesCore } from './ui/sparkles';
 
 export default function CTA() {
   return (
-    <div className="relative overflow-hidden max-w-6xl mx-4 xl:mx-auto rounded-2xl my-16  h-full">
+    <section className="relative overflow-hidden max-w-6xl mx-4 xl:mx-auto rounded-2xl my-16  h-full">
       {/* SparklesCore avec le z-index le plus bas */}
       <SparklesCore
         className="absolute inset-0 w-full h-full rounded-2xl pointer-events-none z-10 "
@@ -36,6 +36,7 @@ export default function CTA() {
           </p>
 
           <Link 
+            title='Contactez-moi'
             href="/contact"
             className="group relative inline-flex items-center gap-2 bg-white text-purple-700 px-8 py-4 rounded-full font-semibold hover:bg-gray-100 transition-all duration-300 transform hover:scale-105"
           >
@@ -44,6 +45,6 @@ export default function CTA() {
           </Link>
         </div>
       </div>
-    </div>
+    </section>
   );
 }

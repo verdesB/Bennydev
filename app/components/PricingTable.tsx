@@ -33,7 +33,7 @@ const PricingTable: React.FC<PricingTableProps> = ({ plans, features }) => {
   };
 
   return (
-    <div className="max-w-6xl mx-auto relative z-20 rounded-lg">
+    <section className="max-w-6xl mx-auto relative z-20 rounded-lg">
       {/* Version Desktop - visible uniquement sur md et plus */}
       <div className="hidden md:block rounded-lg">
         <table className="w-full divide-y divide-gray-200 bg-white rounded-lg shadow-lg">
@@ -164,7 +164,7 @@ const PricingTable: React.FC<PricingTableProps> = ({ plans, features }) => {
           ))}
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 

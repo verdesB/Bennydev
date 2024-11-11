@@ -36,11 +36,12 @@ export default function Testimonials() {
         </div>
 
         {/* Grille de témoignages */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <ul className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {testimonials.map((testimonial, index) => (
-            <div
-              key={index}
-              className="relative bg-white rounded-2xl p-8 shadow-[0_0_50px_rgba(139,92,246,0.1)] hover:shadow-[0_0_50px_rgba(139,92,246,0.2)] transition-all duration-300"
+            <li key={index} className="relative bg-white rounded-2xl p-8 shadow-[0_0_50px_rgba(139,92,246,0.1)] hover:shadow-[0_0_50px_rgba(139,92,246,0.2)] transition-all duration-300">
+            <article
+              
+              
             >
               {/* Icône de citation */}
               <Quote className="w-8 h-8 text-purple-200 absolute top-6 right-6" />
@@ -63,9 +64,9 @@ export default function Testimonials() {
                     />
                   </div>
                   <div>
-                    <h4 className="font-semibold text-gray-900">
+                    <cite className="font-semibold text-gray-900">
                       {testimonial.name}
-                    </h4>
+                    </cite>
                     <p className="text-sm text-purple-600">
                       {testimonial.role}
                     </p>
@@ -75,9 +76,10 @@ export default function Testimonials() {
 
               {/* Élément décoratif */}
               <div className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-purple-600 to-pink-600 rounded-b-2xl opacity-20" />
-            </div>
+            </article>
+            </li>
           ))}
-        </div>
+        </ul>
       </div>
     </section>
   );

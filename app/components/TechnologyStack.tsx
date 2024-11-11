@@ -12,9 +12,9 @@ export default function TechnologyStack({ technologies, selectedCategory }: Tech
     : technologies;
 
   return (
-    <div className="grid gap-8 relative z-20 max-w-6xl mx-auto my-16">
+    <section className="grid gap-8 relative z-20 max-w-6xl mx-auto my-16">
       {filteredTechnologies.map((tech) => (
-        <div 
+        <article
           key={tech.name}
           className="bg-white rounded-2xl p-6 shadow-[0_0_50px_rgba(139,92,246,0.1)] hover:shadow-[0_0_50px_rgba(139,92,246,0.2)] transition-all duration-300"
         >
@@ -87,8 +87,8 @@ export default function TechnologyStack({ technologies, selectedCategory }: Tech
               </a>
             </div>
           </div>
-        </div>
+        </article>
       ))}
-    </div>
+    </section>
   );
 } 

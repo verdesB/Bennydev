@@ -1,8 +1,8 @@
 import Link from 'next/link';
-import { 
-  Globe, 
-  ShoppingCart, 
-  LayoutDashboard, 
+import {
+  Globe,
+  ShoppingCart,
+  LayoutDashboard,
 
   Rocket,
   Code,
@@ -118,48 +118,53 @@ export default function SolutionsGrid() {
   return (
     <section className="py-20 relative z-20">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {solutions.map((solution, index) => (
-            <Link 
-              href={solution.link} 
-              key={index}
-              className="group bg-white p-8 rounded-2xl shadow-[0_0_50px_rgba(139,92,246,0.1)] hover:shadow-[0_0_50px_rgba(139,92,246,0.2)] transition-all duration-300 hover:-translate-y-1"
+            <li key={index} className="group bg-white p-8 rounded-2xl shadow-[0_0_50px_rgba(139,92,246,0.1)] hover:shadow-[0_0_50px_rgba(139,92,246,0.2)] transition-all duration-300 hover:-translate-y-1"
             >
-              <div className="flex flex-col h-full">
-                {/* Ajout des badges ici */}
-                {getBadges(solution.title)}
-                
-                <div className="text-purple-600 mb-4 group-hover:scale-110 transition-transform duration-300">
-                  {solution.icon}
-                </div>
-                
-                <h3 className="text-xl font-semibold text-gray-900 mb-3">
-                  {solution.title}
-                </h3>
-                
-                <p className="text-gray-600 mb-6">
-                  {solution.description}
-                </p>
-                
-                <ul className="mt-auto space-y-2">
-                  {solution.features.map((feature, idx) => (
-                    <li key={idx} className="flex items-center text-sm text-gray-500">
-                      <span className="w-1.5 h-1.5 bg-purple-600 rounded-full mr-2" />
-                      {feature}
-                    </li>
-                  ))}
-                </ul>
-                
-                <div className="mt-6 flex items-center text-purple-600 group-hover:translate-x-2 transition-transform duration-300">
-                  <span className="text-sm font-medium">En savoir plus</span>
-                  <svg className="w-4 h-4 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                  </svg>
-                </div>
-              </div>
-            </Link>
+              <article>
+                <Link
+                  title={solution.title}
+                  href={solution.link}
+
+                >
+                  <div className="flex flex-col h-full">
+                    {/* Ajout des badges ici */}
+                    {getBadges(solution.title)}
+
+                    <div className="text-purple-600 mb-4 group-hover:scale-110 transition-transform duration-300">
+                      {solution.icon}
+                    </div>
+
+                    <h3 className="text-xl font-semibold text-gray-900 mb-3">
+                      {solution.title}
+                    </h3>
+
+                    <p className="text-gray-600 mb-6">
+                      {solution.description}
+                    </p>
+
+                    <ul className="mt-auto space-y-2">
+                      {solution.features.map((feature, idx) => (
+                        <li key={idx} className="flex items-center text-sm text-gray-500">
+                          <span className="w-1.5 h-1.5 bg-purple-600 rounded-full mr-2" />
+                          {feature}
+                        </li>
+                      ))}
+                    </ul>
+
+                    <div className="mt-6 flex items-center text-purple-600 group-hover:translate-x-2 transition-transform duration-300">
+                      <span className="text-sm font-medium">En savoir plus</span>
+                      <svg className="w-4 h-4 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                      </svg>
+                    </div>
+                  </div>
+                </Link>
+              </article>
+            </li>
           ))}
-        </div>
+        </ul>
       </div>
     </section>
   );

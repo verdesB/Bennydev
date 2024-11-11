@@ -11,7 +11,7 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           {/* Logo et Description */}
           <div className="col-span-1 md:col-span-2">
-            <Link href="/" className="flex items-center">
+            <Link title='Accueil' href="/" className="flex items-center">
               <Image
                 src="/Bennydev.webp"
                 alt="BennyDev Logo"
@@ -27,6 +27,7 @@ export default function Footer() {
             </p>
             <div className="mt-6 flex space-x-4">
               <a 
+                title='Linkedin'
                 href="https://linkedin.com/in/votre-profil" 
                 target="_blank" 
                 rel="noopener noreferrer"
@@ -35,6 +36,7 @@ export default function Footer() {
                 <Linkedin className="w-5 h-5" />
               </a>
               <a 
+                title='Github'
                 href="https://github.com/votre-profil" 
                 target="_blank" 
                 rel="noopener noreferrer"
@@ -52,6 +54,7 @@ export default function Footer() {
               {['Accueil', 'À propos', 'Services', 'Projets', 'Contact'].map((item) => (
                 <li key={item}>
                   <Link 
+                    title={item}
                     href={item === 'Accueil' ? '/' : `/${item.toLowerCase().replace('à ', '')}`}
                     className="text-gray-400 hover:text-purple-500 transition-colors"
                   >
@@ -68,6 +71,7 @@ export default function Footer() {
             <ul className="space-y-3">
               <li>
                 <a 
+                  title='Email'
                   href="mailto:contact@bennydev.fr"
                   className="flex items-center text-gray-400 hover:text-purple-500 transition-colors"
                 >
@@ -77,6 +81,7 @@ export default function Footer() {
               </li>
               <li>
                 <a 
+                  title='Téléphone'
                   href="tel:+33612345678"
                   className="flex items-center text-gray-400 hover:text-purple-500 transition-colors"
                 >
@@ -85,7 +90,7 @@ export default function Footer() {
                 </a>
               </li>
               <li className="flex items-center text-gray-400">
-                <MapPin className="w-4 h-4 mr-2" />
+                  <MapPin className="w-4 h-4 mr-2" />
                 Montpellier, France
               </li>
             </ul>

@@ -43,10 +43,11 @@ export default function Services() {
         </div>
 
         {/* Grille de services */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <ul className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {services.map((service, index) => (
-            <div
-              key={index}
+            <li key={index}>
+            <article
+              
               className="group relative p-8 bg-white rounded-2xl shadow-[0_0_50px_rgba(139,92,246,0.1)] hover:shadow-[0_0_50px_rgba(139,92,246,0.2)] transition-all duration-300 hover:-translate-y-1"
             >
               {/* Icône avec cercle de fond */}
@@ -78,9 +79,10 @@ export default function Services() {
                   />
                 </svg>
               </div>
-            </div>
+            </article>
+            </li>
           ))}
-        </div>
+        </ul>
       </div>
     </section>
   );
