@@ -19,10 +19,12 @@ export default function Hero() {
             Développeur Web Full Stack
           </p>
 
-          {/* Titre principal avec nouveau dégradé */}
-          <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-gray-900 via-purple-800 to-pink-700 animate-title pb-2">
-            Transformez vos idées<br />
-            en réalité digitale
+          {/* Titre principal optimisé */}
+          <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold md:animate-fade-in pb-2">
+            <span className="inline-block bg-clip-text text-black lg:text-transparent lg:bg-gradient-to-r from-gray-900 via-purple-800 to-pink-700">
+              Transformez vos idées<br />
+              en réalité digitale
+            </span>
           </h1>
 
           {/* Sous-titre */}
