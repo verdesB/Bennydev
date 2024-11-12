@@ -2,7 +2,12 @@ import Hero2 from "@/app/components/Hero2";
 import OffreDepart from "@/app/components/OffreDepart";
 import TargetAudience from "@/app/components/TargetAudience";
 import UpgradeCTA from "@/app/components/UpgradeCTA";
+import PricingTable from "@/app/components/PricingTable";
 import { apiData } from "@/app/data/solutions/api";
+import { pricingData } from "./api.data";
+import Header from "@/app/components/Header";
+import TechnologyStack from "@/app/components/TechnologyStack";
+import { apiTechnologies, Technology } from "@/app/data/technologies";
 
 export default function API() {
   const audienceData = {
@@ -24,6 +29,8 @@ export default function API() {
   };
 
   return (
+    <>
+    <Header pathname="/solutions" />
     <main className="relative bg-gradient-to-b from-purple-50 to-white min-h-screen">
       <Hero2
         title="Solution API"
@@ -34,9 +41,13 @@ export default function API() {
       
       <OffreDepart {...apiData} />
       
+      <PricingTable plans={pricingData.plans} features={pricingData.features} />
+      
       <UpgradeCTA />
+      
+      <TechnologyStack technologies={apiTechnologies as Technology[]} />
 
-      <div className="absolute inset-0 bg-[linear-gradient(rgba(139,92,246,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(139,92,246,0.02)_1px,transparent_1px)] bg-[size:4rem_4rem] z-1" />
     </main>
+    </>
   );
 } 

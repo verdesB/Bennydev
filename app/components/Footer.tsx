@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
-import { Mail, Phone, MapPin, Linkedin, Github } from 'lucide-react';
+import { Mail, MapPin, Linkedin, Github } from 'lucide-react';
+import { siteConfig } from '../lib/site-config';
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
@@ -28,7 +29,7 @@ export default function Footer() {
             <div className="mt-6 flex space-x-4">
               <a 
                 title='Linkedin'
-                href="https://linkedin.com/in/votre-profil" 
+                href={siteConfig.companyInfo.contact.linkedin}
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="text-gray-400 hover:text-purple-500 transition-colors"
@@ -37,7 +38,7 @@ export default function Footer() {
               </a>
               <a 
                 title='Github'
-                href="https://github.com/votre-profil" 
+                href={siteConfig.companyInfo.contact.github}
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="text-gray-400 hover:text-purple-500 transition-colors"
@@ -72,26 +73,16 @@ export default function Footer() {
               <li>
                 <a 
                   title='Email'
-                  href="mailto:contact@bennydev.fr"
+                  href={`mailto:${siteConfig.companyInfo.contact.email}`}
                   className="flex items-center text-gray-400 hover:text-purple-500 transition-colors"
                 >
                   <Mail className="w-4 h-4 mr-2" />
-                  contact@bennydev.fr
-                </a>
-              </li>
-              <li>
-                <a 
-                  title='Téléphone'
-                  href="tel:+33612345678"
-                  className="flex items-center text-gray-400 hover:text-purple-500 transition-colors"
-                >
-                  <Phone className="w-4 h-4 mr-2" />
-                  +33 6 12 34 56 78
+                  {siteConfig.companyInfo.contact.email}
                 </a>
               </li>
               <li className="flex items-center text-gray-400">
-                  <MapPin className="w-4 h-4 mr-2" />
-                Montpellier, France
+                <MapPin className="w-4 h-4 mr-2" />
+                {siteConfig.companyInfo.location}
               </li>
             </ul>
           </div>
@@ -101,7 +92,7 @@ export default function Footer() {
         <div className="border-t border-gray-800 mt-12 pt-8">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <p className="text-gray-400 text-sm">
-              © {currentYear} BennyDev. Tous droits réservés.
+              © {currentYear} {siteConfig.companyInfo.name}. Tous droits réservés.
             </p>
             <div className="mt-4 md:mt-0 flex space-x-6 text-sm">
               <Link 

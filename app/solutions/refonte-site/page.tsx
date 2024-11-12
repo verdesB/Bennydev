@@ -1,8 +1,11 @@
 import Hero2 from "@/app/components/Hero2";
 import OffreDepart from "@/app/components/OffreDepart";
+import PricingTable from "@/app/components/PricingTable";
 import TargetAudience from "@/app/components/TargetAudience";
 import UpgradeCTA from "@/app/components/UpgradeCTA";
 import { refonteData } from "@/app/data/solutions/refonte";
+import { pricingData } from "./rf.data";
+import Header from "@/app/components/Header";
 
 export default function Refonte() {
   const audienceData = {
@@ -24,6 +27,8 @@ export default function Refonte() {
   };
 
   return (
+    <>
+    <Header pathname="/solutions" />
     <main className="relative bg-gradient-to-b from-purple-50 to-white min-h-screen">
       <Hero2
         title="Refonte de Site Web"
@@ -33,9 +38,11 @@ export default function Refonte() {
       <TargetAudience {...audienceData} />
       
       <OffreDepart {...refonteData} />
+      <PricingTable plans={pricingData.plans} features={pricingData.features} />
       
       <UpgradeCTA />
 
     </main>
+    </>
   );
 } 

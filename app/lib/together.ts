@@ -49,10 +49,14 @@ ${siteConfig.services.surMesure.description}
 ${siteConfig.services.surMesure.approach}
 
 PROCESSUS DE DÉVELOPPEMENT :
-${siteConfig.processus.phases.map(phase => `
-${phase.name}
+${Object.entries(siteConfig.processus).map(([phaseName, phaseSteps]) => `
+${phaseName}
 ----------------
-${phase.steps.map(step => `• ${step}`).join('\n')}
+${Object.entries(phaseSteps).map(([stepName, stepDetails]) => `
+• ${stepName}
+----------------
+${stepDetails.points.map(point => `• ${point}`).join('\n')}
+`).join('\n\n')}
 `).join('\n\n')}
 
 GARANTIES :

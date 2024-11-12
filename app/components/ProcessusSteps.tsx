@@ -1,12 +1,11 @@
 import { siteConfig } from '../lib/site-config';
 import { ChevronDown } from 'lucide-react';
-import { processusDetails } from '../data/processus-details';
 
 export default function ProcessusSteps() {
   return (
     <section className="relative py-16 px-4 z-20 max-w-6xl mx-auto">
       <div className="max-w-6xl mx-auto">
-        {siteConfig.processus.phases.map((phase, phaseIndex) => (
+        {Object.entries(siteConfig.processus).map(([phaseName, phaseSteps], phaseIndex) => (
           <div key={phaseIndex} className="mb-16 last:mb-0">
             {/* En-tête de phase */}
             <div className="flex items-center gap-4 mb-8">
@@ -14,13 +13,13 @@ export default function ProcessusSteps() {
                 {phaseIndex + 1}
               </div>
               <h2 className="text-2xl font-bold text-gray-900">
-                {phase.name}
+                {phaseName}
               </h2>
             </div>
 
             {/* Étapes de la phase */}
-            <div className="grid gap-4 ml-16">
-              {phase.steps.map((step, stepIndex) => (
+            <div className="grid gap-4">
+              {Object.entries(phaseSteps).map(([stepName, stepDetails], stepIndex) => (
                 <details 
                   key={stepIndex}
                   className="group bg-white rounded-xl shadow-[0_0_50px_rgba(139,92,246,0.1)] hover:shadow-[0_0_50px_rgba(139,92,246,0.2)] transition-all duration-300"
@@ -30,7 +29,7 @@ export default function ProcessusSteps() {
                       {stepIndex + 1}
                     </div>
                     <span className="text-gray-900 font-medium flex-grow">
-                      {step}
+                      {stepName}
                     </span>
                     <ChevronDown 
                       className="w-5 h-5 text-purple-600 transition-transform duration-300 group-open:rotate-180"
@@ -38,28 +37,24 @@ export default function ProcessusSteps() {
                   </summary>
 
                   <div className="px-6 pb-6 pt-2 ml-14">
-                    {processusDetails[phase.name as keyof typeof processusDetails]?.[
-                      step as keyof (typeof processusDetails)[keyof typeof processusDetails]
-                    ] && (
-                      <div className="space-y-4">
-                        {/* Description principale */}
-                        <p className="text-gray-700">
-                          {processusDetails[phase.name as keyof typeof processusDetails][step as string].description}
-                        </p>
-                        
-                        {/* Points clés */}
-                        <ul className="bg-purple-50 rounded-lg p-4 space-y-2">
-                          {processusDetails[phase.name as keyof typeof processusDetails][step as string].points.map((point, index) => (
-                            <li key={index} className="flex items-start gap-2 text-gray-700">
-                              <svg className="w-5 h-5 text-purple-600 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                              </svg>
-                              <span>{point}</span>
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                    )}
+                    <div className="space-y-4">
+                      {/* Description principale */}
+                      <p className="text-gray-700">
+                        {stepDetails.description}
+                      </p>
+                      
+                      {/* Points clés */}
+                      <ul className="bg-purple-50 rounded-lg p-4 space-y-2">
+                        {stepDetails.points.map((point, index) => (
+                          <li key={index} className="flex items-start gap-2 text-gray-700">
+                            <svg className="w-5 h-5 text-purple-600 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                            </svg>
+                            <span>{point}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
                   </div>
                 </details>
               ))}

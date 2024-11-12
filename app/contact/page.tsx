@@ -1,4 +1,5 @@
-import { Mail, Phone, MapPin, Linkedin, Github } from 'lucide-react';
+import { Mail, Phone, MapPin, Linkedin, Github, Clock } from 'lucide-react';
+import { siteConfig } from '../lib/site-config';
 import { sendEmail } from './actions';
 import Hero2 from '@/app/components/Hero2';
 import Header from '../components/Header';
@@ -8,7 +9,6 @@ export default function ContactPage() {
     <>
     <Header pathname={'/contact'} />  
     <main className="relative bg-gradient-to-b from-purple-50 to-white min-h-screen">
-      <div className="absolute inset-0 bg-[linear-gradient(rgba(139,92,246,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(139,92,246,0.02)_1px,transparent_1px)] bg-[size:4rem_4rem]" />
 
       <div className="mb-16">
         <Hero2 
@@ -89,17 +89,17 @@ export default function ContactPage() {
               Autres moyens de me contacter
             </h3>
             <div className="space-y-4">
-              <a href="mailto:contact@bennydev.fr" className="flex items-center space-x-3 text-gray-600 hover:text-purple-600">
+              <a href={`mailto:${siteConfig.companyInfo.contact.email}`} className="flex items-center space-x-3 text-gray-600 hover:text-purple-600">
                 <Mail className="w-5 h-5" />
-                <span>contact@bennydev.fr</span>
-              </a>
-              <a href="tel:+33612345678" className="flex items-center space-x-3 text-gray-600 hover:text-purple-600">
-                <Phone className="w-5 h-5" />
-                <span>+33 6 12 34 56 78</span>
+                <span>{siteConfig.companyInfo.contact.email}</span>
               </a>
               <div className="flex items-center space-x-3 text-gray-600">
                 <MapPin className="w-5 h-5" />
-                <span>Montpellier, France</span>
+                <span>{siteConfig.companyInfo.location}</span>
+              </div>
+              <div className="flex items-center space-x-3 text-gray-600">
+                <Clock className="w-5 h-5" />
+                <span>{siteConfig.companyInfo.contact.supportHours}</span>
               </div>
             </div>
           </div>
@@ -109,10 +109,10 @@ export default function ContactPage() {
               Réseaux sociaux
             </h3>
             <div className="flex space-x-4">
-              <a title='Linkedin' href="https://linkedin.com/in/votre-profil" target="_blank" rel="noopener noreferrer" className="p-3 bg-gray-100 rounded-lg hover:bg-purple-100 transition-colors">
+              <a title='Linkedin' href={siteConfig.companyInfo.contact.linkedin} target="_blank" rel="noopener noreferrer" className="p-3 bg-gray-100 rounded-lg hover:bg-purple-100 transition-colors">
                 <Linkedin className="w-6 h-6 text-gray-600 hover:text-purple-600" />
               </a>
-              <a title='Github' href="https://github.com/votre-profil" target="_blank" rel="noopener noreferrer" className="p-3 bg-gray-100 rounded-lg hover:bg-purple-100 transition-colors">
+              <a title='Github' href={siteConfig.companyInfo.contact.github} target="_blank" rel="noopener noreferrer" className="p-3 bg-gray-100 rounded-lg hover:bg-purple-100 transition-colors">
                 <Github className="w-6 h-6 text-gray-600 hover:text-purple-600" />
               </a>
             </div>

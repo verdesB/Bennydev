@@ -173,4 +173,59 @@ export const webappTechnologies: Technology[] = [
     ],
     documentation: 'https://vercel.com/docs'
   }
+];
+
+export const apiTechnologies: Technology[] = [
+  {
+    name: "Node.js",
+    icon: "/icons/nodejs.svg",
+    category: "backend",
+    description: "Runtime JavaScript pour des API performantes et scalables",
+    whyUseIt: [
+      "Performance et scalabilité exceptionnelles",
+      "Large écosystème de packages",
+      "Excellent pour les API temps réel",
+      "Facilité de développement"
+    ],
+    documentation: "https://nodejs.org/docs"
+  },
+  {
+    name: "Express",
+    icon: "/icons/express.svg",
+    category: "backend",
+    description: "Framework web rapide et minimaliste pour Node.js",
+    whyUseIt: [
+      "Léger et flexible",
+      "Middleware système puissant",
+      "Routage intuitif",
+      "Grande communauté active"
+    ],
+    documentation: "https://expressjs.com/"
+  },
+  {
+    name: "PostgreSQL",
+    icon: "/icons/postgresql.svg",
+    category: "backend",
+    description: "Base de données relationnelle robuste et performante",
+    whyUseIt: [
+      "Support JSON natif",
+      "Performances optimales",
+      "Fiabilité éprouvée",
+      "Fonctionnalités avancées"
+    ],
+    documentation: "https://www.postgresql.org/docs/"
+  },
+  {
+    name: "Swagger",
+    icon: "/icons/swagger.svg",
+    category: "backend",
+    description: "Documentation API interactive et professionnelle",
+    whyUseIt: [
+      "Documentation auto-générée",
+      "Interface interactive",
+      "Tests API intégrés",
+      "Standards OpenAPI"
+    ],
+    documentation: "https://swagger.io/docs/"
+  }
 ]; 
