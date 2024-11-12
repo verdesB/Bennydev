@@ -1,4 +1,4 @@
-import { Mail, Phone, MapPin, Linkedin, Github, Clock } from 'lucide-react';
+import { Mail, MapPin, Linkedin, Github, Clock } from 'lucide-react';
 import { siteConfig } from '../lib/site-config';
 import { sendEmail } from './actions';
 import Hero2 from '@/app/components/Hero2';
