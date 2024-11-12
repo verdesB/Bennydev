@@ -15,7 +15,7 @@ export default function Header({ pathname }: { pathname: string }) {
   };
 
   return (
-    <div className="fixed top-0 left-0 right-0 z-50 mt-8 px-4 before:content-[''] before:absolute before:inset-x-0 before:-top-8 before:h-10 before:bg-gradient-to-b before:from-[rgba(255,255,255,0.1)] before:to-transparent before:backdrop-blur-[12px] before:-z-10">
+    <div className="fixed top-0 left-0 right-0 z-50 mt-4 px-4 before:content-[''] before:absolute before:inset-x-0 before:-top-8 before:h-10 before:bg-gradient-to-b before:from-[rgba(255,255,255,0.1)] before:to-transparent before:backdrop-blur-[12px] before:-z-10">
       <header className="max-w-6xl mx-auto bg-black/90 backdrop-blur-lg rounded-lg">
         <nav className="relative">
           <input type="checkbox" id="menu-toggle" className="peer hidden" />
