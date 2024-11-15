@@ -2,14 +2,14 @@ import { NextResponse } from 'next/server';
 import { togetherClient } from '@/app/lib/together';
 import { siteConfig } from '@/app/lib/site-config';
 import { getSystemMessage } from '@/app/lib/getSystemMessage';
+import type { Context } from "../../lib/types";
 
 export async function POST(request: Request) {
   try {
     const { messages } = await request.json();
 
-    // Préparer le contexte de la conversation en utilisant les données de siteConfig
-    const context = {
-      company: siteConfig.companyInfo,
+    const context: Context = {
+      companyInfo: siteConfig.companyInfo,
       expertise: siteConfig.expertise,
       services: siteConfig.services,
       processus: siteConfig.processus,
@@ -64,7 +64,7 @@ export async function POST(request: Request) {
   }
 }
 
-async function enrichResponseWithSiteData(response: string, context: any) {
+async function enrichResponseWithSiteData(response: string, context: Context) {
   // Analyser la réponse et trouver des éléments à enrichir à l'aide de siteConfig
   let enrichedResponse = response;
 

@@ -1,6 +1,6 @@
 import { siteConfig } from './site-config';
 
-export function getSystemMessage(context: any = {}) {
+export function getSystemMessage() {
   return {
     role: 'system',
     content: `
