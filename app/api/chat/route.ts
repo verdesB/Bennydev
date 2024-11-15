@@ -1,13 +1,26 @@
 import { NextResponse } from 'next/server';
-import { togetherClient, getSystemMessage } from '@/app/lib/together';
+import { togetherClient } from '@/app/lib/together';
+import { siteConfig } from '@/app/lib/site-config';
+import { getSystemMessage } from '@/app/lib/getSystemMessage';
 
 export async function POST(request: Request) {
   try {
     const { messages } = await request.json();
 
+    // Préparer le contexte de la conversation en utilisant les données de siteConfig
+    const context = {
+      company: siteConfig.companyInfo,
+      expertise: siteConfig.expertise,
+      services: siteConfig.services,
+      processus: siteConfig.processus,
+      garanties: siteConfig.garanties,
+      valeurs: siteConfig.valeurs
+    };
+
+    // Envoyer la requête à l'IA Together avec le contexte
     const response = await togetherClient.chat.completions.create({
       messages: [
-        getSystemMessage(),
+        getSystemMessage(context),
         ...messages
       ],
       model: "meta-llama/Llama-Vision-Free",
@@ -26,11 +39,14 @@ export async function POST(request: Request) {
       throw new Error('Empty response from API');
     }
 
+    // Enrichir la réponse avec des informations pertinentes de siteConfig
+    const enrichedResponse = await enrichResponseWithSiteData(response.choices[0].message.content, context);
+
     return NextResponse.json({
       choices: [{
         message: {
           role: 'assistant',
-          content: response.choices[0].message.content
+          content: enrichedResponse
         }
       }]
     });
@@ -46,4 +62,23 @@ export async function POST(request: Request) {
       { status: 500 }
     );
   }
-} 
+}
+
+async function enrichResponseWithSiteData(response: string, context: any) {
+  // Analyser la réponse et trouver des éléments à enrichir à l'aide de siteConfig
+  let enrichedResponse = response;
+
+  // Par exemple, si la réponse mentionne les services, ajouter plus de détails
+  if (response.includes('services')) {
+    const servicesInfo = Object.values(context.services).map((service: unknown) => {
+      const typedService = service as { title: string, description: string };
+      return `- ${typedService.title}: ${typedService.description}`;
+    }).join('\n');
+    enrichedResponse += `\n\nVoici plus de détails sur nos services :\n${servicesInfo}`;
+  }
+
+  // Ajouter d'autres enrichissements en fonction de la réponse
+  // ...
+
+  return enrichedResponse;
+}

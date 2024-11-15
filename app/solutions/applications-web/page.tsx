@@ -4,7 +4,7 @@ import TargetAudience from "@/app/components/TargetAudience";
 import UpgradeCTA from "@/app/components/UpgradeCTA";
 import { webappData } from "@/app/data/solutions/webapp";
 import PricingTable from "@/app/components/PricingTable";
-import { pricingData } from "./aw.data";
+import { siteConfig } from "@/app/lib/site-config";
 import TechnologyStack from "@/app/components/TechnologyStack";
 import { webappTechnologies } from "@/app/data/technologies";
 import Header from "@/app/components/Header";
@@ -40,7 +40,7 @@ export default function WebApplication() {
       <TargetAudience {...audienceData} />
       
       <OffreDepart {...webappData} />
-      <PricingTable plans={pricingData.plans} features={pricingData.features} />
+      <PricingTable plans={siteConfig.services.webApp.pricing.plans} features={siteConfig.services.webApp.pricing.features} />
       <UpgradeCTA />
       <TechnologyStack technologies={webappTechnologies} />
 

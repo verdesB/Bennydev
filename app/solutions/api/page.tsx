@@ -3,11 +3,11 @@ import OffreDepart from "@/app/components/OffreDepart";
 import TargetAudience from "@/app/components/TargetAudience";
 import UpgradeCTA from "@/app/components/UpgradeCTA";
 import PricingTable from "@/app/components/PricingTable";
-import { apiData } from "@/app/data/solutions/api";
-import { pricingData } from "./api.data";
+import { siteConfig } from "@/app/lib/site-config";
 import Header from "@/app/components/Header";
 import TechnologyStack from "@/app/components/TechnologyStack";
 import { apiTechnologies, Technology } from "@/app/data/technologies";
+import { apiData } from "@/app/data/solutions/api";
 
 export default function API() {
   const audienceData = {
@@ -41,7 +41,7 @@ export default function API() {
       
       <OffreDepart {...apiData} />
       
-      <PricingTable plans={pricingData.plans} features={pricingData.features} />
+      <PricingTable plans={siteConfig.services.api.pricing.plans} features={siteConfig.services.api.pricing.features} />
       
       <UpgradeCTA />
       

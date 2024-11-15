@@ -3,9 +3,9 @@ import OffreDepart from "@/app/components/OffreDepart";
 import PricingTable from "@/app/components/PricingTable";
 import TargetAudience from "@/app/components/TargetAudience";
 import UpgradeCTA from "@/app/components/UpgradeCTA";
-import { refonteData } from "@/app/data/solutions/refonte";
-import { pricingData } from "./rf.data";
+import { siteConfig } from "@/app/lib/site-config";
 import Header from "@/app/components/Header";
+import { refonteData } from "@/app/data/solutions/refonte";
 
 export default function Refonte() {
   const audienceData = {
@@ -38,7 +38,7 @@ export default function Refonte() {
       <TargetAudience {...audienceData} />
       
       <OffreDepart {...refonteData} />
-      <PricingTable plans={pricingData.plans} features={pricingData.features} />
+      <PricingTable plans={siteConfig.services.refonteSite.pricing.plans} features={siteConfig.services.refonteSite.pricing.features} />
       
       <UpgradeCTA />
 

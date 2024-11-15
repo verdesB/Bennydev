@@ -8,7 +8,7 @@ import { ecommerceData } from "@/app/data/solutions/ecommerce";
 import { ecommerceTechnologies } from "@/app/data/technologies";
 import PricingTable from "@/app/components/PricingTable";
 import TechnologyStack from "@/app/components/TechnologyStack";
-import { pricingData } from "./ec.data";
+import { siteConfig } from "@/app/lib/site-config";
 
 
 export default function Ecommerce() {
@@ -42,7 +42,7 @@ export default function Ecommerce() {
       <TargetAudience {...audienceData} />
       
       <OffreDepart {...ecommerceData} />
-      <PricingTable plans={pricingData.plans} features={pricingData.features} />
+      <PricingTable plans={siteConfig.services.ecommerce.pricing.plans} features={siteConfig.services.ecommerce.pricing.features} />
       <UpgradeCTA />
       <TechnologyStack technologies={ecommerceTechnologies} />
 

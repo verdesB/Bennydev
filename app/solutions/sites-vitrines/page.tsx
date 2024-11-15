@@ -4,7 +4,7 @@ import OffreDepart from "@/app/components/OffreDepart";
 import UpgradeCTA from "@/app/components/UpgradeCTA";
 import { sitesVitrinesData } from "@/app/data/solutions/sitesVitrines";
 import PricingTable from "@/app/components/PricingTable";
-import { pricingData } from "./site.data";
+import { siteConfig } from "@/app/lib/site-config";
 import Header from "@/app/components/Header";
 import { vitrinesTechnologies } from "@/app/data/technologies";
 import TechnologyStack from "@/app/components/TechnologyStack";
@@ -41,8 +41,7 @@ export default function SitesVitrines() {
       
       <OffreDepart {...sitesVitrinesData} />
       
-      
-      <PricingTable plans={pricingData.plans} features={pricingData.features} />
+      <PricingTable plans={siteConfig.services.siteVitrine.pricing.plans} features={siteConfig.services.siteVitrine.pricing.features} />
      <UpgradeCTA />
      <TechnologyStack technologies={vitrinesTechnologies} />
     </main>

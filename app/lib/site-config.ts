@@ -1,5 +1,3 @@
-import Together from "together-ai";
-
 export const siteConfig = {
   companyInfo: {
     name: "BennyDev",
@@ -30,7 +28,7 @@ export const siteConfig = {
           "Serverless avec Next.js",
           "Intégration Strapi",
           "API Shopify",
-          "WooCommerce",
+          "Medusa JS",
         ]
       }
     }
@@ -41,13 +39,135 @@ export const siteConfig = {
       title: "Site Vitrine",
       description: "Solutions web personnalisées pour entreprises et professionnels",
       features: [
-        "Design sur-mesure responsive",
+        "Design responsive",
         "Navigation intuitive",
         "Back-office intuitif",
         "Optimisation SEO",
         "Interface adaptative tous écrans"
       ],
-      startingPrice: 999
+      startingPrice: 800,
+      pricing: {
+        plans: [
+          { id: 'essential', name: 'Essentiel', price: '800€' },
+          { id: 'business', name: 'Business', price: '1200€' },
+          { id: 'premium', name: 'Premium', price: '1800€' }
+        ],
+        features: [
+          {
+            name: 'Pages incluses',
+            values: {
+              essential: 'Jusqu\'à 5 pages',
+              business: 'Jusqu\'à 10 pages',
+              premium: 'Sur-mesure'
+            }
+          },
+          {
+            name: 'Design responsive',
+            values: {
+              essential: 'Template optimisé',
+              business: 'Design personnalisé',
+              premium: 'Design sur-mesure'
+            }
+          },
+          {
+            name: 'Performance & SEO',
+            values: {
+              essential: 'SEO basique + score >90',
+              business: 'SEO avancé + schema.org',
+              premium: 'SEO premium + stratégie'
+            }
+          },
+          {
+            name: 'Animations',
+            values: {
+              essential: 'Standards',
+              business: 'Personnalisées',
+              premium: 'Sur-mesure + Micro-interactions'
+            }
+          },
+          {
+            name: 'Formulaires',
+            values: {
+              essential: '1 formulaire contact',
+              business: '3 formulaires',
+              premium: 'Illimités + CRM'
+            }
+          },
+          {
+            name: 'Blog',
+            values: {
+              essential: false,
+              business: 'Blog simple',
+              premium: 'Blog avancé + Catégories'
+            }
+          },
+          {
+            name: 'Multilingue',
+            values: {
+              essential: false,
+              business: '2 langues',
+              premium: '3 langues'
+            }
+          },
+          {
+            name: 'Analytics & Rapports',
+            values: {
+              essential: 'Google Analytics',
+              business: '+ Events tracking',
+              premium: '+ Dashboard personnalisé'
+            }
+          },
+          {
+            name: 'Support technique',
+            values: {
+              essential: 'Email (48h)',
+              business: 'Email prioritaire (24h)',
+              premium: 'Support dédié (4h)'
+            }
+          },
+          {
+            name: 'Maintenance',
+            values: {
+              essential: 'Trimestrielle',
+              business: 'Mensuelle',
+              premium: 'Hebdomadaire'
+            }
+          },
+          {
+            name: 'Formation admin',
+            values: {
+              essential: '1h',
+              business: '2h',
+              premium: '4h'
+            }
+          },
+          {
+            name: 'Modifications post-launch',
+            values: {
+              essential: '1 révision',
+              business: '3 révisions',
+              premium: 'Illimitées 1er mois'
+            }
+          }
+        ,
+        {
+          name: 'Hébergement',
+          values: {
+            essential: 'Offert pendant 1 an',
+            business: 'Offert pendant 1 an',
+            premium: 'Offert pendant 1 an'
+          }
+        },
+        {
+          name: 'Certificat SSL',
+          values: {
+            essential: true,
+            business: true,
+            premium: true
+          }
+        }
+        ],
+      }
     },
 
     ecommerce: {
@@ -55,18 +175,496 @@ export const siteConfig = {
       description: "Boutiques en ligne personnalisées avec Shopify",
       features: [
         "Interface sur-mesure",
-        "Intégration API Shopify",
+        "Intégration API Shopify ou Medusa",
         "Gestion des produits et paiements",
         "Formation et documentation",
         "Optimisation des performances"
       ],
-      startingPrice: 2499
+      startingPrice: 2499,
+      pricing: {
+        plans: [
+          { id: 'starter', name: 'Starter', price: '1999€' },
+          { id: 'business', name: 'Business', price: '2999€' },
+          { id: 'premium', name: 'Premium', price: '4999€' }
+        ],
+        features: [
+          {
+            name: 'Produits inclus',
+            values: {
+              starter: 'Jusqu\'à 50 produits',
+              business: 'Jusqu\'à 500 produits',
+              premium: 'Illimité'
+            }
+          },
+          {
+            name: 'Design responsive',
+            values: {
+              starter: 'Template optimisé',
+              business: 'Design personnalisé',
+              premium: 'Design sur-mesure'
+            }
+          },
+          {
+            name: 'Performance & SEO',
+            values: {
+              starter: 'SEO e-commerce basique',
+              business: 'SEO avancé + Rich Snippets',
+              premium: 'SEO premium + Stratégie'
+            }
+          },
+          {
+            name: 'Méthodes de paiement',
+            values: {
+              starter: '2 méthodes',
+              business: '4 méthodes',
+              premium: 'Illimité'
+            }
+          },
+          {
+            name: 'Gestion des stocks',
+            values: {
+              starter: 'Basique',
+              business: 'Avancée',
+              premium: 'Multi-entrepôts'
+            }
+          },
+          {
+            name: 'Transporteurs',
+            values: {
+              starter: '1 transporteur',
+              business: '3 transporteurs',
+              premium: 'Illimité'
+            }
+          },
+          {
+            name: 'Emails transactionnels',
+            values: {
+              starter: 'Templates standards',
+              business: 'Templates personnalisés',
+              premium: 'Templates sur-mesure'
+            }
+          },
+          {
+            name: 'Analytics & Rapports',
+            values: {
+              starter: 'Basique',
+              business: '+ Rapports avancés',
+              premium: '+ Dashboard personnalisé'
+            }
+          },
+          {
+            name: 'Support technique',
+            values: {
+              starter: 'Email (48h)',
+              business: 'Email prioritaire (24h)',
+              premium: 'Support dédié (4h)'
+            }
+          },
+          {
+            name: 'Formation',
+            values: {
+              starter: '2h',
+              business: '4h',
+              premium: '8h'
+            }
+          },
+          {
+            name: 'Maintenance',
+            values: {
+              starter: 'Trimestrielle',
+              business: 'Mensuelle',
+              premium: 'Hebdomadaire'
+            }
+          },
+          {
+            name: 'Import produits',
+            values: {
+              starter: 'Manuel',
+              business: 'CSV/Excel',
+              premium: 'API + automatisation'
+            }
+          },
+          {
+            name: 'Hébergement',
+            values: {
+              starter: 'Offert pendant 1 an',
+              business: 'Offert pendant 1 an',
+              premium: 'Offert pendant 1 an'
+            }
+          },
+          {
+            name: 'Certificat SSL',
+            values: {
+              starter: true,
+              business: true,
+              premium: true
+            }
+          }
+        ]
+        
+      }
     },
 
-    surMesure: {
+    webApp: {
       title: "Solutions sur Mesure",
       description: "Développements spécifiques adaptés à vos besoins",
-      approach: "Analyse individuelle des projets avec possibilité de collaboration externe"
+      features: [
+        "Architecture sur-mesure",
+        "Développement d'API personnalisées",
+        "Intégration de services tiers",
+        "Solutions métier spécifiques",
+        "Scalabilité et performance"
+      ],
+      startingPrice: 4999,
+      pricing: {
+        plans: [
+          { id: 'basic', name: 'Application Simple', price: 'À partir de 4900€' },
+          { id: 'advanced', name: 'Application Avancée', price: 'À partir de 9900€' },
+          { id: 'enterprise', name: 'Application Entreprise', price: 'Sur mesure' }
+        ],
+        features: [
+          {
+            name: 'Type d\'application',
+            values: {
+              basic: 'CRUD simple, 3-5 fonctionnalités',
+              advanced: '5-10 fonctionnalités complexes',
+              enterprise: 'Solution métier complète'
+            }
+          },
+          {
+            name: 'Authentification',
+            values: {
+              basic: 'Email + Social Auth',
+              advanced: '+ Rôles et permissions',
+              enterprise: '+ SSO & Auth personnalisée'
+            }
+          },
+          {
+            name: 'Base de données',
+            values: {
+              basic: 'PostgreSQL simple',
+              advanced: '+ Cache + Indexation',
+              enterprise: '+ Clustering & Réplication'
+            }
+          },
+          {
+            name: 'API',
+            values: {
+              basic: 'REST API basique',
+              advanced: '+ GraphQL',
+              enterprise: '+ API Gateway & Microservices'
+            }
+          },
+          {
+            name: 'Interface utilisateur',
+            values: {
+              basic: 'UI Components standards',
+              advanced: 'UI Components personnalisés',
+              enterprise: 'Design système complet'
+            }
+          },
+          {
+            name: 'Temps réel',
+            values: {
+              basic: 'Notifications simples',
+              advanced: '+ WebSocket temps réel',
+              enterprise: '+ Synchronisation complète'
+            }
+          },
+          {
+            name: 'Intégrations',
+            values: {
+              basic: '1-2 services externes',
+              advanced: '3-5 services externes',
+              enterprise: 'Intégrations illimitées'
+            }
+          },
+          {
+            name: 'Tests',
+            values: {
+              basic: 'Tests unitaires',
+              advanced: '+ Tests E2E',
+              enterprise: '+ Tests de charge & QA'
+            }
+          },
+          {
+            name: 'Déploiement',
+            values: {
+              basic: 'Environnement unique',
+              advanced: 'Dev/Staging/Prod',
+              enterprise: '+ Infrastructure HA'
+            }
+          },
+          {
+            name: 'Monitoring',
+            values: {
+              basic: 'Logs basiques',
+              advanced: '+ APM & Alerting',
+              enterprise: '+ Dashboard personnalisé'
+            }
+          },
+          {
+            name: 'Support & Maintenance',
+            values: {
+              basic: '3 mois inclus',
+              advanced: '6 mois inclus',
+              enterprise: 'SLA personnalisé'
+            }
+          },
+          {
+            name: 'Formation',
+            values: {
+              basic: '4h de formation',
+              advanced: '8h + documentation',
+              enterprise: 'Formation sur mesure'
+            }
+          },
+          {
+            name: 'Documentation',
+            values: {
+              basic: 'Documentation utilisateur',
+              advanced: '+ Documentation technique',
+              enterprise: '+ Architecture & API'
+            }
+          },
+        ]
+      
+      }
+    },
+
+    refonteSite: {
+      title: "Refonte de Site",
+      description: "Modernisation et optimisation de sites web existants",
+      features: [
+        "Audit complet de l'existant",
+        "Modernisation du design",
+        "Migration de contenu",
+        "Optimisation des performances",
+        "Amélioration du SEO"
+      ],
+      startingPrice: 1499,
+      pricing: {
+        plans: [
+          { id: 'essential', name: 'Refonte Essentielle', price: '1499€' },
+          { id: 'premium', name: 'Refonte Premium', price: '2999€' },
+          { id: 'enterprise', name: 'Sur-Mesure', price: 'Sur devis' }
+        ],
+        features: [
+          {
+            name: 'Audit initial',
+            values: {
+              essential: 'Audit de base',
+              premium: 'Audit approfondi',
+              enterprise: 'Audit complet + Benchmark'
+            }
+          },
+          {
+            name: 'Design',
+            values: {
+              essential: 'Design moderne responsive',
+              premium: 'Design premium personnalisé',
+              enterprise: 'Design sur-mesure illimité'
+            }
+          },
+          {
+            name: 'Migration contenu',
+            values: {
+              essential: 'Migration basique',
+              premium: 'Migration + Optimisation',
+              enterprise: 'Migration complète + Restructuration'
+            }
+          },
+          {
+            name: 'SEO',
+            values: {
+              essential: 'Optimisation de base',
+              premium: 'SEO avancé + Stratégie',
+              enterprise: 'SEO premium + Suivi'
+            }
+          },
+          {
+            name: 'Performance',
+            values: {
+              essential: 'Score > 85',
+              premium: 'Score > 90 + Optimisations',
+              enterprise: 'Score > 95 + CDN'
+            }
+          },
+          {
+            name: 'Sécurité',
+            values: {
+              essential: 'SSL + Sécurité de base',
+              premium: 'Protection avancée',
+              enterprise: 'Sécurité maximale + Audit'
+            }
+          },
+          {
+            name: 'Analytics',
+            values: {
+              essential: 'Google Analytics',
+              premium: '+ Rapports personnalisés',
+              enterprise: '+ Dashboard sur mesure'
+            }
+          },
+          {
+            name: 'Formation',
+            values: {
+              essential: '2h incluses',
+              premium: '4h + Documentation',
+              enterprise: 'Formation complète équipe'
+            }
+          },
+          {
+            name: 'Support',
+            values: {
+              essential: '3 mois',
+              premium: '6 mois',
+              enterprise: '12 mois'
+            }
+          },
+          {
+            name: 'Maintenance',
+            values: {
+              essential: 'Trimestrielle',
+              premium: 'Mensuelle',
+              enterprise: 'Hebdomadaire'
+            }
+          },
+          {
+            name: 'Révisions',
+            values: {
+              essential: '2 séries de révisions',
+              premium: '4 séries de révisions',
+              enterprise: 'Révisions illimitées'
+            }
+          },
+          {
+            name: 'Délai',
+            values: {
+              essential: '4-6 semaines',
+              premium: '8-12 semaines',
+              enterprise: 'Sur mesure'
+            }
+          }
+        ]
+      }
+    },
+    api: {
+      title: "Solutions API",
+      description: "Développement d'APIs robustes et scalables",
+      features: [
+        "Architecture REST/GraphQL",
+        "Documentation complète",
+        "Sécurité renforcée",
+        "Performance optimisée",
+        "Support dédié"
+      ],
+      startingPrice: 3900,
+      pricing: {
+        plans: [
+          { id: 'starter', name: 'API Starter', price: '3900€' },
+          { id: 'business', name: 'API Business', price: '7900€' },
+          { id: 'enterprise', name: 'API Enterprise', price: 'Sur devis' }
+        ],
+        features: [
+          {
+            name: 'Endpoints',
+            values: {
+              starter: 'Jusqu\'à 10 endpoints',
+              business: 'Jusqu\'à 25 endpoints',
+              enterprise: 'Illimité'
+            }
+          },
+          {
+            name: 'Architecture',
+            values: {
+              starter: 'REST API basique',
+              business: 'REST + GraphQL',
+              enterprise: 'Architecture sur mesure'
+            }
+          },
+          {
+            name: 'Documentation',
+            values: {
+              starter: 'Swagger/OpenAPI basique',
+              business: 'Documentation interactive',
+              enterprise: 'Documentation complète + Exemples'
+            }
+          },
+          {
+            name: 'Authentification',
+            values: {
+              starter: 'JWT + API Keys',
+              business: '+ OAuth2',
+              enterprise: '+ SSO & Auth personnalisée'
+            }
+          },
+          {
+            name: 'Rate Limiting',
+            values: {
+              starter: 'Limites basiques',
+              business: 'Limites personnalisables',
+              enterprise: 'Sur mesure + Quotas'
+            }
+          },
+          {
+            name: 'Monitoring',
+            values: {
+              starter: 'Monitoring basique',
+              business: '+ Alertes personnalisées',
+              enterprise: 'Monitoring avancé + Dashboard'
+            }
+          },
+          {
+            name: 'Tests',
+            values: {
+              starter: 'Tests unitaires',
+              business: '+ Tests d\'intégration',
+              enterprise: '+ Tests de charge'
+            }
+          },
+          {
+            name: 'Versioning',
+            values: {
+              starter: 'Gestion basique',
+              business: 'Gestion avancée',
+              enterprise: 'Stratégie sur mesure'
+            }
+          },
+          {
+            name: 'Cache',
+            values: {
+              starter: 'Cache basique',
+              business: 'Cache distribué',
+              enterprise: 'Cache sur mesure + CDN'
+            }
+          },
+          {
+            name: 'Support',
+            values: {
+              starter: 'Email (48h)',
+              business: 'Email + Chat (24h)',
+              enterprise: 'Support dédié (4h)'
+            }
+          },
+          {
+            name: 'Formation',
+            values: {
+              starter: '2h incluses',
+              business: '4h + Documentation',
+              enterprise: 'Formation complète équipe'
+            }
+          },
+          {
+            name: 'Maintenance',
+            values: {
+              starter: '3 mois inclus',
+              business: '6 mois inclus',
+              enterprise: '12 mois inclus'
+            }
+          }
+        ]
+      }
     }
   },
 
@@ -265,32 +863,3 @@ export const siteConfig = {
   ]
 };
 
-// Correction de l'initialisation du client Together
-if (!process.env.TOGETHER_API_KEY) {
-  throw new Error('TOGETHER_API_KEY is not defined');
-}
-
-export const togetherClient = new Together({
-  apiKey: process.env.TOGETHER_API_KEY
-});
-
-export const getSystemMessage = () => ({
-  role: 'system',
-  content: `Tu es l'assistant virtuel de BennyDev. Utilise les informations suivantes pour répondre aux questions.
-
-INFORMATIONS GÉNÉRALES DE BENNYDEV:
-- Fondateur : ${siteConfig.companyInfo.founder}
-- Expertise : ${siteConfig.expertise.main}
-- Localisation : ${siteConfig.companyInfo.location}
-- Contact : ${siteConfig.companyInfo.contact.email}
-
-SERVICES PROPOSÉS :
-${JSON.stringify(siteConfig.services, null, 2)}
-
-RÈGLES DE COMMUNICATION:
-- Réponds toujours en français de manière claire et directe
-- Reste professionnel et chaleureux
-- Utilise les informations du siteConfig pour personnaliser tes réponses
-- Mets en avant l'expertise et les valeurs de BennyDev
-- Propose toujours des solutions adaptées aux besoins spécifiques du client`
-});
