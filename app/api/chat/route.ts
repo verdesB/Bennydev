@@ -20,7 +20,7 @@ export async function POST(request: Request) {
     // Envoyer la requête à l'IA Together avec le contexte
     const response = await togetherClient.chat.completions.create({
       messages: [
-        getSystemMessage(context),
+        getSystemMessage(),
         ...messages
       ],
       model: "meta-llama/Llama-Vision-Free",
