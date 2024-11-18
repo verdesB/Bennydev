@@ -5,13 +5,18 @@ import { Menu, X } from 'lucide-react';
 export default function Header({ pathname }: { pathname: string }) {
   console.log('Header received pathname:', pathname);
 
-  const menuItems = ['Accueil', 'Processus', 'Projets', 'Solutions', 'Contact'];
+  const menuItems = ['Accueil', 'Processus', 'Projets', 'Solutions', 'Contact', 'Démarrer un projet'];
 
   const isActive = (item: string) => {
     if (item === 'Accueil') {
       return pathname === '/';
     }
-    return pathname === `/${item.toLowerCase()}`;
+    const normalizedPath = `/${item
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .toLowerCase()
+      .replace(/ /g, '-')}`;
+    return pathname === normalizedPath;
   };
 
   return (
@@ -39,7 +44,11 @@ export default function Header({ pathname }: { pathname: string }) {
                 <Link
                   title={item}
                   key={item}
-                  href={item === 'Accueil' ? '/' : `/${item.toLowerCase().replace('à ', '')}`}
+                  href={item === 'Accueil' ? '/' : `/${item
+                    .normalize('NFD')
+                    .replace(/[\u0300-\u036f]/g, '')
+                    .toLowerCase()
+                    .replace(/ /g, '-')}`}
                   className={`relative text-gris-100 font-medium group px-4 py-2 transition-colors duration-200 rounded-md
                     ${isActive(item) ? 'bg-violet-500/20 text-violet-300' : ''}`}
                 >
@@ -61,7 +70,11 @@ export default function Header({ pathname }: { pathname: string }) {
             <div className="overflow-hidden">
               <div className="px-4 pb-4 space-y-4">
                 {menuItems.map((item) => {
-                  const href = item === 'Accueil' ? '/' : `/${item.toLowerCase().replace('à ', '')}`;
+                  const href = item === 'Accueil' ? '/' : `/${item
+                    .normalize('NFD')
+                    .replace(/[\u0300-\u036f]/g, '')
+                    .toLowerCase()
+                    .replace(/ /g, '-')}`;
                   return (
                     <div key={item} className="block">
                       <Link title={item} href={href} className={`block text-gris-100 hover:text-violet-300 transition-colors duration-200 px-4 py-2 rounded-md

@@ -5,6 +5,8 @@ import "./globals.css";
 import Footer from "./components/Footer";
 import ChatButton from './components/ChatButton';
 import Head from "next/head";
+import { AuthProvider } from './context/AuthContext';
+
 
 
 
@@ -38,8 +40,9 @@ export default async function RootLayout({
         <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
       </Head>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased relative`}>
-        
-        {children}
+        <AuthProvider>
+          {children}
+        </AuthProvider>
         <Footer />
         <ChatButton />
         <div className="z-0 absolute inset-0 bg-[linear-gradient(rgba(167,139,250,0.05)_1px,transparent_1px),linear-gradient(90deg,rgba(167,139,250,0.05)_1px,transparent_1px)] bg-[size:9rem_9rem]" />      </body>
