@@ -8,6 +8,8 @@ import { siteConfig } from "@/app/lib/site-config";
 import Header from "@/app/components/Header";
 import { vitrinesTechnologies } from "@/app/data/technologies";
 import TechnologyStack from "@/app/components/TechnologyStack";
+import Footer from "@/app/components/Footer";
+import ChatButton from "@/app/components/ChatButton";
 
 export default function SitesVitrines() {
   const audienceData = {
@@ -45,6 +47,8 @@ export default function SitesVitrines() {
      <UpgradeCTA />
      <TechnologyStack technologies={vitrinesTechnologies} />
     </main>
+    <Footer />
+    <ChatButton />
     </>
   );
 }

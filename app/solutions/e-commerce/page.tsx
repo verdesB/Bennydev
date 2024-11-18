@@ -9,6 +9,8 @@ import { ecommerceTechnologies } from "@/app/data/technologies";
 import PricingTable from "@/app/components/PricingTable";
 import TechnologyStack from "@/app/components/TechnologyStack";
 import { siteConfig } from "@/app/lib/site-config";
+import Footer from "@/app/components/Footer";
+import ChatButton from "@/app/components/ChatButton";
 
 
 export default function Ecommerce() {
@@ -47,6 +49,8 @@ export default function Ecommerce() {
       <TechnologyStack technologies={ecommerceTechnologies} />
 
     </main>
+    <Footer />
+    <ChatButton />
     </>
   );
 } 

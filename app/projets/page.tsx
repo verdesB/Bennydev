@@ -3,6 +3,8 @@ import React from 'react';
 import Projets from '../components/Projects';
 import Hero2 from '../components/Hero2';
 import Header from '../components/Header';
+import ChatButton from '../components/ChatButton';
+import Footer from '../components/Footer';
 
 export default function ProjetsPage() {
   return (
@@ -15,6 +17,8 @@ export default function ProjetsPage() {
       />
       <Projets />
     </main>
+    <Footer />
+    <ChatButton />
     </>
   );
 } 

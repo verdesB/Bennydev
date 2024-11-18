@@ -8,6 +8,8 @@ import Header from "@/app/components/Header";
 import TechnologyStack from "@/app/components/TechnologyStack";
 import { apiTechnologies, Technology } from "@/app/data/technologies";
 import { apiData } from "@/app/data/solutions/api";
+import Footer from "@/app/components/Footer";
+import ChatButton from "@/app/components/ChatButton";
 
 export default function API() {
   const audienceData = {
@@ -48,6 +50,8 @@ export default function API() {
       <TechnologyStack technologies={apiTechnologies as Technology[]} />
 
     </main>
+    <Footer />
+    <ChatButton />
     </>
   );
 } 

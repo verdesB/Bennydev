@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import Image from 'next/image';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, User } from 'lucide-react';
 
 export default function Header({ pathname }: { pathname: string }) {
   console.log('Header received pathname:', pathname);
@@ -56,9 +56,25 @@ export default function Header({ pathname }: { pathname: string }) {
                   <span className="absolute inset-0 w-0 bg-violet-500/20 group-hover:w-full transition-all duration-300 ease-out rounded-md" />
                 </Link>
               ))}
+              
+              <Link
+                href="/login"
+                title="Connexion"
+                className="relative text-gris-100 hover:text-violet-300 transition-colors duration-200 p-2 rounded-md hover:bg-violet-500/20"
+              >
+                <User className="w-5 h-5" />
+              </Link>
             </div>
 
-            <div className="md:hidden">
+            <div className="md:hidden flex items-center gap-4">
+              <Link
+                href="/login"
+                title="Connexion"
+                className="text-gris-100 hover:text-violet-300 transition-colors duration-200"
+              >
+                <User className="w-5 h-5" />
+              </Link>
+
               <label htmlFor="menu-toggle" className="cursor-pointer block w-6 h-6 relative">
                 <Menu className="absolute w-6 h-6 text-gris-100 transition-opacity duration-300 peer-checked:opacity-0 opacity-100 [#menu-toggle:checked~div_&]:opacity-0" />
                 <X className="absolute w-6 h-6 text-gris-100 transition-opacity duration-300 opacity-0 [#menu-toggle:checked~div_&]:opacity-100" />

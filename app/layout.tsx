@@ -43,8 +43,7 @@ export default async function RootLayout({
         <AuthProvider>
           {children}
         </AuthProvider>
-        <Footer />
-        <ChatButton />
+        
         <div className="z-0 absolute inset-0 bg-[linear-gradient(rgba(167,139,250,0.05)_1px,transparent_1px),linear-gradient(90deg,rgba(167,139,250,0.05)_1px,transparent_1px)] bg-[size:9rem_9rem]" />      </body>
     </html>
   );

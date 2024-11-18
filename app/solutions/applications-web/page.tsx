@@ -8,6 +8,8 @@ import { siteConfig } from "@/app/lib/site-config";
 import TechnologyStack from "@/app/components/TechnologyStack";
 import { webappTechnologies } from "@/app/data/technologies";
 import Header from "@/app/components/Header";
+import Footer from "@/app/components/Footer";
+import ChatButton from "@/app/components/ChatButton";
 
 export default function WebApplication() {
   const audienceData = {
@@ -46,6 +48,8 @@ export default function WebApplication() {
 
 
     </main>
+    <Footer />
+    <ChatButton />
     </>
   );
 } 

@@ -6,6 +6,8 @@ import UpgradeCTA from "@/app/components/UpgradeCTA";
 import { siteConfig } from "@/app/lib/site-config";
 import Header from "@/app/components/Header";
 import { refonteData } from "@/app/data/solutions/refonte";
+import Footer from "@/app/components/Footer";
+import ChatButton from "@/app/components/ChatButton";
 
 export default function Refonte() {
   const audienceData = {
@@ -43,6 +45,8 @@ export default function Refonte() {
       <UpgradeCTA />
 
     </main>
+    <Footer />
+    <ChatButton />
     </>
   );
 } 

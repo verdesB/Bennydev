@@ -5,6 +5,8 @@ import WhyChooseUs from './components/WhyChooseUs';
 import Testimonials from './components/Testimonials';
 import Contact from './components/Contact';
 import Header from './components/Header';
+import Footer from './components/Footer';
+import ChatButton from './components/ChatButton';
 
 export default function Home() {
   return (
@@ -19,6 +21,8 @@ export default function Home() {
       <Testimonials />
       <Contact/>
     </main>
+    <Footer />
+    <ChatButton />
     </>
   );
 }

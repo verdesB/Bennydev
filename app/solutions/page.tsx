@@ -1,3 +1,5 @@
+import ChatButton from '../components/ChatButton';
+import Footer from '../components/Footer';
 import Header from '../components/Header';
 import Hero2 from '../components/Hero2';
 import SolutionsGrid from '../components/SolutionsGrid';
@@ -14,6 +16,8 @@ export default function Solutions() {
           <SolutionsGrid />
 
     </main>
+    <Footer />
+    <ChatButton />
     </>
   );
 }

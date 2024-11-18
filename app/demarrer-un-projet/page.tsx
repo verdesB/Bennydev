@@ -1,3 +1,5 @@
+import ChatButton from "../components/ChatButton";
+import Footer from "../components/Footer";
 import Header from "../components/Header";
 import Hero2 from "../components/Hero2";
 import ProcessusSteps from "../components/ProcessusSteps";
@@ -17,7 +19,10 @@ const DemarrerUnProjet = () => {
       
       
       <div className="absolute inset- bg-[linear-gradient(rgba(139,92,246,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(139,92,246,0.02)_1px,transparent_1px)] bg-[size:4rem_4rem] z-1" />
-    </main></>
+    </main>
+    <Footer />
+    <ChatButton />
+    </>
   )
 }
 

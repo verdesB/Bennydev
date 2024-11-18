@@ -1,3 +1,6 @@
+import ChatButton from "@/app/components/ChatButton";
+import Footer from "@/app/components/Footer";
+import Header from "@/app/components/Header";
 import Hero2 from "@/app/components/Hero2";
 import OffreDepart from "@/app/components/OffreDepart";
 import TargetAudience from "@/app/components/TargetAudience";
@@ -24,6 +27,8 @@ export default function SEO() {
   };
 
   return (
+    <>
+    <Header pathname="/solutions" />
     <main className="relative bg-gradient-to-b from-purple-50 to-white min-h-screen">
       <Hero2
         title="Solution SEO"
@@ -37,5 +42,8 @@ export default function SEO() {
       <UpgradeCTA />
 
     </main>
+    <Footer />
+    <ChatButton />
+    </>
   );
 } 

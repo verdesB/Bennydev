@@ -3,6 +3,8 @@ import { siteConfig } from '../lib/site-config';
 import { sendEmail } from './actions';
 import Hero2 from '@/app/components/Hero2';
 import Header from '../components/Header';
+import ChatButton from '../components/ChatButton';
+import Footer from '../components/Footer';
 
 export default function ContactPage() {
   return (
@@ -120,6 +122,8 @@ export default function ContactPage() {
         </div>
       </div>
     </main>
+    <Footer />
+    <ChatButton />
     </>
   );
 } 
