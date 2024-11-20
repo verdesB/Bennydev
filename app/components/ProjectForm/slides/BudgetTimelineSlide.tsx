@@ -1,19 +1,25 @@
 import { SlideWrapper } from "./SlideWrapper";
+import { FormData } from "../types";
 
 interface BudgetTimelineSlideProps {
-  formData: any;
-  setFormData: (data: any) => void;
+  formData: FormData;
+  setFormData: (data: FormData) => void;
   onNext: () => void;
   onPrevious: () => void;
 }
 
-export function BudgetTimelineSlide({ formData, setFormData, onNext, onPrevious }: any) {
+export function BudgetTimelineSlide({ formData, setFormData, onNext, onPrevious }: BudgetTimelineSlideProps) {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
+    
+    console.log('Changement détecté:', name, value);
+    
     setFormData({
       ...formData,
-      [name]: value
+      [name]: name === 'budget' ? parseInt(value.split('-')[0]) : value
     });
+
+    console.log('FormData après mise à jour:', formData);
   };
 
   const budgetRanges = [
@@ -46,7 +52,7 @@ export function BudgetTimelineSlide({ formData, setFormData, onNext, onPrevious 
           <select
             name="budget"
             className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-violet-500"
-            value={formData.budget || ''}
+            value={formData.budget?.toString() || ''}
             onChange={handleChange}
             required
           >
@@ -65,9 +71,9 @@ export function BudgetTimelineSlide({ formData, setFormData, onNext, onPrevious 
             Délai souhaité
           </label>
           <select
-            name="timeline"
+            name="deadline"
             className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-violet-500"
-            value={formData.timeline || ''}
+            value={formData.deadline || ''}
             onChange={handleChange}
             required
           >
@@ -78,35 +84,6 @@ export function BudgetTimelineSlide({ formData, setFormData, onNext, onPrevious 
               </option>
             ))}
           </select>
-        </div>
-
-        {/* Date de début souhaitée */}
-        <div className="bg-gray-50 p-6 rounded-lg">
-          <label className="block text-sm font-medium text-gray-700 mb-2">
-            Date de début souhaitée
-          </label>
-          <input
-            type="date"
-            name="startDate"
-            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-violet-500"
-            value={formData.startDate || ''}
-            onChange={handleChange}
-          />
-        </div>
-
-        {/* Commentaires additionnels */}
-        <div className="bg-gray-50 p-6 rounded-lg">
-          <label className="block text-sm font-medium text-gray-700 mb-2">
-            Commentaires additionnels
-          </label>
-          <textarea
-            name="budgetComments"
-            rows={4}
-            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-violet-500"
-            value={formData.budgetComments || ''}
-            onChange={handleChange}
-            placeholder="Précisions sur vos contraintes budgétaires ou temporelles..."
-          />
         </div>
       </div>
     </SlideWrapper>

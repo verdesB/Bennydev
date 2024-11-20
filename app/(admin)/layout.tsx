@@ -19,13 +19,13 @@ export default function AdminLayout({
       icon: <LayoutDashboard className="h-4 w-4" />,
     },
     {
-      title: "Utilisateurs",
-      href: "/admin/users",
+      title: "Clients",
+      href: "/admin/clients",
       icon: <Users className="h-4 w-4" />,
     },
     {
-      title: "Documents",
-      href: "/admin/documents",
+      title: "Projets",
+      href: "/admin/projets",
       icon: <FileText className="h-4 w-4" />,
     },
     {
@@ -42,7 +42,7 @@ export default function AdminLayout({
   ]
 
   return (
-    <div className="flex min-h-screen relative z-30">
+    <div className="flex min-h-screen relative z-30 overflow-hidden">
       <Sidebar title="Administration">
         <div className="flex flex-col h-[calc(100vh-4rem)]">
           <div className="flex-1 py-4">

@@ -15,10 +15,10 @@ export function EcommerceSlide({ formData, setFormData, onNext, onPrevious }: Ec
       const checkbox = e.target as HTMLInputElement;
       setFormData({
         ...formData,
-        ecommerce: {
-          ...formData.ecommerce,
+        ecommerce_details: {
+          ...formData.ecommerce_details,
           features: {
-            ...(formData.ecommerce?.features || {}),
+            ...(formData.ecommerce_details?.features || {}),
             [name]: checkbox.checked
           }
         }
@@ -26,8 +26,8 @@ export function EcommerceSlide({ formData, setFormData, onNext, onPrevious }: Ec
     } else {
       setFormData({
         ...formData,
-        ecommerce: {
-          ...formData.ecommerce,
+        ecommerce_details: {
+          ...formData.ecommerce_details,
           [name]: value
         }
       });
@@ -49,7 +49,7 @@ export function EcommerceSlide({ formData, setFormData, onNext, onPrevious }: Ec
           <select
             name="productType"
             className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-violet-500"
-            value={formData.ecommerce?.productType || ''}
+            value={formData.ecommerce_details?.productType || ''}
             onChange={handleChange}
           >
             <option value="">Sélectionnez un type</option>
@@ -69,7 +69,7 @@ export function EcommerceSlide({ formData, setFormData, onNext, onPrevious }: Ec
             name="productCount"
             min="1"
             className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-violet-500"
-            value={formData.ecommerce?.productCount || ''}
+            value={formData.ecommerce_details?.productCount || ''}
             onChange={handleChange}
           />
         </div>
@@ -90,11 +90,87 @@ export function EcommerceSlide({ formData, setFormData, onNext, onPrevious }: Ec
                 <input
                   type="checkbox"
                   name={feature.id}
-                  checked={formData.ecommerce?.features?.[feature.id] || false}
+                  checked={formData.ecommerce_details?.features?.[feature.id] || false}
                   onChange={handleChange}
                   className="rounded border-gray-300 text-violet-600 focus:ring-violet-500"
                 />
                 <span>{feature.label}</span>
+              </label>
+            ))}
+          </div>
+        </div>
+
+        <div className="bg-gray-50 p-6 rounded-lg">
+          <label className="block text-sm font-medium text-gray-700 mb-2">
+            Méthodes de paiement souhaitées
+          </label>
+          <div className="grid grid-cols-2 gap-4">
+            {[
+              { id: 'creditCard', label: 'Carte bancaire' },
+              { id: 'paypal', label: 'PayPal' },
+              { id: 'stripe', label: 'Stripe' },
+              { id: 'bankTransfer', label: 'Virement bancaire' }
+            ].map(method => (
+              <label key={method.id} className="flex items-center space-x-3">
+                <input
+                  type="checkbox"
+                  name={`paymentMethods.${method.id}`}
+                  checked={formData.ecommerce_details?.paymentMethods?.includes(method.id) || false}
+                  onChange={(e) => {
+                    const currentMethods = formData.ecommerce_details?.paymentMethods || [];
+                    const updatedMethods = e.target.checked
+                      ? [...currentMethods, method.id]
+                      : currentMethods.filter(m => m !== method.id);
+                    
+                    setFormData({
+                      ...formData,
+                      ecommerce_details: {
+                        ...formData.ecommerce_details,
+                        paymentMethods: updatedMethods
+                      }
+                    });
+                  }}
+                  className="rounded border-gray-300 text-violet-600 focus:ring-violet-500"
+                />
+                <span>{method.label}</span>
+              </label>
+            ))}
+          </div>
+        </div>
+
+        <div className="bg-gray-50 p-6 rounded-lg">
+          <label className="block text-sm font-medium text-gray-700 mb-2">
+            Zones de livraison
+          </label>
+          <div className="grid grid-cols-2 gap-4">
+            {[
+              { id: 'france', label: 'France' },
+              { id: 'europe', label: 'Europe' },
+              { id: 'worldwide', label: 'Monde entier' },
+              { id: 'local', label: 'Local uniquement' }
+            ].map(region => (
+              <label key={region.id} className="flex items-center space-x-3">
+                <input
+                  type="checkbox"
+                  name={`shippingRegions.${region.id}`}
+                  checked={formData.ecommerce_details?.shippingRegions?.includes(region.id) || false}
+                  onChange={(e) => {
+                    const currentRegions = formData.ecommerce_details?.shippingRegions || [];
+                    const updatedRegions = e.target.checked
+                      ? [...currentRegions, region.id]
+                      : currentRegions.filter(r => r !== region.id);
+                    
+                    setFormData({
+                      ...formData,
+                      ecommerce_details: {
+                        ...formData.ecommerce_details,
+                        shippingRegions: updatedRegions
+                      }
+                    });
+                  }}
+                  className="rounded border-gray-300 text-violet-600 focus:ring-violet-500"
+                />
+                <span>{region.label}</span>
               </label>
             ))}
           </div>

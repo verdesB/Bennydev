@@ -15,10 +15,10 @@ export function SEOSlide({ formData, setFormData, onNext, onPrevious }: SEOSlide
       const checkbox = e.target as HTMLInputElement;
       setFormData({
         ...formData,
-        seo: {
-          ...formData.seo,
+        seo_details: {
+          ...formData.seo_details,
           services: {
-            ...(formData.seo?.services || {}),
+            ...(formData.seo_details?.services || {}),
             [name]: checkbox.checked
           }
         }
@@ -26,8 +26,8 @@ export function SEOSlide({ formData, setFormData, onNext, onPrevious }: SEOSlide
     } else {
       setFormData({
         ...formData,
-        seo: {
-          ...formData.seo,
+        seo_details: {
+          ...formData.seo_details,
           [name]: value
         }
       });
@@ -58,7 +58,7 @@ export function SEOSlide({ formData, setFormData, onNext, onPrevious }: SEOSlide
                 <input
                   type="checkbox"
                   name={service.id}
-                  checked={formData.seo?.services?.[service.id] || false}
+                  checked={formData.seo_details?.services?.[service.id] || false}
                   onChange={handleChange}
                   className="rounded border-gray-300 text-violet-600 focus:ring-violet-500"
                 />
@@ -76,7 +76,7 @@ export function SEOSlide({ formData, setFormData, onNext, onPrevious }: SEOSlide
             type="url"
             name="websiteUrl"
             className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-violet-500"
-            value={formData.seo?.websiteUrl || ''}
+            value={formData.seo_details?.websiteUrl || ''}
             onChange={handleChange}
             placeholder="https://www.votresite.com"
           />
@@ -90,7 +90,7 @@ export function SEOSlide({ formData, setFormData, onNext, onPrevious }: SEOSlide
             name="objectives"
             rows={4}
             className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-violet-500"
-            value={formData.seo?.objectives || ''}
+            value={formData.seo_details?.objectives || ''}
             onChange={handleChange}
             placeholder="Décrivez vos objectifs en termes de référencement..."
           />

@@ -1,8 +1,9 @@
 import { SlideWrapper } from "../SlideWrapper";
+import { FormData } from "../../types";
 
 interface APISlideProps {
-  formData: any;
-  setFormData: (data: any) => void;
+  formData: FormData;
+  setFormData: (data: FormData) => void;
   onNext: () => void;
   onPrevious: () => void;
 }
@@ -15,10 +16,14 @@ export function APISlide({ formData, setFormData, onNext, onPrevious }: APISlide
       const checkbox = e.target as HTMLInputElement;
       setFormData({
         ...formData,
-        api: {
-          ...formData.api,
+        api_details: {
+          title: formData.api_details?.title || '',
+          description: formData.api_details?.description || '',
+          apiType: formData.api_details?.apiType || 'rest',
+          endpoints: formData.api_details?.endpoints || [],
+          expectedTraffic: formData.api_details?.expectedTraffic || '',
           features: {
-            ...(formData.api?.features || {}),
+            ...(formData.api_details?.features || {}),
             [name]: checkbox.checked
           }
         }
@@ -26,8 +31,13 @@ export function APISlide({ formData, setFormData, onNext, onPrevious }: APISlide
     } else {
       setFormData({
         ...formData,
-        api: {
-          ...formData.api,
+        api_details: {
+          title: formData.api_details?.title || '',
+          description: formData.api_details?.description || '',
+          apiType: formData.api_details?.apiType || 'rest',
+          endpoints: formData.api_details?.endpoints || [],
+          expectedTraffic: formData.api_details?.expectedTraffic || '',
+          features: formData.api_details?.features || {},
           [name]: value
         }
       });
@@ -49,7 +59,7 @@ export function APISlide({ formData, setFormData, onNext, onPrevious }: APISlide
           <select
             name="apiType"
             className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-violet-500"
-            value={formData.api?.apiType || ''}
+            value={formData.api_details?.apiType || ''}
             onChange={handleChange}
           >
             <option value="">Sélectionnez un type</option>
@@ -76,7 +86,7 @@ export function APISlide({ formData, setFormData, onNext, onPrevious }: APISlide
                 <input
                   type="checkbox"
                   name={feature.id}
-                  checked={formData.api?.features?.[feature.id] || false}
+                  checked={formData.api_details?.features?.[feature.id] || false}
                   onChange={handleChange}
                   className="rounded border-gray-300 text-violet-600 focus:ring-violet-500"
                 />

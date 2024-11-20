@@ -8,7 +8,7 @@ interface IntroductionSlideProps {
 }
 
 export function IntroductionSlide({ formData, setFormData, onNext, onPrevious }: IntroductionSlideProps) {
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData({
       ...formData,
@@ -30,10 +30,10 @@ export function IntroductionSlide({ formData, setFormData, onNext, onPrevious }:
           </label>
           <input
             type="text"
-            name="companyName"
+            name="company"
             required
             className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-violet-500"
-            value={formData.companyName || ''}
+            value={formData.company || ''}
             onChange={handleChange}
           />
         </div>
@@ -44,10 +44,10 @@ export function IntroductionSlide({ formData, setFormData, onNext, onPrevious }:
           </label>
           <input
             type="text"
-            name="sector"
+            name="businessSector"
             required
             className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-violet-500"
-            value={formData.sector || ''}
+            value={formData.businessSector || ''}
             onChange={handleChange}
           />
         </div>
@@ -60,9 +60,9 @@ export function IntroductionSlide({ formData, setFormData, onNext, onPrevious }:
             <label className="flex items-center">
               <input
                 type="radio"
-                name="hasWebsite"
+                name="website"
                 value="yes"
-                checked={formData.hasWebsite === 'yes'}
+                checked={formData.website === 'yes'}
                 onChange={handleChange}
                 className="mr-2"
               />
@@ -71,9 +71,9 @@ export function IntroductionSlide({ formData, setFormData, onNext, onPrevious }:
             <label className="flex items-center">
               <input
                 type="radio"
-                name="hasWebsite"
+                name="website"
                 value="no"
-                checked={formData.hasWebsite === 'no'}
+                checked={formData.website === 'no'}
                 onChange={handleChange}
                 className="mr-2"
               />

@@ -1,8 +1,9 @@
 import { SlideWrapper } from "../SlideWrapper";
+import { FormData } from "../../types";
 
 interface RedesignSlideProps {
-  formData: any;
-  setFormData: (data: any) => void;
+  formData: FormData;
+  setFormData: (data: FormData) => void;
   onNext: () => void;
   onPrevious: () => void;
 }
@@ -15,19 +16,34 @@ export function RedesignSlide({ formData, setFormData, onNext, onPrevious }: Red
       const checkbox = e.target as HTMLInputElement;
       setFormData({
         ...formData,
-        redesign: {
-          ...formData.redesign,
-          improvements: {
-            ...(formData.redesign?.improvements || {}),
-            [name]: checkbox.checked
-          }
+        redesign_details: {
+          ...formData.redesign_details,
+          title: formData.redesign_details?.title ?? '',
+          description: formData.redesign_details?.description ?? '',
+          currentUrl: formData.redesign_details?.currentUrl ?? '',
+          improvements: name === 'brandGuidelines' 
+            ? (formData.redesign_details?.improvements ?? {})
+            : {
+                ...(formData.redesign_details?.improvements ?? {}),
+                [checkbox.value]: checkbox.checked
+              },
+          painPoints: formData.redesign_details?.painPoints ?? [],
+          desiredFeatures: formData.redesign_details?.desiredFeatures ?? [],
+          brandGuidelines: name === 'brandGuidelines' ? checkbox.checked : (formData.redesign_details?.brandGuidelines ?? false)
         }
       });
     } else {
       setFormData({
         ...formData,
-        redesign: {
-          ...formData.redesign,
+        redesign_details: {
+          ...formData.redesign_details,
+          title: formData.redesign_details?.title ?? '',
+          description: formData.redesign_details?.description ?? '',
+          currentUrl: formData.redesign_details?.currentUrl ?? '',
+          improvements: formData.redesign_details?.improvements ?? {},
+          painPoints: formData.redesign_details?.painPoints ?? [],
+          desiredFeatures: formData.redesign_details?.desiredFeatures ?? [],
+          brandGuidelines: formData.redesign_details?.brandGuidelines ?? false,
           [name]: value
         }
       });
@@ -44,13 +60,54 @@ export function RedesignSlide({ formData, setFormData, onNext, onPrevious }: Red
       <div className="space-y-6">
         <div className="bg-gray-50 p-6 rounded-lg">
           <label className="block text-sm font-medium text-gray-700 mb-2">
+            Titre du projet
+          </label>
+          <input
+            type="text"
+            name="title"
+            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-violet-500"
+            value={formData.redesign_details?.title || ''}
+            onChange={handleChange}
+            placeholder="Titre de votre projet de refonte"
+          />
+        </div>
+
+        <div className="bg-gray-50 p-6 rounded-lg">
+          <label className="block text-sm font-medium text-gray-700 mb-2">
+            Description du projet
+          </label>
+          <textarea
+            name="description"
+            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-violet-500"
+            value={formData.redesign_details?.description || ''}
+            onChange={handleChange}
+            placeholder="Décrivez votre projet de refonte"
+            rows={4}
+          />
+        </div>
+
+        <div className="bg-gray-50 p-6 rounded-lg">
+          <label className="flex items-center space-x-3">
+            <input
+              type="checkbox"
+              name="brandGuidelines"
+              checked={formData.redesign_details?.brandGuidelines || false}
+              onChange={handleChange}
+              className="rounded border-gray-300 text-violet-600 focus:ring-violet-500"
+            />
+            <span>Guide de marque disponible</span>
+          </label>
+        </div>
+
+        <div className="bg-gray-50 p-6 rounded-lg">
+          <label className="block text-sm font-medium text-gray-700 mb-2">
             URL du site actuel
           </label>
           <input
             type="url"
             name="currentUrl"
             className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-violet-500"
-            value={formData.redesign?.currentUrl || ''}
+            value={formData.redesign_details?.currentUrl || ''}
             onChange={handleChange}
             placeholder="https://www.votresite.com"
           />
@@ -70,15 +127,60 @@ export function RedesignSlide({ formData, setFormData, onNext, onPrevious }: Red
               <label key={improvement.id} className="flex items-center space-x-3">
                 <input
                   type="checkbox"
-                  name="improvements"
+                  name={improvement.id}
                   value={improvement.id}
-                  checked={formData.redesign?.improvements?.[improvement.id] || false}
+                  checked={formData.redesign_details?.improvements?.[improvement.id] || false}
                   onChange={handleChange}
+                  className="rounded border-gray-300 text-violet-600 focus:ring-violet-500"
                 />
                 <span>{improvement.label}</span>
               </label>
             ))}
           </div>
+        </div>
+
+        <div className="bg-gray-50 p-6 rounded-lg">
+          <label className="block text-sm font-medium text-gray-700 mb-2">
+            Points d'amélioration spécifiques
+          </label>
+          <textarea
+            name="painPoints"
+            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-violet-500"
+            value={formData.redesign_details?.painPoints?.join('\n') || ''}
+            onChange={(e) => {
+              setFormData({
+                ...formData,
+                redesign_details: {
+                  ...formData.redesign_details,
+                  painPoints: e.target.value.split('\n').filter(point => point.trim() !== '')
+                }
+              });
+            }}
+            placeholder="Listez vos points d'amélioration (un par ligne)"
+            rows={4}
+          />
+        </div>
+
+        <div className="bg-gray-50 p-6 rounded-lg">
+          <label className="block text-sm font-medium text-gray-700 mb-2">
+            Fonctionnalités souhaitées
+          </label>
+          <textarea
+            name="desiredFeatures"
+            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-violet-500"
+            value={formData.redesign_details?.desiredFeatures?.join('\n') || ''}
+            onChange={(e) => {
+              setFormData({
+                ...formData,
+                redesign_details: {
+                  ...formData.redesign_details,
+                  desiredFeatures: e.target.value.split('\n').filter(feature => feature.trim() !== '')
+                }
+              });
+            }}
+            placeholder="Listez les nouvelles fonctionnalités souhaitées (une par ligne)"
+            rows={4}
+          />
         </div>
       </div>
     </SlideWrapper>

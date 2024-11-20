@@ -1,8 +1,9 @@
 import { SlideWrapper } from "./SlideWrapper";
+import { FormData } from "../types";
 
 interface FinalizationSlideProps {
-  formData: any;
-  setFormData: (data: any) => void;
+  formData: FormData;
+  setFormData: (data: FormData) => void;
   onSubmit: () => void;
   onPrevious: () => void;
 }
@@ -34,10 +35,10 @@ export function FinalizationSlide({ formData, setFormData, onSubmit, onPrevious 
           </label>
           <input
             type="text"
-            name="fullName"
+            name="name"
             required
             className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-violet-500"
-            value={formData.contact?.fullName || ''}
+            value={formData.contact?.name || ''}
             onChange={handleChange}
           />
         </div>
@@ -78,6 +79,35 @@ export function FinalizationSlide({ formData, setFormData, onSubmit, onPrevious 
             rows={4}
             className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-violet-500"
             value={formData.contact?.comments || ''}
+            onChange={handleChange}
+          />
+        </div>
+
+        <div className="bg-gray-50 p-6 rounded-lg">
+          <label className="block text-sm font-medium text-gray-700 mb-2">
+            Méthode de contact préférée
+          </label>
+          <select
+            name="preferredContact"
+            required
+            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-violet-500"
+            value={formData.contact?.preferredContact || 'email'}
+            onChange={handleChange}
+          >
+            <option value="email">Email</option>
+            <option value="phone">Téléphone</option>
+          </select>
+        </div>
+
+        <div className="bg-gray-50 p-6 rounded-lg">
+          <label className="block text-sm font-medium text-gray-700 mb-2">
+            Rôle dans l'entreprise
+          </label>
+          <input
+            type="text"
+            name="role"
+            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-violet-500"
+            value={formData.contact?.role || ''}
             onChange={handleChange}
           />
         </div>
