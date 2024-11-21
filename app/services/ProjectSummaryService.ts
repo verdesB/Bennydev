@@ -1,17 +1,34 @@
-import fs from 'fs/promises';
-import path from 'path';
+import { createClient } from '@supabase/supabase-js';
 import { FormData, ProjectType } from '../components/ProjectForm/types';
 
 export class ProjectSummaryService {
-  private async createMarkdownFile(projectCode: string, content: string) {
-    const dirPath = path.join(process.cwd(), 'public', 'projects');
-    const filePath = path.join(dirPath, `${projectCode}.md`);
+  private supabase;
 
+  constructor() {
+    this.supabase = createClient(
+      process.env.NEXT_PUBLIC_SUPABASE_URL!,
+      process.env.SUPABASE_SERVICE_ROLE_KEY!
+    );
+  }
+
+  private async createMarkdownFile(projectCode: string, content: string) {
     try {
-      await fs.mkdir(dirPath, { recursive: true });
-      await fs.writeFile(filePath, content, 'utf-8');
+      console.log('Tentative d\'upload...');
+      
+      const { data, error } = await this.supabase.storage
+        .from('bennydev.projets')
+        .upload(`${projectCode}.md`, content, {
+          contentType: 'text/markdown; charset=utf-8',
+          upsert: true
+        });
+
+      if (error) {
+        console.log('Erreur détaillée:', error);
+        throw error;
+      }
+      return data;
     } catch (error) {
-      console.error('Erreur lors de la création du fichier:', error);
+      console.error('Erreur complète:', error);
       throw error;
     }
   }
@@ -229,7 +246,7 @@ ${details.desiredFeatures?.map(feature => `- ${feature}`).join('\n') || 'Non sp�
 ## Détails Application Web
 - Type d'application: ${getAppTypeLabel(details.appType)}${details.appTypeOther ? ` (${details.appTypeOther})` : ''}
 - Nombre d'utilisateurs estimé: ${details.userCount || 'Non spécifié'}
-- Niveau d'accès: ${getAccessLevelLabel(details.accessLevel) || 'Non spécifié'}
+- Niveau d'accès: ${getAccessLevelLabel(details.accessLevel) || 'Non sp��cifié'}
 
 ### Fonctionnalités clés
 ${Object.entries(details.keyFeatures || {})
