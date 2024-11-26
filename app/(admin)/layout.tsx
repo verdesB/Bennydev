@@ -3,14 +3,33 @@
 import { Sidebar } from "@/components/ui/sidebar"
 import { SidebarNav } from "@/components/sidebar-nav"
 import { User2, Settings, LayoutDashboard, Users, FileText, LogOut } from "lucide-react"
-import { useAuth } from "@/lib/auth"
+import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
+import { useRouter } from 'next/navigation'
+import { toast } from "sonner"
 
 export default function AdminLayout({
   children,
 }: {
   children: React.ReactNode
 }) {
-  const { signOut } = useAuth()
+  const router = useRouter()
+  const supabase = createClientComponentClient()
+
+  const handleSignOut = async (e: React.MouseEvent) => {
+    e.preventDefault()
+    try {
+      const { error } = await supabase.auth.signOut()
+      if (error) {
+        throw error
+      }
+      toast.success('Déconnexion réussie')
+      router.push('/login')
+      router.refresh()
+    } catch (error) {
+      console.error('Erreur lors de la déconnexion:', error)
+      toast.error('Erreur lors de la déconnexion')
+    }
+  }
 
   const sidebarNavItems = [
     {
@@ -19,25 +38,25 @@ export default function AdminLayout({
       icon: <LayoutDashboard className="h-4 w-4" />,
     },
     {
-      title: "Clients",
-      href: "/admin/clients",
-      icon: <Users className="h-4 w-4" />,
-    },
-    {
       title: "Projets",
       href: "/admin/projets",
       icon: <FileText className="h-4 w-4" />,
     },
     {
+      title: "Utilisateurs",
+      href: "/admin/utilisateurs",
+      icon: <Users className="h-4 w-4" />,
+    },
+    {
       title: "Paramètres",
-      href: "/admin/settings",
+      href: "/admin/parametres",
       icon: <Settings className="h-4 w-4" />,
     },
     {
       title: "Déconnexion",
       href: "#",
       icon: <LogOut className="h-4 w-4" />,
-      onClick: signOut,
+      onClick: handleSignOut,
     },
   ]
 
@@ -48,7 +67,6 @@ export default function AdminLayout({
           <div className="flex-1 py-4">
             <SidebarNav items={sidebarNavItems} />
           </div>
-          
           <div className="border-t p-4">
             <SidebarNav 
               items={[{
@@ -61,7 +79,7 @@ export default function AdminLayout({
           </div>
         </div>
       </Sidebar>
-      <main className="flex-1 p-8">
+      <main className="flex-1 p-8 overflow-hidden">
         {children}
       </main>
     </div>

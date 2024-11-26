@@ -24,7 +24,25 @@ export default function LoginPage() {
         password,
       });
 
-      if (signInError) throw signInError;
+      if (signInError) {
+        // Gestion spéciale pour l'erreur d'email non confirmé
+        if (signInError.message.includes('Email not confirmed')) {
+          // Renvoyer l'email de confirmation
+          const { error: resendError } = await supabase.auth.resend({
+            type: 'signup',
+            email: email,
+            options: {
+              emailRedirectTo: `${window.location.origin}/login`,
+            },
+          })
+
+          if (resendError) throw resendError
+          
+          throw new Error('Email non confirmé. Un nouveau lien de confirmation vous a été envoyé.')
+        }
+        throw signInError
+      }
+
       if (!session) throw new Error('Pas de session');
 
       console.log('Session utilisateur:', session.user);

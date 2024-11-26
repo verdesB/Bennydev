@@ -1,4 +1,4 @@
- "use client"
+"use client"
 
 import Link from "next/link"
 import { usePathname } from "next/navigation"
@@ -9,7 +9,7 @@ interface NavItem {
   title: string
   href: string
   icon: React.ReactNode
-  onClick?: () => void
+  onClick?: (e: React.MouseEvent) => void
   subtitle?: string
 }
 

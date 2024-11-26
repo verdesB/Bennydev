@@ -1,32 +1,40 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Card } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
-import { ScrollArea } from '@/components/ui/scroll-area';
 import { Label } from "@/components/ui/label";
 import { PencilIcon, TrashIcon, ChevronUpIcon, ChevronDownIcon } from "lucide-react";
+import { toast } from 'sonner';
+import { ChatWebSocket } from '@/lib/websocket';
+import { useUser } from '@/hooks/useUser';
 
 interface Project {
-  id: number;
+  id: string;
   name: string;
-  client: string;
   description: string;
+  type: string;
   status: string;
   startDate: string;
   endDate: string;
   budget: number;
-  figmaUrl?: string;
-  stagingUrl?: string;
+  users: {
+    role: string;
+    displayName: string;
+  }[];
 }
 
 interface ChatMessage {
   id: number;
-  sender: string;
+  sender_id: string;
   message: string;
-  timestamp: Date;
+  created_at: string;
+  profiles: {
+    first_name?: string | null;
+    last_name?: string | null;
+  };
 }
 
 interface ProjectImage {
@@ -48,27 +56,18 @@ const PROJECT_STATUSES = [
 ];
 
 const ProjectsPage = () => {
-  const projects: Project[] = [
-    {
-      id: 1,
-      name: "Website Redesign",
-      client: "ABC Company",
-      description: "Complete modernization of corporate website",
-      status: "In Progress",
-      startDate: "2024-01-15",
-      endDate: "2024-06-30",
-      budget: 2000
-    },
-    // ... other projects
-  ];
-
+  const [projects, setProjects] = useState<Project[]>([]);
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [messages, setMessages] = useState<ChatMessage[]>([
     {
       id: 1,
-      sender: "John Doe",
+      sender_id: "John Doe",
       message: "Premier message concernant le projet",
-      timestamp: new Date()
+      created_at: new Date().toISOString(),
+      profiles: {
+        first_name: "John",
+        last_name: "Doe"
+      }
     },
     // ... autres messages
   ]);
@@ -93,45 +92,198 @@ const ProjectsPage = () => {
     },
     // ... autres images
   ]);
+  const [chatWebSocket, setChatWebSocket] = useState<ChatWebSocket | null>(null);
+  const { user, profile } = useUser();
 
-  const sendMessage = () => {
-    if (!newMessage.trim()) return;
+  useEffect(() => {
+    const fetchProjects = async () => {
+      try {
+        const response = await fetch('/api/get-all-projects');
+        const { data, error } = await response.json();
+        
+        if (error) throw new Error(error);
+        
+        console.log('Données reçues:', data);
+        
+        if (!Array.isArray(data)) {
+          console.error('Les données ne sont pas un tableau:', data);
+          return;
+        }
+
+        const formattedProjects = data.map(project => ({
+          id: project.id,
+          name: project.name,
+          description: project.description,
+          type: project.type,
+          status: project.state,
+          startDate: project.starter_date,
+          endDate: project.focus_date,
+          budget: project.budget,
+          users: project.user_projects?.map(up => ({
+            role: up.role,
+            displayName: up.role === 'member' && up.profile 
+              ? `${up.profile.first_name || "bennydev"} ${up.profile.last_name || "bennydev"}`
+              : 'Inconnu'
+          })) || []
+        }));
+
+        console.log('Projets formatés:', formattedProjects);
+        setProjects(formattedProjects);
+      } catch (error) {
+        console.error('Erreur lors de la récupération des projets:', error);
+      }
+    };
+
+    fetchProjects();
+  }, []);
+
+  useEffect(() => {
+    if (selectedProject) {
+      const loadMessages = async () => {
+        try {
+          const response = await fetch(`/api/projects/${selectedProject.id}/messages`, {
+            credentials: 'include'
+          });
+          
+          if (!response.ok) {
+            const error = await response.json();
+            throw new Error(error.error);
+          }
+          
+          const { data } = await response.json();
+          setMessages(data || []);
+        } catch (error) {
+          console.error('Erreur chargement messages:', error);
+          toast.error('Erreur lors du chargement des messages');
+        }
+      };
+
+      loadMessages();
+
+      const ws = new ChatWebSocket();
+      
+      setTimeout(() => {
+        ws.subscribeToProject(selectedProject.id, (newMessage) => {
+          console.log('Message reçu via WebSocket:', newMessage);
+          setMessages((prevMessages) => [...prevMessages, newMessage]);
+        });
+      }, 1000);
+
+      setChatWebSocket(ws);
+
+      return () => {
+        if (ws) {
+          ws.unsubscribe();
+          ws.close();
+        }
+      };
+    }
+  }, [selectedProject]);
+
+  const sendMessage = async () => {
+    if (!newMessage.trim() || !selectedProject) return;
+
+    try {
+      const response = await fetch(`/api/projects/${selectedProject.id}/messages`, {
+        method: 'POST',
+        headers: { 
+          'Content-Type': 'application/json'
+        },
+        credentials: 'include',
+        body: JSON.stringify({ message: newMessage.trim() })
+      });
+
+      const data = await response.json();
+      
+      if (!response.ok) {
+        throw new Error(data.error || 'Erreur lors de l\'envoi du message');
+      }
+
+      setNewMessage('');
+      
+    } catch (error: any) {
+      console.error('Erreur envoi message:', error);
+      toast.error(error.message || 'Erreur lors de l\'envoi du message');
+    }
+  };
+
+  const handleUpdateStatus = async () => {
+    if (!selectedProject) return; // Vérification importante
     
-    setMessages([...messages, {
-      id: messages.length + 1,
-      sender: "Vous",
-      message: newMessage,
-      timestamp: new Date()
-    }]);
-    setNewMessage('');
+    try {
+      // Debug logs
+      console.log('Selected Project:', selectedProject);
+      console.log('Project ID being sent:', selectedProject.id);
+      console.log('New Status:', tempStatus);
+  
+      const response = await fetch(`/api/projects/${selectedProject.id}/update-status`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ status: tempStatus })
+      });
+  
+      const data = await response.json();
+      
+      // Si on reçoit une erreur 404
+      if (response.status === 404) {
+        toast.error('Projet non trouvé');
+        return;
+      }
+  
+      if (!response.ok) {
+        throw new Error(data.error);
+      }
+  
+      toast.success('Statut mis à jour avec succès');
+      // Rafraîchir les données ou mettre à jour l'état local
+    } catch (error: any) {
+      console.error('Erreur complète:', error);
+      toast.error(error.message || 'Erreur lors de la mise à jour');
+    }
   };
 
-  const handleUpdateStagingUrl = () => {
-    console.log('Mise à jour de l\'URL:', tempStagingUrl);
-    // updateProject({ ...selectedProject, stagingUrl: tempStagingUrl })
-  };
-
-  const handleUpdateFigmaUrl = () => {
-    console.log('Mise à jour du lien Figma:', tempFigmaUrl);
-    // updateProject({ ...selectedProject, figmaUrl: tempFigmaUrl })
-  };
-
-  const handleUpdateStatus = () => {
-    if (!tempStatus) return;
-    console.log('Mise à jour du statut:', tempStatus);
-    // updateProject({ ...selectedProject, status: tempStatus })
+  const handleUpdateUrls = async () => {
+    if (!selectedProject) return;
+    
+    try {
+      const response = await fetch(`/api/projects/${selectedProject.id}/update-urls`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          figmaUrl: tempFigmaUrl || selectedProject.figmaUrl,
+          stagingUrl: tempStagingUrl || selectedProject.stagingUrl
+        })
+      });
+      
+      const { data, error } = await response.json();
+      if (error) throw error;
+      
+      setSelectedProject(prev => prev ? {
+        ...prev,
+        figmaUrl: tempFigmaUrl || prev.figmaUrl,
+        stagingUrl: tempStagingUrl || prev.stagingUrl
+      } : null);
+      
+      setTempFigmaUrl('');
+      setTempStagingUrl('');
+      toast.success('URLs mises à jour avec succès');
+    } catch (error) {
+      console.error(error);
+      toast.error('Erreur lors de la mise à jour des URLs');
+    }
   };
 
   return (
-    <div className="h-full flex flex-col">
-      <div className="flex items-center justify-between p-6">
+    <div className="max-h-screen flex flex-col overflow-hidden">
+      {/* Header - hauteur fixe */}
+      <div className="flex items-center justify-between px-6 py-4 h-16">
         <h1 className="text-3xl font-bold">Gestion des Projets</h1>
-        
-        {/* Project Selector */}
         <div className="w-[300px]">
           <Select
             onValueChange={(value) => {
-              const project = projects.find(p => p.id.toString() === value);
+              const project = projects.find(p => p.id === value);
               setSelectedProject(project || null);
             }}
           >
@@ -140,8 +292,8 @@ const ProjectsPage = () => {
             </SelectTrigger>
             <SelectContent>
               {projects.map((project) => (
-                <SelectItem key={project.id} value={project.id.toString()}>
-                  {project.name} - {project.client}
+                <SelectItem key={project.id} value={project.id}>
+                  {project.name}
                 </SelectItem>
               ))}
             </SelectContent>
@@ -149,13 +301,13 @@ const ProjectsPage = () => {
         </div>
       </div>
 
-      {/* Main Content Area */}
-      <div className="flex-1 p-6 pt-0">
+      {/* Contenu principal - prend le reste de l'espace */}
+      
         {selectedProject ? (
-          <Card className="h-full">
-            <div className="grid grid-cols-[1fr,400px] h-full">
-              {/* Project Details - Scrollable */}
-              <div className="border-r overflow-y-scroll h-[calc(100vh-12rem)]">
+          <Card className="h-[calc(100vh-8rem)] mx-6">
+            <div className="grid grid-cols-[1fr,600px] h-full">
+              {/* Partie gauche avec scroll */}
+              <div className="overflow-y-scroll border-r h-full ">
                 <div className="p-6">
                   <div className="flex items-center justify-between mb-6">
                     <h2 className="text-2xl font-semibold text-gray-900">
@@ -174,7 +326,9 @@ const ProjectsPage = () => {
                       <div className="space-y-4">
                         <div>
                           <label className="text-sm text-gray-500">Client</label>
-                          <p className="font-medium text-gray-900">{selectedProject.client}</p>
+                          <p className="font-medium text-gray-900">
+                            {selectedProject.users.find(u => u.role === 'member')?.displayName}
+                          </p>
                         </div>
                         <div>
                           <label className="text-sm text-gray-500">Date de début</label>
@@ -337,131 +491,112 @@ const ProjectsPage = () => {
                       </div>
                     </div>
 
-                    {/* Figma Link Section */}
-                    <div className="border-t pt-6">
-                      <div className="space-y-2">
-                        <Label htmlFor="figmaUrl" className="text-sm text-gray-500">
-                          Lien Figma (Maquette)
-                        </Label>
-                        <div className="flex gap-3">
-                          <Input
-                            id="figmaUrl"
-                            placeholder="https://figma.com/file/..."
-                            value={tempFigmaUrl || selectedProject.figmaUrl || ''}
-                            onChange={(e) => setTempFigmaUrl(e.target.value)}
-                            className="flex-1"
-                          />
-                          <Button
-                            onClick={handleUpdateFigmaUrl}
-                            className="bg-blue-600 hover:bg-blue-700 text-white"
-                          >
-                            Enregistrer
-                          </Button>
-                          {selectedProject.figmaUrl && (
+                    {/* Figma and Staging URL Section */}
+                    <div className="border-t pt-6 space-y-6">
+                      <div className="grid grid-cols-1 gap-6">
+                        {/* Figma URL */}
+                        <div className="bg-white p-4 rounded-lg shadow-sm">
+                          <Label htmlFor="figmaUrl" className="text-sm font-medium mb-2 block">
+                            Lien Figma (Maquette)
+                          </Label>
+                          <div className="flex gap-3">
+                            <Input
+                              id="figmaUrl"
+                              placeholder="https://figma.com/file/..."
+                              value={tempFigmaUrl || selectedProject.figmaUrl || ''}
+                              onChange={(e) => setTempFigmaUrl(e.target.value)}
+                              className="flex-1"
+                            />
                             <Button
-                              variant="outline"
-                              onClick={() => window.open(selectedProject.figmaUrl, '_blank')}
-                              className="whitespace-nowrap"
+                              onClick={handleUpdateUrls}
+                              className="bg-blue-600 hover:bg-blue-700 text-white"
+                              disabled={!tempFigmaUrl && !tempStagingUrl}
                             >
-                              Voir Figma
+                              Enregistrer
                             </Button>
-                          )}
+                          </div>
                         </div>
-                        <p className="text-xs text-gray-500">
-                          Lien vers la maquette Figma du projet
-                        </p>
-                      </div>
-                    </div>
 
-                    {/* Staging URL Section */}
-                    <div className="border-t pt-6">
-                      <div className="space-y-2">
-                        <Label htmlFor="stagingUrl" className="text-sm text-gray-500">
-                          Lien de préproduction
-                        </Label>
-                        <div className="flex gap-3">
-                          <Input
-                            id="stagingUrl"
-                            placeholder="https://staging.votreprojet.com"
-                            value={tempStagingUrl || selectedProject.stagingUrl || ''}
-                            onChange={(e) => setTempStagingUrl(e.target.value)}
-                            className="flex-1"
-                          />
-                          <Button
-                            onClick={handleUpdateStagingUrl}
-                            className="bg-blue-600 hover:bg-blue-700 text-white"
-                          >
-                            Enregistrer
-                          </Button>
-                          {selectedProject.stagingUrl && (
+                        {/* Staging URL */}
+                        <div className="bg-white p-4 rounded-lg shadow-sm">
+                          <Label htmlFor="stagingUrl" className="text-sm font-medium mb-2 block">
+                            Lien de préproduction
+                          </Label>
+                          <div className="flex gap-3">
+                            <Input
+                              id="stagingUrl"
+                              placeholder="https://staging.votreprojet.com"
+                              value={tempStagingUrl || selectedProject.stagingUrl || ''}
+                              onChange={(e) => setTempStagingUrl(e.target.value)}
+                              className="flex-1"
+                            />
                             <Button
-                              variant="outline"
-                              onClick={() => window.open(selectedProject.stagingUrl, '_blank')}
-                              className="whitespace-nowrap"
+                              onClick={handleUpdateUrls}
+                              className="bg-blue-600 hover:bg-blue-700 text-white"
+                              disabled={!tempFigmaUrl && !tempStagingUrl}
                             >
-                              Voir le site
+                              Enregistrer
                             </Button>
-                          )}
+                          </div>
                         </div>
-                        <p className="text-xs text-gray-500">
-                          Entrez l'URL complète du site en préproduction
-                        </p>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
 
-              {/* Chat Section - Fixed */}
-              <div className="flex flex-col h-full bg-gray-50">
+              {/* Section chat - hauteur fixe */}
+              <div className="flex flex-col h-full">
+                {/* Header chat */}
                 <div className="p-4 border-b bg-white">
                   <h3 className="font-semibold text-lg">Discussion du projet</h3>
                 </div>
                 
-                <ScrollArea className="flex-1">
-                  <div className="p-6 space-y-6">
-                    {messages.map((msg) => (
-                      <div 
-                        key={msg.id}
-                        className={`flex flex-col ${
-                          msg.sender === "Vous" ? "items-end" : "items-start"
-                        }`}
-                      >
-                        <div className="flex flex-col space-y-1">
-                          <span className="text-sm text-gray-500 mx-2">
-                            {msg.sender}
-                          </span>
-                          <div className={`
-                            max-w-[320px] rounded-2xl p-4 shadow-sm
-                            ${msg.sender === "Vous" 
-                              ? "bg-blue-600 text-white rounded-tr-none" 
-                              : "bg-white rounded-tl-none"
-                            }
-                          `}>
-                            <p className="text-[15px] leading-relaxed">{msg.message}</p>
-                            <p className={`text-xs mt-2 ${
-                              msg.sender === "Vous" 
-                                ? "text-blue-100" 
-                                : "text-gray-500"
-                            }`}>
-                              {msg.timestamp.toLocaleTimeString('fr-FR', {
-                                hour: '2-digit',
-                                minute: '2-digit'
-                              })}
-                            </p>
-                          </div>
+                {/* Messages avec scroll */}
+                <div className="flex-1 overflow-y-scroll p-6 space-y-6 max-h-[calc(100vh-18rem)]">
+                  {messages.map((msg) => (
+                    <div 
+                      key={msg.id}
+                      className={`flex flex-col ${
+                        msg.sender_id === user?.id ? "items-end" : "items-start"
+                      }`}
+                    >
+                      <div className="flex flex-col space-y-1">
+                        <span className="text-sm text-gray-500 mx-2">
+                          {msg.sender_id === user?.id ? "Vous" : 
+                           msg.profiles ? `${msg.profiles.first_name || ''} ${msg.profiles.last_name || ''}` : 'Utilisateur'}
+                        </span>
+                        <div className={`
+                          max-w-[320px] rounded-2xl p-4 shadow-sm
+                          ${msg.sender_id === user?.id 
+                            ? "bg-blue-600 text-white rounded-tr-none" 
+                            : "bg-white rounded-tl-none"
+                          }
+                        `}>
+                          <p className="text-[15px] leading-relaxed">{msg.message}</p>
+                          <p className={`text-xs mt-2 ${
+                            msg.sender_id === user?.id 
+                              ? "text-blue-100" 
+                              : "text-gray-500"
+                          }`}>
+                            {new Date(msg.created_at).toLocaleTimeString('fr-FR', {
+                              hour: '2-digit',
+                              minute: '2-digit'
+                            })}
+                          </p>
                         </div>
                       </div>
-                    ))}
-                  </div>
-                </ScrollArea>
+                    </div>
+                  ))}
+                </div>
 
+                {/* Footer chat */}
                 <div className="p-4 border-t bg-white">
                   <form 
                     onSubmit={(e) => {
                       e.preventDefault();
                       sendMessage();
-                    }}
+                    }} 
                     className="flex gap-2"
                   >
                     <Input
@@ -481,7 +616,7 @@ const ProjectsPage = () => {
             Sélectionnez un projet pour voir les détails
           </div>
         )}
-      </div>
+      
     </div>
   );
 };

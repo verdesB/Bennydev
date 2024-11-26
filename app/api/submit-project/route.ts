@@ -1,7 +1,7 @@
 import { projectFormSchema } from '../../validations/projectSchemas';
 import { ProjectSummaryService } from '../../services/ProjectSummaryService';
 import { generateProjectCode } from '../../utils/generateCode';
-
+import { FormData } from '../../components/ProjectForm/types';
 export async function POST(request: Request) {
   try {
     // 1. Récupération et validation des données
@@ -26,11 +26,11 @@ export async function POST(request: Request) {
     }
 
     // 3. Utilisation des données validées
-    const formData = validationResult.data;
+    const formData = validationResult.data as FormData;
     const projectCode = generateProjectCode();
     
     const summaryService = new ProjectSummaryService();
-    await summaryService.generateProjectSummary(rawData, projectCode);
+    await summaryService.generateProjectSummary(formData, projectCode);
 
     return Response.json({ 
       success: true, 

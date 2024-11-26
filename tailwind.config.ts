@@ -94,7 +94,7 @@ const config: Config = {
   		}
   	}
   },
-  plugins: [addVariablesForColors, require("tailwindcss-animate")],
+  plugins: [addVariablesForColors, require("tailwindcss-animate"), require('@tailwindcss/typography'),],
 }
 
 // Définition du type pour la fonction plugin

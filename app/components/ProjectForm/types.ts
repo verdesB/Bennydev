@@ -3,7 +3,8 @@ export enum ProjectType {
   ECOMMERCE = 'ecommerce',
   API = 'api',
   SEO = 'seo',
-  REDESIGN = 'redesign'
+  REDESIGN = 'redesign',
+  WEBAPP = 'webapp'
 }
 
 export interface SlideProps {
