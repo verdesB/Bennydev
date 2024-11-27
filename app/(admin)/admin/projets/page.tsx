@@ -20,6 +20,8 @@ interface Project {
   startDate: string;
   endDate: string;
   budget: number;
+  figma_link: string;
+  pre_prod_url: string;
   users: {
     role: string;
     displayName: string;
@@ -252,18 +254,17 @@ const ProjectsPage = () => {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          figmaUrl: tempFigmaUrl || selectedProject.figmaUrl,
-          stagingUrl: tempStagingUrl || selectedProject.stagingUrl
+          figma_link: tempFigmaUrl || selectedProject?.figma_link,
+          pre_prod_url: tempStagingUrl || selectedProject?.pre_prod_url
         })
       });
-      
       const { data, error } = await response.json();
       if (error) throw error;
       
       setSelectedProject(prev => prev ? {
         ...prev,
-        figmaUrl: tempFigmaUrl || prev.figmaUrl,
-        stagingUrl: tempStagingUrl || prev.stagingUrl
+        figma_link: tempFigmaUrl || prev.figma_link,
+        pre_prod_url: tempStagingUrl || prev.pre_prod_url
       } : null);
       
       setTempFigmaUrl('');
@@ -503,7 +504,7 @@ const ProjectsPage = () => {
                             <Input
                               id="figmaUrl"
                               placeholder="https://figma.com/file/..."
-                              value={tempFigmaUrl || selectedProject.figmaUrl || ''}
+                              value={tempFigmaUrl || selectedProject.figma_link || ''}
                               onChange={(e) => setTempFigmaUrl(e.target.value)}
                               className="flex-1"
                             />
@@ -526,7 +527,7 @@ const ProjectsPage = () => {
                             <Input
                               id="stagingUrl"
                               placeholder="https://staging.votreprojet.com"
-                              value={tempStagingUrl || selectedProject.stagingUrl || ''}
+                              value={tempStagingUrl || selectedProject.pre_prod_url || ''}
                               onChange={(e) => setTempStagingUrl(e.target.value)}
                               className="flex-1"
                             />

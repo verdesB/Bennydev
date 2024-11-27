@@ -88,7 +88,7 @@ export default async function AdminPage() {
 
   return (
     <div className="h-[calc(100vh-80px)] p-6 bg-gradient-to-b from-background to-muted/20">
-      <div className="max-w-7xl mx-auto space-y-8">
+      <div className="max-w-7xl m-auto space-y-8">
         {/* En-tête */}
         <div className="flex items-end justify-between">
           <div>

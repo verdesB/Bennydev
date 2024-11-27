@@ -43,9 +43,14 @@ export default function AdminLayout({
       icon: <FileText className="h-4 w-4" />,
     },
     {
-      title: "Utilisateurs",
-      href: "/admin/utilisateurs",
+      title: "Clients",
+      href: "/admin/clients",
       icon: <Users className="h-4 w-4" />,
+    },
+    {
+      title: "Demandes",
+      href: "/admin/demande",
+      icon: <FileText className="h-4 w-4" />,
     },
     {
       title: "Paramètres",
