@@ -1,24 +1,21 @@
-'use client'
+import { useEffect, useState } from 'react'
+import Header from './Header'
+import FileCard from './FileCard'
+import Loading from '../Loading'
+import Error from '../Error'
 
-import  useDemandeLogic from './hooks/useDemandeLogic'
-import Header from './components/Header'
-import FileCard from './components/FileCard'
-import Loading from './Loading'
-import Error from './Error'
+// ... autres imports et logique ...
 
-const DemandePage = () => {
-    const {
-        files,
-        loading,
-        error,
-        expandedFiles,
-        takenRequests,
-        toggleExpand,
-        markFileAsViewed
-    } = useDemandeLogic()
+const Demande = () => {
+    // ... état et logique ...
 
-    if (loading) return <Loading />
-    if (error) return <Error error={error} />
+    if (loading) {
+        return <Loading />
+    }
+
+    if (error) {
+        return <Error error={error} />
+    }
 
     return (
         <div className="container mr-auto p-8 max-w-7xl">
@@ -26,7 +23,7 @@ const DemandePage = () => {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 {files.map((file) => (
                     <FileCard 
-                        key={file.id}
+                        key={file.id} 
                         file={file}
                         expandedFiles={expandedFiles}
                         toggleExpand={toggleExpand}
@@ -39,4 +36,4 @@ const DemandePage = () => {
     )
 }
 
-export default DemandePage
+export default Demande 

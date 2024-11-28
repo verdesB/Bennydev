@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
@@ -22,7 +23,7 @@ export const UrlsSection = ({
   setTempStagingUrl,
   handleUpdateUrls
 }: UrlsSectionProps) => (
-  <div className="border-t pt-6 space-y-6">
+  <Card className="border-t pt-6 space-y-6 bg-white p-4 shadow-[0_4px_20px_-1px_rgba(147,51,234,0.2)] hover:shadow-[0_4px_20px_-1px_rgba(147,51,234,0.3)] transition-shadow">
     <div className="grid grid-cols-1 gap-6">
       {/* Figma URL */}
       <div className="bg-white p-4 rounded-lg shadow-sm">
@@ -70,5 +71,5 @@ export const UrlsSection = ({
         </div>
       </div>
     </div>
-  </div>
+  </Card>
 ); 

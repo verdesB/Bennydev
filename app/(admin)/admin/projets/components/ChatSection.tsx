@@ -27,14 +27,9 @@ export const ChatSection = ({
   }, [messages]);
 
   return (
-    <div className="flex flex-col h-full">
-      {/* Header chat */}
-      <div className="p-4 border-b bg-white">
-        <h3 className="font-semibold text-lg">Discussion du projet</h3>
-      </div>
-      
+    <div className="flex flex-col h-full mt-4">
       {/* Messages avec scroll */}
-      <div className="flex-1 overflow-y-scroll p-6 space-y-6 max-h-[calc(100vh-18rem)]">
+      <div className="flex-1 overflow-y-scroll p-6 space-y-6 max-h-[calc(100vh-10rem)] scrollbar-thin scrollbar-track-transparent scrollbar-thumb-purple-300/20 hover:scrollbar-thumb-purple-400/30">
         {messages.map((msg) => (
           <div 
             key={msg.id}
@@ -43,22 +38,22 @@ export const ChatSection = ({
             }`}
           >
             <div className="flex flex-col space-y-1">
-              <span className="text-sm text-gray-500 mx-2">
+              <span className="text-sm text-gray-500/80 mx-2">
                 {msg.sender_id === user?.id ? "Vous" : 
                  msg.profiles ? `${msg.profiles.first_name || ''} ${msg.profiles.last_name || ''}` : 'Utilisateur'}
               </span>
               <div className={`
-                max-w-[320px] rounded-2xl p-4 shadow-sm
+                max-w-[320px] rounded-2xl p-4
                 ${msg.sender_id === user?.id 
-                  ? "bg-blue-600 text-white rounded-tr-none" 
-                  : "bg-white rounded-tl-none"
+                  ? "bg-purple-600/90 backdrop-blur-sm text-white rounded-tr-none" 
+                  : "bg-white/80 backdrop-blur-sm rounded-tl-none"
                 }
               `}>
                 <p className="text-[15px] leading-relaxed">{msg.message}</p>
                 <p className={`text-xs mt-2 ${
                   msg.sender_id === user?.id 
-                    ? "text-blue-100" 
-                    : "text-gray-500"
+                    ? "text-purple-100/70" 
+                    : "text-gray-500/70"
                 }`}>
                   {new Date(msg.created_at).toLocaleTimeString('fr-FR', {
                     hour: '2-digit',
@@ -73,19 +68,19 @@ export const ChatSection = ({
       </div>
 
       {/* Footer chat */}
-      <div className="p-4 border-t bg-white">
+      <div className="p-4 border-t border-purple-200/20 bg-white/5 backdrop-blur-md rounded-2xl overflow-hidden">
         <form 
           onSubmit={(e) => {
             e.preventDefault();
             sendMessage();
           }} 
-          className="flex gap-2"
+          className="flex gap-2 rounded-2xl"
         >
           <Input
             value={newMessage}
             onChange={(e) => setNewMessage(e.target.value)}
             placeholder="Votre message..."
-            className="flex-1"
+            className="flex-1 bg-white"
           />
           <Button type="submit">Envoyer</Button>
         </form>

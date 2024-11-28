@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
@@ -21,7 +22,7 @@ export const StatusSection = ({
   handleUpdateStatus,
   PROJECT_STATUSES
 }: StatusSectionProps) => (
-  <div className="border-t pt-6">
+  <Card className="h-full border-t pt-6 bg-white p-4 shadow-[0_4px_20px_-1px_rgba(147,51,234,0.2)] hover:shadow-[0_4px_20px_-1px_rgba(147,51,234,0.3)] transition-shadow">
     <div className="space-y-2">
       <Label htmlFor="projectStatus" className="text-sm text-gray-500">
         État du projet
@@ -67,5 +68,5 @@ export const StatusSection = ({
         La mise à jour de l'état enverra une notification au client
       </p>
     </div>
-  </div>
+  </Card>
 ); 

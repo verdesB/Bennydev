@@ -1,7 +1,8 @@
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
-import { PencilIcon, TrashIcon, ChevronUpIcon, ChevronDownIcon } from "lucide-react";
+import { PencilIcon, TrashIcon, ChevronUpIcon, ChevronDownIcon, Upload } from "lucide-react";
+import Link from "next/link";
 
 interface ProjectImage {
   id: number;
@@ -16,86 +17,53 @@ interface ImagesSectionProps {
 }
 
 export const ImagesSection = ({ projectImages }: ImagesSectionProps) => (
-  <div className="border-t pt-6">
-    <div className="space-y-4">
+  <Card className="border-t pt-6 bg-white p-4 shadow-[0_4px_20px_-1px_rgba(147,51,234,0.2)] hover:shadow-[0_4px_20px_-1px_rgba(147,51,234,0.3)] transition-shadow h-full flex flex-col flex-1">
+    <div className="flex-1 flex flex-col space-y-4">
       <div className="flex items-center justify-between">
         <Label className="text-sm text-gray-500">
           Images du projet
         </Label>
-        <Button variant="outline" size="sm" className="text-xs">
-          Ajouter une image
-        </Button>
+        <Link href="/admin/files-sharing">
+          <Button variant="outline" size="sm" className="text-xs gap-2">
+            <Upload className="h-3 w-3" />
+            Espace fichiers
+          </Button>
+        </Link>
       </div>
       
-      <div className="grid grid-cols-2 md:grid-cols-6 gap-4">
+      <div className="flex-1 grid grid-cols-8 gap-2 overflow-y-auto">
         {projectImages.map((image) => (
-          <Card key={image.id} className="overflow-hidden">
-            <div className="aspect-square relative group">
-              <img
-                src={image.url}
-                alt={image.caption}
-                className="object-cover w-full h-full"
-              />
-              <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-200 flex items-center justify-center gap-2">
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  className="text-white hover:text-white hover:bg-white/20"
-                  onClick={() => {
-                    // Logique pour éditer
-                  }}
-                >
-                  <PencilIcon className="h-4 w-4" />
-                </Button>
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  className="text-white hover:text-white hover:bg-white/20"
-                  onClick={() => {
-                    // Logique pour supprimer
-                  }}
-                >
-                  <TrashIcon className="h-4 w-4" />
-                </Button>
-              </div>
-            </div>
-            <div className="p-3 space-y-1">
-              <p className="font-medium text-sm truncate">
-                {image.caption}
-              </p>
-              <div className="flex items-center justify-between">
-                <span className="text-xs text-gray-500">
-                  Emplacement: {image.location}
-                </span>
-                <div className="flex items-center gap-1">
-                  <Button
-                    variant="ghost"
-                    size="icon"
-                    className="h-6 w-6"
-                    disabled={image.order === 1}
-                    onClick={() => {
-                      // Logique pour monter l'ordre
-                    }}
-                  >
-                    <ChevronUpIcon className="h-4 w-4" />
-                  </Button>
-                  <Button
-                    variant="ghost"
-                    size="icon"
-                    className="h-6 w-6"
-                    disabled={image.order === projectImages.length}
-                    onClick={() => {
-                      // Logique pour descendre l'ordre
-                    }}
-                  >
-                    <ChevronDownIcon className="h-4 w-4" />
-                  </Button>
-                </div>
-              </div>
+          <Card key={image.id} className="overflow-hidden aspect-square relative group">
+            <img
+              src={image.url}
+              alt={image.caption}
+              className="object-cover w-full h-full"
+            />
+            <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-200 flex items-center justify-center gap-1">
+              <Button
+                variant="ghost"
+                size="icon"
+                className="h-6 w-6 text-white hover:text-white hover:bg-white/20"
+                onClick={() => {
+                  // Logique pour éditer
+                }}
+              >
+                <PencilIcon className="h-3 w-3" />
+              </Button>
+              <Button
+                variant="ghost"
+                size="icon"
+                className="h-6 w-6 text-white hover:text-white hover:bg-white/20"
+                onClick={() => {
+                  // Logique pour supprimer
+                }}
+              >
+                <TrashIcon className="h-3 w-3" />
+              </Button>
             </div>
           </Card>
         ))}
       </div>
     </div>
-  </div>
+  </Card>
 ); 
