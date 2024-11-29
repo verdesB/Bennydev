@@ -63,7 +63,7 @@ const ProjectsPage = () => {
                   <MessageCircle className="h-5 w-5" />
                 </Button>
               </SheetTrigger>
-              <SheetContent className="w-[400px] sm:w-[600px] lg:w-[840px] xl:w-[1000px] bg-[rgba(147,51,234,0.1)] backdrop-blur-md">
+              <SheetContent className="w-[400px] sm:w-[600px] lg:w-[70px] xl:w-[800px] bg-[rgba(147,51,234,0.1)] backdrop-blur-md">
                 <SheetHeader>
                   <SheetTitle>Chat du projet</SheetTitle>
                 </SheetHeader>

@@ -2,6 +2,7 @@
 import { useEffect, useState } from 'react'
 import { useParams } from 'next/navigation'
 import ChatComponent from '../../../../components/chat/ChatComponent'
+import { SparklesCore } from '@/app/components/ui/sparkles'
 
 interface Project {
   id: string
@@ -166,8 +167,21 @@ export default function ProjectDetailPage() {
       </div>
 
       {/* Section chat */}
-      <div className="min-w-[600px] border-l border-gray-200 bg-white p-6 rounded-2xl">
-        <div className="h-full rounded-2xl bg-gray-50 overflow-hidden border border-gray-200">
+      <div className="min-w-[300px] max-w-[600px] border-l border-gray-200 bg-white p-6 rounded-2xl relative shadow-inner">
+      <div className="absolute inset-0 rounded-2xl overflow-hidden z-0">
+                  <SparklesCore 
+                    className="w-full h-full"
+                    background="rgba(244,242,255,0.015)"
+                    particleColor="#8b5cf6"
+                    particleDensity={100}
+                    speed={0.5}
+                    minSize={0.6}
+                    maxSize={1.4}
+                    particleSize={1}
+                  />
+                </div>
+        <div className="h-full rounded-2xl bg-gray-50 overflow-hidden border border-gray-200 z-20 relative
+        shadow-[0_4px_20px_-1px_rgba(147,51,234,0.2)] hover:shadow-[0_4px_20px_-1px_rgba(147,51,234,0.3)] transition-shadow">
           <ChatComponent projectId={params.id as string} />
         </div>
       </div>

@@ -25,7 +25,7 @@ export default function ChatComponent({ projectId }: ChatComponentProps) {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
   const [currentUserId, setCurrentUserId] = useState<string | null>(null)
-  const [adminId, setAdminId] = useState('f798f29d-7aec-47b4-885e-dc247d599745') // ID de BennyDev
+  
   const messagesEndRef = useRef<HTMLDivElement>(null)
   const [chatWebSocket, setChatWebSocket] = useState<ChatWebSocket | null>(null)
 
@@ -151,7 +151,7 @@ export default function ChatComponent({ projectId }: ChatComponentProps) {
                   className={`flex ${isCurrentUser ? 'justify-end' : 'justify-start'}`}
                 >
                   <div className={`
-                    max-w-[80%] 
+                    max-w-[50%] 
                     ${isCurrentUser 
                       ? 'bg-purple-600 text-white' 
                       : 'bg-white text-gray-800'} 

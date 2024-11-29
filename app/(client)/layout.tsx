@@ -2,7 +2,7 @@
 
 import { Sidebar } from "@/components/ui/sidebar"
 import { SidebarNav } from "@/components/sidebar-nav"
-import { User2, MessageSquare, FolderOpen, HelpCircle, LogOut } from "lucide-react"
+import { User2, MessageSquare, FolderOpen, HelpCircle, LogOut, Ticket } from "lucide-react"
 import { useAuth } from "@/lib/auth"
 
 export default function ClientLayout({
@@ -22,6 +22,11 @@ export default function ClientLayout({
       title: "Support",
       href: "/client/support",
       icon: <MessageSquare className="h-4 w-4" />,
+    },
+    {
+      title: "Ticket",
+      href: "/client/tickets",
+      icon: <Ticket className="h-4 w-4" />,
     },
     {
       title: "Aide",
