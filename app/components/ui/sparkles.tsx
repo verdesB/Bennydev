@@ -29,30 +29,41 @@ export const SparklesCore = (props: ParticlesProps) => {
     particleColor,
     particleDensity,
   } = props;
+  
   const [init, setInit] = useState(false);
+  const [opacity, setOpacity] = useState(0);
+  const generatedId = useId();
+
   useEffect(() => {
-    initParticlesEngine(async (engine) => {
-      await loadSlim(engine);
-    }).then(() => {
-      setInit(true);
-    });
+    const initEngine = async () => {
+      try {
+        await initParticlesEngine(async (engine) => {
+          await loadSlim(engine);
+        });
+        setInit(true);
+      } catch (error) {
+        console.error('Erreur lors de l\'initialisation:', error);
+      }
+    };
+
+    initEngine();
   }, []);
-  const controls = useAnimation();
 
   const particlesLoaded = async (container?: Container) => {
-    if (container) {
-      controls.start({
-        opacity: 1,
-        transition: {
-          duration: 1,
-        },
-      });
-    }
+    // Utiliser setTimeout pour s'assurer que le composant est monté
+    setTimeout(() => {
+      setOpacity(1);
+    }, 100);
   };
 
-  const generatedId = useId();
   return (
-    <motion.div animate={controls} className={cn("opacity-0", className)}>
+    <div 
+      className={cn(className)}
+      style={{
+        opacity: opacity,
+        transition: 'opacity 1s ease-in-out'
+      }}
+    >
       {init && (
         <Particles
           id={id || generatedId}
@@ -68,7 +79,6 @@ export const SparklesCore = (props: ParticlesProps) => {
               enable: false,
               zIndex: 1,
             },
-
             fpsLimit: 120,
             interactivity: {
               events: {
@@ -431,6 +441,6 @@ export const SparklesCore = (props: ParticlesProps) => {
           }}
         />
       )}
-    </motion.div>
+    </div>
   );
 };

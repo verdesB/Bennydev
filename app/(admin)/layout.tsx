@@ -53,6 +53,11 @@ export default function AdminLayout({
       icon: <FileText className="h-4 w-4" />,
     },
     {
+      title: "Tickets",
+      href: "/admin/tickets",
+      icon: <FileText className="h-4 w-4" />,
+    },
+    {
       title: "Paramètres",
       href: "/admin/parametres",
       icon: <Settings className="h-4 w-4" />,

@@ -1,5 +1,5 @@
-import { createServerComponentClient } from '@supabase/auth-helpers-nextjs'
-import { cookies } from 'next/headers'
+'use client'
+
 import { Card } from "@/components/ui/card"
 import { 
   CircleUserRound, 
@@ -12,79 +12,10 @@ import {
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
+import { useAdminStats } from "@/hooks/useAdminStats"
 
-// Fonction pour récupérer les statistiques
-async function getDashboardStats() {
-  const supabase = createServerComponentClient({ cookies })
-
-  // Récupérer le nombre de projets actifs (profiles avec project_code)
-  const { data: activeProjects, error: projectsError } = await supabase
-    .from('profiles')
-    .select('project_code')
-    .not('project_code', 'is', null)
-
-  // Récupérer le nombre de clients actifs (profiles avec role client)
-  const { data: activeClients, error: clientsError } = await supabase
-    .from('profiles')
-    .select('id')
-    .eq('role', 'client')
-
-  // Récupérer les projets récents avec plus de détails
-  const { data: recentProjects, error: recentProjectsError } = await supabase
-    .from('profiles')
-    .select(`
-      id,
-      project_code,
-      company,
-      created_at,
-      role
-    `)
-    .not('project_code', 'is', null)
-    .eq('role', 'client')
-    .order('created_at', { ascending: false })
-    .limit(3)
-
-  console.log('Projets récents:', recentProjects) // Pour debug
-  console.log('Erreur projets récents:', recentProjectsError) // Pour debug
-
-  // Calculer la croissance par rapport au mois dernier
-  const oneMonthAgo = new Date()
-  oneMonthAgo.setMonth(oneMonthAgo.getMonth() - 1)
-
-  const { data: lastMonthProjects, error: lastMonthError } = await supabase
-    .from('profiles')
-    .select('project_code')
-    .not('project_code', 'is', null)
-    .lt('created_at', oneMonthAgo.toISOString())
-
-  // Vérification individuelle des erreurs
-  if (projectsError) {
-    console.error('Erreur lors de la récupération des projets actifs:', projectsError)
-  }
-  if (clientsError) {
-    console.error('Erreur lors de la récupération des clients:', clientsError)
-  }
-  if (recentProjectsError) {
-    console.error('Erreur lors de la récupération des projets récents:', recentProjectsError)
-  }
-  if (lastMonthError) {
-    console.error('Erreur lors de la récupération des projets du mois dernier:', lastMonthError)
-  }
-
-  const growth = lastMonthProjects?.length 
-    ? ((activeProjects?.length || 0) - lastMonthProjects.length) / lastMonthProjects.length * 100
-    : 0
-
-  return {
-    activeProjects: activeProjects?.length || 0,
-    activeClients: activeClients?.length || 0,
-    recentProjects: recentProjects || [],
-    growth: growth.toFixed(1)
-  }
-}
-
-export default async function AdminPage() {
-  const stats = await getDashboardStats()
+export default function AdminPage() {
+  const stats = useAdminStats()
 
   return (
     <div className="h-[calc(100vh-80px)] p-6 bg-gradient-to-b from-background to-muted/20">

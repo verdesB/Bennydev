@@ -136,6 +136,40 @@ export function useTicketCreation() {
   useEffect(() => {
     fetchClosedProjects()
     fetchTickets()
+
+    // Configuration des canaux realtime
+    const ticketsChannel = supabase
+      .channel('tickets-changes')
+      .on(
+        'postgres_changes',
+        {
+          event: '*', // écoute tous les événements (insert, update, delete)
+          schema: 'public',
+          table: 'tickets'
+        },
+        (payload) => {
+          console.log('Changement sur tickets:', payload)
+          fetchTickets() // Recharger les tickets
+        }
+      )
+      .on(
+        'postgres_changes',
+        {
+          event: '*',
+          schema: 'public',
+          table: 'ticket_comments'
+        },
+        (payload) => {
+          console.log('Changement sur comments:', payload)
+          fetchTickets() // Recharger les tickets pour avoir les derniers commentaires
+        }
+      )
+      .subscribe()
+
+    // Cleanup à la destruction du composant
+    return () => {
+      supabase.removeChannel(ticketsChannel)
+    }
   }, [])
 
   return {
