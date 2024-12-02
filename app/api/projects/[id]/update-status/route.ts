@@ -8,43 +8,54 @@ export async function PATCH(
   try {
     const { status } = await request.json();
     
-    // Debug logs détaillés
-    console.log('ID reçu:', params.id);
-    console.log('Type de ID:', typeof params.id);
-    
-    // Vérifions d'abord si on peut trouver le projet
-    const { data: checkProject, error: checkError } = await supabaseAdmin
+    // Récupérer le projet avec les informations du client
+    const { data: project, error: projectError } = await supabaseAdmin
       .from('projects')
-      .select('*')
-      .eq('id', params.id);
-    
-    console.log('Résultat de la vérification:', checkProject);
-    console.log('Erreur de la vérification:', checkError);
+      .select(`
+        *,
+        user_projects!inner (
+          user_id,
+          role
+        )
+      `)
+      .eq('id', params.id)
+      .single();
 
-    // Si on trouve le projet, procédons à la mise à jour
-    if (checkProject && checkProject.length > 0) {
-      const { data, error } = await supabaseAdmin
-        .from('projects')
-        .update({ state: status })
-        .eq('id', params.id)
-        .select();
-
-      if (error) {
-        console.log('Erreur mise à jour:', error);
-        return NextResponse.json({ error: error.message }, { status: 500 });
-      }
-
-      return NextResponse.json({ data: data[0] });
+    if (projectError) {
+      return NextResponse.json({ error: projectError.message }, { status: 500 });
     }
 
-    // Si on ne trouve pas le projet
-    return NextResponse.json({ 
-      error: 'Projet non trouvé',
-      debugInfo: {
-        idRecherche: params.id,
-        resultatRecherche: checkProject
+    // Mettre à jour le statut
+    const { data, error } = await supabaseAdmin
+      .from('projects')
+      .update({ state: status })
+      .eq('id', params.id)
+      .select();
+
+    if (error) {
+      console.log('Erreur mise à jour:', error);
+      return NextResponse.json({ error: error.message }, { status: 500 });
+    }
+
+    // Trouver le client du projet
+    const clientUser = project.user_projects.find(up => up.role === 'member');
+    
+    if (clientUser?.user_id) {
+      // Créer la notification pour le client (user_id du profile est le même que l'auth.users)
+      const { error: notificationError } = await supabaseAdmin
+        .from('notifications')
+        .insert({
+          user_id: clientUser.user_id, // Utilisation directe du user_id qui est le même que l'id du profile
+          message: `Le statut du projet "${project.name}" a été mis à jour vers "${status}"`,
+          is_read: false
+        });
+
+      if (notificationError) {
+        console.log('Erreur création notification:', notificationError);
       }
-    }, { status: 404 });
+    }
+
+    return NextResponse.json({ data: data[0] });
 
   } catch (error: any) {
     console.error('Erreur complète:', error);

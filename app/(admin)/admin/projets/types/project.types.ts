@@ -12,6 +12,7 @@ export interface Project {
   users: {
     role: string;
     displayName: string;
+    user_id: string;
   }[];
 }
 
@@ -21,6 +22,7 @@ export interface ChatMessage {
   message: string;
   created_at: string;
   profiles: {
+    id: string;
     first_name?: string | null;
     last_name?: string | null;
   };

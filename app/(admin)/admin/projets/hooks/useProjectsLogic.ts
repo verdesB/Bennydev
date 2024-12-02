@@ -68,7 +68,10 @@ export const useProjectsLogic = () => {
           startDate: project.starter_date,
           endDate: project.focus_date,
           budget: project.budget,
+          figma_link: project.figma_link,
+          pre_prod_url: project.prod_test_url,
           users: project.user_projects?.map(up => ({
+            id: up.user_id,
             role: up.role,
             displayName: up.role === 'member' && up.profile 
               ? `${up.profile.first_name || "bennydev"} ${up.profile.last_name || "bennydev"}`
@@ -157,14 +160,9 @@ export const useProjectsLogic = () => {
   };
 
   const handleUpdateStatus = async () => {
-    if (!selectedProject) return; // Vérification importante
+    if (!selectedProject) return;
     
     try {
-      // Debug logs
-      console.log('Selected Project:', selectedProject);
-      console.log('Project ID being sent:', selectedProject.id);
-      console.log('New Status:', tempStatus);
-  
       const response = await fetch(`/api/projects/${selectedProject.id}/update-status`, {
         method: 'PATCH',
         headers: {
@@ -172,21 +170,20 @@ export const useProjectsLogic = () => {
         },
         body: JSON.stringify({ status: tempStatus })
       });
-  
+
       const data = await response.json();
       
-      // Si on reçoit une erreur 404
-      if (response.status === 404) {
-        toast.error('Projet non trouvé');
-        return;
-      }
-  
       if (!response.ok) {
         throw new Error(data.error);
       }
-  
+
+      setSelectedProject(prev => prev ? {
+        ...prev,
+        status: tempStatus
+      } : null);
+      
+      setTempStatus('');
       toast.success('Statut mis à jour avec succès');
-      // Rafraîchir les données ou mettre à jour l'état local
     } catch (error: any) {
       console.error('Erreur complète:', error);
       toast.error(error.message || 'Erreur lors de la mise à jour');
@@ -195,7 +192,7 @@ export const useProjectsLogic = () => {
 
   const handleUpdateUrls = async () => {
     if (!selectedProject) return;
-    
+
     try {
       const response = await fetch(`/api/projects/${selectedProject.id}/update-urls`, {
         method: 'PATCH',
@@ -207,13 +204,44 @@ export const useProjectsLogic = () => {
       });
       const { data, error } = await response.json();
       if (error) throw error;
-      
+
       setSelectedProject(prev => prev ? {
         ...prev,
         figmaUrl: tempFigmaUrl || prev.figma_link,
         stagingUrl: tempStagingUrl || prev.pre_prod_url
       } : null);
-      
+
+      // Trouver le client (membre) du projet
+      const client = selectedProject.users.find(user => user.role === 'member');
+      if (client) {
+        console.log('ID du client:', client.id );
+
+        try {
+          const response = await fetch('/api/create-notification', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              user_id: client.id,
+              title: 'Mise à jour des URLs',
+              message: `Les URLs du projet ${selectedProject.name} ont été mises à jour.`,
+              type: 'URL_UPDATE',
+              project_id: selectedProject.id
+            })
+          });
+
+          const data = await response.json();
+          
+          if (!response.ok) {
+            throw new Error(data.error || 'Erreur lors de la création de la notification');
+          }
+
+          console.log('Notification créée avec succès:', data);
+        } catch (error) {
+          console.error('Erreur détaillée:', error);
+          toast.error('Erreur lors de l\'envoi de la notification');
+        }
+      }
+
       setTempFigmaUrl('');
       setTempStagingUrl('');
       toast.success('URLs mises à jour avec succès');

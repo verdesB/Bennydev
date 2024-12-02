@@ -2,7 +2,7 @@
 
 import { Sidebar } from "@/components/ui/sidebar"
 import { SidebarNav } from "@/components/sidebar-nav"
-import { User2, MessageSquare, FolderOpen, HelpCircle, LogOut, Ticket } from "lucide-react"
+import { User2, MessageSquare, FolderOpen, HelpCircle, LogOut, Ticket, Settings, Home } from "lucide-react"
 import { useAuth } from "@/lib/auth"
 
 export default function ClientLayout({
@@ -14,15 +14,11 @@ export default function ClientLayout({
 
   const sidebarNavItems = [
     {
-      title: "Mes Projets",
+      title: "Dashboard",
       href: "/client",
-      icon: <FolderOpen className="h-4 w-4" />,
+      icon: <Home className="h-4 w-4" />,
     },
-    {
-      title: "Support",
-      href: "/client/support",
-      icon: <MessageSquare className="h-4 w-4" />,
-    },
+    
     {
       title: "Ticket",
       href: "/client/tickets",
@@ -32,6 +28,11 @@ export default function ClientLayout({
       title: "Aide",
       href: "/client/help",
       icon: <HelpCircle className="h-4 w-4" />,
+    },
+    {
+      title: "Paramètres",
+      href: "/client/settings",
+      icon: <Settings className="h-4 w-4" />,
     },
     {
       title: "Déconnexion",
@@ -61,8 +62,8 @@ export default function ClientLayout({
           </div>
         </div>
       </Sidebar>
-      <main className="flex-1">
-        <div className="h-full bg-gradient-to-b from-purple-50 to-white p-8">
+      <main className="flex-1 overflow-y-hidden">
+        <div className="h-full bg-gradient-to-b from-purple-50 to-white p-8 overflow-y-hidden">
           {children}
         </div>
       </main>

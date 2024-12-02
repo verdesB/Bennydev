@@ -1,6 +1,7 @@
 'use client'
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
+import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
 
 export default function ClientPage() {
   const router = useRouter()
@@ -8,6 +9,8 @@ export default function ClientPage() {
   const [error, setError] = useState<string | null>(null)
   const [profile, setProfile] = useState<any>(null)
   const [projects, setProjects] = useState<any[]>([])
+  const [notifications, setNotifications] = useState<any[]>([])
+  const [tickets, setTickets] = useState<any[]>([])
 
   useEffect(() => {
     const fetchDashboardData = async () => {
@@ -20,6 +23,7 @@ export default function ClientPage() {
         const data = await response.json()
         setProfile(data.profile)
         setProjects(data.projects)
+        setTickets(data.tickets)
       } catch (error) {
         setError('Impossible de charger les données du dashboard')
         console.error(error)
@@ -30,6 +34,60 @@ export default function ClientPage() {
 
     fetchDashboardData()
   }, [])
+
+  useEffect(() => {
+    let isMounted = true;
+
+    // Créer la souscription aux notifications
+    const supabase = createClientComponentClient();
+    
+    const notificationsSubscription = supabase
+      .channel('notifications')
+      .on(
+        'postgres_changes',
+        {
+          event: '*',
+          schema: 'public',
+          table: 'notifications',
+          filter: `user_id=eq.${profile?.id}`
+        },
+        (payload) => {
+          if (isMounted) {
+            // Mettre à jour les notifications en fonction du type d'événement
+            if (payload.eventType === 'INSERT') {
+              setNotifications(prev => [payload.new, ...prev])
+            } else if (payload.eventType === 'DELETE') {
+              setNotifications(prev => prev.filter(notif => notif.id !== payload.old.id))
+            } else if (payload.eventType === 'UPDATE') {
+              setNotifications(prev => prev.map(notif => 
+                notif.id === payload.new.id ? payload.new : notif
+              ))
+            }
+          }
+        }
+      )
+      .subscribe()
+
+    // Charger les notifications initiales
+    const fetchInitialNotifications = async () => {
+      const { data: notifications } = await supabase
+        .from('notifications')
+        .select('*')
+        .eq('user_id', profile?.id)
+        .order('created_at', { ascending: false })
+
+      if (isMounted && notifications) {
+        setNotifications(notifications)
+      }
+    }
+
+    fetchInitialNotifications()
+
+    return () => {
+      isMounted = false
+      supabase.removeChannel(notificationsSubscription)
+    }
+  }, [profile?.id]) // Dépendance au profile.id pour s'assurer que nous avons l'ID de l'utilisateur
 
   const handleProjectClick = (projectId: string) => {
     router.push(`/client/${projectId}`)
@@ -44,62 +102,156 @@ export default function ClientPage() {
   }
 
   return (
-    <div className="h-[calc(100vh-4rem)] bg-gray-50 rounded-2xl shadow-lg p-4 md:p-6 lg:p-8">
-      <div className="max-w-4xl space-y-4 md:space-y-6 lg:space-y-8">
-        <div className="bg-white rounded-xl lg:rounded-2xl shadow-sm p-4 md:p-6 lg:p-8 border border-gray-100">
-          <div className="flex items-center gap-4 mb-4 lg:mb-6">
-            {profile?.avatar_url && (
-              <img 
-                src={profile.avatar_url} 
-                alt="Profile" 
-                className="w-16 h-16 rounded-full object-cover border-2 border-purple-100"
-              />
-            )}
-            <div>
-              <h1 className="text-2xl md:text-3xl lg:text-4xl font-medium text-gray-900">
-                Bienvenue, {profile?.first_name || 'Client'}
-              </h1>
-              <p className="text-base md:text-lg text-gray-600 mt-2">
-                {profile?.role || 'Client'} - {profile?.company || 'Entreprise non spécifiée'}
-              </p>
+    <div className="h-[calc(100vh-4rem)] bg-[#F5F5F7] p-6 lg:p-8 rounded-2xl shadow-[0_4px_20px_-1px_rgba(147,51,234,0.2)] hover:shadow-[0_4px_20px_-1px_rgba(147,51,234,0.3)] transition-shadow">
+      <div className="flex gap-8 h-full">
+        <div className="flex-grow max-w-[70%] space-y-6">
+          <div className="bg-white rounded-2xl shadow-sm p-8 backdrop-blur-lg bg-opacity-80">
+            <div className="flex items-center gap-4 mb-4 lg:mb-6">
+              {profile?.avatar_url && (
+                <img 
+                  src={profile.avatar_url} 
+                  alt="Profile" 
+                  className="w-16 h-16 rounded-full object-cover border-2 border-purple-100"
+                />
+              )}
+              <div>
+                <h1 className="text-2xl md:text-3xl lg:text-4xl tracking-tight font-medium text-gray-900">
+                  Bienvenue, {profile?.first_name || 'Client'}
+                </h1>
+                <p className="text-base md:text-lg text-gray-600 mt-2">
+                  {profile?.role || 'Client'} - {profile?.company || 'Entreprise non spécifiée'}
+                </p>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div className="bg-purple-50 p-4 md:p-6 rounded-lg lg:rounded-xl border border-purple-100">
+                <h3 className="text-base md:text-lg tracking-tight font-medium text-gray-900 mb-2">Projets actifs</h3>
+                <p className="text-2xl md:text-3xl font-medium text-purple-600">{projects?.length || 0}</p>
+              </div>
+              
+              <div className="bg-orange-50 p-4 md:p-6 rounded-lg lg:rounded-xl border border-orange-100">
+                <h3 className="text-base md:text-lg tracking-tight font-medium text-gray-900 mb-2">Tickets en attente</h3>
+                <p className="text-2xl md:text-3xl font-medium text-orange-600">
+                  {tickets?.filter(ticket => ticket.status === 'open')?.length || 0}
+                </p>
+              </div>
             </div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <div className="bg-purple-50 p-4 md:p-6 rounded-lg lg:rounded-xl border border-purple-100">
-              <h3 className="text-base md:text-lg font-medium text-gray-900 mb-2">Projets actifs</h3>
-              <p className="text-2xl md:text-3xl font-medium text-purple-600">{projects.length}</p>
+          <div className="bg-white rounded-2xl shadow-sm p-8 backdrop-blur-lg bg-opacity-80">
+            <h2 className="text-2xl tracking-tight font-medium text-gray-900 mb-6">Mes Projets</h2>
+            <div className="grid grid-cols-2 gap-6">
+              <div 
+                onClick={() => router.push('/client/new-project')}
+                className="group cursor-pointer border-2 border-dashed border-purple-200 rounded-xl p-6 hover:border-purple-400 hover:bg-purple-50/50 transition-all duration-300 flex flex-col items-center justify-center min-h-[200px]"
+              >
+                <div className="h-12 w-12 rounded-full bg-purple-100 flex items-center justify-center mb-4 group-hover:bg-purple-200 transition-colors">
+                  <svg className="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+                  </svg>
+                </div>
+                <h3 className="text-lg font-medium text-purple-600 group-hover:text-purple-700">Nouveau Projet</h3>
+                <p className="text-purple-400 text-sm text-center mt-2">Cliquez ici pour créer un nouveau projet</p>
+              </div>
+
+              {projects.map((project) => (
+                <div 
+                  key={project.id} 
+                  onClick={() => handleProjectClick(project.id)}
+                  className="group cursor-pointer bg-white rounded-xl p-6 hover:shadow-xl transition-all duration-300 border border-gray-100 hover:border-purple-200 relative overflow-hidden"
+                >
+                  <div className={`absolute top-0 right-0 w-20 h-20 transform translate-x-10 translate-y-[-10px] rotate-45 ${
+                    project.state === 'active' ? 'bg-green-500' : 'bg-gray-300'
+                  }`} />
+
+                  <div className="space-y-4">
+                    <div className="flex items-start justify-between">
+                      <div>
+                        <h3 className="text-xl font-medium text-gray-900 mb-1">{project.name}</h3>
+                        <span className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-medium ${
+                          project.state === 'active' 
+                            ? 'bg-green-100 text-green-700' 
+                            : 'bg-gray-100 text-gray-700'
+                        }`}>
+                          <span className={`w-2 h-2 rounded-full mr-2 ${
+                            project.state === 'active' ? 'bg-green-500' : 'bg-gray-500'
+                          }`} />
+                          {project.state}
+                        </span>
+                      </div>
+                    </div>
+
+                    <p className="text-gray-600 line-clamp-2">{project.description}</p>
+
+                    <div className="flex items-center gap-4 text-sm text-gray-500">
+                      <div className="flex items-center">
+                        <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                        {project.lastUpdate || 'Mis à jour récemment'}
+                      </div>
+                      <div className="flex items-center">
+                        <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+                        </svg>
+                        {project.tasksCount || '0'} tâches
+                      </div>
+                      <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+                        {project.type || 'Non spécifié'}
+                      </span>
+                    </div>
+
+                    <div className="flex items-center justify-end text-purple-600 font-medium group-hover:translate-x-2 transition-transform">
+                      Voir les détails
+                      <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                      </svg>
+                    </div>
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
         </div>
 
-        <div className="bg-white rounded-xl lg:rounded-2xl shadow-sm p-4 md:p-6 lg:p-8 border border-gray-100">
-          <h2 className="text-xl md:text-2xl font-medium text-gray-900 mb-4 lg:mb-6">Mes projets</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {projects.map((project) => (
-              <div 
-                key={project.id} 
-                className="group flex flex-col p-4 md:p-6 bg-white rounded-lg lg:rounded-xl border border-gray-200 hover:border-purple-300 hover:shadow-md transition-all duration-200"
-              >
-                <h3 className="text-lg md:text-xl font-medium text-gray-900">{project.name}</h3>
-                <p className="text-gray-600 mt-2">{project.description}</p>
-                <div className="mt-4 flex items-center justify-between">
-                  <span className={`px-3 py-1.5 rounded-full text-xs md:text-sm font-medium ${
-                    project.state === 'active' 
-                      ? 'bg-green-50 text-green-700 border border-green-200' 
-                      : 'bg-gray-50 text-gray-700 border border-gray-200'
-                  }`}>
-                    {project.state}
-                  </span>
-                  <button 
-                    onClick={() => handleProjectClick(project.id)} 
-                    className="text-sm md:text-base text-purple-600 hover:text-purple-700 font-medium"
+        <div className="flex-shrink-0 w-[30%] space-y-6 h-full">
+          <div className="bg-white rounded-2xl shadow-sm p-8 backdrop-blur-lg bg-opacity-80 h-full overflow-hidden">
+            <h2 className="text-xl md:text-2xl tracking-tight font-medium text-gray-900 mb-4 lg:mb-6">Notifications</h2>
+            <div className="space-y-4 overflow-y-scroll max-h-[calc(100%-4rem)]">
+              {!notifications?.length ? (
+                <p className="text-gray-500 text-center py-4">Aucune notification</p>
+              ) : (
+                notifications.map((notif) => (
+                  <div 
+                    key={notif.id} 
+                    className={`group p-4 rounded-lg border ${
+                      notif.read ? 'bg-white' : 'bg-purple-50'
+                    } hover:shadow-md transition-all duration-200`}
                   >
-                    Voir le projet →
-                  </button>
-                </div>
-              </div>
-            ))}
+                    <div className="flex items-start gap-3">
+                      <div className={`w-2 h-2 mt-2 rounded-full flex-shrink-0 ${
+                        notif.type === 'success' ? 'bg-green-500' :
+                        notif.type === 'warning' ? 'bg-yellow-500' :
+                        notif.type === 'error' ? 'bg-red-500' : 'bg-purple-500'
+                      }`} />
+                      <div className="flex-grow">
+                        <h3 className="text-sm font-medium text-gray-900">{notif.title}</h3>
+                        <p className="text-sm text-gray-600 mt-1">{notif.message}</p>
+                        <div className="flex items-center justify-between mt-2">
+                          <span className="text-xs text-gray-500">{notif.date}</span>
+                          {!notif.read && (
+                            <button className="text-xs text-purple-600 hover:text-purple-700">
+                              Marquer comme lu
+                            </button>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                ))
+              )}
+            </div>
           </div>
         </div>
       </div>

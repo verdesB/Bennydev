@@ -45,7 +45,7 @@ const TicketDetailPage = () => {
       const ticketId = parseInt(params.id as string)
       
       const [ticketResponse, commentsResponse] = await Promise.all([
-        fetch(`/api/tickets/${ticketId}`),
+        fetch(`/api/admin/tickets/${ticketId}`),
         supabase
           .from('ticket_comments')
           .select(`
@@ -103,7 +103,7 @@ const TicketDetailPage = () => {
     if (!newComment.trim()) return
 
     try {
-      const response = await fetch(`/api/tickets/${params.id}/comments`, {
+      const response = await fetch(`/api/admin/tickets/${params.id}/comments`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

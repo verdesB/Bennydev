@@ -53,7 +53,7 @@ export default function ProjectDetailPage() {
           {/* En-tête du projet */}
           <div className="bg-white rounded-xl lg:rounded-2xl shadow-sm p-4 md:p-6 lg:p-8 border border-gray-100">
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-4 lg:mb-6">
-              <h1 className="text-2xl md:text-3xl lg:text-4xl font-medium text-gray-900">{project.name}</h1>
+              <h1 className="text-2xl md:text-3xl lg:text-4xl tracking-tight font-medium text-gray-900">{project.name}</h1>
               <div className="flex flex-wrap gap-2 sm:gap-3">
                 <span className={`px-3 py-1.5 md:px-4 md:py-2 rounded-full text-xs md:text-sm font-medium ${
                   project.state === 'active' 
@@ -72,8 +72,28 @@ export default function ProjectDetailPage() {
 
           {/* Liens et ressources */}
           <div className="bg-white rounded-xl lg:rounded-2xl shadow-sm p-4 md:p-6 lg:p-8 border border-gray-100">
-            <h2 className="text-xl md:text-2xl font-medium text-gray-900 mb-4 lg:mb-6">Ressources & Liens</h2>
+            <h2 className="text-xl md:text-2xl tracking-tight font-medium text-gray-900 mb-4 lg:mb-6">Ressources & Liens</h2>
             <div className="grid grid-cols-1 gap-3 md:gap-4">
+              <a
+                href={`/client/${params.id}/files`}
+                className="group flex items-center p-4 md:p-6 bg-white rounded-lg lg:rounded-xl border border-gray-200 hover:border-emerald-300 hover:shadow-md transition-all duration-200"
+              >
+                <div className="flex items-center space-x-3 md:space-x-4 w-full">
+                  <div className="p-1.5 md:p-2 bg-emerald-50 rounded-lg">
+                    <svg className="w-5 h-5 md:w-6 md:h-6 text-emerald-600" viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
+                    </svg>
+                  </div>
+                  <div className="flex-grow min-w-0">
+                    <div className="flex items-center justify-between">
+                      <span className="text-base md:text-lg tracking-tight font-medium text-gray-900">Fichiers partagés</span>
+                      <span className="text-xs md:text-sm text-gray-500 ml-2">Accéder →</span>
+                    </div>
+                    <p className="text-xs md:text-sm text-gray-500 mt-1">Gérer les fichiers du projet</p>
+                  </div>
+                </div>
+              </a>
+
               {project.figma_link && (
                 <a
                   href={project.figma_link}
@@ -92,7 +112,7 @@ export default function ProjectDetailPage() {
                     </div>
                     <div className="flex-grow min-w-0">
                       <div className="flex items-center justify-between">
-                        <span className="text-base md:text-lg font-medium text-gray-900">Maquettes Figma</span>
+                        <span className="text-base md:text-lg tracking-tight font-medium text-gray-900">Maquettes Figma</span>
                         <span className="text-xs md:text-sm text-gray-500 ml-2">Ouvrir →</span>
                       </div>
                       <p className="text-xs md:text-sm text-gray-500 mt-1 truncate">{project.figma_link}</p>
@@ -116,7 +136,7 @@ export default function ProjectDetailPage() {
                     </div>
                     <div className="flex-grow min-w-0">
                       <div className="flex items-center justify-between">
-                        <span className="text-base md:text-lg font-medium text-gray-900">Environnement de test</span>
+                        <span className="text-base md:text-lg tracking-tight font-medium text-gray-900">Environnement de test</span>
                         <span className="text-xs md:text-sm text-gray-500 ml-2">Visiter →</span>
                       </div>
                       <p className="text-xs md:text-sm text-gray-500 mt-1 truncate">{project.prod_test_url}</p>
@@ -129,7 +149,7 @@ export default function ProjectDetailPage() {
 
           {/* Timeline */}
           <div className="bg-white rounded-xl lg:rounded-2xl shadow-sm p-4 md:p-6 lg:p-8 border border-gray-100">
-            <h2 className="text-xl md:text-2xl font-medium text-gray-900 mb-4 lg:mb-6">Historique</h2>
+            <h2 className="text-xl md:text-2xl tracking-tight font-medium text-gray-900 mb-4 lg:mb-6">Historique</h2>
             <div className="border-l-2 border-gray-200 ml-4 space-y-8 py-2">
               <div className="relative">
                 <div className="absolute -left-[11px] mt-2 w-5 h-5 rounded-full bg-blue-500 border-4 border-white shadow-sm"></div>

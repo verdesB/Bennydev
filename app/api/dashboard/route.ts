@@ -5,18 +5,19 @@ import { NextResponse } from 'next/server'
 
 export async function GET(request: Request) {
   try {
-    // 1. Utiliser le client normal pour obtenir l'ID de l'utilisateur authentifié
+    console.log('1. Début de la requête')
     const cookieStore = cookies()
     const supabase = createRouteHandlerClient({ cookies: () => cookieStore })
     
     const { data: { session }, error: sessionError } = await supabase.auth.getSession()
     
     if (sessionError || !session) {
-      console.error('Erreur session:', sessionError)
+      console.error('2. Erreur session:', sessionError)
       return NextResponse.json({ error: 'Non authentifié' }, { status: 401 })
     }
 
-    // 2. Récupérer le profil avec supabaseAdmin
+    console.log('3. Session OK:', session.user.id)
+
     const { data: profile, error: profileError } = await supabaseAdmin
       .from('profiles')
       .select('*')
@@ -24,14 +25,24 @@ export async function GET(request: Request) {
       .single()
 
     if (profileError) {
-      console.error('Erreur profil:', profileError)
-      return NextResponse.json({ 
-        error: 'Erreur lors de la récupération du profil',
-        details: profileError.message 
-      }, { status: 500 })
+      console.error('4. Erreur profil:', profileError)
+      return NextResponse.json({ error: 'Erreur profil: ' + profileError.message }, { status: 500 })
     }
 
-    // 3. Récupérer les projets avec supabaseAdmin
+    console.log('5. Profil OK:', profile)
+
+    const { data: tickets, error: ticketsError } = await supabaseAdmin
+      .from('tickets')
+      .select('*')
+      .eq('profile_id', session.user.id)
+
+    if (ticketsError) {
+      console.error('6. Erreur tickets:', ticketsError)
+      return NextResponse.json({ error: 'Erreur tickets: ' + ticketsError.message }, { status: 500 })
+    }
+
+    console.log('7. Tickets OK:', tickets?.length)
+
     const { data: userProjects, error: projectsError } = await supabaseAdmin
       .from('user_projects')
       .select(`
@@ -41,18 +52,18 @@ export async function GET(request: Request) {
           id,
           name,
           description,
-          state
+          state,
+          type
         )
       `)
       .eq('user_id', session.user.id)
     
     if (projectsError) {
-      console.error('Erreur projets:', projectsError)
-      return NextResponse.json({ 
-        error: 'Erreur lors de la récupération des projets',
-        details: projectsError.message
-      }, { status: 500 })
+      console.error('8. Erreur projets:', projectsError)
+      return NextResponse.json({ error: 'Erreur projets: ' + projectsError.message }, { status: 500 })
     }
+
+    console.log('9. Projets OK:', userProjects?.length)
 
     return NextResponse.json({
       profile,
@@ -60,6 +71,7 @@ export async function GET(request: Request) {
         email: session.user.email,
         id: session.user.id
       },
+      tickets: tickets || [],
       projects: userProjects?.map(item => ({
         ...item.projects,
         userRole: item.role
@@ -67,9 +79,9 @@ export async function GET(request: Request) {
     })
 
   } catch (error) {
-    console.error('Erreur API Dashboard:', error)
+    console.error('Erreur API Dashboard complète:', error)
     return NextResponse.json(
-      { error: 'Erreur serveur' },
+      { error: 'Erreur serveur détaillée: ' + error.message },
       { status: 500 }
     )
   }

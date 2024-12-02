@@ -125,7 +125,7 @@ export default function ChatComponent({ projectId }: ChatComponentProps) {
   return (
     <div className="flex flex-col h-full bg-gray-50">
       <div className="p-4 bg-white border-b">
-        <h2 className="text-lg font-semibold text-gray-800">Messages</h2>
+        <h2 className="text-lg tracking-tight font-medium text-gray-800">Messages</h2>
       </div>
 
       <div className="flex-1 overflow-y-auto p-4">
@@ -158,7 +158,7 @@ export default function ChatComponent({ projectId }: ChatComponentProps) {
                     rounded-lg shadow-sm p-3
                   `}>
                     <div className="flex items-baseline gap-2 mb-1">
-                      <span className={`text-sm font-medium ${isCurrentUser ? 'text-purple-100' : 'text-purple-600'}`}>
+                      <span className={`text-sm tracking-tight font-medium ${isCurrentUser ? 'text-purple-100' : 'text-purple-600'}`}>
                         {isCurrentUser ? 'Moi' : 'BennyDev'}
                       </span>
                       <span className={`text-xs ${isCurrentUser ? 'text-purple-200' : 'text-gray-500'}`}>

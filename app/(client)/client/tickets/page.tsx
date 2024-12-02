@@ -74,10 +74,10 @@ const TicketsPage: React.FC = () => {
   }
 
   return (
-    <div className="flex h-[calc(100vh-4rem)] bg-gray-50/50 shadow-xl rounded-2xl">
+    <div className="flex h-[calc(100vh-4rem)] bg-gray-50/50 shadow-[0_4px_20px_-1px_rgba(147,51,234,0.2)] hover:shadow-[0_4px_20px_-1px_rgba(147,51,234,0.3)] transition-shadow rounded-2xl">
       {/* Liste des projets */}
       <div className="w-80 border-r border-gray-200 bg-white p-6 overflow-y-auto rounded-2xl">
-        <h2 className="text-xl font-semibold mb-4 flex items-center gap-2">
+        <h2 className="text-xl tracking-tight font-medium mb-4 flex items-center gap-2">
           <Clock className="w-5 h-5 text-purple-500" />
           Projets terminés
         </h2>
@@ -92,7 +92,7 @@ const TicketsPage: React.FC = () => {
                   : 'bg-white border-transparent hover:border-purple-200'
               }`}
             >
-              <h3 className="font-medium text-gray-900">{project.name}</h3>
+              <h3 className="tracking-tight font-medium text-gray-900">{project.name}</h3>
               <p className="text-sm text-gray-500 mt-1 line-clamp-2">
                 {project.description}
               </p>
@@ -121,10 +121,10 @@ const TicketsPage: React.FC = () => {
           />
         </div>
 
-        <div className="relative z-10 w-full px-4">
+        <div className="relative z-10 w-full px-6 bg-[#FBFBFB] h-full py-6 rounded-2xl shadow-[0_4px_20px_-1px_rgba(147,51,234,0.2)] hover:shadow-[0_4px_20px_-1px_rgba(147,51,234,0.3)] transition-shadow overflow-y-auto">
           {/* En-tête avec le bouton de création */}
           <div className="mb-6 flex justify-between items-center">
-            <h1 className="text-2xl font-semibold text-gray-900">Mes tickets</h1>
+            <h1 className="text-2xl tracking-tight font-medium text-gray-900">Mes tickets</h1>
             <Button
               onClick={() => setIsFormOpen(!isFormOpen)}
               className={`${

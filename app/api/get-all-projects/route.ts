@@ -29,6 +29,7 @@ export async function GET() {
                 user_projects (
                     role,
                     user_id
+                    
                 )
             `);
 
