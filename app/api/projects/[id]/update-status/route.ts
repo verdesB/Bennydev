@@ -37,23 +37,7 @@ export async function PATCH(
       return NextResponse.json({ error: error.message }, { status: 500 });
     }
 
-    // Trouver le client du projet
-    const clientUser = project.user_projects.find(up => up.role === 'member');
-    
-    if (clientUser?.user_id) {
-      // Créer la notification pour le client (user_id du profile est le même que l'auth.users)
-      const { error: notificationError } = await supabaseAdmin
-        .from('notifications')
-        .insert({
-          user_id: clientUser.user_id, // Utilisation directe du user_id qui est le même que l'id du profile
-          message: `Le statut du projet "${project.name}" a été mis à jour vers "${status}"`,
-          is_read: false
-        });
-
-      if (notificationError) {
-        console.log('Erreur création notification:', notificationError);
-      }
-    }
+   
 
     return NextResponse.json({ data: data[0] });
 

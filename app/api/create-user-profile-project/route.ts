@@ -102,7 +102,8 @@ export async function POST(req: Request) {
                 state: project.state || 'draft',
                 starter_date: project.starterDate,
                 focus_date: project.focusDate,
-                budget: project.budget
+                budget: project.budget,
+                code_project: project.projectCode
             })
             .select()
             .single();
@@ -147,6 +148,12 @@ export async function POST(req: Request) {
                 { status: 400 }
             );
         }
+
+        // 4.1 Création du bucket Supabase
+        const bucketName = `Bennydev.${project.projectCode}`;
+        const { error: bucketError } = await supabaseAdmin
+            .storage
+            .createBucket(bucketName);
 
         return NextResponse.json({
             message: "Création réussie",

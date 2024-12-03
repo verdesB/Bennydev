@@ -12,7 +12,7 @@ import { use } from 'react'
 import { Label } from '@/components/ui/label'
 import { Separator } from '@/components/ui/separator'
 import { createClient } from '@supabase/supabase-js'
-
+import { Textarea } from '@/components/ui/textarea'
 // Créer le client admin
 
 
@@ -48,6 +48,7 @@ interface ProjectFormData {
     starterDate: string;
     focusDate: string;
     budget: number;
+    projectCode: string;
 }
 
 interface UserResponse {
@@ -104,7 +105,8 @@ const DemandeDetail = ({ params }: { params: { id: string } }) => {
         state: 'draft',
         starterDate: '',
         focusDate: '',
-        budget: 0
+        budget: 0,
+        projectCode: ''
     });
 
     // Ajout des states pour suivre la progression
@@ -627,7 +629,7 @@ const DemandeDetail = ({ params }: { params: { id: string } }) => {
                                                     value={profileForm.projectCode}
                                                     onChange={(e) => setProfileForm({...profileForm, projectCode: e.target.value})}
                                                     className="bg-background"
-                                                    disabled
+                                                    
                                                 />
                                             </div>
                                         </div>
@@ -708,6 +710,15 @@ const DemandeDetail = ({ params }: { params: { id: string } }) => {
                                                     type="date"
                                                     value={projectForm.focusDate}
                                                     onChange={(e) => setProjectForm({...projectForm, focusDate: e.target.value})}
+                                                    className="bg-background"
+                                                />
+                                            </div>
+                                            <div className="space-y-2">
+                                                <Label htmlFor="projectCode">Code du projet</Label>
+                                                <Input
+                                                    id="projectCode"
+                                                    value={projectForm.projectCode}
+                                                    onChange={(e) => setProjectForm({...projectForm, projectCode: e.target.value})}
                                                     className="bg-background"
                                                 />
                                             </div>

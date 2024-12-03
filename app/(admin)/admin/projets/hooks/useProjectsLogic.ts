@@ -1,3 +1,5 @@
+"use client"
+
 import { useState, useEffect } from 'react';
 import { toast } from 'sonner';
 import { ChatWebSocket } from '@/lib/websocket';
@@ -14,6 +16,7 @@ export const useProjectsLogic = () => {
       message: "Premier message concernant le projet",
       created_at: new Date().toISOString(),
       profiles: {
+        id: "1",
         first_name: "John",
         last_name: "Doe"
       }
@@ -181,7 +184,41 @@ export const useProjectsLogic = () => {
         ...prev,
         status: tempStatus
       } : null);
+
+      const client = selectedProject.users.find(user => user.role === 'member');
+      if (client) {
+        console.log('ID du client:', client.id);
+
+        try {
+          const statusLabel = PROJECT_STATUSES.find(
+            status => status.value === tempStatus
+          )?.label || tempStatus;
+
+          const response = await fetch('/api/create-notification', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              user_id: client.id,
+              title: 'Mise à jour du statut',
+              message: `Le statut du projet ${selectedProject.name} a été mis à jour vers "${statusLabel}"`,
+              type: 'STATUS_UPDATE',
+              project_id: selectedProject.id
+            })
+          });
+
+          const data = await response.json();
+          
+          if (!response.ok) {
+            throw new Error(data.error || 'Erreur lors de la création de la notification');
+          }
+
+          console.log('Notification créée avec succès:', data);
+        } catch (error) {
+          console.error('Erreur détaillée:', error);
+          toast.error('Erreur lors de l\'envoi de la notification');
+        }
       
+      }
       setTempStatus('');
       toast.success('Statut mis à jour avec succès');
     } catch (error: any) {
@@ -222,7 +259,7 @@ export const useProjectsLogic = () => {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
               user_id: client.id,
-              title: 'Mise à jour des URLs',
+              title: 'Ajout des URLs du projet',
               message: `Les URLs du projet ${selectedProject.name} ont été mises à jour.`,
               type: 'URL_UPDATE',
               project_id: selectedProject.id
@@ -251,6 +288,16 @@ export const useProjectsLogic = () => {
     }
   };
 
+  const PROJECT_STATUSES = [
+    { value: 'MAQUETTE', label: 'Maquettage en cours', color: 'bg-purple-100 text-purple-800' },
+    { value: 'VALIDATION_MAQUETTE', label: 'En attente de validation maquette', color: 'bg-yellow-100 text-yellow-800' },
+    { value: 'DEVELOPMENT', label: 'En développement', color: 'bg-blue-100 text-blue-800' },
+    { value: 'REVIEW', label: 'En révision', color: 'bg-orange-100 text-orange-800' },
+    { value: 'TESTING', label: 'En phase de test', color: 'bg-indigo-100 text-indigo-800' },
+    { value: 'CLIENT_VALIDATION', label: 'Validation client', color: 'bg-pink-100 text-pink-800' },
+    { value: 'COMPLETED', label: 'Terminé', color: 'bg-green-100 text-green-800' }
+  ];
+
   return {
     projects,
     selectedProject,
@@ -261,6 +308,7 @@ export const useProjectsLogic = () => {
     tempStatus,
     projectImages,
     user,
+    PROJECT_STATUSES,
     setSelectedProject,
     setNewMessage,
     setTempStagingUrl,
@@ -270,14 +318,4 @@ export const useProjectsLogic = () => {
     handleUpdateStatus,
     handleUpdateUrls
   };
-};
-
-export const PROJECT_STATUSES = [
-  { value: 'MAQUETTE', label: 'Maquettage en cours', color: 'bg-purple-100 text-purple-800' },
-  { value: 'VALIDATION_MAQUETTE', label: 'En attente de validation maquette', color: 'bg-yellow-100 text-yellow-800' },
-  { value: 'DEVELOPMENT', label: 'En développement', color: 'bg-blue-100 text-blue-800' },
-  { value: 'REVIEW', label: 'En révision', color: 'bg-orange-100 text-orange-800' },
-  { value: 'TESTING', label: 'En phase de test', color: 'bg-indigo-100 text-indigo-800' },
-  { value: 'CLIENT_VALIDATION', label: 'Validation client', color: 'bg-pink-100 text-pink-800' },
-  { value: 'COMPLETED', label: 'Terminé', color: 'bg-green-100 text-green-800' }
-]; 
+}; 

@@ -31,7 +31,9 @@ export async function GET(
           figma_link,
           prod_test_url,
           created_at,
-          updated_at
+          updated_at,
+          code_project
+          
         )
       `)
       .eq('project_id', params.id)

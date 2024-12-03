@@ -11,6 +11,7 @@ export default function ClientPage() {
   const [projects, setProjects] = useState<any[]>([])
   const [notifications, setNotifications] = useState<any[]>([])
   const [tickets, setTickets] = useState<any[]>([])
+  const [showAllNotifications, setShowAllNotifications] = useState(false)
 
   useEffect(() => {
     const fetchDashboardData = async () => {
@@ -93,6 +94,51 @@ export default function ClientPage() {
     router.push(`/client/${projectId}`)
   }
 
+  const markNotificationAsRead = async (notificationId: string) => {
+    try {
+      const supabase = createClientComponentClient();
+      
+      // Correction : utiliser 'is_read' au lieu de 'read'
+      const { error } = await supabase
+        .from('notifications')
+        .update({ is_read: true })
+        .eq('id', notificationId);
+
+      if (error) {
+        console.error('Erreur Supabase:', error);
+        throw error;
+      }
+
+      // Mise à jour locale de l'état uniquement si la requête a réussi
+      setNotifications(prev => 
+        prev.map(notif => 
+          notif.id === notificationId ? { ...notif, is_read: true } : notif
+        )
+      );
+
+      // Revenir à l'affichage des non lues
+      setShowAllNotifications(false);
+    } catch (error) {
+      console.error('Erreur lors du marquage de la notification:', error);
+    }
+  }
+
+  const formatDate = (dateString: string) => {
+    const options: Intl.DateTimeFormatOptions = { year: 'numeric', month: 'long', day: 'numeric' };
+    return new Date(dateString).toLocaleDateString('fr-FR', options);
+  };
+
+  const groupNotificationsByDate = (notifications: any[]) => {
+    return notifications.reduce((acc, notif) => {
+      const date = formatDate(notif.created_at);
+      if (!acc[date]) {
+        acc[date] = [];
+      }
+      acc[date].push(notif);
+      return acc;
+    }, {} as Record<string, any[]>);
+  };
+
   if (loading) {
     return <div className="p-6">Chargement...</div>
   }
@@ -100,6 +146,12 @@ export default function ClientPage() {
   if (error) {
     return <div className="p-6 text-red-500">{error}</div>
   }
+
+  const filteredNotifications = showAllNotifications 
+    ? notifications 
+    : notifications.filter(notif => !notif.is_read);
+
+  const groupedNotifications = groupNotificationsByDate(filteredNotifications);
 
   return (
     <div className="h-[calc(100vh-4rem)] bg-[#F5F5F7] p-6 lg:p-8 rounded-2xl shadow-[0_4px_20px_-1px_rgba(147,51,234,0.2)] hover:shadow-[0_4px_20px_-1px_rgba(147,51,234,0.3)] transition-shadow">
@@ -216,38 +268,56 @@ export default function ClientPage() {
         </div>
 
         <div className="flex-shrink-0 w-[30%] space-y-6 h-full">
-          <div className="bg-white rounded-2xl shadow-sm p-8 backdrop-blur-lg bg-opacity-80 h-full overflow-hidden">
-            <h2 className="text-xl md:text-2xl tracking-tight font-medium text-gray-900 mb-4 lg:mb-6">Notifications</h2>
-            <div className="space-y-4 overflow-y-scroll max-h-[calc(100%-4rem)]">
-              {!notifications?.length ? (
-                <p className="text-gray-500 text-center py-4">Aucune notification</p>
+          <div className="bg-white rounded-2xl shadow-sm py-8 pl-8 backdrop-blur-lg bg-opacity-80 h-full overflow-hidden">
+            <div className="flex justify-between items-center mb-4 lg:mb-6 pr-8">
+              <h2 className="text-xl md:text-2xl tracking-tight font-medium text-gray-900">Notifications</h2>
+              <button
+                onClick={() => setShowAllNotifications(!showAllNotifications)}
+                className="text-xs text-gray-500 hover:text-gray-700"
+              >
+                {showAllNotifications ? 'Voir les non lus' : 'Voir toutes les notifications'}
+              </button>
+            </div>
+            <div className="space-y-4 overflow-y-scroll max-h-[calc(100%-4rem)] pr-8">
+              {!filteredNotifications?.length ? (
+                <p className="text-gray-500 text-center py-4">
+                  {showAllNotifications ? 'Aucune notification' : 'Aucune notification non lue'}
+                </p>
               ) : (
-                notifications.map((notif) => (
-                  <div 
-                    key={notif.id} 
-                    className={`group p-4 rounded-lg border ${
-                      notif.read ? 'bg-white' : 'bg-purple-50'
-                    } hover:shadow-md transition-all duration-200`}
-                  >
-                    <div className="flex items-start gap-3">
-                      <div className={`w-2 h-2 mt-2 rounded-full flex-shrink-0 ${
-                        notif.type === 'success' ? 'bg-green-500' :
-                        notif.type === 'warning' ? 'bg-yellow-500' :
-                        notif.type === 'error' ? 'bg-red-500' : 'bg-purple-500'
-                      }`} />
-                      <div className="flex-grow">
-                        <h3 className="text-sm font-medium text-gray-900">{notif.title}</h3>
-                        <p className="text-sm text-gray-600 mt-1">{notif.message}</p>
-                        <div className="flex items-center justify-between mt-2">
-                          <span className="text-xs text-gray-500">{notif.date}</span>
-                          {!notif.read && (
-                            <button className="text-xs text-purple-600 hover:text-purple-700">
-                              Marquer comme lu
-                            </button>
-                          )}
+                Object.entries(groupedNotifications).map(([date, notifs]) => (
+                  <div key={date} className="space-y-4">
+                    <h3 className="text-sm font-medium text-gray-500 tracking-tight">{date}</h3>
+                    {notifs.map((notif) => (
+                      <div 
+                        key={notif.id} 
+                        className={`group p-4 rounded-lg border ${
+                          notif.is_read ? 'bg-white' : 'bg-purple-50'
+                        } hover:shadow-md transition-all duration-200`}
+                      >
+                        <div className="flex items-start gap-3">
+                          <div className={`w-2 h-2 mt-2 rounded-full flex-shrink-0 ${
+                            notif.type === 'success' ? 'bg-green-500' :
+                            notif.type === 'warning' ? 'bg-yellow-500' :
+                            notif.type === 'error' ? 'bg-red-500' : 'bg-purple-500'
+                          }`} />
+                          <div className="flex-grow">
+                            <h3 className="text-sm font-medium text-gray-900">{notif.title}</h3>
+                            <p className="text-sm text-gray-600 mt-1">{notif.message}</p>
+                            <div className="flex items-center justify-between mt-2">
+                              <span className="text-xs text-gray-500">{notif.date}</span>
+                              {!notif.is_read && (
+                                <button 
+                                  onClick={() => markNotificationAsRead(notif.id)}
+                                  className="text-xs text-purple-600 hover:text-purple-700"
+                                >
+                                  Marquer comme lu
+                                </button>
+                              )}
+                            </div>
+                          </div>
                         </div>
                       </div>
-                    </div>
+                    ))}
                   </div>
                 ))
               )}
