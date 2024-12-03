@@ -86,18 +86,21 @@ export default function ProjectFilesPage() {
 
   const fetchImages = async () => {
     try {
-      const response = await fetch(`/api/files/${params.id}`)
+      console.log('Fetching images for project:', params.id);
+      const response = await fetch(`/api/files/${params.id}`);
+      
       if (!response.ok) {
-        const errorData = await response.json()
-        throw new Error(errorData.error || 'Erreur lors de la récupération des images')
+        throw new Error('Erreur lors de la récupération des images');
       }
-      const data = await response.json()
-      setImages(data || [])
+      
+      const data = await response.json();
+      console.log('URLs des images:', data.map((file: File) => file.image_url));
+      setImages(data);
     } catch (error) {
-      console.error('Erreur:', error)
-      toast.error('Erreur lors de la récupération des images')
+      console.error('Erreur:', error);
+      toast.error('Erreur lors de la récupération des images');
     }
-  }
+  };
 
   useEffect(() => {
     fetchImages()
@@ -178,9 +181,8 @@ export default function ProjectFilesPage() {
             {images.map((file) => (
               <div 
                 key={file.id} 
-                className="group relative bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden transition-all duration-200 hover:shadow-md hover:-translate-y-0.5 w-full max-w-[200px]"
+                className="group relative bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden transition-all duration-200 hover:shadow-md hover:-translate-y-0.5"
               >
-                {/* Aperçu de l'image */}
                 <div className="aspect-square relative overflow-hidden bg-gray-50">
                   <Image
                     src={file.image_url}
@@ -188,29 +190,7 @@ export default function ProjectFilesPage() {
                     fill
                     className="object-cover"
                   />
-                  {/* Overlay avec actions */}
-                  <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-200 flex items-center justify-center gap-2">
-                    <button
-                      onClick={() => alert('Téléchargement à implémenter')}
-                      className="p-1.5 bg-white/10 rounded-lg hover:bg-white/20 transition-colors duration-200"
-                      title="Télécharger"
-                    >
-                      <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
-                      </svg>
-                    </button>
-                    <button
-                      onClick={() => alert('Suppression à implémenter')}
-                      className="p-1.5 bg-white/10 rounded-lg hover:bg-white/20 transition-colors duration-200"
-                      title="Supprimer"
-                    >
-                      <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                      </svg>
-                    </button>
-                  </div>
                 </div>
-                {/* Informations du fichier plus compactes */}
                 <div className="p-2.5">
                   <p className="text-sm font-medium text-gray-900 truncate">{file.title}</p>
                   <p className="text-xs text-gray-500 mt-0.5">

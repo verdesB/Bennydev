@@ -121,7 +121,7 @@ const DemandeDetail = ({ params }: { params: { id: string } }) => {
         const fetchFile = async () => {
             try {
                 // Récupérer tous les fichiers
-                const response = await fetch('/api/files')
+                const response = await fetch('/api/demande')
                 const data = await response.json()
                 
                 if (!response.ok) {
@@ -146,7 +146,7 @@ const DemandeDetail = ({ params }: { params: { id: string } }) => {
                 }
 
                 // Récupérer le contenu du fichier
-                const contentResponse = await fetch(`/api/files/${matchingFile.name}`)
+                const contentResponse = await fetch(`/api/demande/${matchingFile.name}`)
                 const contentData = await contentResponse.json()
                 
                 if (!contentResponse.ok) {

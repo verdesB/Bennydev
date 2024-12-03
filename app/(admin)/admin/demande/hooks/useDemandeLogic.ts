@@ -78,7 +78,7 @@ export default function useDemandeLogic() {
     useEffect(() => {
         const fetchFiles = async () => {
             try {
-                const response = await fetch('/api/files')
+                const response = await fetch('/api/demande')
                 const data = await response.json()
                 
                 if (!response.ok) {
@@ -87,7 +87,7 @@ export default function useDemandeLogic() {
                 
                 const filesWithContent = await Promise.all(
                     data.files.map(async (file: FileObject) => {
-                        const contentResponse = await fetch(`/api/files/${file.name}`)
+                        const contentResponse = await fetch(`/api/demande/${file.name}`)
                         const contentData = await contentResponse.json()
                         
                         const isNew = isFileNew(file.created_at)

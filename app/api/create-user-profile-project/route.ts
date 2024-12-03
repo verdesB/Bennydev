@@ -153,7 +153,9 @@ export async function POST(req: Request) {
         const bucketName = `Bennydev.${project.projectCode}`;
         const { error: bucketError } = await supabaseAdmin
             .storage
-            .createBucket(bucketName);
+            .createBucket(bucketName, {
+                public: true
+            });
 
         return NextResponse.json({
             message: "Création réussie",
