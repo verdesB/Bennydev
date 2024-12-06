@@ -8,7 +8,7 @@ import { Fragment } from 'react'
 import { useFileUpload } from './hooks/useFileUpload'
 import { toast } from 'sonner'
 
-interface File {
+interface ProjectFile {
   id: number
   project_id: string
   image_url: string
@@ -16,11 +16,12 @@ interface File {
   description: string | null
   type: string | null
   created_at: string
+  size: number
 }
 
 export default function ProjectFilesPage() {
   const params = useParams()
-  const [images, setImages] = useState<File[]>([])
+  const [images, setImages] = useState<ProjectFile[]>([])
   const [isUploadModalOpen, setIsUploadModalOpen] = useState(false)
   const [dragActive, setDragActive] = useState(false)
   const [selectedFile, setSelectedFile] = useState<File | null>(null)
@@ -55,7 +56,7 @@ export default function ProjectFilesPage() {
       const projectData = await projectResponse.json()
       
       const formData = new FormData()
-      formData.append('file', selectedFile as unknown as Blob)
+      formData.append('file', selectedFile)
       formData.append('projectId', params.id as string)
       formData.append('title', fileTitle)
       formData.append('description', fileDescription || '')
@@ -93,7 +94,7 @@ export default function ProjectFilesPage() {
       }
       
       const data = await response.json();
-      console.log('URLs des images:', data.map((file: File) => file.image_url));
+      console.log('URLs des images:', data.map((file: ProjectFile) => file.image_url));
       setImages(data);
     } catch (error) {
       console.error('Erreur:', error);
