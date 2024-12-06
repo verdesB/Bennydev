@@ -55,7 +55,7 @@ export default function ProjectFilesPage() {
       const projectData = await projectResponse.json()
       
       const formData = new FormData()
-      formData.append('file', selectedFile)
+      formData.append('file', selectedFile as unknown as Blob)
       formData.append('projectId', params.id as string)
       formData.append('title', fileTitle)
       formData.append('description', fileDescription || '')
