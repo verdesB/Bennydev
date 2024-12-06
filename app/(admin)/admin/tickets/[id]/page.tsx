@@ -15,6 +15,7 @@ import { Textarea } from '@/components/ui/textarea'
 import { TicketStatus } from '../../../../../components/TicketStatus'
 import { supabase } from '@/app/lib/supabase'
 
+
 interface Profile {
   first_name: string;
   last_name: string;
@@ -41,6 +42,8 @@ interface TicketComment {
   profile_id: string;
   profiles?: Profile;
 }
+
+type StatusType = 'open' | 'in_progress' | 'resolved' | 'closed';
 
 const TicketDetailPage = () => {
   const params = useParams()
@@ -187,7 +190,7 @@ const TicketDetailPage = () => {
           </div>
 
           <div className="flex items-center gap-4">
-            <TicketStatus status={ticket.status} />
+            <TicketStatus status={ticket.status as StatusType} />
             <Select
               value={ticket.status}
               onValueChange={updateStatus}
