@@ -4,7 +4,7 @@ import { NextResponse } from 'next/server'
 
 export async function POST(
   request: Request,
-  context: { params: { id: string } }
+  context: { params: Promise<{ id: string }> }
 ) {
   try {
     // Vérifier l'authentification
@@ -17,7 +17,7 @@ export async function POST(
       return NextResponse.json({ error: 'Non authentifié' }, { status: 401 })
     }
 
-    const { id } = context.params;
+    const { id } = await context.params;
     const ticketId = parseInt(id)
     const { content } = await request.json()
 
