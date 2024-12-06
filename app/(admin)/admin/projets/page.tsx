@@ -7,6 +7,7 @@ import { MessageCircle } from "lucide-react";
 import { useProjectsLogic,  } from './hooks/useProjectsLogic';
 import { ProjectDetails } from './components/ProjectDetails/ProjectDetails';
 import { ChatSection } from './components/ChatSection';
+import { User } from './types/project.types';
 
 const ProjectsPage = () => {
   const {
@@ -70,7 +71,7 @@ const ProjectsPage = () => {
                 <ChatSection
                   messages={messages}
                   newMessage={newMessage}
-                  user={user}
+                  user={user as User | null}
                   setNewMessage={setNewMessage}
                   sendMessage={sendMessage}
                 />
