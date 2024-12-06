@@ -92,7 +92,8 @@ const config: Config = {
   			md: 'calc(var(--radius) - 2px)',
   			sm: 'calc(var(--radius) - 4px)'
   		}
-  	}
+  	},
+	  
   },
   plugins: [addVariablesForColors, require("tailwindcss-animate"), require('@tailwindcss/typography'),require('tailwind-scrollbar')({ nocompatible: true }),],
 }

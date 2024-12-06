@@ -7,6 +7,7 @@ import { cn } from '@/lib/utils'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { Input } from '@/components/ui/input'
 import { Search } from 'lucide-react'
+import { sections } from './section.data'
 
 const HelpPage = () => {
   const router = useRouter()
@@ -21,25 +22,7 @@ const HelpPage = () => {
     }
   }, [searchParams])
 
-  const sections = [
-    {
-      id: 'getting-started',
-      title: 'Pour Commencer',
-      items: [
-        { id: 'introduction', title: 'Introduction', content: 'Contenu introduction...' },
-        { id: 'installation', title: 'Installation', content: 'Guide d\'installation...' },
-      ]
-    },
-    {
-      id: 'features',
-      title: 'Fonctionnalités',
-      items: [
-        { id: 'dashboard', title: 'Tableau de bord', content: 'Guide du tableau de bord...' },
-        { id: 'projects', title: 'Projets', content: 'Gestion des projets...' },
-        { id: 'tasks', title: 'Tâches', content: 'Gestion des tâches...' },
-      ]
-    },
-  ]
+
 
   const handleSectionChange = (sectionId: string) => {
     setActiveSection(sectionId)

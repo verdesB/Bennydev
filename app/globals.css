@@ -219,4 +219,28 @@ details[open] > div {
   body {
     @apply bg-background text-foreground;
   }
+}
+
+@layer components {
+  .sheet-content-right {
+    @apply data-[state=open]:animate-slide-in-right data-[state=closed]:animate-slide-out-right;
+  }
+}
+
+@keyframes slide-in-right {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes slide-out-right {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(100%);
+  }
 } 

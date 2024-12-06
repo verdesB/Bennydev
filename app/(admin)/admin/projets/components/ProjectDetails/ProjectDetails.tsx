@@ -39,184 +39,89 @@ export const ProjectDetails = ({
 }: ProjectDetailsProps) => {
   return (
     <div className="h-full p-6 overflow-auto">
-      <ProjectHeader 
-        name={selectedProject.name}
-        status={selectedProject.status}
-        PROJECT_STATUSES={PROJECT_STATUSES}
-      />
-
-      <div className="grid grid-cols-4 gap-4 mt-6 ">
-        {/* Basic Info Card - Span 2 columns */}
-        <div className="col-span-2 bg-card rounded-2xl border shadow-sm p-4 relative h-full">
-          {/* SparklesCore en arrière-plan */}
-          <div className="absolute inset-0 rounded-2xl overflow-hidden">
-            <div className="w-full h-full">
-              <SparklesCore 
-                className="w-full h-full absolute inset-0 w-full h-full rounded-2xl  "
-              
-                background="rgba(244,242,255,0.015)"
-                particleColor="#8b5cf6"
-                particleDensity={100}
-                speed={2}
-                minSize={0.6}
-                maxSize={1.4}
-              />
-            </div>
-          </div>
-          <div className="relative z-10">
-          <BasicInfo project={selectedProject} />
-          </div>
-        </div>
-
-        {/* Status Card */}
-        <div className="col-span-2 bg-card rounded-2xl border shadow-sm p-4 relative h-full">
-          {/* SparklesCore en arrière-plan */}
-          <div className="absolute inset-0 rounded-2xl overflow-hidden">
-            <div className="w-full h-full">
-              <SparklesCore 
-                className="w-full h-full absolute inset-0 w-full h-full rounded-2xl  "
-              
-                background="rgba(244,242,255,0.015)"
-                particleColor="#8b5cf6"
-                particleDensity={100}
-                speed={2}
-                minSize={0.6}
-                maxSize={1.4}
-              />
-            </div>
-          </div>
-          
-          {/* StatusSection au premier plan */}
-          <div className="relative z-10 h-full">
-            <StatusSection
-              selectedProject={selectedProject}
-              tempStatus={tempStatus}
-              setTempStatus={setTempStatus}
-              handleUpdateStatus={handleUpdateStatus}
+      <div className="w-full rounded-3xl bg-gradient-to-b from-white to-gray-50/50 border shadow-lg p-8">
+        <div className="grid grid-cols-12 gap-8">
+          <div className="col-span-5 space-y-6">
+            <ProjectHeader 
+              name={selectedProject.name}
+              status={selectedProject.status}
               PROJECT_STATUSES={PROJECT_STATUSES}
             />
-          </div>
-        </div>
 
-        {/* URLs Card - Span full width */}
-        <div className="col-span-2 bg-card rounded-2xl border shadow-sm p-4 relative h-full">
-          {/* SparklesCore en arrière-plan */}
-          <div className="absolute inset-0 rounded-2xl overflow-hidden">
-            <div className="w-full h-full">
-              <SparklesCore 
-                className="w-full h-full absolute inset-0 w-full h-full rounded-2xl  "
-              
-                background="rgba(244,242,255,0.015)"
-                particleColor="#8b5cf6"
-                particleDensity={100}
-                speed={2}
-                minSize={0.6}
-                maxSize={1.4}
-              />
-            </div>
-          </div>
-          
-          {/* StatusSection au premier plan */}
-          <div className="relative z-10">
-          <UrlsSection
-            selectedProject={selectedProject}
-            tempFigmaUrl={tempFigmaUrl}
-            tempStagingUrl={tempStagingUrl}
-            setTempFigmaUrl={setTempFigmaUrl}
-            setTempStagingUrl={setTempStagingUrl}
-            handleUpdateUrls={handleUpdateUrls}
-          />
-        </div>
-        </div>
-
-        {/* Images Section - Span full width */}
-        <div className="col-span-2 bg-card rounded-2xl border shadow-sm p-4 relative h-full">
-          {/* SparklesCore en arrière-plan */}
-          <div className="absolute inset-0 rounded-2xl overflow-hidden">
-            <div className="w-full h-full">
-              <SparklesCore 
-                className="w-full h-full absolute inset-0 w-full h-full rounded-2xl  "
-              
-                background="rgba(244,242,255,0.015)"
-                particleColor="#8b5cf6"
-                particleDensity={100}
-                speed={2}
-                minSize={0.6}
-                maxSize={1.4}
-              />
-            </div>
-          </div>
-          
-          {/* StatusSection au premier plan */}
-          <div className="relative z-10 h-full">
-          <ImagesSection projectImages={projectImages} />
-        </div>
-        </div>
-
-        {/* Accès Rapide - Kanban */}
-        <div className="col-span-2 bg-card rounded-2xl border shadow-sm p-4 relative h-full">
-          <div className="absolute inset-0 rounded-2xl overflow-hidden">
-            <div className="w-full h-full">
-              <SparklesCore 
-                className="w-full h-full absolute inset-0 w-full h-full rounded-2xl"
-                background="rgba(244,242,255,0.015)"
-                particleColor="#8b5cf6"
-                particleDensity={100}
-                speed={2}
-                minSize={0.6}
-                maxSize={1.4}
-              />
-            </div>
-          </div>
-          
-          <Link href={`/admin/projets/kanban/${selectedProject.id}`}>
-            <div className="relative z-10 h-full bg-white backdrop-blur-sm rounded-xl p-4 border border-white/10 hover:scale-[1.02] transition-all duration-200 shadow-[0_4px_20px_-1px_rgba(147,51,234,0.2)] hover:shadow-[0_4px_20px_-1px_rgba(147,51,234,0.3)] transition-shadow">
-              <div className="flex flex-col items-center justify-center space-y-3">
-                <div className="p-3 bg-primary/10 rounded-full">
-                  <KanbanIcon className="w-8 h-8 text-primary" />
-                </div>
-                <h3 className="text-lg font-semibold">Voir Kanban</h3>
-                <p className="text-sm text-muted-foreground text-center">Gérer les tâches du projet</p>
-              </div>
-              <div className="absolute bottom-3 right-3">
-                <ArrowUpRight className="w-5 h-5 text-primary transition-transform duration-200 group-hover:translate-x-1 group-hover:-translate-y-1" />
+            <div className="bg-white/70 backdrop-blur-sm rounded-2xl border shadow-sm p-6 relative">
+              <div className="relative z-10">
+                <BasicInfo project={selectedProject} />
               </div>
             </div>
-          </Link>
-        </div>
+          </div>
 
-        {/* Accès Rapide - Paiements */}
-        <div className="col-span-1 bg-card rounded-2xl border shadow-sm p-4 relative h-full">
-          <div className="absolute inset-0 rounded-2xl overflow-hidden">
-            <div className="w-full h-full">
-              <SparklesCore 
-                className="w-full h-full absolute inset-0 w-full h-full rounded-2xl"
-                background="rgba(244,242,255,0.015)"
-                particleColor="#8b5cf6"
-                particleDensity={100}
-                speed={2}
-                minSize={0.6}
-                maxSize={1.4}
-              />
+          <div className="col-span-7 space-y-6">
+            <div className="bg-white/70 backdrop-blur-sm rounded-2xl border shadow-sm p-6 relative">
+              <div className="relative z-10">
+                <StatusSection
+                  selectedProject={selectedProject}
+                  tempStatus={tempStatus}
+                  setTempStatus={setTempStatus}
+                  handleUpdateStatus={handleUpdateStatus}
+                  PROJECT_STATUSES={PROJECT_STATUSES}
+                />
+              </div>
+            </div>
+
+            <div className="bg-white/70 backdrop-blur-sm rounded-2xl border shadow-sm p-6 relative">
+              <div className="relative z-10">
+                <UrlsSection
+                  selectedProject={selectedProject}
+                  tempFigmaUrl={tempFigmaUrl}
+                  tempStagingUrl={tempStagingUrl}
+                  setTempFigmaUrl={setTempFigmaUrl}
+                  setTempStagingUrl={setTempStagingUrl}
+                  handleUpdateUrls={handleUpdateUrls}
+                />
+              </div>
+            </div>
+
+            <div className="bg-white/70 backdrop-blur-sm rounded-2xl border shadow-sm p-6 relative">
+              <div className="relative z-10">
+                <ImagesSection projectId={selectedProject.id} />
+              </div>
+            </div>
+
+            <div className="bg-white/70 backdrop-blur-sm rounded-2xl border shadow-sm p-6 relative">
+              <div className="grid grid-cols-2 gap-4">
+                <Link href={`/admin/projets/kanban/${selectedProject.id}`}>
+                  <div className="group bg-white rounded-xl p-4 border hover:border-primary/20 transition-all duration-200 hover:shadow-lg">
+                    <div className="flex items-center space-x-4">
+                      <div className="p-3 bg-primary/10 rounded-full">
+                        <KanbanIcon className="w-6 h-6 text-primary" />
+                      </div>
+                      <div>
+                        <h3 className="text-lg font-semibold">Voir Kanban</h3>
+                        <p className="text-sm text-muted-foreground">Gérer les tâches du projet</p>
+                      </div>
+                      <ArrowUpRight className="w-5 h-5 text-primary ml-auto opacity-0 group-hover:opacity-100 transition-all" />
+                    </div>
+                  </div>
+                </Link>
+
+                <Link href={`/admin/projets/${selectedProject.id}/paiements`}>
+                  <div className="group bg-white rounded-xl p-4 border hover:border-primary/20 transition-all duration-200 hover:shadow-lg">
+                    <div className="flex items-center space-x-4">
+                      <div className="p-3 bg-primary/10 rounded-full">
+                        <PaymentIcon className="w-6 h-6 text-primary" />
+                      </div>
+                      <div>
+                        <h3 className="text-lg font-semibold">Voir Paiements</h3>
+                        <p className="text-sm text-muted-foreground">Gérer les transactions</p>
+                      </div>
+                      <ArrowUpRight className="w-5 h-5 text-primary ml-auto opacity-0 group-hover:opacity-100 transition-all" />
+                    </div>
+                  </div>
+                </Link>
+              </div>
             </div>
           </div>
-          
-          <Link href={`/admin/projets/${selectedProject.id}/paiements`}>
-            <div className="relative z-10 h-full bg-white backdrop-blur-sm rounded-xl p-4 border border-white/10 hover:scale-[1.02] transition-all duration-200 shadow-[0_4px_20px_-1px_rgba(147,51,234,0.2)] hover:shadow-[0_4px_20px_-1px_rgba(147,51,234,0.3)] transition-shadow">
-              <div className="flex flex-col items-center justify-center space-y-3">
-                <div className="p-3 bg-primary/10 rounded-full">
-                  <PaymentIcon className="w-8 h-8 text-primary" />
-                </div>
-                <h3 className="text-lg font-semibold">Voir Paiements</h3>
-                <p className="text-sm text-muted-foreground text-center">Gérer les transactions</p>
-              </div>
-              <div className="absolute bottom-3 right-3">
-                <ArrowUpRight className="w-5 h-5 text-primary transition-transform duration-200 group-hover:translate-x-1 group-hover:-translate-y-1" />
-              </div>
-            </div>
-          </Link>
         </div>
-
       </div>
     </div>
   );
