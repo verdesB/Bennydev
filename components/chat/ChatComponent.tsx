@@ -19,17 +19,7 @@ interface ChatComponentProps {
   projectId: string
 }
 
-// Ajout de l'interface pour les messages WebSocket
-interface WebSocketMessage {
-  id: string | number
-  message: string
-  created_at: string
-  sender_id: string
-  profiles: {
-    first_name: string | null
-    last_name: string | null
-  }
-}
+
 
 export interface ProjectMessage {
   id: string | number
