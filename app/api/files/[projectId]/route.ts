@@ -14,10 +14,10 @@ const supabase = createClient(
 
 export async function GET(
     request: Request,
-    { params }: { params: { projectId: string } }
+    context: { params: Promise<{ projectId: string }> }
   ) {
     try {
-      const projectId = params.projectId;
+      const { projectId } = await context.params;
       
       const { data: filesData, error: filesError } = await supabase
         .from('files')
