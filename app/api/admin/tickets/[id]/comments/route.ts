@@ -4,7 +4,7 @@ import { NextResponse } from 'next/server'
 
 export async function POST(
   request: Request,
-  context: { params: { id: string } }
+  { params }: { params: { id: string } }
 ) {
   try {
     // Vérifier l'authentification
@@ -17,8 +17,8 @@ export async function POST(
       return NextResponse.json({ error: 'Non authentifié' }, { status: 401 })
     }
 
-    const params = await context.params
-    const ticketId = parseInt(params.id)
+    const { id } = params;
+    const ticketId = parseInt(id)
     const { content } = await request.json()
 
     // Ajouter le commentaire avec l'ID de l'utilisateur connecté
