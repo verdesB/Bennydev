@@ -8,12 +8,9 @@ import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { Input } from "@/components/ui/input"
 import { toast } from "sonner"
-import { use } from 'react'
 import { Label } from '@/components/ui/label'
 import { Separator } from '@/components/ui/separator'
 import { Textarea } from '@/components/ui/textarea'
-// Créer le client admin
-
 
 interface FileObject {
     name: string
@@ -77,7 +74,7 @@ interface Params {
     id: string;
 }
 
-const DemandeDetail = async ({ params }: { params: Params }) => {
+const DemandeDetail = ({ params }: { params: Params }) => {
     const [file, setFile] = useState<FileObject | null>(null)
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState<string | null>(null)
@@ -505,7 +502,7 @@ const DemandeDetail = async ({ params }: { params: Params }) => {
                         </h2>
                         <p className="text-muted-foreground text-sm mt-1">
                             {submissionSuccess 
-                                ? 'Le compte a ét�� créé avec succès' 
+                                ? 'Le compte a été créé avec succès' 
                                 : 'Remplissez les informations pour créer le compte client'}
                         </p>
                     </div>
