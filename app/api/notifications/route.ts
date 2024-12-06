@@ -17,12 +17,12 @@ export async function GET() {
     }
 
     // Récupérer les notifications de l'utilisateur
-    const { data: notifications, error } = await supabase
+    const { data: notifications, error: notificationsError } = await supabase
       .from('notifications')
       .select('*')
       .eq('user_id', user.id)
 
-    if (error) {
+    if (notificationsError) {
       return NextResponse.json(
         { error: 'Erreur lors de la récupération des notifications' },
         { status: 500 }
