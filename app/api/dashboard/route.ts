@@ -81,7 +81,7 @@ export async function GET() {
   } catch (error) {
     console.error('Erreur API Dashboard complète:', error)
     return NextResponse.json(
-      { error: 'Erreur serveur détaillée: ' + error.message },
+      { error: 'Erreur serveur détaillée: ' + (error instanceof Error ? error.message : 'Erreur inconnue') },
       { status: 500 }
     )
   }
