@@ -81,9 +81,9 @@ const TicketDetailPage = () => {
       const { ticket } = await ticketResponse.json()
       setTicket(ticket)
       setComments(commentsResponse.data || [])
-    } catch (err: Error) {
+    } catch (err: unknown) {
       console.error('Erreur:', err)
-      setError(err.message)
+      setError(err instanceof Error ? err.message : 'Une erreur inconnue est survenue')
     } finally {
       setLoading(false)
     }
