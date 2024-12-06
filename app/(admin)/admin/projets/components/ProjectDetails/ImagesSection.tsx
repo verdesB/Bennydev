@@ -5,6 +5,7 @@ import { PencilIcon, TrashIcon, Upload } from "lucide-react";
 import Link from "next/link";
 import { useProjectImages } from "../../hooks/useProjectImages";
 import { Skeleton } from "@/components/ui/skeleton";
+import Image from "next/image";
 
 interface ImagesSectionProps {
   projectId: string;  // uuid
@@ -23,7 +24,7 @@ export const ImagesSection = ({ projectId }: ImagesSectionProps) => {
           <Link href={`/admin/projet/partage-de-fichier/${projectId}`}>
             <Button variant="outline" size="sm" className="text-xs gap-2">
               <Upload className="h-3 w-3" />
-              Accéder à l'espace fichiers
+              Accéder à l&apos;espace fichiers
             </Button>
           </Link>
         </div>
@@ -50,10 +51,12 @@ export const ImagesSection = ({ projectId }: ImagesSectionProps) => {
           <div className="flex-1 grid grid-cols-8 gap-2 overflow-y-auto">
             {images.map((image) => (
               <Card key={image.id} className="overflow-hidden aspect-square relative group">
-                <img
+                <Image
                   src={image.image_url}
-                  alt={image.title || 'Image du projet'}
-                  className="object-cover w-full h-full"
+                  alt={image.title || "Image du projet"}
+                  className="object-cover"
+                  fill
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                 />
                 <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-200 flex items-center justify-center gap-1">
                   <Button

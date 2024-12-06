@@ -10,7 +10,7 @@ export async function POST(request: Request) {
     const payload = await request.json();
     console.log('Payload reçu:', payload);
 
-    const { user_id, title, message, type, project_id } = payload;
+    const { user_id, title, message, project_id } = payload;
 
     // Validation des données requises
     if (!user_id || !title || !message) {

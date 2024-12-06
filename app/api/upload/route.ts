@@ -39,7 +39,7 @@ export async function POST(request: Request) {
 
     console.log('Upload vers bucket:', `Bennydev.${codeProject}`)
 
-    const { data: storageData, error: storageError } = await supabase.storage
+    const { data: _storageData, error: storageError } = await supabase.storage
       .from(`Bennydev.${codeProject}`)
       .upload(bucketPath, fileBuffer, {
         contentType: file.type,

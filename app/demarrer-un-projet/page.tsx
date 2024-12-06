@@ -2,7 +2,6 @@ import ChatButton from "../components/ChatButton";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
 import Hero2 from "../components/Hero2";
-import ProcessusSteps from "../components/ProcessusSteps";
 import ProjectForm from "../components/ProjectForm/ProjectForm";
 
 const DemarrerUnProjet = () => {

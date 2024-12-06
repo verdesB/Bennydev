@@ -54,7 +54,7 @@ export function APISlide({ formData, setFormData, onNext, onPrevious }: APISlide
       <div className="space-y-6">
         <div className="bg-gray-50 p-6 rounded-lg">
           <label className="block text-sm font-medium text-gray-700 mb-2">
-            Type d'API
+            Type d&apos;API
           </label>
           <select
             name="apiType"

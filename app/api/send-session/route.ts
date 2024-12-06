@@ -59,7 +59,7 @@ export async function POST(request: Request) {
         const sessionUrl = `${process.env.NEXT_PUBLIC_SITE_URL}/session/${sessionToken}`
         
         // Créer la session
-        const { data: sessionData, error: sessionError } = await supabaseAdmin
+        const { data: _sessionData, error: sessionError } = await supabaseAdmin
             .from('sessions')
             .insert({
                 token: sessionToken,
@@ -76,7 +76,7 @@ export async function POST(request: Request) {
             return Response.json({ error: sessionError.message }, { status: 500 })
         }
 
-        const { data, error } = await resend.emails.send({
+        const { error } = await resend.emails.send({
             from: 'onboarding@resend.dev',
             to: testEmail,
             subject: `Accès à votre session - ${fileName.split('.md')[0]}`,

@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import { supabaseAdmin } from '@/app/lib/supabase-admin';
 
-export async function GET(request: Request) {
+export async function GET() {
   try {
     // On commence par récupérer les profiles clients
     const { data: profiles, error: profilesError } = await supabaseAdmin

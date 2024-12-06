@@ -78,7 +78,7 @@ export function WebAppSlide({ formData, setFormData, onNext, onPrevious }: WebAp
         {/* Type d'application */}
         <div className="space-y-2">
           <label className="block text-sm font-medium text-gray-700">
-            Type d'application
+            Type d&apos;application
           </label>
           <div className="grid grid-cols-2 gap-4">
             {appTypes.map(type => (
@@ -110,7 +110,7 @@ export function WebAppSlide({ formData, setFormData, onNext, onPrevious }: WebAp
         {/* Nombre d'utilisateurs */}
         <div className="space-y-2">
           <label className="block text-sm font-medium text-gray-700">
-            Nombre d'utilisateurs estimé
+            Nombre d&apos;utilisateurs estimé
           </label>
           <input
             type="number"
@@ -125,7 +125,7 @@ export function WebAppSlide({ formData, setFormData, onNext, onPrevious }: WebAp
         {/* Niveau d'accès */}
         <div className="space-y-2">
           <label className="block text-sm font-medium text-gray-700">
-            Niveau d'accès requis
+            Niveau d&apos;accès requis
           </label>
           <div className="grid grid-cols-3 gap-4">
             {accessLevels.map(level => (

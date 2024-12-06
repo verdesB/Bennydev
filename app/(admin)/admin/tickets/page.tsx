@@ -2,10 +2,9 @@
 
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
-import { Button } from '@/components/ui/button'
 import { SparklesCore } from '@/app/components/ui/sparkles'
-import { Clock, Filter, Ticket, CheckCircle2, Circle, AlertCircle } from 'lucide-react'
-import { motion } from 'framer-motion'
+import { Filter } from 'lucide-react'
+
 import {
   Select,
   SelectContent,

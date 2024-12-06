@@ -38,10 +38,10 @@ export async function GET(
   
       return NextResponse.json(validatedFiles || []);
   
-    } catch (error: any) {
+    } catch (error: Error | unknown) {
       console.error('Erreur complète:', error);
       return NextResponse.json(
-        { error: `Erreur serveur: ${error.message}` }, 
+        { error: error instanceof Error ? error.message : 'Erreur serveur' }, 
         { status: 500 }
       );
     }

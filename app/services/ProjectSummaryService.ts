@@ -95,8 +95,8 @@ ${details.features?.map(feature => `- ${feature}`).join('\n') || 'Aucune fonctio
 
 ### Fonctionnalités activées
 ${Object.entries(details.features || {})
-  .filter(([_, enabled]) => enabled)
-  .map(([feature, _]) => {
+  .filter(([, enabled]) => enabled)
+  .map(([feature]) => {
     const featureLabels: { [key: string]: string } = {
       stockManagement: 'Gestion des stocks',
       loyaltyProgram: 'Programme de fidélité',
@@ -126,8 +126,8 @@ ${details.shippingRegions?.map(region => `- ${region}`).join('\n') || 'Non spéc
 
 ### Fonctionnalités requises
 ${Object.entries(details.features || {})
-  .filter(([_, enabled]) => enabled)
-  .map(([feature, _]) => {
+  .filter(([, enabled]) => enabled)
+  .map(([feature]) => {
     const featureLabels: { [key: string]: string } = {
       authentication: 'Authentification',
       rateLimit: 'Limitation de requêtes',
@@ -152,8 +152,8 @@ ${Object.entries(details.features || {})
 
 ### Services demandés
 ${Object.entries(details.services || {})
-  .filter(([_, enabled]) => enabled)
-  .map(([service, _]) => {
+  .filter(([, enabled]) => enabled)
+  .map(([service]) => {
     const serviceLabels: { [key: string]: string } = {
       audit: 'Audit SEO',
       optimization: 'Optimisation technique',
@@ -190,8 +190,8 @@ ${Object.entries(details.services || {})
 
 ### Améliorations souhaitées
 ${Object.entries(details.improvements || {})
-  .filter(([_, enabled]) => enabled)
-  .map(([improvement, _]) => `- ${getImprovementLabel(improvement)}`)
+  .filter(([, enabled]) => enabled)
+  .map(([improvement]) => `- ${getImprovementLabel(improvement)}`)
   .join('\n') || 'Aucune amélioration spécifiée'}
 
 ### Points d'amélioration
@@ -246,24 +246,24 @@ ${details.desiredFeatures?.map(feature => `- ${feature}`).join('\n') || 'Non sp�
 ## Détails Application Web
 - Type d'application: ${getAppTypeLabel(details.appType)}${details.appTypeOther ? ` (${details.appTypeOther})` : ''}
 - Nombre d'utilisateurs estimé: ${details.userCount || 'Non spécifié'}
-- Niveau d'accès: ${getAccessLevelLabel(details.accessLevel) || 'Non sp��cifié'}
+- Niveau d'accès: ${getAccessLevelLabel(details.accessLevel) || 'Non spécifié'}
 
 ### Fonctionnalités clés
 ${Object.entries(details.keyFeatures || {})
-  .filter(([_, enabled]) => enabled)
-  .map(([feature, _]) => `- ${getFeatureLabel(feature)}`)
+  .filter(([, enabled]) => enabled)
+  .map(([feature]) => `- ${getFeatureLabel(feature)}`)
   .join('\n') || 'Aucune fonctionnalité spécifiée'}
 
 ### Intégrations nécessaires
 ${Object.entries(details.integrations || {})
-  .filter(([_, enabled]) => enabled)
-  .map(([integration, _]) => `- ${getFeatureLabel(integration)}`)
+  .filter(([, enabled]) => enabled)
+  .map(([integration]) => `- ${getFeatureLabel(integration)}`)
   .join('\n') || 'Aucune intégration spécifiée'}
 
 ### Besoins techniques
 ${Object.entries(details.technicalNeeds || {})
-  .filter(([_, enabled]) => enabled)
-  .map(([need, _]) => `- ${getFeatureLabel(need)}`)
+  .filter(([, enabled]) => enabled)
+  .map(([need]) => `- ${getFeatureLabel(need)}`)
   .join('\n') || 'Aucun besoin technique spécifié'}
 `;
   }

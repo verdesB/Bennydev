@@ -2,7 +2,7 @@
 
 import { Sidebar } from "@/components/ui/sidebar"
 import { SidebarNav } from "@/components/sidebar-nav"
-import { User2, MessageSquare, FolderOpen, HelpCircle, LogOut, Ticket, Settings, Home } from "lucide-react"
+import { User2, HelpCircle, LogOut, Ticket, Settings, Home } from "lucide-react"
 import { useAuth } from "@/lib/auth"
 
 export default function ClientLayout({

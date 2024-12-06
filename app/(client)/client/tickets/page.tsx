@@ -116,8 +116,7 @@ const TicketsPage: React.FC = () => {
             particleDensity={100}
             speed={0.5}
             minSize={0.6}
-        maxSize={1.4}
-      />
+            maxSize={1.4}
           />
         </div>
 

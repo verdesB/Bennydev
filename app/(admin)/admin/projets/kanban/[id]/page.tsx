@@ -17,6 +17,20 @@ interface Column {
   tasks: Task[];
 }
 
+interface DragResult {
+  draggableId: string;
+  type: string;
+  source: {
+    index: number;
+    droppableId: string;
+  };
+  destination: {
+    index: number;
+    droppableId: string;
+  } | null;
+  reason: 'DROP' | 'CANCEL';
+}
+
 const KanbanPage = () => {
   const [columns, setColumns] = useState<Column[]>([
     {
@@ -39,7 +53,7 @@ const KanbanPage = () => {
     },
   ]);
 
-  const onDragEnd = (result: any) => {
+  const onDragEnd = (result: DragResult) => {
     if (!result.destination) return;
 
     const { source, destination } = result;

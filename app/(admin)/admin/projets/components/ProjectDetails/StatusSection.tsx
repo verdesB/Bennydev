@@ -65,7 +65,7 @@ export const StatusSection = ({
         </span>
       </div>
       <p className="text-xs text-gray-500">
-        La mise à jour de l'état enverra une notification au client
+        La mise à jour de l&apos;état enverra une notification au client
       </p>
     </div>
   </Card>

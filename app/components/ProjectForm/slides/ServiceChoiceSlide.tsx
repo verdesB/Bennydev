@@ -8,82 +8,55 @@ interface ServiceOption {
   description: string;
 }
 
-const serviceOptions: ServiceOption[] = [
-  {
-    id: 'website',
-    icon: '🌐',
-    title: 'Site Web Vitrine',
-    description: 'Présentez votre activité avec élégance'
-  },
-  {
-    id: 'ecommerce',
-    icon: '🛍️',
-    title: 'E-commerce',
-    description: 'Vendez vos produits en ligne'
-  },
-  {
-    id: 'webapp',
-    icon: '💻',
-    title: 'Application Web',
-    description: 'Créez une solution sur mesure'
-  },
-  {
-    id: 'redesign',
-    icon: '🔄',
-    title: 'Refonte de Site',
-    description: 'Modernisez votre présence en ligne'
-  },
-  {
-    id: 'seo',
-    icon: '📈',
-    title: 'SEO',
-    description: 'Optimisez votre visibilité'
-  },
-  {
-    id: 'api',
-    icon: '🔌',
-    title: 'API',
-    description: 'Connectez vos services'
-  }
-];
+interface FormData {
+  projectType?: ProjectType;
+  [key: string]: ProjectType | undefined;
+}
 
-export function ServiceChoiceSlide({ formData, setFormData, onNext, onPrevious }: any) {
-  const serviceOptions = [
+interface ServiceChoiceSlideProps {
+  formData: FormData;
+  setFormData: (data: FormData) => void;
+  onNext: () => void;
+  onPrevious: () => void;
+}
+
+export function ServiceChoiceSlide({ formData, setFormData, onNext, onPrevious }: ServiceChoiceSlideProps) {
+  const serviceOptions: ServiceOption[] = [
     {
       id: 'website',
-      title: 'Site Vitrine',
-      description: 'Une présence en ligne professionnelle pour votre entreprise',
-      icon: '🌐'
+      icon: '🌐',
+      title: 'Site Web Vitrine',
+      description: 'Présentez votre activité avec élégance'
     },
     {
       id: 'ecommerce',
+      icon: '🛍️',
       title: 'E-commerce',
-      description: 'Une boutique en ligne complète pour vendre vos produits',
-      icon: '🛍️'
+      description: 'Vendez vos produits en ligne'
     },
     {
       id: 'webapp',
+      icon: '💻',
       title: 'Application Web',
-      description: 'Une application web sur mesure pour votre activité',
-      icon: '💻'
+      description: 'Créez une solution sur mesure'
     },
     {
       id: 'redesign',
+      icon: '🔄',
       title: 'Refonte de Site',
-      description: 'Modernisez votre site web existant',
-      icon: '🔄'
+      description: 'Modernisez votre présence en ligne'
     },
     {
       id: 'seo',
+      icon: '📈',
       title: 'SEO',
-      description: 'Optimisez votre visibilité sur les moteurs de recherche',
-      icon: '📈'
+      description: 'Optimisez votre visibilité'
     },
     {
       id: 'api',
+      icon: '🔌',
       title: 'API',
-      description: 'Développement d\'API sur mesure',
-      icon: '🔌'
+      description: 'Connectez vos services'
     }
   ];
 

@@ -157,6 +157,21 @@ export async function POST(req: Request) {
                 public: true
             });
 
+        // Vérifier l'erreur de création du bucket
+        if (bucketError) {
+            // Nettoyer en cas d'erreur
+            await supabaseAdmin.auth.admin.deleteUser(newUser.user.id);
+            await supabaseAdmin
+                .from('projects')
+                .delete()
+                .match({ id: newProject.id });
+
+            return NextResponse.json(
+                { error: bucketError.message },
+                { status: 400 }
+            );
+        }
+
         return NextResponse.json({
             message: "Création réussie",
             data: {

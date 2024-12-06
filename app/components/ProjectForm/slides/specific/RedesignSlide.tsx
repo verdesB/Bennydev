@@ -141,7 +141,7 @@ export function RedesignSlide({ formData, setFormData, onNext, onPrevious }: Red
 
         <div className="bg-gray-50 p-6 rounded-lg">
           <label className="block text-sm font-medium text-gray-700 mb-2">
-            Points d'amélioration spécifiques
+            Points d&apos;amélioration spécifiques
           </label>
           <textarea
             name="painPoints"

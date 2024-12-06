@@ -12,7 +12,7 @@ export async function PATCH(
     console.log('URLs reçues:', { figmaUrl, stagingUrl });
 
     // Vérifions d'abord si on peut trouver le projet
-    const { data: checkProject, error: checkError } = await supabaseAdmin
+    const { data: checkProject } = await supabaseAdmin
       .from('projects')
       .select('*')
       .eq('id', params.id);
@@ -45,10 +45,10 @@ export async function PATCH(
       }
     }, { status: 404 });
 
-  } catch (error: any) {
+  } catch (error: Error | unknown) {
     console.error('Erreur complète:', error);
     return NextResponse.json({ 
-      error: error.message || 'Erreur lors de la mise à jour des URLs',
+      error: error instanceof Error ? error.message : 'Erreur lors de la mise à jour des URLs',
       details: error
     }, { status: 500 });
   }

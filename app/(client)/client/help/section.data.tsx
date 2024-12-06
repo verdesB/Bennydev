@@ -1,8 +1,9 @@
 'use client'
 import ContentComponent from './ContentComponent';
 import React from 'react'
-import { ContentSection } from './types'
-import { BookUser, BriefcaseBusiness, Globe, Handshake, Lightbulb, FileText, Code2, TestTube2, Rocket, Paintbrush, MonitorCog, LocateFixed } from 'lucide-react';
+
+import { BookUser, BriefcaseBusiness, Globe, Handshake, Lightbulb, FileText, Code2, TestTube2, Rocket, Paintbrush, LocateFixed } from 'lucide-react';
+import Image from 'next/image';
 
 
 export const sections = [
@@ -333,22 +334,46 @@ export const sections = [
                             {
                                 content: 'Next.js , c\'est le framework qui me permet de créer des sites web modernes et performants, avec des performances optimales. Ainsi que des sites qui sont optimisés pour les moteurs de recherche.',
                                 className: '  p-8 rounded-xl text-white relative overflow-hidden bg-gradient-to-r from-black to-violet-900 shadow-sm pr-36',
-                                icon: <img src='/next.webp' alt='Next.js' className='w-28 h-28 rotate-[30deg]' />,
+                                icon: <Image 
+                                    src='/next.webp' 
+                                    alt='Next.js' 
+                                    width={112} 
+                                    height={112} 
+                                    className='rotate-[30deg]' 
+                                />,
                             },
                             {
                                 content: 'Tailwind CSS, c\'est la librairie qui me permet de créer des designs modernes et esthétiques, avec des styles personnalisés.',
                                 className: '  p-8 rounded-xl text-white relative overflow-hidden bg-gradient-to-r from-black to-violet-900 pr-36',
-                                icon: <img src='/tailwind.webp' alt='Next.js' className='w-28 h-28 rotate-[30deg]' />,
+                                icon: <Image 
+                                    src='/tailwind.webp' 
+                                    alt='Next.js' 
+                                    width={112} 
+                                    height={112} 
+                                    className='rotate-[30deg]' 
+                                />,
                             },
                             {
                                 content: 'Strapi, c\'est le CMS qui me permet de gérer le contenu de votre site de manière simple et efficace.',
                                 className: '  p-8 rounded-xl text-white relative overflow-hidden bg-gradient-to-r from-black to-violet-900 pr-36',
-                                icon: <img src='/strapi.webp' alt='Next.js' className='w-28 h-28 rotate-[30deg]' />,
+                                icon: <Image 
+                                    src='/strapi.webp' 
+                                    alt='Next.js' 
+                                    width={112} 
+                                    height={112} 
+                                    className='rotate-[30deg]' 
+                                />,
                             },
                             {
                                 content: 'Vercel, c\'est la plateforme qui me permet de déployer et de gérer votre site de manière simple et efficace. C\'est un gain de temps et de ressources par rapport a un deploiement classique',
                                 className: '  p-8 rounded-xl text-white relative overflow-hidden bg-gradient-to-r from-black to-violet-900 pr-36',
-                                icon: <img src='/vercel.webp' alt='Next.js' className='w-28 h-28 rotate-[30deg]' />,
+                                icon: <Image 
+                                    src='/vercel.webp' 
+                                    alt='Next.js' 
+                                    width={112} 
+                                    height={112} 
+                                    className='rotate-[30deg]' 
+                                />,
                             }
                         ]
                     },

@@ -2,15 +2,56 @@
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
+import Image from 'next/image'
+
+interface Profile {
+  id: string;
+  first_name?: string;
+  avatar_url?: string;
+  role?: string;
+  company?: string;
+}
+
+interface Project {
+  id: string;
+  name: string;
+  state: 'active' | 'inactive';
+  description: string;
+  lastUpdate?: string;
+  tasksCount?: number;
+  type?: string;
+}
+
+interface Notification {
+  id: string;
+  title: string;
+  message: string;
+  type: 'success' | 'warning' | 'error' | 'info';
+  is_read: boolean;
+  created_at: string;
+  date?: string;
+  user_id: string;
+}
+
+interface Ticket {
+  id: string;
+  status: 'open' | 'closed';
+}
+
+type DatabaseNotificationPayload = {
+  eventType: 'INSERT' | 'DELETE' | 'UPDATE';
+  new: Notification;
+  old: Notification;
+}
 
 export default function ClientPage() {
   const router = useRouter()
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
-  const [profile, setProfile] = useState<any>(null)
-  const [projects, setProjects] = useState<any[]>([])
-  const [notifications, setNotifications] = useState<any[]>([])
-  const [tickets, setTickets] = useState<any[]>([])
+  const [profile, setProfile] = useState<Profile | null>(null)
+  const [projects, setProjects] = useState<Project[]>([])
+  const [notifications, setNotifications] = useState<Notification[]>([])
+  const [tickets, setTickets] = useState<Ticket[]>([])
   const [showAllNotifications, setShowAllNotifications] = useState(false)
 
   useEffect(() => {
@@ -52,7 +93,7 @@ export default function ClientPage() {
           table: 'notifications',
           filter: `user_id=eq.${profile?.id}`
         },
-        (payload) => {
+        (payload: DatabaseNotificationPayload) => {
           if (isMounted) {
             // Mettre à jour les notifications en fonction du type d'événement
             if (payload.eventType === 'INSERT') {
@@ -128,7 +169,7 @@ export default function ClientPage() {
     return new Date(dateString).toLocaleDateString('fr-FR', options);
   };
 
-  const groupNotificationsByDate = (notifications: any[]) => {
+  const groupNotificationsByDate = (notifications: Notification[]) => {
     return notifications.reduce((acc, notif) => {
       const date = formatDate(notif.created_at);
       if (!acc[date]) {
@@ -136,7 +177,7 @@ export default function ClientPage() {
       }
       acc[date].push(notif);
       return acc;
-    }, {} as Record<string, any[]>);
+    }, {} as Record<string, Notification[]>);
   };
 
   if (loading) {
@@ -160,10 +201,12 @@ export default function ClientPage() {
           <div className="bg-white rounded-2xl shadow-sm p-8 backdrop-blur-lg bg-opacity-80">
             <div className="flex items-center gap-4 mb-4 lg:mb-6">
               {profile?.avatar_url && (
-                <img 
+                <Image 
                   src={profile.avatar_url} 
                   alt="Profile" 
-                  className="w-16 h-16 rounded-full object-cover border-2 border-purple-100"
+                  width={64}
+                  height={64}
+                  className="rounded-full object-cover border-2 border-purple-100"
                 />
               )}
               <div>

@@ -6,12 +6,10 @@ export async function GET() {
   try {
     const supabase = createRouteHandlerClient({ cookies })
 
-    const { data: projects, error } = await supabase
+    const { data: projects } = await supabase
       .from('projects')
       .select('*')
       .order('name')
-
-    if (error) throw error
 
     return NextResponse.json({ projects })
   } catch (error) {

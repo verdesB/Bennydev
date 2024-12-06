@@ -1,9 +1,6 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
-
-import Footer from "./components/Footer";
-import ChatButton from './components/ChatButton';
 import Head from "next/head";
 import { AuthProvider } from './context/AuthContext';
 

@@ -4,7 +4,7 @@ import { BasicInfo } from './BasicInfo';
 import { StatusSection } from './StatusSection';
 import { ImagesSection } from './ImagesSection';
 import { UrlsSection } from './UrlsSection';
-import { SparklesCore } from '@/app/components/ui/sparkles';
+
 
 
 import Link from 'next/link';
@@ -30,7 +30,7 @@ export const ProjectDetails = ({
   tempStatus,
   setTempStatus,
   handleUpdateStatus,
-  projectImages,
+
   tempFigmaUrl,
   tempStagingUrl,
   setTempFigmaUrl,

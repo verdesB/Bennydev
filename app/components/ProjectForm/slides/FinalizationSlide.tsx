@@ -101,7 +101,7 @@ export function FinalizationSlide({ formData, setFormData, onSubmit, onPrevious 
 
         <div className="bg-gray-50 p-6 rounded-lg">
           <label className="block text-sm font-medium text-gray-700 mb-2">
-            Rôle dans l'entreprise
+            Rôle dans l&apos;entreprise
           </label>
           <input
             type="text"

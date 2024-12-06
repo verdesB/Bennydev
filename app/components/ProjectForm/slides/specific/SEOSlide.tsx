@@ -1,8 +1,20 @@
 import { SlideWrapper } from "../SlideWrapper";
 
+interface SEODetails {
+  services?: {
+    [key: string]: boolean;
+  };
+  websiteUrl?: string;
+  objectives?: string;
+}
+
+interface FormData {
+  seo_details?: SEODetails;
+}
+
 interface SEOSlideProps {
-  formData: any;
-  setFormData: (data: any) => void;
+  formData: FormData;
+  setFormData: (data: FormData) => void;
   onNext: () => void;
   onPrevious: () => void;
 }

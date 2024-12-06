@@ -6,7 +6,7 @@ import ReactMarkdown from 'react-markdown'
 
 import { FileCardProps } from '../types'
 
-const FileCard = ({ file, expandedFiles, toggleExpand, markFileAsViewed, takenRequests }: FileCardProps) => {
+const FileCard = ({ file, expandedFiles, toggleExpand,  takenRequests }: FileCardProps) => {
     const projectCode = file.name.slice(-7, -3)
 
     return (

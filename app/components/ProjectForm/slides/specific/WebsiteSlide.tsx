@@ -1,8 +1,19 @@
 import { SlideWrapper } from "../SlideWrapper";
 
+interface WebsiteDetails {
+  title?: string;
+  description?: string;
+  pages?: number;
+  features?: string[];
+  hasDesign?: boolean;
+  designUrl?: string;
+}
+
 interface WebsiteSlideProps {
-  formData: any;
-  setFormData: (data: any) => void;
+  formData: {
+    website_details?: WebsiteDetails;
+  };
+  setFormData: (data: { website_details?: WebsiteDetails }) => void;
   onNext: () => void;
   onPrevious: () => void;
 }
@@ -138,7 +149,7 @@ export function WebsiteSlide({ formData, setFormData, onNext, onPrevious }: Webs
               onChange={handleChange}
               className="rounded border-gray-300 text-violet-600 focus:ring-violet-500"
             />
-            <span>Oui, j'ai déjà un design</span>
+            <span>Oui, j&apos;ai déjà un design</span>
           </div>
           {formData.website_details?.hasDesign && (
             <input

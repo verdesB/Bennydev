@@ -7,17 +7,11 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { supabase } from '@/app/lib/supabase'
 
-interface SessionData {
-    email: string
-    expires_at: string
-}
-
 export default function SessionPage() {
     const params = useParams()
     const token = params.token as string
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState<string | null>(null)
-    const [sessionData, setSessionData] = useState<SessionData | null>(null)
     const [newPassword, setNewPassword] = useState('')
     const [confirmPassword, setConfirmPassword] = useState('')
     const [signupError, setSignupError] = useState<string | null>(null)
@@ -40,7 +34,7 @@ export default function SessionPage() {
                     throw new Error('Données de session manquantes')
                 }
                 
-                setSessionData(result.data)
+                // Supprimer sessionData si non utilisé
             } catch (error) {
                 setError(error instanceof Error ? error.message : "Erreur lors de la validation de la session")
             } finally {
@@ -72,7 +66,7 @@ export default function SessionPage() {
 
         try {
             // Vérifier les identifiants temporaires
-            const { data, error } = await supabase.auth.signInWithPassword({
+            const { error } = await supabase.auth.signInWithPassword({
                 email: email,
                 password: tempPassword
             })
@@ -103,7 +97,7 @@ export default function SessionPage() {
 
         try {
             // 1. Mise à jour du mot de passe
-            const { data: updateData, error: updateError } = await supabase.auth.updateUser({
+            const { error: updateError } = await supabase.auth.updateUser({
                 password: newPassword
             })
 

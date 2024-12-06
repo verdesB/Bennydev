@@ -2,7 +2,6 @@
 
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Sheet, SheetContent, SheetTrigger, SheetHeader, SheetTitle } from "@/components/ui/sheet";
-import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { MessageCircle } from "lucide-react";
 import { useProjectsLogic,  } from './hooks/useProjectsLogic';

@@ -43,8 +43,27 @@ const Clients = () => {
     fetchClients();
   }, []);
 
-  const handleContratAction = (clientId: string, action: 'accepter' | 'refuser') => {
-    // Logique pour gérer l'action sur le contrat du client
+  const handleContratAction = async (clientId: string, action: 'accepter' | 'refuser') => {
+    try {
+      const response = await fetch(`/api/users/${clientId}/contrat`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ action }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Erreur lors de la mise à jour du contrat');
+      }
+
+      // Rafraîchir la liste des clients
+      const updatedClientsResponse = await fetch('/api/users?role=client');
+      const updatedClients = await updatedClientsResponse.json();
+      setClients(updatedClients);
+    } catch (error) {
+      console.error('Erreur:', error);
+    }
   };
 
   return (

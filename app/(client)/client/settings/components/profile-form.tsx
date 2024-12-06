@@ -51,7 +51,7 @@ export function ProfileForm() {
               <AvatarImage src="" alt="Avatar" />
               <AvatarFallback>CN</AvatarFallback>
             </Avatar>
-            <Button variant="outline">Changer l'avatar</Button>
+            <Button variant="outline">Changer l&apos;avatar</Button>
           </div>
 
           <FormField
@@ -61,7 +61,7 @@ export function ProfileForm() {
               <FormItem>
                 <FormLabel>Nom d'utilisateur</FormLabel>
                 <FormControl>
-                  <Input placeholder="Votre nom d'utilisateur" {...field} />
+                  <Input placeholder="Votre nom d\'utilisateur" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>

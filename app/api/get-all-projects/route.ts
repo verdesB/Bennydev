@@ -29,9 +29,8 @@ export async function GET() {
                 user_projects (
                     role,
                     user_id
-                    
                 )
-            `);
+            `) as { data: Project[] | null, error: any };
 
         if (projectsError) throw projectsError;
         if (!projectsData) throw new Error('Aucun projet trouvé');

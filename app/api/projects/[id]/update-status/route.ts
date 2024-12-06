@@ -9,7 +9,7 @@ export async function PATCH(
     const { status } = await request.json();
     
     // Récupérer le projet avec les informations du client
-    const { data: project, error: projectError } = await supabaseAdmin
+    const { error: projectError } = await supabaseAdmin
       .from('projects')
       .select(`
         *,
@@ -41,10 +41,10 @@ export async function PATCH(
 
     return NextResponse.json({ data: data[0] });
 
-  } catch (error: any) {
+  } catch (error: Error | unknown) {
     console.error('Erreur complète:', error);
     return NextResponse.json({ 
-      error: error.message || 'Erreur lors de la mise à jour du statut',
+      error: error instanceof Error ? error.message : 'Erreur lors de la mise à jour du statut',
       details: error
     }, { status: 500 });
   }

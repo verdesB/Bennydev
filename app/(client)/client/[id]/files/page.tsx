@@ -6,7 +6,6 @@ import Image from 'next/image'
 import { Dialog, Transition } from '@headlessui/react'
 import { Fragment } from 'react'
 import { useFileUpload } from './hooks/useFileUpload'
-import { Progress } from '@/components/ui/progress'
 import { toast } from 'sonner'
 
 interface File {
@@ -29,7 +28,7 @@ export default function ProjectFilesPage() {
   const [fileTitle, setFileTitle] = useState('')
   const [fileDescription, setFileDescription] = useState('')
 
-  const { uploadFile, uploadProgress, isUploading } = useFileUpload(
+  const { isUploading } = useFileUpload(
     params.id as string,
     () => {
       fetchImages()
@@ -104,7 +103,7 @@ export default function ProjectFilesPage() {
 
   useEffect(() => {
     fetchImages()
-  }, [params.id])
+  }, [params.id, fetchImages])
 
   const formatFileSize = (bytes: number) => {
     if (bytes === 0) return '0 Bytes'
@@ -253,9 +252,11 @@ export default function ProjectFilesPage() {
                     ) : (
                       <div className="mt-4">
                         {filePreview && (
-                          <img 
+                          <Image 
                             src={filePreview} 
                             alt="Prévisualisation" 
+                            width={192}
+                            height={192}
                             className="max-h-48 mx-auto rounded-lg mb-4"
                           />
                         )}

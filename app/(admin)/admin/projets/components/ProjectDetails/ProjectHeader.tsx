@@ -1,9 +1,15 @@
 import { Card } from "@/components/ui/card";
 
+interface ProjectStatus {
+  value: string;
+  label: string;
+  color: string;
+}
+
 interface ProjectHeaderProps {
   name: string;
   status: string;
-  PROJECT_STATUSES: any[];
+  PROJECT_STATUSES: ProjectStatus[];
 }
 
 export const ProjectHeader = ({ name, status, PROJECT_STATUSES }: ProjectHeaderProps) => (

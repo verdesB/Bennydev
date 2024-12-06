@@ -11,7 +11,6 @@ import { toast } from "sonner"
 import { use } from 'react'
 import { Label } from '@/components/ui/label'
 import { Separator } from '@/components/ui/separator'
-import { createClient } from '@supabase/supabase-js'
 import { Textarea } from '@/components/ui/textarea'
 // Créer le client admin
 
@@ -114,7 +113,6 @@ const DemandeDetail = ({ params }: { params: { id: string } }) => {
     const [isUserValid, setIsUserValid] = useState(false);
     const [isProfileValid, setIsProfileValid] = useState(false);
     const [submissionSuccess, setSubmissionSuccess] = useState(false);
-    const [userData, setUserData] = useState<UserResponse | null>(null);
     const [existingUser, setExistingUser] = useState<UserResponse | null>(null);
 
     useEffect(() => {
@@ -263,7 +261,6 @@ const DemandeDetail = ({ params }: { params: { id: string } }) => {
             }
 
             setSubmissionSuccess(true);
-            setUserData(data);
             toast.success('Utilisateur, profil et projet créés avec succès!');
 
         } catch (error) {
@@ -294,6 +291,8 @@ const DemandeDetail = ({ params }: { params: { id: string } }) => {
             toast.error('Veuillez remplir tous les champs profil');
         }
     };
+
+    const setUserData = () => {};
 
     if (loading) {
         return (

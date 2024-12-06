@@ -25,8 +25,8 @@ export async function GET(
     }
 
     return NextResponse.json({ ticket })
-  } catch (error: any) {
-    return NextResponse.json({ error: error.message }, { status: 500 })
+  } catch (error: Error | unknown) {
+    return NextResponse.json({ error: error instanceof Error ? error.message : 'Erreur serveur' }, { status: 500 })
   }
 }
 

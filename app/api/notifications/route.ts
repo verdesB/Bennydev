@@ -30,7 +30,7 @@ export async function GET() {
     }
 
     return NextResponse.json(notifications)
-  } catch (error) {
+  } catch (error: unknown) {
     return NextResponse.json(
       { error: 'Erreur lors de la récupération des notifications' },
       { status: 500 }

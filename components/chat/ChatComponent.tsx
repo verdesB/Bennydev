@@ -19,6 +19,18 @@ interface ChatComponentProps {
   projectId: string
 }
 
+// Ajout de l'interface pour les messages WebSocket
+interface WebSocketMessage {
+  id: string | number
+  message: string
+  created_at: string
+  sender_id: string
+  profiles: {
+    first_name: string | null
+    last_name: string | null
+  }
+}
+
 export default function ChatComponent({ projectId }: ChatComponentProps) {
   const [messages, setMessages] = useState<Message[]>([])
   const [newMessage, setNewMessage] = useState('')
@@ -27,7 +39,6 @@ export default function ChatComponent({ projectId }: ChatComponentProps) {
   const [currentUserId, setCurrentUserId] = useState<string | null>(null)
   
   const messagesEndRef = useRef<HTMLDivElement>(null)
-  const [chatWebSocket, setChatWebSocket] = useState<ChatWebSocket | null>(null)
 
   // Récupérer l'ID de l'utilisateur courant
   useEffect(() => {
@@ -76,18 +87,21 @@ export default function ChatComponent({ projectId }: ChatComponentProps) {
     
     setTimeout(() => {
       try {
-        ws.subscribeToProject(projectId, (newMessage) => {
+        ws.subscribeToProject(projectId, (newMessage: WebSocketMessage) => {
           console.log('Nouveau message reçu via WebSocket:', newMessage)
-          setMessages(prev => [...prev, newMessage])
+          setMessages(prev => [...prev, {
+            id: newMessage.id,
+            message: newMessage.message,
+            created_at: newMessage.created_at,
+            sender_id: newMessage.sender_id,
+            profiles: newMessage.profiles
+          }])
         })
       } catch (error) {
         console.error('Erreur WebSocket:', error)
       }
     }, 1000)
 
-    setChatWebSocket(ws)
-
-    // Cleanup
     return () => {
       console.log('Fermeture WebSocket')
       if (ws) {

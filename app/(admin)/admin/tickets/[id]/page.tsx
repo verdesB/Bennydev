@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { useParams, useRouter } from 'next/navigation'
 import { Button } from '@/components/ui/button'
 import {
@@ -15,31 +15,44 @@ import { Textarea } from '@/components/ui/textarea'
 import { TicketStatus } from '../../../../../components/TicketStatus'
 import { supabase } from '@/app/lib/supabase'
 
+interface Profile {
+  first_name: string;
+  last_name: string;
+}
+
+interface Project {
+  name: string;
+}
+
+interface Ticket {
+  id: number;
+  title: string;
+  description: string;
+  status: string;
+  created_at: string;
+  project?: Project;
+  profile?: Profile;
+}
+
+interface TicketComment {
+  id: number;
+  content: string;
+  created_at: string;
+  profile_id: string;
+  profiles?: Profile;
+}
+
 const TicketDetailPage = () => {
   const params = useParams()
   const router = useRouter()
-  const [ticket, setTicket] = useState<any>(null)
+  const [ticket, setTicket] = useState<Ticket | null>(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
-  const [comments, setComments] = useState<any[]>([])
+  const [comments, setComments] = useState<TicketComment[]>([])
   const [newComment, setNewComment] = useState('')
   const [currentUserId, setCurrentUserId] = useState<string | null>(null)
 
-  useEffect(() => {
-    fetchTicketDetails()
-  }, [params.id])
-
-  useEffect(() => {
-    const getCurrentUser = async () => {
-      const { data: { session } } = await supabase.auth.getSession()
-      if (session) {
-        setCurrentUserId(session.user.id)
-      }
-    }
-    getCurrentUser()
-  }, [])
-
-  const fetchTicketDetails = async () => {
+  const fetchTicketDetails = useCallback(async () => {
     try {
       setLoading(true)
       const ticketId = parseInt(params.id as string)
@@ -68,13 +81,27 @@ const TicketDetailPage = () => {
       const { ticket } = await ticketResponse.json()
       setTicket(ticket)
       setComments(commentsResponse.data || [])
-    } catch (err: any) {
+    } catch (err: Error) {
       console.error('Erreur:', err)
       setError(err.message)
     } finally {
       setLoading(false)
     }
-  }
+  }, [params.id])
+
+  useEffect(() => {
+    fetchTicketDetails()
+  }, [params.id, fetchTicketDetails])
+
+  useEffect(() => {
+    const getCurrentUser = async () => {
+      const { data: { session } } = await supabase.auth.getSession()
+      if (session) {
+        setCurrentUserId(session.user.id)
+      }
+    }
+    getCurrentUser()
+  }, [])
 
   const updateStatus = async (newStatus: string) => {
     try {

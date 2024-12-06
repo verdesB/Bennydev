@@ -9,14 +9,24 @@ import { motion, AnimatePresence } from "framer-motion";
 import { ChevronLeft, Upload, X } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
+import Image from 'next/image';
 
 interface FilesSharingViewProps {
   projectId: string;
 }
 
+// Définir une interface pour le type d'image
+interface ProjectImage {
+  id: string;
+  title: string;
+  description?: string;
+  image_url: string;
+  size: number;
+}
+
 export function FilesSharingView({ projectId }: FilesSharingViewProps) {
-  const { images, loading, error } = useProjectImages(projectId);
-  const [selectedImage, setSelectedImage] = useState<any>(null);
+  const { images, loading } = useProjectImages(projectId);
+  const [selectedImage, setSelectedImage] = useState<ProjectImage | null>(null);
 
   return (
     <div className="flex min-h-[calc(100vh-4rem)] bg-gradient-to-b from-gray-50 to-white overflow-hidden rounded-2xl shadow-lg">
@@ -74,10 +84,12 @@ export function FilesSharingView({ projectId }: FilesSharingViewProps) {
                 >
                   <Card className="aspect-square relative group bg-white shadow-sm border border-gray-100 overflow-hidden hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 rounded-lg">
                     <div className="aspect-square relative overflow-hidden bg-gray-50">
-                      <img
+                      <Image
                         src={image.image_url}
                         alt={image.title}
-                        className="object-cover w-full h-full"
+                        className="object-cover"
+                        fill
+                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                       />
                       <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-all duration-200 flex items-center justify-center">
                         <span className="text-white text-xs">Voir</span>
@@ -125,10 +137,12 @@ export function FilesSharingView({ projectId }: FilesSharingViewProps) {
                 <div className="flex-1 overflow-y-auto p-4">
                   <div className="space-y-6">
                     <div className="aspect-square w-full overflow-hidden rounded-lg">
-                      <img
+                      <Image
                         src={selectedImage.image_url}
                         alt={selectedImage.title}
-                        className="object-cover w-full h-full"
+                        className="object-cover"
+                        fill
+                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                       />
                     </div>
 

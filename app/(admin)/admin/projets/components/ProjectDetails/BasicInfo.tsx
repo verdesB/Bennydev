@@ -2,7 +2,10 @@ import { Card } from "@/components/ui/card";
 
 interface BasicInfoProps {
   project: {
-    users: any[];
+    users: Array<{
+      role: string;
+      displayName: string;
+    }>;
     startDate: string;
     budget: number;
     description: string;

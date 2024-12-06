@@ -1,10 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
 import { useRouter } from 'next/navigation';
-
-// Import des slides
 import { WelcomeSlide } from './slides/WelcomeSlide';
 import { IntroductionSlide } from './slides/IntroductionSlide';
 import { ServiceChoiceSlide } from './slides/ServiceChoiceSlide';
@@ -86,11 +83,11 @@ export default function ProjectForm() {
     },
     {
       id: 'introduction',
-      component: IntroductionSlide as React.FC<SlideProps>,
+      component: IntroductionSlide as unknown as React.FC<SlideProps>,
     },
     {
       id: 'service-choice',
-      component: ServiceChoiceSlide as React.FC<SlideProps>,
+      component: ServiceChoiceSlide as unknown as React.FC<SlideProps>,
     },
     {
       id: 'specific',
@@ -99,11 +96,11 @@ export default function ProjectForm() {
     },
     {
       id: 'budget',
-      component: BudgetTimelineSlide as React.FC<SlideProps>,
+      component: BudgetTimelineSlide as unknown as React.FC<SlideProps>,
     },
     {
       id: 'finalization',
-      component: FinalizationSlide as React.FC<SlideProps>,
+      component: FinalizationSlide as unknown as React.FC<SlideProps>,
     },
   ].filter(slide => !slide.condition || slide.condition());
 

@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import { useParams } from 'next/navigation';
 import ReactMarkdown from 'react-markdown';
 import { Button } from "@/components/ui/button";
@@ -29,11 +29,7 @@ export default function ClientDetails() {
   const [loading, setLoading] = useState(true);
   const [updating, setUpdating] = useState(false);
 
-  useEffect(() => {
-    fetchClientData();
-  }, [id]);
-
-  const fetchClientData = async () => {
+  const fetchClientData = useCallback(async () => {
     try {
       const response = await fetch(`/api/clients/${id}`);
       if (!response.ok) throw new Error('Erreur lors de la récupération des données');
@@ -55,7 +51,11 @@ export default function ClientDetails() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [id]);
+
+  useEffect(() => {
+    fetchClientData();
+  }, [id, fetchClientData]);
 
   const handleContratAction = async (action: 'accepter' | 'refuser') => {
     try {
@@ -70,7 +70,7 @@ export default function ClientDetails() {
 
       if (!response.ok) throw new Error('Erreur lors de la mise à jour');
 
-      const { data } = await response.json();
+      await response.json();
       setClient(prev => ({
         ...prev!,
         statutContrat: action === 'accepter' ? 'accepté' : 'refusé',

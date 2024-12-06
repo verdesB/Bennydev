@@ -1,8 +1,15 @@
 import { SlideWrapper } from "./SlideWrapper";
 
+// Définition d'une interface pour la structure de formData
+interface FormData {
+  company: string;
+  businessSector: string;
+  website: 'yes' | 'no' | '';
+}
+
 interface IntroductionSlideProps {
-  formData: any;
-  setFormData: (data: any) => void;
+  formData: FormData;
+  setFormData: (data: FormData) => void;
   onNext: () => void;
   onPrevious: () => void;
 }
@@ -26,7 +33,7 @@ export function IntroductionSlide({ formData, setFormData, onNext, onPrevious }:
       <div className="space-y-6">
         <div className="bg-gray-50 p-6 rounded-lg">
           <label className="block text-sm font-medium text-gray-700 mb-2">
-            Nom de l'entreprise
+            Nom de l&apos;entreprise
           </label>
           <input
             type="text"
@@ -40,7 +47,7 @@ export function IntroductionSlide({ formData, setFormData, onNext, onPrevious }:
 
         <div className="bg-gray-50 p-6 rounded-lg">
           <label className="block text-sm font-medium text-gray-700 mb-2">
-            Secteur d'activité
+            Secteur d&apos;activité
           </label>
           <input
             type="text"

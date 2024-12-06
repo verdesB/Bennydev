@@ -44,8 +44,7 @@ export const useProjectsLogic = () => {
     },
     // ... autres images
   ]);
-  const [chatWebSocket, setChatWebSocket] = useState<ChatWebSocket | null>(null);
-  const { user, profile } = useUser();
+  const { user } = useUser();
 
   useEffect(() => {
     const fetchProjects = async () => {
@@ -124,8 +123,6 @@ export const useProjectsLogic = () => {
         });
       }, 1000);
 
-      setChatWebSocket(ws);
-
       return () => {
         if (ws) {
           ws.unsubscribe();
@@ -156,9 +153,9 @@ export const useProjectsLogic = () => {
 
       setNewMessage('');
       
-    } catch (error: any) {
+    } catch (error: Error | unknown) {
       console.error('Erreur envoi message:', error);
-      toast.error(error.message || 'Erreur lors de l\'envoi du message');
+      toast.error(error instanceof Error ? error.message : 'Erreur lors de l\'envoi du message');
     }
   };
 
@@ -221,9 +218,9 @@ export const useProjectsLogic = () => {
       }
       setTempStatus('');
       toast.success('Statut mis à jour avec succès');
-    } catch (error: any) {
+    } catch (error: Error | unknown) {
       console.error('Erreur complète:', error);
-      toast.error(error.message || 'Erreur lors de la mise à jour');
+      toast.error(error instanceof Error ? error.message : 'Erreur lors de la mise à jour');
     }
   };
 
@@ -239,7 +236,7 @@ export const useProjectsLogic = () => {
           stagingUrl: tempStagingUrl || selectedProject?.pre_prod_url
         })
       });
-      const { data, error } = await response.json();
+      const { error } = await response.json();
       if (error) throw error;
 
       setSelectedProject(prev => prev ? {

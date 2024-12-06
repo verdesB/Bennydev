@@ -5,7 +5,7 @@ import Particles, { initParticlesEngine } from "@tsparticles/react";
 import type { Container, SingleOrMultiple } from "@tsparticles/engine";
 import { loadSlim } from "@tsparticles/slim";
 import { cn } from "@/lib/utils";
-import { motion, useAnimation } from "framer-motion";
+
 
 type ParticlesProps = {
   id?: string;
@@ -49,7 +49,7 @@ export const SparklesCore = (props: ParticlesProps) => {
     initEngine();
   }, []);
 
-  const particlesLoaded = async (container?: Container) => {
+  const particlesLoaded = async () => {
     // Utiliser setTimeout pour s'assurer que le composant est monté
     setTimeout(() => {
       setOpacity(1);

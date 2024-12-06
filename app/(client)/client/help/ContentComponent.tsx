@@ -1,5 +1,6 @@
 import React from 'react';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import Image from 'next/image';
 
 interface TableSection {
     headers: string[];
@@ -8,7 +9,7 @@ interface TableSection {
 
 export interface ContentSection {
   type: 'text' | 'media' | 'list' | 'table' | 'steps';
-  content?: any;
+  content?: string | TableSection | MediaContent | Step[];
   className?: string;
   listType?: 'bullet' | 'number';
   listClassName?: string;
@@ -21,6 +22,26 @@ export interface ContentSection {
 
 interface ContentComponentProps {
     sections: ContentSection[];
+}
+
+interface MediaContent {
+  type: string;
+  src: string;
+  alt: string;
+  style: {
+    containerClassName?: string;
+    className?: string;
+    width?: string | number;
+    height?: string | number;
+    objectFit?: string;
+  };
+}
+
+interface Step {
+  className?: string;
+  icon?: React.ReactNode;
+  title: string;
+  description: string;
 }
 
 const ContentComponent: React.FC<ContentComponentProps> = ({ sections }) => {
@@ -76,18 +97,20 @@ const ContentComponent: React.FC<ContentComponentProps> = ({ sections }) => {
                     </div>
                 );
             case 'media':
-                const mediaContent = section.content as { type: string; src: string; alt: string; style: any };
+                const mediaContent = section.content as MediaContent;
                 if (mediaContent.type === 'image') {
                     return (
                         <div className={mediaContent.style.containerClassName}>
-                            <img
+                            <Image
                                 src={mediaContent.src}
                                 alt={mediaContent.alt}
                                 className={mediaContent.style.className}
+                                width={500}
+                                height={300}
                                 style={{
                                     width: mediaContent.style.width,
                                     height: mediaContent.style.height,
-                                    objectFit: mediaContent.style.objectFit,
+                                    objectFit: mediaContent.style.objectFit as any,
                                 }}
                             />
                         </div>
@@ -95,13 +118,14 @@ const ContentComponent: React.FC<ContentComponentProps> = ({ sections }) => {
                 }
                 return null;
             case 'steps':
+                const steps = section.content as Step[];
                 return (
                     <div className="relative py-12 px-4">
                         <div className="max-w-4xl mx-auto">
                             {/* Ligne de connexion principale */}
                             <div className="absolute left-1/2 top-24 bottom-24 -translate-x-px w-0.5 border-l-2 border-dashed border-violet-300 hidden sm:block" />
                             
-                            {section.content.map((step: any, index: number) => (
+                            {steps.map((step, index) => (
                                 <div key={index} 
                                      className={`relative flex mb-16 ${
                                          index % 2 === 0 ? 'sm:flex-row' : 'sm:flex-row-reverse'

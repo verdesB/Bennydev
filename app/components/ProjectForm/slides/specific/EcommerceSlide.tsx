@@ -1,8 +1,20 @@
 import { SlideWrapper } from "../SlideWrapper";
 
+interface EcommerceDetails {
+  productType?: string;
+  productCount?: number;
+  features?: {
+    [key: string]: boolean;
+  };
+  paymentMethods?: string[];
+  shippingRegions?: string[];
+}
+
 interface EcommerceSlideProps {
-  formData: any;
-  setFormData: (data: any) => void;
+  formData: {
+    ecommerce_details?: EcommerceDetails;
+  };
+  setFormData: (data: { ecommerce_details?: EcommerceDetails }) => void;
   onNext: () => void;
   onPrevious: () => void;
 }

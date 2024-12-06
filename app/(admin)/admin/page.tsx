@@ -7,7 +7,7 @@ import {
   TicketCheck, 
   TrendingUp, 
   Clock, 
-  AlertCircle,
+
   ChevronRight
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
