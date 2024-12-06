@@ -256,7 +256,7 @@ const TicketsPage: React.FC = () => {
 
                   <div className="p-4">
                     <div className="flex items-center justify-between mb-2">
-                      <TicketStatus status={ticket.status || 'open'} />
+                      <TicketStatus status={['open', 'in_progress', 'resolved', 'closed'].includes(ticket.status) ? ticket.status as 'open' | 'in_progress' | 'resolved' | 'closed' : 'open'} />
                       <span className="text-xs text-gray-500">
                         {new Date(ticket.created_at).toLocaleDateString('fr-FR')}
                       </span>
