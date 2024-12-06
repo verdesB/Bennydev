@@ -3,19 +3,19 @@ import { NextResponse } from 'next/server';
 
 export async function PATCH(
   request: Request,
-  { params }: { params: { id: string } }
+  context: { params: Promise<{ id: string }> }
 ) {
   try {
     const { figmaUrl, stagingUrl } = await request.json();
-    
-    console.log('ID reçu:', params.id);
+    const { id } = await context.params;
+    console.log('ID reçu:', id);
     console.log('URLs reçues:', { figmaUrl, stagingUrl });
 
     // Vérifions d'abord si on peut trouver le projet
     const { data: checkProject } = await supabaseAdmin
       .from('projects')
       .select('*')
-      .eq('id', params.id);
+      .eq('id', id);
     
     console.log('Résultat de la vérification:', checkProject);
 
@@ -26,7 +26,7 @@ export async function PATCH(
           figma_link: figmaUrl,
           prod_test_url: stagingUrl 
         })
-        .eq('id', params.id)
+        .eq('id', id)
         .select();
 
       if (error) {
@@ -40,7 +40,7 @@ export async function PATCH(
     return NextResponse.json({ 
       error: 'Projet non trouvé',
       debugInfo: {
-        idRecherche: params.id,
+        idRecherche: id,
         resultatRecherche: checkProject
       }
     }, { status: 404 });
