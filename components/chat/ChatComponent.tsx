@@ -31,6 +31,17 @@ interface WebSocketMessage {
   }
 }
 
+export interface ProjectMessage {
+  id: string | number
+  message: string
+  created_at: string
+  sender_id: string
+  profiles: {
+    first_name: string | null
+    last_name: string | null
+  }
+}
+
 export default function ChatComponent({ projectId }: ChatComponentProps) {
   const [messages, setMessages] = useState<Message[]>([])
   const [newMessage, setNewMessage] = useState('')
@@ -87,7 +98,7 @@ export default function ChatComponent({ projectId }: ChatComponentProps) {
     
     setTimeout(() => {
       try {
-        ws.subscribeToProject(projectId, (newMessage: WebSocketMessage) => {
+        ws.subscribeToProject(projectId, (newMessage: ProjectMessage) => {
           console.log('Nouveau message reçu via WebSocket:', newMessage)
           setMessages(prev => [...prev, {
             id: newMessage.id,

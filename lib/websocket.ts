@@ -1,18 +1,11 @@
 import { RealtimeChannel } from '@supabase/supabase-js';
 import { supabase } from '@/app/lib/supabase';
-
-interface ProjectMessage {
-  id: string;
-  project_id: string;
-  content: string;
-  created_at: string;
-  user_id: string;
-}
+import type { ProjectMessage } from '@/components/chat/ChatComponent'
 
 export class ChatWebSocket {
   private channel: RealtimeChannel | null = null;
 
-  subscribeToProject(projectId: string, onMessage: (message: ProjectMessage) => void) {
+  subscribeToProject(projectId: string, callback: (message: ProjectMessage) => void) {
     if (this.channel) {
       this.unsubscribe();
     }
@@ -29,7 +22,7 @@ export class ChatWebSocket {
         },
         (payload) => {
           console.log('Nouveau message reçu:', payload);
-          onMessage(payload.new as ProjectMessage);
+          callback(payload.new as ProjectMessage);
         }
       )
       .subscribe((status) => {
