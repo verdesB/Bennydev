@@ -8,6 +8,7 @@ export async function GET(
   context: { params: Promise<{ id: string }> }
 ) {
   try {
+    const { id } = await context.params;
     // Vérifier l'authentification
     const cookieStore = cookies()
     const supabase = createRouteHandlerClient({ cookies: () => cookieStore })
@@ -36,7 +37,7 @@ export async function GET(
           
         )
       `)
-      .eq('project_id', params.id)
+        .eq('project_id', id)
       .eq('user_id', session.user.id)
       .single()
 
