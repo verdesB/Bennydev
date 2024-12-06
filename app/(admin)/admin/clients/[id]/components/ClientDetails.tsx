@@ -125,7 +125,7 @@ export default function ClientDetails() {
                 <dd>{client?.telephone}</dd>
               </div>
               <div>
-                <dt className="font-medium text-gray-500">Date d'inscription</dt>
+                <dt className="font-medium text-gray-500">Date d&apos;inscription</dt>
                 <dd>{new Date(client?.dateInscription || '').toLocaleDateString()}</dd>
               </div>
             </dl>

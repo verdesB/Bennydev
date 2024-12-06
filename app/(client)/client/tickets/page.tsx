@@ -32,7 +32,6 @@ const TicketsPage: React.FC = () => {
     selectedProject,
     setSelectedProject,
     loading,
-    error,
     createTicket,
     tickets
   } = useTicketCreation()

@@ -1,5 +1,5 @@
 'use client'
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useCallback } from 'react'
 import { useParams } from 'next/navigation'
 import Link from 'next/link'
 import Image from 'next/image'
@@ -83,7 +83,7 @@ export default function ProjectFilesPage() {
     }
   }
 
-  const fetchImages = async () => {
+  const fetchImages = useCallback(async () => {
     try {
       console.log('Fetching images for project:', params.id);
       const response = await fetch(`/api/files/${params.id}`);
@@ -99,11 +99,11 @@ export default function ProjectFilesPage() {
       console.error('Erreur:', error);
       toast.error('Erreur lors de la récupération des images');
     }
-  };
+  }, [params.id]);
 
   useEffect(() => {
     fetchImages()
-  }, [params.id, fetchImages])
+  }, [fetchImages])
 
   const formatFileSize = (bytes: number) => {
     if (bytes === 0) return '0 Bytes'

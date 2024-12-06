@@ -59,7 +59,7 @@ export async function POST(request: Request) {
         const sessionUrl = `${process.env.NEXT_PUBLIC_SITE_URL}/session/${sessionToken}`
         
         // Créer la session
-        const { data: _sessionData, error: sessionError } = await supabaseAdmin
+        const { error: sessionError } = await supabaseAdmin
             .from('sessions')
             .insert({
                 token: sessionToken,

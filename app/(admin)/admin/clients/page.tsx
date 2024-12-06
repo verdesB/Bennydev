@@ -80,7 +80,7 @@ const Clients = () => {
                 <TableHead>Nom</TableHead>
                 <TableHead>Email</TableHead>
                 <TableHead>Téléphone</TableHead>
-                <TableHead>Date d'inscription</TableHead>
+                <TableHead>Date d&apos;inscription</TableHead>
                 <TableHead>Statut</TableHead>
                 <TableHead>Actions</TableHead>
               </TableRow>

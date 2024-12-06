@@ -190,7 +190,7 @@ export default function SessionPage() {
                         <div className="text-center">
                             <h1 className="text-2xl font-bold mb-2">Créez votre nouveau mot de passe</h1>
                             <p className="text-gray-600">
-                                Pour l'adresse email : {email}
+                                Pour l&apos;adresse email : {email}
                             </p>
                         </div>
 

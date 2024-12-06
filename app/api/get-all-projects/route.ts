@@ -30,7 +30,7 @@ export async function GET() {
                     role,
                     user_id
                 )
-            `) as { data: Project[] | null, error: any };
+            `) as { data: Project[] | null, error: Error };
 
         if (projectsError) throw projectsError;
         if (!projectsData) throw new Error('Aucun projet trouvé');

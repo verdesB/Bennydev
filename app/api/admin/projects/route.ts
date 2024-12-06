@@ -14,7 +14,7 @@ export async function GET() {
     return NextResponse.json({ projects })
   } catch (error) {
     return NextResponse.json(
-      { error: 'Erreur lors de la récupération des projets' },
+      { message: 'Erreur lors de la récupération des projets', error },
       { status: 500 }
     )
   }

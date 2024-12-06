@@ -73,8 +73,12 @@ interface UserResponse {
     };
 }
 
-const DemandeDetail = ({ params }: { params: { id: string } }) => {
-    const resolvedParams = use(params)
+interface Params {
+    id: string;
+}
+
+const DemandeDetail = ({ params }: { params: Params }) => {
+    const resolvedParams = use(params) as Params;
     const [file, setFile] = useState<FileObject | null>(null)
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState<string | null>(null)
@@ -374,7 +378,7 @@ const DemandeDetail = ({ params }: { params: { id: string } }) => {
                                     <h2 className="text-lg font-semibold">Informations Utilisateur</h2>
                                     <div className="grid grid-cols-2 gap-4">
                                         <div>
-                                            <Label>Nom d'affichage</Label>
+                                            <Label>Nom d&apos;affichage</Label>
                                             <p className="mt-1">{existingUser.user.displayName || 'Non défini'}</p>
                                         </div>
                                         <div>
@@ -543,7 +547,7 @@ const DemandeDetail = ({ params }: { params: { id: string } }) => {
                                     <div className="space-y-4">
                                         <div className="grid grid-cols-2 gap-4">
                                             <div className="space-y-2">
-                                                <Label htmlFor="displayName">Nom d'affichage</Label>
+                                                <Label htmlFor="displayName">Nom d&apos;affichage</Label>
                                                 <Input
                                                     id="displayName"
                                                     value={userForm.displayName}

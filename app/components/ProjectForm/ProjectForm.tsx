@@ -142,23 +142,7 @@ export default function ProjectForm() {
     }
   };
 
-  // Animation variants pour Framer Motion
-  const slideVariants = {
-    enter: (direction: number) => ({
-      x: direction > 0 ? 1000 : -1000,
-      opacity: 0
-    }),
-    center: {
-      zIndex: 1,
-      x: 0,
-      opacity: 1
-    },
-    exit: (direction: number) => ({
-      zIndex: 0,
-      x: direction < 0 ? 1000 : -1000,
-      opacity: 0
-    })
-  };
+ 
 
   return (
     <div className="max-w-6xl mx-auto px-4 py-12 relative z-30">

@@ -59,7 +59,7 @@ export function ProfileForm() {
             name="username"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Nom d'utilisateur</FormLabel>
+                <FormLabel>Nom d&apos;utilisateur</FormLabel>
                 <FormControl>
                   <Input placeholder="Votre nom d\'utilisateur" {...field} />
                 </FormControl>

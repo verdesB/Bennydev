@@ -1,8 +1,18 @@
 import { SlideWrapper } from "../SlideWrapper";
 
+interface WebAppData {
+  appType?: string;
+  appTypeOther?: string;
+  userCount?: number;
+  accessLevel?: string;
+  keyFeatures?: Record<string, boolean>;
+  integrations?: Record<string, boolean>;
+  technicalNeeds?: Record<string, boolean>;
+}
+
 interface WebAppSlideProps {
-  formData: any;
-  setFormData: (data: any) => void;
+  formData: { webapp: WebAppData };
+  setFormData: (data: { webapp: WebAppData }) => void;
   onNext: () => void;
   onPrevious: () => void;
 }

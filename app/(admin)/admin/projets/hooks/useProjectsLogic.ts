@@ -313,6 +313,7 @@ export const useProjectsLogic = () => {
     setTempStatus,
     sendMessage,
     handleUpdateStatus,
-    handleUpdateUrls
+    handleUpdateUrls,
+    setProjectImages
   };
 }; 
