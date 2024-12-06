@@ -68,7 +68,7 @@ export default function About() {
           {/* Texte de présentation - ajout de margin-top sur mobile */}
           <div className="space-y-6 mt-16 lg:mt-0">
             <p className="text-gray-700 leading-relaxed">
-              En tant que fondateur de BennyDev, je m&apos;engage à offrir des solutions digitales innovantes, tout en cultivant des relations de confiance et de proximité. Depuis 2015, je mets mon expertise technique et ma créativité au service de vos objectifs.
+              En tant que fondateur de BennyDev, je m&apos;engage à offrir des solutions digitales innovantes, tout en cultivant des relations de confiance et de proximité. Depuis peu, je mets mon expertise technique et ma créativité au service de vos objectifs.
             </p>
             
             <div className="border-l-4 border-purple-600 pl-4 my-8">
