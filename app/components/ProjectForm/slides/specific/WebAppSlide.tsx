@@ -8,7 +8,6 @@ interface WebAppData {
   keyFeatures?: Record<string, boolean>;
   integrations?: Record<string, boolean>;
   technicalNeeds?: Record<string, boolean>;
-  [key: string]: any;
 }
 
 interface WebAppSlideProps {
@@ -21,15 +20,16 @@ interface WebAppSlideProps {
 export function WebAppSlide({ formData, setFormData, onNext, onPrevious }: WebAppSlideProps) {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
     const { name, value, type } = e.target;
-    
+    type WebAppDataKeys = keyof WebAppData;
+
     if (type === 'checkbox') {
       const checkbox = e.target as HTMLInputElement;
       setFormData({
         ...formData,
         webapp: {
           ...formData.webapp,
-          [name]: {
-            ...formData?.webapp?.[name],
+          [name as WebAppDataKeys]: {
+            ...(formData.webapp[name as WebAppDataKeys] as Record<string, boolean>),
             [checkbox.value]: checkbox.checked
           }
         }
@@ -39,7 +39,7 @@ export function WebAppSlide({ formData, setFormData, onNext, onPrevious }: WebAp
         ...formData,
         webapp: {
           ...formData.webapp,
-          [name]: value
+          [name as WebAppDataKeys]: value
         }
       });
     }
