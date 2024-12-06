@@ -1,39 +1,7 @@
 
-// export type ContentSection =
-//   | {
-//       type: 'text';
-//       content: string;
-//       className?: string;
-//     }
-//   | {
-//       type: 'media';
-//       content: {
-//         src: string;
-//         alt?: string;
-//         caption?: string;
-//       };
-//       className?: string;
-//     }
-//   | {
-//       type: 'list';
-//       listType: 'bullet' | 'number';
-//       listClassName?: string;
-//       items: Array<{
-//         content: string;
-//         className?: string;
-//       }>;
-//       className?: string;
-//     }
-//   | {
-//       type: 'table';
-//       items: Array<{
-//         content: string;
-//         className?: string;
-//       }>;
-//       className?: string;
-//     }; 
 
-    interface MediaContent {
+
+export interface MediaContent {
       type: 'image';
       src: string;
       alt: string;
@@ -46,33 +14,33 @@
       };
   }
   
-  interface TextContent {
+export interface TextContent {
       type: 'text';
       content: string;
       className?: string;
   }
   
-  interface ListItem {
+export interface ListItem {
       content: string;
       className?: string;
   }
   
-  interface ListContent {
+export interface ListContent {
       type: 'list';
       listType: 'bullet' | 'number';
       listClassName: string;
       items: ListItem[];
   }
   
-  type SectionContent = TextContent | MediaContent | ListContent;
+export type SectionContent = TextContent | MediaContent | ListContent;
   
-  interface SectionItem {
+export interface SectionItem {
       id: string;
       title: string;
       content: JSX.Element;
   }
   
-  interface Section {
+export  interface Section {
       id: string;
       title: string;
       items: SectionItem[];
