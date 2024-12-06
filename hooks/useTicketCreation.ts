@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
-import { Database } from '@/types/supabase'
+
 
 interface Project {
   id: string
@@ -30,7 +30,7 @@ interface Ticket {
 }
 
 export function useTicketCreation() {
-  const supabase = createClientComponentClient<Database>()
+  const supabase = createClientComponentClient()
   const [projects, setProjects] = useState<Project[]>([])
   const [selectedProject, setSelectedProject] = useState<Project | null>(null)
   const [loading, setLoading] = useState(true)
