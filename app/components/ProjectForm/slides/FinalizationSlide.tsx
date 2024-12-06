@@ -9,7 +9,7 @@ interface FinalizationSlideProps {
 }
 
 export function FinalizationSlide({ formData, setFormData, onSubmit, onPrevious }: FinalizationSlideProps) {
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     setFormData({
       ...formData,
@@ -26,7 +26,7 @@ export function FinalizationSlide({ formData, setFormData, onSubmit, onPrevious 
       subtitle="Dernière étape : vos informations de contact pour vous recontacter"
       onNext={onSubmit}
       onPrevious={onPrevious}
-      submitLabel="Envoyer la demande"
+    
     >
       <div className="space-y-6">
         <div className="bg-gray-50 p-6 rounded-lg">
