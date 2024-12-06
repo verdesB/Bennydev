@@ -5,7 +5,17 @@ import { toast } from 'sonner';
 import { ChatWebSocket } from '@/lib/websocket';
 import { useUser } from '@/hooks/useUser';
 import { Project, ChatMessage, ProjectImage } from '../types/project.types';
-
+export interface UserProject {
+  profile: Profile;
+  user_id: string;
+  role: string;
+  // Ajoutez d'autres propriétés si nécessaire
+} 
+export interface Profile {
+  id: string;
+  first_name: string;
+  last_name: string;
+}
 export const useProjectsLogic = () => {
   const [projects, setProjects] = useState<Project[]>([]);
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
@@ -72,7 +82,7 @@ export const useProjectsLogic = () => {
           budget: project.budget,
           figma_link: project.figma_link,
           pre_prod_url: project.prod_test_url,
-          users: project.user_projects?.map(up => ({
+          users: project.user_projects?.map((up: UserProject) => ({
             id: up.user_id,
             role: up.role,
             displayName: up.role === 'member' && up.profile 
@@ -119,7 +129,12 @@ export const useProjectsLogic = () => {
       setTimeout(() => {
         ws.subscribeToProject(selectedProject.id, (newMessage) => {
           console.log('Message reçu via WebSocket:', newMessage);
-          setMessages((prevMessages) => [...prevMessages, newMessage]);
+          
+          if (isChatMessage(newMessage)) {
+            setMessages((prevMessages) => [...prevMessages, newMessage]);
+          } else {
+            console.error('Le message reçu n\'est pas du type ChatMessage:', newMessage);
+          }
         });
       }, 1000);
 
@@ -317,3 +332,8 @@ export const useProjectsLogic = () => {
     setProjectImages
   };
 }; 
+
+// Fonction utilitaire pour vérifier le type
+function isChatMessage(message: any): message is ChatMessage {
+  return message && typeof message.sender_id === 'string' && typeof message.message === 'string';
+} 
