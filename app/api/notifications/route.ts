@@ -17,7 +17,7 @@ export async function GET() {
     }
 
     // Récupérer les notifications de l'utilisateur
-    const { data: notifications } = await supabase
+    const { data: notifications, error } = await supabase
       .from('notifications')
       .select('*')
       .eq('user_id', user.id)
