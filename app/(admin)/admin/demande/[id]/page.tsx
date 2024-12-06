@@ -1,13 +1,19 @@
-
-import { NextPage } from 'next'
+// page.tsx
+import { Metadata } from 'next'
 import DemandeDetailClient from './DemandeDetailClient'
 
-type PageProps = {
+type Props = {
     params: { id: string }
+    searchParams: { [key: string]: string | string[] | undefined }
 }
 
-const Page: NextPage<PageProps> = async ({ params }) => {
+export default function Page({ params }: Props) {
     return <DemandeDetailClient params={params} />
 }
 
-export default Page
+// Optionnel : Vous pouvez aussi ajouter des métadonnées dynamiques
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+    return {
+        title: `Demande ${params.id}`,
+    }
+}
