@@ -80,7 +80,7 @@ export function FilesSharingView({ projectId }: FilesSharingViewProps) {
                   key={image.id}
                   whileHover={{ scale: 1.02 }}
                   className="w-24 cursor-pointer space-y-2"
-                  onClick={() => setSelectedImage(image)}
+                  onClick={() => setSelectedImage(image as unknown as ProjectImage)}
                 >
                   <Card className="aspect-square relative group bg-white shadow-sm border border-gray-100 overflow-hidden hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 rounded-lg">
                     <div className="aspect-square relative overflow-hidden bg-gray-50">
