@@ -274,7 +274,8 @@ ${Object.entries(details.technicalNeeds || {})
       [ProjectType.ECOMMERCE]: 'E-commerce',
       [ProjectType.SEO]: 'SEO',
       [ProjectType.API]: 'API',
-      [ProjectType.REDESIGN]: 'Refonte de Site'
+      [ProjectType.REDESIGN]: 'Refonte de Site',
+      [ProjectType.WEBAPP]: 'Application Web'
     };
     return types[type] || type;
   }
