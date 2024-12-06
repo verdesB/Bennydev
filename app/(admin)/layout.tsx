@@ -49,7 +49,7 @@ export default function AdminLayout({
     },
     {
       title: "Demandes",
-      href: "/admin/demande",
+      href: "/admin/demandes",
       icon: <FileText className="h-4 w-4" />,
     },
     {
