@@ -6,7 +6,7 @@ import { BookUser, BriefcaseBusiness, Globe, Handshake, Lightbulb, FileText, Cod
 import Image from 'next/image';
 
 
-export const sections = [
+export const sections: Section[] = [
     {
         id: 'getting-started',
         title: 'Pour Commencer',

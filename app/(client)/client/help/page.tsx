@@ -9,6 +9,7 @@ import { Input } from '@/components/ui/input'
 import { Search } from 'lucide-react'
 import { sections } from './section.data'
 
+
 const HelpPage = () => {
   const router = useRouter()
   const searchParams = useSearchParams()
@@ -89,7 +90,7 @@ const HelpPage = () => {
                     </div>
                     <Separator className="bg-[#E7E7E7]" />
                     <div className="prose prose-slate max-w-none">
-                      {item.content}
+                      {item.content }
                     </div>
                   </div>
                 )
