@@ -12,7 +12,7 @@ import React from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 
 // Composant pour le statut du ticket
-const TicketStatus: React.FC<{ status: string }> = ({ status }) => {
+const TicketStatus: React.FC<{ status: 'open' | 'in_progress' | 'resolved' | 'closed' }> = ({ status }) => {
   const statusConfig = {
     open: { icon: Circle, color: 'text-blue-500' },
     in_progress: { icon: AlertCircle, color: 'text-yellow-500' },
@@ -20,9 +20,9 @@ const TicketStatus: React.FC<{ status: string }> = ({ status }) => {
     closed: { icon: CheckCircle2, color: 'text-gray-500' }
   }
 
-  const StatusIcon = statusConfig[status]?.icon || Circle
+  const StatusIcon = statusConfig[status as keyof typeof statusConfig].icon
 
-  return <StatusIcon className={`w-4 h-4 ${statusConfig[status]?.color}`} />
+  return <StatusIcon className={`w-4 h-4 ${statusConfig[status as keyof typeof statusConfig].color}`} />
 }
 
 const TicketsPage: React.FC = () => {
