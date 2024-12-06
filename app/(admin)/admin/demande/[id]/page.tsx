@@ -10,7 +10,6 @@ type Props = {
 export default function Page({ params }: Props) {
     return <DemandeDetailClient params={params} />
 }
-
 // Optionnel : Vous pouvez aussi ajouter des métadonnées dynamiques
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
     return {
