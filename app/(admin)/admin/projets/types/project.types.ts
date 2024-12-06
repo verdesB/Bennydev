@@ -41,3 +41,10 @@ export interface ProjectStatus {
     label: string;
     color: string;
   }
+
+  export interface User {
+    id: string;
+    first_name: string;
+    last_name: string;
+    // Ajoutez d'autres propriétés selon vos besoins
+  }
