@@ -8,7 +8,7 @@ import { useRouter, useSearchParams } from 'next/navigation'
 import { Input } from '@/components/ui/input'
 import { Search } from 'lucide-react'
 import { sections } from './section.data'
-
+import { SectionItem } from './types'
 
 const HelpPage = () => {
   const router = useRouter()
@@ -52,7 +52,7 @@ const HelpPage = () => {
                   {section.title}
                 </h4>
                 <div className="space-y-0.5">
-                  {section.items.map((item) => (
+                  {section.items.map((item: SectionItem) => (
                     <button
                       key={item.id}
                       onClick={() => handleSectionChange(item.id)}
@@ -77,7 +77,7 @@ const HelpPage = () => {
         <div className="h-full">
           <div className="max-w-3xl mx-auto px-8 py-12">
             {sections.map((section) => 
-              section.items.map((item) => 
+              section.items.map((item: SectionItem) => 
                 activeSection === item.id && (
                   <div key={item.id} className="space-y-8 animate-in fade-in duration-300">
                     <div>
