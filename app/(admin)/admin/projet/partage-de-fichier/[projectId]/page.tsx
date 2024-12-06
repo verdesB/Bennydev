@@ -1,11 +1,8 @@
 import { FilesSharingView } from "./components/FilesSharingView";
 
-interface PageProps {
-  params: {
-    projectId: string;
-  };
-}
 
-export default function FileSharingPage({ params }: PageProps) {
-  return <FilesSharingView projectId={params.projectId} />;
+
+export default async function FileSharingPage({ params }: { params: Promise<{ projectId: string }> }) {
+  const resolvedParams = await params;
+  return <FilesSharingView projectId={resolvedParams.projectId} />;
 } 
