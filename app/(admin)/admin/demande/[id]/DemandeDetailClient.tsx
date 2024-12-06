@@ -74,7 +74,7 @@ interface PageProps {
     searchParams?: { [key: string]: string | string[] | undefined };
 }
 
-const DemandeDetailClient = ({ params, searchParams }: PageProps) => {
+const DemandeDetailClient = ({ params }: PageProps) => {
     const [file, setFile] = useState<FileObject | null>(null)
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState<string | null>(null)
