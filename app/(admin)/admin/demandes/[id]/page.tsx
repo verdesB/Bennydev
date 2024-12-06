@@ -1,17 +1,15 @@
-// page.tsx
+
 import { Metadata } from 'next'
 
 
-type Props = {
-    params: { id: string }
-    searchParams: { [key: string]: string | string[] | undefined }
-}
 
-export default function Page({ params }: Props) {
+
+//@ts-ignore
+export default function Page({ params }: { params: { id: string } }) {
     return <p>Demande {params.id}</p>
 }
 
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
+export async function generateMetadata({ params }: { params: { id: string } }): Promise<Metadata> {
     return {
         title: `Demande ${params.id}`,
     }
