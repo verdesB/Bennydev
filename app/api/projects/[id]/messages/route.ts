@@ -5,10 +5,11 @@ import { NextResponse } from 'next/server';
 
 export async function POST(
   request: Request,
-  { params }: { params: { id: string } }
+  context: { params: Promise<{ id: string }> }
 ) {
   try {
     // 1. Vérification auth avec le client normal
+    const { id } = await context.params;
     const supabase = createRouteHandlerClient({ cookies });
     const { data: { user }, error: authError } = await supabase.auth.getUser();
     
@@ -28,11 +29,11 @@ export async function POST(
     const { data: project, error: projectError } = await supabaseAdmin
       .from('projects')
       .select('id')
-      .eq('id', params.id)
+      .eq('id', id)
       .single();
 
     console.log('2. Project check:', { 
-      projectId: params.id,
+      projectId: id,
       project,
       projectError
     });
@@ -48,13 +49,13 @@ export async function POST(
     const { data: userProject, error: userProjectError } = await supabaseAdmin
       .from('user_projects')
       .select('role')
-      .eq('project_id', params.id)
+      .eq('project_id', id)
       .eq('user_id', user.id)
       .single();
 
     console.log('3. User rights check:', {
       userId: user.id,
-      projectId: params.id,
+      projectId: id,
       userProject,
       userProjectError
     });
@@ -100,7 +101,7 @@ export async function POST(
     const { data: newMessage, error: insertError } = await supabaseAdmin
       .from('project_messages')
       .insert({
-        project_id: params.id,
+        project_id: id,
         sender_id: user.id,
         message: message.trim()
       })
@@ -144,8 +145,9 @@ export async function POST(
 
 export async function GET(
   request: Request,
-  { params }: { params: { id: string } }
+  context: { params: Promise<{ id: string }> }
 ) {
+  const { id } = await context.params;
   const { data: messages, error } = await supabaseAdmin
     .from('project_messages')
     .select(`
@@ -155,7 +157,7 @@ export async function GET(
         last_name
       )
     `)
-    .eq('project_id', params.id)
+    .eq('project_id', id)
     .order('created_at', { ascending: true });
 
   if (error) {
