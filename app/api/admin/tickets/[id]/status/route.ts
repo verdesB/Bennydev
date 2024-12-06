@@ -4,7 +4,7 @@ import { NextResponse } from 'next/server'
 
 export async function PATCH(
   request: Request,
-  { params }: { params: { id: string } }
+  context: { params: Promise<{ id: string }> }
 ) {
   try {
     // Initialiser le client Supabase avec authentification
@@ -30,7 +30,8 @@ export async function PATCH(
 
     // Récupérer le nouveau statut depuis le body
     const { status } = await request.json()
-    const ticketId = parseInt(params.id)
+    const { id } = await context.params;
+    const ticketId = parseInt(id)
 
     // Récupérer les informations du ticket et son propriétaire
     const { data: ticketData, error: ticketError } = await supabase
