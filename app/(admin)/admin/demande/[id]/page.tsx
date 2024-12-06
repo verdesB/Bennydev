@@ -70,16 +70,14 @@ interface UserResponse {
     };
 }
 
-interface Params {
-    id: string;
-}
+
 
 interface PageProps {
     params: { id: string };
     searchParams?: { [key: string]: string | string[] | undefined };
 }
 
-const DemandeDetail = async ({ params }: PageProps) => {
+const DemandeDetail =  ({ params }: PageProps) => {
     const [file, setFile] = useState<FileObject | null>(null)
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState<string | null>(null)
