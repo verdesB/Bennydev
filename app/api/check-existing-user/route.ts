@@ -1,4 +1,14 @@
 import { createClient } from '@supabase/supabase-js'
+interface Project {
+    id: string;
+    name: string;
+    description: string;
+    type: string;
+    state: string;
+    starter_date: string;
+    focus_date: string;
+    budget: number;
+};
 
 const supabaseAdmin = createClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -40,7 +50,7 @@ export async function POST(request: Request) {
         }
 
         // 3. Récupérer le projet via la table de jointure
-        const { data: projectData, error: projectError } = await supabaseAdmin
+        const { data: projectData , error: projectError } = await supabaseAdmin
             .from('user_projects')
             .select(`
                 role,
@@ -65,6 +75,9 @@ export async function POST(request: Request) {
 
         console.log("Project Data:", projectData);
 
+        // Assurez-vous que projectData.projects est typé comme un tableau de Project
+        const projects: Project[] = projectData.projects;
+
         // Reformater les données selon l'interface UserResponse
         const combinedData = {
             user: {
@@ -79,13 +92,13 @@ export async function POST(request: Request) {
                 projectCode: profileData.project_code,
             },
             project: {
-                name: projectData.projects.name,
-                description: projectData.projects.description,
-                type: projectData.projects.type,
-                state: projectData.projects.state,
-                starterDate: projectData.projects.starter_date,
-                focusDate: projectData.projects.focus_date,
-                budget: projectData.projects.budget,
+                name: projects[0].name, // Accéder au premier élément du tableau
+                description: projects[0].description,
+                type: projects[0].type,
+                state: projects[0].state,
+                starterDate: projects[0].starter_date,
+                focusDate: projects[0].focus_date,
+                budget: projects[0].budget,
             }
         };
 
@@ -95,7 +108,7 @@ export async function POST(request: Request) {
         console.error('Erreur détaillée:', error)
         return Response.json({ 
             error: 'Erreur lors de la vérification',
-            details: error.message 
+            details: error instanceof Error ? error.message : 'Erreur inconnue'
         }, { status: 500 })
     }
-} 
+}
