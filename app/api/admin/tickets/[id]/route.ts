@@ -32,11 +32,12 @@ export async function GET(
 
 export async function PATCH(
   request: Request,
-  { params }: { params: { id: string } }
+  context: { params: Promise<{ id: string }> }
 ) {
   try {
     const { status } = await request.json()
-    const ticketId = parseInt(params.id) // Convertir en nombre
+    const { id } = await context.params;
+    const ticketId = parseInt(id) // Convertir en nombre
     
     const { data, error } = await supabaseAdmin
       .from('tickets')
