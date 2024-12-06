@@ -33,7 +33,7 @@ interface MediaContent {
     className?: string;
     width?: string | number;
     height?: string | number;
-    objectFit?: string;
+    objectFit?: 'contain' | 'cover' | 'fill' | 'none' | 'scale-down';
   };
 }
 
@@ -110,7 +110,7 @@ const ContentComponent: React.FC<ContentComponentProps> = ({ sections }) => {
                                 style={{
                                     width: mediaContent.style.width,
                                     height: mediaContent.style.height,
-                                    objectFit: mediaContent.style.objectFit as any,
+                                    objectFit: mediaContent.style.objectFit,
                                 }}
                             />
                         </div>

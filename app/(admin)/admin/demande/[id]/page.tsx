@@ -296,7 +296,7 @@ const DemandeDetail = ({ params }: { params: Params }) => {
         }
     };
 
-    const setUserData = () => {};
+
 
     if (loading) {
         return (
