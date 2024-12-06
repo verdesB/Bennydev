@@ -25,10 +25,12 @@ export function SidebarNav({ items }: SidebarNavProps) {
     <nav className="space-y-1 px-2">
       {items.map((item) => {
         const Component = item.onClick ? 'button' : Link
+        const href = item.onClick ? '#' : item.href
+
         return (
           <Component
             key={item.href}
-            href={item.onClick ? undefined : item.href}
+            href={href}
             onClick={item.onClick}
             className={cn(
               "flex items-center gap-3 rounded-lg px-3 py-2 text-sm transition-colors w-full",
