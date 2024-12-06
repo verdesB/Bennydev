@@ -4,7 +4,7 @@ import { Metadata } from 'next'
 
 
 
-//@ts-ignore
+
 export default function Page({ params }: { params: { id: string } }) {
     return <p>Demande {params.id}</p>
 }
