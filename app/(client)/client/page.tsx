@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
 import Image from 'next/image'
-import { REALTIME_POSTGRES_CHANGES_LISTEN_EVENT, RealtimePostgresChangesPayload} from '@supabase/supabase-js'
+import {  RealtimePostgresChangesPayload} from '@supabase/supabase-js'
 
 interface Profile {
   id: string;
@@ -39,11 +39,7 @@ interface Ticket {
   status: 'open' | 'closed';
 }
 
-type DatabaseNotificationPayload = {
-  eventType: 'INSERT' | 'DELETE' | 'UPDATE';
-  new: Notification;
-  old: Notification;
-}
+
 
 export default function ClientPage() {
   const router = useRouter()
