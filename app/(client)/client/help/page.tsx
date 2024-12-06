@@ -1,10 +1,10 @@
 'use client'
 
-import { useEffect, useState, Suspense } from 'react'
+import { useState, Suspense } from 'react'
 import { Separator } from '@/components/ui/separator'
 import { ScrollArea } from '@/components/ui/scroll-area'
 import { cn } from '@/lib/utils'
-import { useRouter, useSearchParams } from 'next/navigation'
+import { useRouter} from 'next/navigation'
 import { Input } from '@/components/ui/input'
 import { Search } from 'lucide-react'
 import { sections } from './section.data'
