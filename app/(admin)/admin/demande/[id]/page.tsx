@@ -77,8 +77,7 @@ interface Params {
     id: string;
 }
 
-const DemandeDetail = ({ params }: { params: Params }) => {
-    const resolvedParams = use(params) as Params;
+const DemandeDetail = async ({ params }: { params: Params }) => {
     const [file, setFile] = useState<FileObject | null>(null)
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState<string | null>(null)
@@ -140,7 +139,7 @@ const DemandeDetail = ({ params }: { params: Params }) => {
                 // Trouver le fichier qui correspond à l'ID
                 const matchingFile = files.find((file: FileObject) => {
                     const fileId = file.name.slice(-7, -3)
-                    return fileId === resolvedParams.id
+                    return fileId === params.id
                 })
 
                 if (!matchingFile) {
@@ -169,7 +168,7 @@ const DemandeDetail = ({ params }: { params: Params }) => {
         }
 
         fetchFile()
-    }, [resolvedParams.id])
+    }, [params.id])
 
     useEffect(() => {
         const checkExistingUser = async () => {
@@ -506,7 +505,7 @@ const DemandeDetail = ({ params }: { params: Params }) => {
                         </h2>
                         <p className="text-muted-foreground text-sm mt-1">
                             {submissionSuccess 
-                                ? 'Le compte a été créé avec succès' 
+                                ? 'Le compte a ét�� créé avec succès' 
                                 : 'Remplissez les informations pour créer le compte client'}
                         </p>
                     </div>
