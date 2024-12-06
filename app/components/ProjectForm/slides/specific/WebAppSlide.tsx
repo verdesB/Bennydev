@@ -8,6 +8,7 @@ interface WebAppData {
   keyFeatures?: Record<string, boolean>;
   integrations?: Record<string, boolean>;
   technicalNeeds?: Record<string, boolean>;
+  [key: string]: any;
 }
 
 interface WebAppSlideProps {
@@ -28,7 +29,7 @@ export function WebAppSlide({ formData, setFormData, onNext, onPrevious }: WebAp
         webapp: {
           ...formData.webapp,
           [name]: {
-            ...formData.webapp?.[name],
+            ...formData?.webapp?.[name],
             [checkbox.value]: checkbox.checked
           }
         }

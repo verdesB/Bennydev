@@ -86,7 +86,7 @@ export function APISlide({ formData, setFormData, onNext, onPrevious }: APISlide
                 <input
                   type="checkbox"
                   name={feature.id}
-                  checked={formData.api_details?.features?.[feature.id] || false}
+                  checked={formData.api_details?.features?.[feature.id as keyof typeof formData.api_details.features] || false}
                   onChange={handleChange}
                   className="rounded border-gray-300 text-violet-600 focus:ring-violet-500"
                 />

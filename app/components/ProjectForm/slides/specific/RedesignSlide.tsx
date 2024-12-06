@@ -129,7 +129,7 @@ export function RedesignSlide({ formData, setFormData, onNext, onPrevious }: Red
                   type="checkbox"
                   name={improvement.id}
                   value={improvement.id}
-                  checked={formData.redesign_details?.improvements?.[improvement.id] || false}
+                  checked={formData.redesign_details?.improvements?.[improvement.id as keyof typeof formData.redesign_details.improvements] || false}
                   onChange={handleChange}
                   className="rounded border-gray-300 text-violet-600 focus:ring-violet-500"
                 />
@@ -151,8 +151,13 @@ export function RedesignSlide({ formData, setFormData, onNext, onPrevious }: Red
               setFormData({
                 ...formData,
                 redesign_details: {
-                  ...formData.redesign_details,
-                  painPoints: e.target.value.split('\n').filter(point => point.trim() !== '')
+                  title: formData.redesign_details?.title ?? '',
+                  description: formData.redesign_details?.description ?? '',
+                  currentUrl: formData.redesign_details?.currentUrl ?? '',
+                  improvements: formData.redesign_details?.improvements ?? {},
+                  painPoints: e.target.value.split('\n').filter(point => point.trim() !== ''),
+                  desiredFeatures: formData.redesign_details?.desiredFeatures ?? [],
+                  brandGuidelines: formData.redesign_details?.brandGuidelines ?? false
                 }
               });
             }}
@@ -173,8 +178,13 @@ export function RedesignSlide({ formData, setFormData, onNext, onPrevious }: Red
               setFormData({
                 ...formData,
                 redesign_details: {
-                  ...formData.redesign_details,
-                  desiredFeatures: e.target.value.split('\n').filter(feature => feature.trim() !== '')
+                  title: formData.redesign_details?.title ?? '',
+                  description: formData.redesign_details?.description ?? '',
+                  currentUrl: formData.redesign_details?.currentUrl ?? '',
+                  improvements: formData.redesign_details?.improvements ?? {},
+                  painPoints: formData.redesign_details?.painPoints ?? [],
+                  desiredFeatures: e.target.value.split('\n').filter(feature => feature.trim() !== ''),
+                  brandGuidelines: formData.redesign_details?.brandGuidelines ?? false
                 }
               });
             }}
