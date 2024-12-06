@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
 import Image from 'next/image'
+import { REALTIME_POSTGRES_CHANGES_LISTEN_EVENT, RealtimePostgresChangesPayload} from '@supabase/supabase-js'
 
 interface Profile {
   id: string;
@@ -93,16 +94,15 @@ export default function ClientPage() {
           table: 'notifications',
           filter: `user_id=eq.${profile?.id}`
         },
-        (payload: DatabaseNotificationPayload) => {
+        (payload: RealtimePostgresChangesPayload<Notification>) => {
           if (isMounted) {
-            // Mettre à jour les notifications en fonction du type d'événement
             if (payload.eventType === 'INSERT') {
-              setNotifications(prev => [payload.new, ...prev])
+              setNotifications(prev => [payload.new as Notification, ...prev])
             } else if (payload.eventType === 'DELETE') {
               setNotifications(prev => prev.filter(notif => notif.id !== payload.old.id))
             } else if (payload.eventType === 'UPDATE') {
               setNotifications(prev => prev.map(notif => 
-                notif.id === payload.new.id ? payload.new : notif
+                notif.id === payload.new.id ? payload.new as Notification : notif
               ))
             }
           }
