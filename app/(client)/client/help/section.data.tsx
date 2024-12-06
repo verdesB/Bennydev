@@ -4,6 +4,7 @@ import React from 'react'
 
 import { BookUser, BriefcaseBusiness, Globe, Handshake, Lightbulb, FileText, Code2, TestTube2, Rocket, Paintbrush, LocateFixed } from 'lucide-react';
 import Image from 'next/image';
+import { Section } from './types';
 
 
 export const sections: Section[] = [
