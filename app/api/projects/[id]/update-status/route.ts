@@ -3,11 +3,11 @@ import { NextResponse } from 'next/server';
 
 export async function PATCH(
   request: Request,
-  { params }: { params: { id: string } }
+  context: { params: Promise<{ id: string }> }
 ) {
   try {
     const { status } = await request.json();
-    
+    const { id } = await context.params;
     // Récupérer le projet avec les informations du client
     const { error: projectError } = await supabaseAdmin
       .from('projects')
@@ -18,7 +18,7 @@ export async function PATCH(
           role
         )
       `)
-      .eq('id', params.id)
+      .eq('id', id)
       .single();
 
     if (projectError) {
@@ -29,7 +29,7 @@ export async function PATCH(
     const { data, error } = await supabaseAdmin
       .from('projects')
       .update({ state: status })
-      .eq('id', params.id)
+      .eq('id', id)
       .select();
 
     if (error) {
