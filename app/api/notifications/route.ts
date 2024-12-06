@@ -31,10 +31,9 @@ export async function GET() {
 
     return NextResponse.json(notifications)
   } catch (error: unknown) {
+    console.error('Erreur:', error) // Ajout du log de l'erreur
     return NextResponse.json(
       { error: 'Erreur lors de la récupération des notifications' },
       { status: 500 }
     )
   }
-}
-
