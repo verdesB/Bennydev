@@ -68,11 +68,11 @@ export function useAdminTickets() {
       // Calculer les stats
       setStats({
         total: ticketsData.length,
-        open: ticketsData.filter(t => t.status === 'open').length
+        open: ticketsData.filter((t: Ticket) => t.status === 'open').length
       })
     } catch (err) {
       console.error('Erreur:', err)
-      setError(err.message)
+      setError(err instanceof Error ? err.message : 'Erreur inconnue')
     } finally {
       setLoading(false)
     }
@@ -100,7 +100,7 @@ export function useAdminTickets() {
       setProjects(projectsData)
     } catch (err) {
       console.error('Erreur:', err)
-      setError(err.message)
+      setError(err instanceof Error ? err.message : 'Erreur inconnue')
     }
   }
 
