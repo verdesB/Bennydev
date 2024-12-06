@@ -199,7 +199,7 @@ export const useProjectsLogic = () => {
 
       const client = selectedProject.users.find(user => user.role === 'member');
       if (client) {
-        console.log('ID du client:', client.id);
+        console.log('ID du client:', client.user_id);
 
         try {
           const statusLabel = PROJECT_STATUSES.find(
@@ -210,7 +210,7 @@ export const useProjectsLogic = () => {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
-              user_id: client.id,
+              user_id: client.user_id,
               title: 'Mise à jour du statut',
               message: `Le statut du projet ${selectedProject.name} a été mis à jour vers "${statusLabel}"`,
               type: 'STATUS_UPDATE',
@@ -263,14 +263,14 @@ export const useProjectsLogic = () => {
       // Trouver le client (membre) du projet
       const client = selectedProject.users.find(user => user.role === 'member');
       if (client) {
-        console.log('ID du client:', client.id );
+        console.log('ID du client:', client.user_id );
 
         try {
           const response = await fetch('/api/create-notification', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
-              user_id: client.id,
+              user_id: client.user_id,
               title: 'Ajout des URLs du projet',
               message: `Les URLs du projet ${selectedProject.name} ont été mises à jour.`,
               type: 'URL_UPDATE',
@@ -334,6 +334,13 @@ export const useProjectsLogic = () => {
 }; 
 
 // Fonction utilitaire pour vérifier le type
-function isChatMessage(message: any): message is ChatMessage {
-  return message && typeof message.sender_id === 'string' && typeof message.message === 'string';
+function isChatMessage(message: unknown): message is ChatMessage {
+  return (
+    typeof message === 'object' &&
+    message !== null &&
+    'sender_id' in message &&
+    'message' in message &&
+    typeof (message as ChatMessage).sender_id === 'string' &&
+    typeof (message as ChatMessage).message === 'string'
+  );
 } 
