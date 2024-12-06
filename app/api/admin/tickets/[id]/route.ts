@@ -3,11 +3,11 @@ import { NextResponse } from 'next/server'
 
 export async function GET(
   request: Request,
-  context: { params: { id: string } }
+  context: { params: Promise<{ id: string }> }
 ) {
   try {
-    const params = await context.params // Attendre les paramètres
-    const ticketId = parseInt(params.id)
+    const { id } = await context.params;
+    const ticketId = parseInt(id)
     
     // Récupérer le ticket
     const { data: ticket, error } = await supabaseAdmin
