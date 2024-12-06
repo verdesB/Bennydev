@@ -11,7 +11,7 @@ export function WelcomeSlide({ onNext }: WelcomeSlideProps) {
       subtitle="Nous sommes ravis de vous accompagner dans la réalisation de votre projet digital."
       onNext={onNext}
       onPrevious={() => {}}
-      hideBackButton
+     
     >
       <div className="flex flex-col items-center justify-center text-center min-h-[300px]">
         <p className="text-lg text-gray-600 max-w-2xl mb-8">
