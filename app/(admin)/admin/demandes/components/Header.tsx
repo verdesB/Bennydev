@@ -1,6 +1,11 @@
 import React from 'react'
 
-const Header = ({ files }) => (
+interface File {
+  isUnread: boolean;
+  // Ajoutez d'autres propriétés si nécessaire
+}
+
+const Header = ({ files }: { files: File[] }) => (
     <div className="flex items-center justify-between mb-12">
         <div className="space-y-2">
             <h1 className="text-4xl font-bold bg-gradient-to-r from-primary via-primary/80 to-primary/60 bg-clip-text text-transparent">
