@@ -5,6 +5,7 @@ import { Calendar, FileText, ChevronDown, ChevronUp, ChevronRight } from 'lucide
 import ReactMarkdown from 'react-markdown'
 
 import { FileCardProps } from '../types'
+import Link from 'next/link'
 
 const FileCard = ({ file, expandedFiles, toggleExpand,  takenRequests }: FileCardProps) => {
     const projectCode = file.name.slice(-7, -3)
@@ -119,16 +120,13 @@ const FileCard = ({ file, expandedFiles, toggleExpand,  takenRequests }: FileCar
                         </Button>
                     </>
                 ) : (
-                    <Button
+                    <Link
                         className="w-full rounded-full bg-primary/10 hover:bg-primary/20 text-primary hover:text-primary"
-                        variant="outline"
-                        onClick={() => {
-                            window.location.href = `/admin/demande/${projectCode}`;
-                        }}
+                        href={`/admin/demande/${file.id}`}
                     >
                         Voir la demande
                         <ChevronRight className="ml-2 h-4 w-4" />
-                    </Button>
+                    </Link>
                 )}
             </div>
         </Card>
