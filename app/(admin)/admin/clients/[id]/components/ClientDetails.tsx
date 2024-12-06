@@ -97,7 +97,7 @@ export default function ClientDetails() {
       <div className="flex justify-between items-center mb-6">
         <h1 className="text-3xl font-bold">Fiche Client</h1>
         <Badge variant={
-          client?.statutContrat === 'accepté' ? 'success' :
+          client?.statutContrat === 'accepté' ? 'secondary' :
           client?.statutContrat === 'refusé' ? 'destructive' :
           'default'
         }>
