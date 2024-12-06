@@ -2,10 +2,10 @@ import { supabaseAdmin } from "@/app/lib/supabase-admin"
 
 export async function GET(
     request: Request,
-    { params }: { params: { token: string } }
+    context: { params: Promise<{ token: string }> }
 ) {
     try {
-        const token = await params.token
+        const { token } = await context.params;
         console.log('Vérification du token:', token)
 
         // Récupérer uniquement la session
