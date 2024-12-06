@@ -100,9 +100,7 @@ export function FilesSharingView({ projectId }: FilesSharingViewProps) {
                     <p className="text-xs font-medium text-gray-900 truncate">
                       {image.title || 'Sans titre'}
                     </p>
-                    <p className="text-[10px] text-gray-500">
-                      {(image.size / 1024).toFixed(2)} KB
-                    </p>
+                    
                   </div>
                 </motion.div>
               ))}
