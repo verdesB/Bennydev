@@ -1,12 +1,9 @@
-import DemandeDetailClient from './DemandeDetailClient'
+import DemandeDetailClient from "./DemandeDetailClient"
 
-type Props = {
-    params: {
-        id: string
-    },
-    searchParams: { [key: string]: string | string[] | undefined }
-}
-
-export default async function Page({ params }: Props) {
+export default async function Page({ 
+    params,
+}: {
+    params: { id: string }
+}) {
     return <DemandeDetailClient params={params} />
-} 
+}
