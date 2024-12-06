@@ -32,12 +32,12 @@ export interface ListContent {
       items: ListItem[];
   }
   
-export type SectionContent = TextContent | MediaContent | ListContent;
+export type SectionContent = TextContent | MediaContent | ListContent | string;
   
 export interface SectionItem {
       id: string;
       title: string;
-      content: JSX.Element;
+      content: JSX.Element | string;
   }
   
 export  interface Section {

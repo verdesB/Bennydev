@@ -806,18 +806,7 @@ export const sections: Section[] = [
         id: 'focusCRM',
         title: 'Guide de l\'utilisation du CRM',
         items: [
-            {
-                id: 'focusCRM-1',
-                title: 'Page Dashboard',
-            },
-            {
-                id: 'focusCRM-2',
-                title: 'PageTickets',
-            },
-            {
-                id: 'focusCRM-3',
-                title: 'Page Paramètres',
-            },
+            
         ]
     }
     
