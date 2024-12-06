@@ -69,12 +69,13 @@ interface UserResponse {
     };
 }
 
-interface PageProps {
-    params: { id: string };
-    searchParams?: { [key: string]: string | string[] | undefined };
+type Props = {
+    params: {
+        id: string
+    }
 }
 
-const DemandeDetailClient = ({ params }: PageProps) => {
+const DemandeDetailClient = ({ params }: Props) => {
     const [file, setFile] = useState<FileObject | null>(null)
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState<string | null>(null)
