@@ -47,7 +47,7 @@ export const metadata: Metadata = {
     description: 'Développeur web freelance spécialisé dans la création de sites web et applications sur mesure.',
     images: [
       {
-        url: '/logo.webp',
+        url: '/Bennydev.ico',
         width: 1200,
         height: 630,
         alt: 'BennyDev - Développeur Web Freelance',
