@@ -61,7 +61,7 @@ export const metadata: Metadata = {
     images: ['https://www.bennydev.fr/twitter-image.jpg'],
   },
   icons: {
-    icon: '/logo.webp',
+    icon: '/Bennydev.ico',
   },
 }
 
