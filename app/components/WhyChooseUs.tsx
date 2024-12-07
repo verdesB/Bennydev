@@ -71,7 +71,7 @@ export default function WhyChooseUs() {
 
         <ul className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {benefits.map((benefit, index) => (
-            <li key={index} className="relative bg-white rounded-2xl p-8 shadow-[0_0_50px_rgba(139,92,246,0.1)] hover:shadow-[0_0_50px_rgba(139,92,246,0.2)] transition-all duration-300">
+            <li key={index} className="border border-gray-200 bg-gradient-to-bl from-gray-100 to-white relative bg-white rounded-2xl p-8 shadow-[0_0_50px_rgba(139,92,246,0.2)] hover:shadow-[0_0_50px_rgba(139,92,246,0.2)] transition-all duration-300">
             <article
               
               

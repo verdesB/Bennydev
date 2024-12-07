@@ -48,7 +48,7 @@ export default function Services() {
             <li key={index}>
             <article
               
-              className="group relative p-8 bg-white rounded-2xl shadow-[0_0_50px_rgba(139,92,246,0.1)] hover:shadow-[0_0_50px_rgba(139,92,246,0.2)] transition-all duration-300 hover:-translate-y-1"
+              className="border border-gray-200 bg-gradient-to-bl from-gray-100 to-white group relative p-8 bg-white rounded-2xl shadow-[0_0_50px_rgba(139,92,246,0.2)] hover:shadow-[0_0_50px_rgba(139,92,246,0.2)] transition-all duration-300 hover:-translate-y-1 "
             >
               {/* Icône avec cercle de fond */}
               <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-purple-100 text-purple-600 mb-6 group-hover:scale-110 transition-transform duration-300">

@@ -133,7 +133,7 @@ export default function About() {
             {values.map((value, index) => (
               <div
                 key={index}
-                className="group bg-white p-6 rounded-xl shadow-[0_0_50px_rgba(139,92,246,0.1)] hover:shadow-[0_0_50px_rgba(139,92,246,0.2)] transition-all duration-300"
+                className="border border-gray-200 bg-gradient-to-bl from-gray-50 to-white group bg-white p-6 rounded-xl shadow-[0_0_50px_rgba(139,92,246,0.1)] hover:shadow-[0_0_50px_rgba(139,92,246,0.2)] transition-all duration-300"
               >
                 <h4 className="text-lg font-semibold text-purple-700 mb-2">
                   {value.title}
@@ -147,7 +147,7 @@ export default function About() {
         </div>
 
         {/* Histoire */}
-        <div className="mt-20 bg-white rounded-2xl p-8 shadow-[0_0_50px_rgba(139,92,246,0.1)]">
+        <div className="mt-20 bg-white rounded-2xl p-8 shadow-[0_0_50px_rgba(139,92,246,0.1)] bg-gradient-to-bl from-gray-100 to-white border border-gray-200">
           <h3 className="text-2xl font-semibold text-gray-900 mb-6">
             Mon Histoire
           </h3>
