@@ -64,10 +64,13 @@ export const metadata: Metadata = {
     icon: '/Bennydev.ico',
     shortcut: '/Bennydev.ico',
     apple: '/Bennydev.ico',
-    other: {
-      rel: 'apple-touch-icon-precomposed',
-      url: '/Bennydev.ico',
-    },
+    other: [
+      {
+        rel: 'search provider icon',
+        url: '/Bennydev.ico',
+        type: 'image/x-icon',
+      }
+    ],
   },
 }
 
