@@ -62,6 +62,12 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: '/Bennydev.ico',
+    shortcut: '/Bennydev.ico',
+    apple: '/Bennydev.ico',
+    other: {
+      rel: 'apple-touch-icon-precomposed',
+      url: '/Bennydev.ico',
+    },
   },
 }
 
