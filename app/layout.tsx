@@ -52,14 +52,17 @@ export const metadata: Metadata = {
         height: 630,
         alt: 'BennyDev - Développeur Web Freelance',
       },
-    ],
+    ], 
   },
   twitter: {
     card: 'summary_large_image',
     title: 'BennyDev | Développeur Web Freelance',
     description: 'Développeur web freelance spécialisé dans la création de sites web et applications sur mesure.',
     images: ['https://www.bennydev.fr/twitter-image.jpg'],
-  }
+  },
+  icons: {
+    icon: '/logo.webp',
+  },
 }
 
 export default async function RootLayout({
