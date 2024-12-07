@@ -3,6 +3,7 @@ import localFont from "next/font/local";
 import "./globals.css";
 import Head from "next/head";
 import { AuthProvider } from './context/AuthContext';
+import JsonLd from "./components/JsonLd";
 
 
 
@@ -19,9 +20,47 @@ const geistMono = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "Bennydev - Développeur Web Full Stack",
-  description: "Spécialisé dans la création d'expériences web modernes et performantes",
-};
+  metadataBase: new URL('https://www.bennydev.fr'),
+  title: {
+    default: 'BennyDev | Développeur Web Freelance',
+    template: '%s | BennyDev'
+  },
+  description: 'Développeur web freelance spécialisé dans la création de sites web et applications sur mesure. Expertise en React, Next.js et solutions digitales innovantes.',
+  keywords: ['développeur web', 'freelance', 'création site web', 'applications web', 'React', 'Next.js'],
+  authors: [{ name: 'Benjamin' }],
+  creator: 'Benjamin',
+  publisher: 'BennyDev',
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+    },
+  },
+  openGraph: {
+    type: 'website',
+    locale: 'fr_FR',
+    url: 'https://www.bennydev.fr',
+    siteName: 'BennyDev',
+    title: 'BennyDev | Développeur Web Freelance',
+    description: 'Développeur web freelance spécialisé dans la création de sites web et applications sur mesure.',
+    images: [
+      {
+        url: '/logo.webp',
+        width: 1200,
+        height: 630,
+        alt: 'BennyDev - Développeur Web Freelance',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'BennyDev | Développeur Web Freelance',
+    description: 'Développeur web freelance spécialisé dans la création de sites web et applications sur mesure.',
+    images: ['https://www.bennydev.fr/twitter-image.jpg'],
+  }
+}
 
 export default async function RootLayout({
   children,
@@ -35,6 +74,7 @@ export default async function RootLayout({
     <html lang="fr">
       <Head>
         <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+        <JsonLd />
       </Head>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased relative`}>
         <AuthProvider>
