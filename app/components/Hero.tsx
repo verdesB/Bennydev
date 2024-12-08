@@ -19,7 +19,7 @@ export default function Hero() {
       <div className="absolute top-[-5] left-1/2 transform -translate-x-1/2 z-50">
         <div className="bg-purple-100 border-2 border-purple-300 rounded-full px-6 py-2 shadow-lg animate-pulse">
           <p className="text-purple-800 text-sm md:text-base font-medium">
-            🚀 Lancement officielle de l'activité en 2025 - Discussions de projets ouvertes dès maintenant !
+            🚀 Lancement officielle de l&apos;activité en 2025 - Discussions de projets ouvertes dès maintenant !
           </p>
         </div>
       </div>
