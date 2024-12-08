@@ -81,7 +81,7 @@ export default function About() {
                   </div>
                   <div className="relative z-10">
                     <h4 className="text-2xl md:text-3xl font-bold text-white mb-4 tracking-tight">
-                      L'Humain au Cœur de Chaque Projet
+                      L&apos;Humain au Cœur de Chaque Projet
                     </h4>
                     <p className="text-white/90 text-base leading-relaxed">
                       Au-delà de la technique, je crois profondément en l&apos;importance des relations humaines dans chaque projet. Mon approche personnalisée me permet de vraiment comprendre vos besoins, vos aspirations et vos contraintes. Je ne suis pas qu&apos;un simple prestataire, mais un véritable partenaire qui s&apos;investit dans votre réussite.
