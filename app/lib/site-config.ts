@@ -153,9 +153,9 @@ export const siteConfig = {
         {
           name: 'Hébergement',
           values: {
-            essential: 'Offert pendant 1 an',
-            business: 'Offert pendant 1 an',
-            premium: 'Offert pendant 1 an'
+            essential: 'Offert pendant 6 mois',
+            business: 'Offert pendant 6 mois',
+            premium: 'Offert pendant 6 mois'
           }
         },
         {
@@ -287,9 +287,9 @@ export const siteConfig = {
           {
             name: 'Hébergement',
             values: {
-              starter: 'Offert pendant 1 an',
-              business: 'Offert pendant 1 an',
-              premium: 'Offert pendant 1 an'
+              starter: 'Offert pendant 6 mois',
+              business: 'Offert pendant 6 mois',
+              premium: 'Offert pendant 6 mois'
             }
           },
           {
