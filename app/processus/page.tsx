@@ -4,6 +4,10 @@ import Header from '../components/Header';
 import ChatButton from '../components/ChatButton';
 import Footer from '../components/Footer';
 
+export const metadata = {
+  title: 'Mon Processus',
+  description: 'Découvrez mon processus de développement web étape par étape. Une approche méthodique et transparente pour la réalisation de vos projets.',
+};
 
 export default function ProcessusPage() {
   return (

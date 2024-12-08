@@ -6,6 +6,11 @@ import Header from '../components/Header';
 import ChatButton from '../components/ChatButton';
 import Footer from '../components/Footer';
 
+export const metadata = {
+  title: 'Contact',
+  description: 'Contactez-moi pour discuter de vos projets de développement web. Disponible pour des missions freelance en développement front-end et back-end.',
+};
+
 export default function ContactPage() {
   return (
     <>

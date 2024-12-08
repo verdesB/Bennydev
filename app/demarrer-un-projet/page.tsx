@@ -4,6 +4,11 @@ import Header from "../components/Header";
 import Hero2 from "../components/Hero2";
 import ProjectForm from "../components/ProjectForm/ProjectForm";
 
+export const metadata = {
+  title: 'Démarrer un projet',
+  description: 'Lancez votre projet web avec Bennydev. Remplissez notre formulaire pour démarrer votre collaboration et transformer vos idées en réalité.',
+}
+
 const DemarrerUnProjet = () => {
   return(
     <> 
