@@ -1,13 +1,7 @@
 import Image from 'next/image';
 
 export default function About() {
-  const values = [
-    { title: "Expertise", description: "Compétences techniques constamment à jour" },
-    { title: "Créativité", description: "Solutions uniques et innovantes" },
-    { title: "Proximité", description: "Relations de confiance et transparence" },
-    { title: "Engagement", description: "Qualité et respect des délais" },
-    { title: "Accessibilité", description: "Solutions inclusives pour tous" }
-  ];
+  
 
   return (
     <section className="relative z-20 py-20 ">
