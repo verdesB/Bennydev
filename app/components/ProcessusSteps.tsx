@@ -1,5 +1,5 @@
 import { siteConfig } from '../lib/site-config';
-import { ChevronDown, Code, Bolt, Star, TrendingUp, Check, X, HelpCircle } from 'lucide-react';
+import { ChevronDown, Code, Bolt, Star, TrendingUp,HelpCircle } from 'lucide-react';
 
 interface ServiceStatus {
   statut: string;
@@ -15,7 +15,7 @@ const IconMap = {
 };
 
 // Types pour la configuration du site
-interface FormuleDetails {
+export interface FormuleDetails {
   icon: keyof typeof IconMap;
   titre: string;
   description: string;
@@ -44,11 +44,7 @@ interface Garanties {
   };
 }
 
-interface PostDevelopment {
-  formules: {
-    [key: string]: FormuleDetails;
-  };
-}
+
 
 // Composant pour afficher le statut
 const StatusBadge = ({ status }: { status: string }) => {
