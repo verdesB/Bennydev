@@ -174,7 +174,7 @@ export default function ProcessusSteps() {
         {/* Section Post-développement avec version mobile adaptée */}
         <article className="mt-20">
           <h3 className="text-3xl font-bold text-gray-900 mb-8 text-center tracking-tight">
-            Et après le développement, qu'est-ce qu'il se passe pour votre projet ?
+          Et après le développement, qu&apos;est-ce qu&apos;il se passe pour votre projet ?
           </h3>
 
           {/* Version Desktop */}
@@ -311,8 +311,8 @@ export default function ProcessusSteps() {
 
           {/* Note de bas de tableau */}
           <p className="mt-4 text-sm text-gray-500 italic text-center">
-            * Les prix indiqués sont HT et peuvent varier selon vos besoins spécifiques.
-            N'hésitez pas à me contacter pour obtenir un devis personnalisé.
+          * Les prix indiqués sont HT et peuvent varier selon vos besoins spécifiques.
+          N&apos;hésitez pas à me contacter pour obtenir un devis personnalisé.
           </p>
         </article>
       </div>
