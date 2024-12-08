@@ -61,7 +61,7 @@ export default function WhyChooseUs() {
 
       <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-purple-800 to-pink-700 inline-block">
+          <h2 className="text-3xl md:text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-purple-800 to-pink-700 inline-block tracking-tight">
             Pourquoi Choisir BennyDev ?
           </h2>
           <p className="mt-4 text-gray-600 max-w-2xl mx-auto">
@@ -78,7 +78,7 @@ export default function WhyChooseUs() {
             >
               <div className="flex items-center gap-3 mb-4">
                 {benefit.icon}
-                <h3 className="text-xl font-semibold text-gray-900">
+                <h3 className="text-xl font-semibold text-gray-900 tracking-tight">
                   {benefit.title}
                 </h3>
               </div>

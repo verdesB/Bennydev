@@ -27,7 +27,7 @@ export default function CTA() {
       {/* Contenu et bouton avec le z-index le plus élevé */}
       <div className="max-w-6xl rounded-2xl mb-24 mx-auto px-6 py-20 relative overflow-hidden backdrop-blur-s z-30">
         <div className="relative text-center rounded-2xl">
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-white">
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-white tracking-tight ">
             Prêt à démarrer votre prochain projet ?
           </h2>
           

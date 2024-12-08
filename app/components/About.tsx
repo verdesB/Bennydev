@@ -17,7 +17,7 @@ export default function About() {
       <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* En-tête de section */}
         <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-purple-800 to-pink-700 inline-block">
+          <h2 className="text-3xl md:text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-purple-800 to-pink-700 inline-block tracking-tight ">
             À Propos de BennyDev
           </h2>
         </div>
@@ -80,9 +80,9 @@ export default function About() {
         </div>
 
         {/* Valeurs */}
-        <div className="mt-20">
-          <h3 className="text-2xl font-semibold text-gray-900 text-center mb-12">
-            Nos Valeurs
+        <div className="mt-32">
+          <h3 className="text-2xl font-semibold text-gray-900 text-center mb-12 tracking-tight ">
+            Mes Valeurs
           </h3>
           
           {/* Nouvelle section mise en avant */}
@@ -97,7 +97,7 @@ export default function About() {
                 </div>
                 
                 <div className="space-y-4">
-                  <h4 className="text-2xl md:text-3xl font-bold text-purple-100">
+                  <h4 className="text-2xl md:text-3xl font-bold text-purple-100 tracking-tight">
                     L&apos;Humain au Cœur de Chaque Projet
                   </h4>
                   <p className="text-purple-100 text-lg leading-relaxed">
@@ -135,7 +135,7 @@ export default function About() {
                 key={index}
                 className="border border-gray-200 bg-gradient-to-bl from-gray-50 to-white group bg-white p-6 rounded-xl shadow-[0_0_50px_rgba(139,92,246,0.1)] hover:shadow-[0_0_50px_rgba(139,92,246,0.2)] transition-all duration-300"
               >
-                <h4 className="text-lg font-semibold text-purple-700 mb-2">
+                <h4 className="text-lg font-semibold text-purple-700 mb-2 tracking-tight">
                   {value.title}
                 </h4>
                 <p className="text-sm text-gray-600">
@@ -148,7 +148,7 @@ export default function About() {
 
         {/* Histoire */}
         <div className="mt-20 bg-white rounded-2xl p-8 shadow-[0_0_50px_rgba(139,92,246,0.1)] bg-gradient-to-bl from-gray-100 to-white border border-gray-200">
-          <h3 className="text-2xl font-semibold text-gray-900 mb-6">
+          <h3 className="text-2xl font-semibold text-gray-900 mb-6 tracking-tight">
             Mon Histoire
           </h3>
           <div className="prose prose-purple max-w-none text-gray-700">

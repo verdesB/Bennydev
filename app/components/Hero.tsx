@@ -30,7 +30,7 @@ export default function Hero() {
           </p>
 
           {/* Titre principal optimisé */}
-          <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold md:animate-fade-in pb-2">
+          <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold md:animate-fade-in pb-2 tracking-tight ">
             <span className="inline-block bg-clip-text text-black lg:text-transparent lg:bg-gradient-to-r from-gray-900 via-purple-800 to-pink-700">
               Transformez vos idées<br />
               en réalité digitale

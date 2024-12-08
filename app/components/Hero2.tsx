@@ -22,7 +22,7 @@ export default function Hero2({ title, subtitle }: { title: string; subtitle: st
         {/* Contenu */}
         <div className="relative z-10 p-8">
           <div className="text-center">
-            <h1 className="text-2xl md:text-3xl font-bold text-white mb-2">{title}</h1>
+            <h1 className="text-2xl md:text-3xl font-bold text-white mb-2 tracking-tight">{title}</h1>
             <p className="text-sm md:text-base text-gray-200">{subtitle}</p>
           </div>
         </div>
