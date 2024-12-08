@@ -3,6 +3,8 @@ import Link from 'next/link';
 export default function Hero() {
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-white via-pink-100 to-purple-200">
+      
+
       {/* Gradient overlay */}
       <div className="absolute inset-0">
         <div className="absolute inset-0 bg-gradient-to-br from-white/90 via-pink-100/80 to-purple-300/70 opacity-90" />
@@ -13,6 +15,14 @@ export default function Hero() {
 
       {/* Contenu principal */}
       <article className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center pt-20">
+        {/* Nouveau sticker d'annonce */}
+      <div className="absolute top-[-5] left-1/2 transform -translate-x-1/2 z-50">
+        <div className="bg-purple-100 border-2 border-purple-300 rounded-full px-6 py-2 shadow-lg animate-pulse">
+          <p className="text-purple-800 text-sm md:text-base font-medium">
+            🚀 Lancement officielle de l'activité en 2025 - Discussions de projets ouvertes dès maintenant !
+          </p>
+        </div>
+      </div>
         <div className="space-y-8">
           {/* Petit texte d'introduction */}
           <p className="text-gray-600 font-mono uppercase tracking-wider animate-fade-in">
