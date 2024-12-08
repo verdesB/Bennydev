@@ -182,32 +182,16 @@ export default function ProcessusSteps() {
             <table className="w-full border-collapse table-fixed">
               <colgroup>
                 <col/>
-                {Object.entries(siteConfig.postDevelopment.formules).map(([key, formule]) => (
+                {Object.entries(siteConfig.postDevelopment.formules).map(([key]) => (
                   <col key={key}/>
                 ))}
               </colgroup>
               <thead>
                 <tr>
                   <th className="p-4 text-left bg-gray-50 border-b-2 border-gray-200"></th>
-                  {Object.entries(siteConfig.postDevelopment.formules).map(([key, formule]) => {
-                    const IconComponent = IconMap[formule.icon as keyof typeof IconMap];
-                    return (
-                      <th 
-                        key={key}
-                        className={`p-6 border-b-2 border-gray-200 ${
-                          ('isHighlighted' in formule && formule.isHighlighted) ? 'bg-purple-50' : 'bg-gray-50'
-                        }`}
-                      >
-                        <div className="flex flex-col items-center text-center gap-2">
-                        <IconComponent className={`w-8 h-8 ${('isHighlighted' in formule && formule.isHighlighted) ? 'text-purple-600' : 'text-gray-600'}`} />
-                          <h4 className="font-bold text-lg">{formule.titre}</h4>
-                          <p className="text-sm text-gray-600 min-h-[40px]">{formule.description}</p>
-                          <p className="font-bold text-xl mt-2">{('prixMensuel' in formule && formule.prixMensuel as string) || ''}</p>
-                          <p className="text-sm text-gray-500">{('pourQui' in formule && formule.pourQui as string) || ''}</p>
-                        </div>
-                      </th>
-                    );
-                  })}
+                  {Object.entries(siteConfig.postDevelopment.formules).map(([key]) => (
+                    <col key={key}/>
+                  ))}
                 </tr>
               </thead>
               <tbody>
