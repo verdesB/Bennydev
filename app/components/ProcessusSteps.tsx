@@ -227,7 +227,7 @@ export default function ProcessusSteps() {
                       <td 
                         key={formuleKey}
                         className={`py-6 px-6 align-top ${
-                          formuleKey === 'toutInclus' ? 'bg-purple-50' : ''
+                          formuleKey === 'toutInclus' ? 'bg-purple-50' : 'bg-white'
                         }`}
                       >
                         <div className="space-y-3">
@@ -254,13 +254,13 @@ export default function ProcessusSteps() {
           </div>
 
           {/* Version Mobile - Une offre par carte */}
-          <div className="md:hidden space-y-8">
+          <div className="md:hidden space-y-8 ">
             {Object.entries(siteConfig.postDevelopment.formules).map(([key, formule]) => {
               const IconComponent = IconMap[formule.icon as keyof typeof IconMap];
               return (
                 <div 
                   key={key}
-                  className={`rounded-xl overflow-hidden shadow-lg ${
+                  className={`rounded-xl overflow-hidden shadow-lg  ${
                     ('isHighlighted' in formule && formule.isHighlighted) ? 'border-2 border-purple-200' : 'border border-gray-200'
                   }`}
                 >
@@ -278,7 +278,7 @@ export default function ProcessusSteps() {
                   {/* Liste des services */}
                   <div className="divide-y divide-gray-200">
                     {Object.entries(siteConfig.postDevelopment.services).map(([serviceKey, service]) => (
-                      <div key={serviceKey} className="p-4 space-y-2">
+                      <div key={serviceKey} className="p-4 space-y-2 ">
                         <div className="flex items-center justify-between">
                           <div className="flex items-center gap-2">
                             <span className="font-medium">{service.titre}</span>
@@ -290,7 +290,7 @@ export default function ProcessusSteps() {
                             ((service[key as keyof typeof service] as ServiceStatus).statut)) || ''
                           } />
                         </div>
-                        <p className="text-sm text-gray-600">
+                        <p className="text-sm text-gray-600 " >
                           {(() => {
                             const serviceValue = service[key as keyof typeof service];
                             return (typeof serviceValue === 'object' && serviceValue && 'details' in serviceValue) 
