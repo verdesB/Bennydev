@@ -5,6 +5,13 @@ import Hero2 from '../components/Hero2';
 import Header from '../components/Header';
 import ChatButton from '../components/ChatButton';
 import Footer from '../components/Footer';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Portoflio de Projets | Bennydev',
+  description: 'Découvrez mes projets de développement web incluant des sites e-commerce, vitrines, applications web et les projets personnels.',
+  
+}
 
 export default function ProjetsPage() {
   return (

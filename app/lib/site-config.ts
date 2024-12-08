@@ -1,17 +1,17 @@
 export const siteConfig = {
   companyInfo: {
-    name: "BennyDev",
+    name: "Bennydev",
     founder: "Verdès Benjamin",
     founded: 2024,
     location: "Achères, France",
     contact: {
-      email: "contact@bennydev.fr",
+      email: "verdesb.devacc@gmail.com",
       discord: true,
       supportHours: "Lundi au vendredi, 9h-18h",
       responseTime: "4h ouvrées",
       emergencyResponse: "2h pour problèmes critiques",
       linkedin: "www.linkedin.com/in/verdesben",
-      github: "https://github.com/BennyDev"
+      github: ""
     }
   },
 
@@ -48,9 +48,9 @@ export const siteConfig = {
       startingPrice: 800,
       pricing: {
         plans: [
-          { id: 'essential', name: 'Essentiel', price: '800€' },
-          { id: 'business', name: 'Business', price: '1200€' },
-          { id: 'premium', name: 'Premium', price: '1800€' }
+          { id: 'essential', name: 'Essentiel', price: 'à partir de 800€' },
+          { id: 'business', name: 'Business', price: 'à partir de 1200€' },
+          { id: 'premium', name: 'Premium', price: 'à partir de 1800€' }
         ],
         features: [
           {
@@ -183,9 +183,9 @@ export const siteConfig = {
       startingPrice: 2499,
       pricing: {
         plans: [
-          { id: 'starter', name: 'Starter', price: '1999€' },
-          { id: 'business', name: 'Business', price: '2999€' },
-          { id: 'premium', name: 'Premium', price: '4999€' }
+          { id: 'starter', name: 'Starter', price: 'à partir de 1999€' },
+          { id: 'business', name: 'Business', price: 'à partir de 2999€' },
+          { id: 'premium', name: 'Premium', price: 'à partir de 4999€' }
         ],
         features: [
           {
@@ -445,8 +445,8 @@ export const siteConfig = {
       startingPrice: 1499,
       pricing: {
         plans: [
-          { id: 'essential', name: 'Refonte Essentielle', price: '1499€' },
-          { id: 'premium', name: 'Refonte Premium', price: '2999€' },
+          { id: 'essential', name: 'Refonte Essentielle', price: 'à partir de 1499€' },
+          { id: 'premium', name: 'Refonte Premium', price: 'à partir de 2999€' },
           { id: 'enterprise', name: 'Sur-Mesure', price: 'Sur devis' }
         ],
         features: [
@@ -562,8 +562,8 @@ export const siteConfig = {
       startingPrice: 3900,
       pricing: {
         plans: [
-          { id: 'starter', name: 'API Starter', price: '3900€' },
-          { id: 'business', name: 'API Business', price: '7900€' },
+          { id: 'starter', name: 'API Starter', price: 'à partir de 3900€' },
+          { id: 'business', name: 'API Business', price: 'à partir de 7900€' },
           { id: 'enterprise', name: 'API Enterprise', price: 'Sur devis' }
         ],
         features: [
@@ -843,13 +843,16 @@ export const siteConfig = {
       "Sauvegarde régulière des données"
     ],
     support: {
-      plateforme: "Discord",
+      plateforme: "Sur le CRM BennyDev",
       avantages: [
         "Canal dédié par projet",
         "Réponses rapides",
         "Partage facilité",
         "Historique conservé",
-        "Appels vocaux possibles"
+        "Messagerie instantanée",
+        "Support 24h/24 7j/7",
+        "Support qui vous servira en phase de post-livraison",
+        "Création de ticket post livraison"
       ]
     }
   },
