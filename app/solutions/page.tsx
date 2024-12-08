@@ -6,11 +6,11 @@ import SolutionsGrid from '../components/SolutionsGrid';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Solutions Digitales Sur Mesure | Bennydev',
+  title: 'Solutions Digitales Sur Mesure',
   description: 'Découvrez nos solutions digitales personnalisées pour transformer votre présence en ligne. Expertise en développement web, applications mobiles et stratégie numérique.',
   keywords: 'solutions digitales, développement web, applications sur mesure, transformation numérique, services informatiques',
   openGraph: {
-    title: 'Solutions Digitales Sur Mesure | Bennydev',
+    title: 'Solutions Digitales Sur Mesure',
     description: 'Solutions numériques personnalisées pour votre entreprise. Expertise en développement web et applications sur mesure.',
     type: 'website',
     locale: 'fr_FR',

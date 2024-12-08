@@ -8,7 +8,7 @@ import Footer from '../components/Footer';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Portoflio de Projets | Bennydev',
+  title: 'Portoflio de Projets',
   description: 'Découvrez mes projets de développement web incluant des sites e-commerce, vitrines, applications web et les projets personnels.',
   
 }
