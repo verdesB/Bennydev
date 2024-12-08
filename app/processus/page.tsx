@@ -11,8 +11,8 @@ export default function ProcessusPage() {
     <Header pathname={'/processus'} />
     <main className="relative bg-gradient-to-b from-purple-50 to-white min-h-screen">
       <Hero2 
-        title="Notre Processus"
-        subtitle="Découvrez notre méthodologie de développement étape par étape"
+        title="Mon Processus"
+        subtitle="Découvrez mon processus de développement étape par étape"
       />
       
       <ProcessusSteps />

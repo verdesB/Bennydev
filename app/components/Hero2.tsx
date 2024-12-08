@@ -2,7 +2,7 @@ import Image from 'next/image';
 
 export default function Hero2({ title, subtitle }: { title: string; subtitle: string }) {
   return (
-    <article className="max-w-6xl w-full mx-auto  pt-32  relative z-20">
+    <article className="max-w-6xl  mx-auto px-4 mx-4 sm:px-4 lg:px-4 xl:px-0 pt-28  relative z-20">
       <div className="relative rounded-lg overflow-hidden">
         {/* Image d'arrière-plan optimisée */}
         <Image
