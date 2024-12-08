@@ -189,8 +189,16 @@ export default function ProcessusSteps() {
               <thead>
                 <tr>
                   <th className="p-4 text-left bg-gray-50 border-b-2 border-gray-200"></th>
-                  {Object.entries(siteConfig.postDevelopment.formules).map(([key]) => (
-                    <col key={key}/>
+                  {Object.entries(siteConfig.postDevelopment.formules).map(([key, formule]) => (
+                    <th 
+                      key={key} 
+                      className={`p-4 text-left border-b-2 border-gray-200 ${
+                        ('isHighlighted' in formule && formule.isHighlighted) ? 'bg-purple-50' : 'bg-gray-50'
+                      }`}
+                    >
+                      <div className="font-bold text-lg">{formule.titre}</div>
+                      <div className="text-sm text-gray-600 mt-1">{formule.description}</div>
+                    </th>
                   ))}
                 </tr>
               </thead>
