@@ -835,7 +835,7 @@ export const siteConfig = {
   },
 
   garanties: {
-    duree: "3 mois après livraison",
+    duree: "Formule Hébergement et maintenance :\n offerte pendant 6 mois après livraison",
     inclus: [
       "Correction des bugs",
       "Optimisation des performances",
@@ -867,158 +867,177 @@ export const siteConfig = {
 
   postDevelopment: {
     services: {
-      hebergement: {
-        titre: "Hébergement",
-        autoGeree: {
-          statut: "Limité",
-          details: "6 mois offerts puis à votre charge"
-        },
-        maintenance: {
-          statut: "Inclus",
-          details: "Hébergement premium avec CDN et SSL"
-        },
-        toutInclus: {
-          statut: "Inclus",
-          details: "Hébergement premium avec CDN et SSL"
-        },
-        evolution: {
-          statut: "Inclus",
-          details: "Hébergement premium avec CDN et SSL"
-        }
-      },
-      support: {
-        titre: "Support Technique",
-        autoGeree: {
-          statut: "Limité",
-          details: "Documentation fournie, Facturation ponctuelle après la période de garantie"
-        },
-        maintenance: {
-          statut: "Standard",
-          details: "Support non-prioritaire 24/7"
-        },
-        toutInclus: {
-          statut: "Premium",
-          details: "Support prioritaire 24/7"
-        },
-        evolution: {
-          statut: "VIP",
-          details: "Support dédié avec ligne directe"
-        }
-      },
-      miseAJour: {
-        titre: "Mises à jour",
-        autoGeree: {
-          statut: "Non inclus",
-          details: "À votre charge"
-        },
-        maintenance: {
-          statut: "Basique",
-          details: "Mises à jour de sécurité mensuelles"
-        },
-        toutInclus: {
-          statut: "Complet",
-          details: "Toutes mises à jour incluses"
-        },
-        evolution: {
-          statut: "Premium",
-          details: "Mises à jour proactives et optimisations"
-        }
-      },
-      monitoring: {
-        titre: "Monitoring",
-        autoGeree: {
-          statut: "Non inclus",
-          details: "À votre charge"
-        },
-        maintenance: {
-          statut: "Basique",
-          details: "Surveillance uptime"
-        },
-        toutInclus: {
-          statut: "Avancé",
-          details: "Monitoring complet + alertes"
-        },
-        evolution: {
-          statut: "Premium",
-          details: "Monitoring temps réel + analyses prédictives"
-        }
-      },
-      sauvegarde: {
-        titre: "Sauvegardes",
-        autoGeree: {
-          statut: "Non inclus",
-          details: "À votre charge"
-        },
-        maintenance: {
-          statut: "Basique",
-          details: "Hebdomadaire"
-        },
-        toutInclus: {
-          statut: "Avancé",
-          details: "Quotidienne + restauration rapide"
-        },
-        evolution: {
-          statut: "Premium",
-          details: "Multi-sites + restauration instantanée"
-        }
-      },
-      modifications: {
-        titre: "Modifications",
-        autoGeree: {
-          statut: "Non inclus",
-          details: "Sur devis uniquement"
-        },
-        maintenance: {
-          statut: "Limité",
-          details: "Corrections de bugs uniquement"
-        },
-        toutInclus: {
-          statut: "Standard",
-          details: "2h incluses par mois"
-        },
-        evolution: {
-          statut: "Premium",
-          details: "10h incluses par mois"
-        }
-      },
-      rapports: {
-        titre: "Rapports et Analytics",
-        autoGeree: {
-          statut: "Non inclus",
-          details: "À votre charge"
-        },
-        maintenance: {
-          statut: "Basique",
-          details: "Rapport trimestriel"
-        },
-        toutInclus: {
-          statut: "Avancé",
-          details: "Rapport mensuel détaillé"
-        },
-        evolution: {
-          statut: "Premium",
-          details: "Dashboard personnalisé + réunion mensuelle"
-        }
-      },
-      conseil: {
-        titre: "Conseil Stratégique",
-        autoGeree: {
-          statut: "Non inclus",
-          details: "Sur devis uniquement"
-        },
-        maintenance: {
-          statut: "Non inclus",
-          details: "Sur devis uniquement"
-        },
-        toutInclus: {
-          statut: "Basique",
-          details: "Conseils ponctuels"
-        },
-        evolution: {
-          statut: "Premium",
-          details: "Réunion stratégique mensuelle"
-        }
-      }
+    legalVice: {
+    titre: "Garantie des vices cachés (2 ans)",
+    autoGeree: {
+    statut: "Inclus",
+    details: "Inclus selon la législation, couverture des défauts majeurs."
+    },
+    maintenance: {
+    statut: "Inclus",
+    details: "Inclus selon la législation, couverture des défauts majeurs."
+    },
+    toutInclus: {
+    statut: "Inclus",
+    details: "Inclus selon la législation, couverture des défauts majeurs."
+    },
+    evolution: {
+    statut: "Inclus",
+    details: "Inclus selon la législation, couverture des défauts majeurs."
+    }
+    },
+    legalConformity: {
+    titre: "Garanties de conformité",
+    autoGeree: {
+    statut: "Inclus",
+    details: "Inclus pour garantir que le produit est conforme à son usage prévu."
+    },
+    maintenance: {
+    statut: "Inclus",
+    details: "Inclus pour garantir que le produit est conforme à son usage prévu."
+    },
+    toutInclus: {
+    statut: "Inclus",
+    details: "Inclus pour garantir que le produit est conforme à son usage prévu."
+    },
+    evolution: {
+    statut: "Inclus",
+    details: "Inclus pour garantir que le produit est conforme à son usage prévu."
+    }
+    },
+    hebergement: {
+    titre: "Hébergement",
+    autoGeree: {
+    statut: "Limité",
+    details: "6 mois offerts, puis à la charge du client. Nécessite gestion autonome."
+    },
+    maintenance: {
+    statut: "Inclus",
+    details: "Hébergement premium avec CDN, SSL, et support technique inclus."
+    },
+    toutInclus: {
+    statut: "Inclus",
+    details: "Hébergement premium avec CDN, SSL, et support technique inclus."
+    },
+    evolution: {
+    statut: "Inclus",
+    details: "Hébergement premium avec CDN, SSL, et support technique inclus."
+    }
+    },
+    support: {
+    titre: "Support Technique",
+    autoGeree: {
+    statut: "Limité",
+    details: "Documentation fournie et facturation ponctuelle après période de garantie."
+    },
+    maintenance: {
+    statut: "Standard",
+    details: "Support non-prioritaire disponible 24/7."
+    },
+    toutInclus: {
+    statut: "Premium",
+    details: "Support prioritaire 24/7 inclus dans la formule."
+    },
+    evolution: {
+    statut: "VIP",
+    details: "Support dédié avec ligne directe et assistance prioritaire."
+    }
+    },
+    miseAJour: {
+    titre: "Mises à jour",
+    autoGeree: {
+    statut: "Non inclus",
+    details: "À la charge du client, minimum pour conformité légale assuré."
+    },
+    maintenance: {
+    statut: "Basique",
+    details: "Mises à jour de sécurité mensuelles incluses."
+    },
+    toutInclus: {
+    statut: "Complet",
+    details: "Toutes mises à jour incluses, y compris les évolutions mineures."
+    },
+    evolution: {
+    statut: "Premium",
+    details: "Mises à jour proactives et optimisations régulières incluses."
+    }
+    },
+    sauvegarde: {
+    titre: "Sauvegardes",
+    autoGeree: {
+    statut: "Non inclus",
+    details: "Gestion et configuration à prévoir par le client."
+    },
+    maintenance: {
+    statut: "Basique",
+    details: "Sauvegardes hebdomadaires avec option de restauration."
+    },
+    toutInclus: {
+    statut: "Avancé",
+    details: "Sauvegardes quotidiennes avec restauration rapide incluse."
+    },
+    evolution: {
+    statut: "Premium",
+    details: "Multi-sites avec restauration instantanée assurée."
+    }
+    },
+    modifications: {
+    titre: "Modifications",
+    autoGeree: {
+    statut: "Non inclus",
+    details: "Disponibles uniquement sur devis personnalisé."
+    },
+    maintenance: {
+    statut: "Limité",
+    details: "Corrections de bugs uniquement incluses."
+    },
+    toutInclus: {
+    statut: "Standard",
+    details: "Jusqu’à 2 heures de modifications incluses par mois."
+    },
+    evolution: {
+    statut: "Premium",
+    details: "Jusqu’à 10 heures de modifications incluses par mois."
+    }
+    },
+    rapports: {
+    titre: "Rapports et Analytics",
+    autoGeree: {
+    statut: "Non inclus",
+    details: "Option disponible sur devis."
+    },
+    maintenance: {
+    statut: "Basique",
+    details: "Rapports trimestriels synthétiques fournis."
+    },
+    toutInclus: {
+    statut: "Avancé",
+    details: "Rapports mensuels détaillés inclus."
+    },
+    evolution: {
+    statut: "Premium",
+    details: "Dashboard personnalisé et réunion mensuelle inclus."
+    }
+    },
+    conseil: {
+    titre: "Conseil Stratégique",
+    autoGeree: {
+    statut: "Non inclus",
+    details: "Disponible uniquement sur devis personnalisé."
+    },
+    maintenance: {
+    statut: "Non inclus",
+    details: "Disponible uniquement sur devis personnalisé."
+    },
+    toutInclus: {
+    statut: "Basique",
+    details: "Conseils ponctuels inclus selon besoins spécifiques."
+    },
+    evolution: {
+    statut: "Premium",
+    details: "Réunion stratégique mensuelle avec suivi d’objectifs inclus."
+    }
+    }
     },
     formules: {
       autoGeree: {

@@ -3,7 +3,6 @@ import Image from 'next/image';
 import { Menu, X, User } from 'lucide-react';
 
 export default function Header({ pathname }: { pathname: string }) {
-  console.log('Header received pathname:', pathname);
 
   const menuItems = ['Accueil', 'Processus', 'Projets', 'Solutions', 'Contact', 'Démarrer un projet'];
 
@@ -26,15 +25,15 @@ export default function Header({ pathname }: { pathname: string }) {
           <input type="checkbox" id="menu-toggle" className="peer hidden" />
           
           <div className="flex items-center justify-between py-1 px-2 sm:px-6 lg:px-8">
-            <Link title='Accueil' href="/" className="text-foreground">
+            <Link title='Accueil' href="/" className="text-foreground max-h-16">
               <Image
                 src="/Bennydev.webp"
                 alt="Logo du site"
                 width={150}
                 height={50}
-                objectFit='cover'
-                objectPosition='center'
-                className="max-h-16 object-cover rounded-lg"
+                sizes="(max-width: 768px) 150px, 150px"
+                className="h-16 w-32 object-cover rounded-lg"
+                style={{ objectFit: 'cover' }}
                 priority
               />
             </Link>

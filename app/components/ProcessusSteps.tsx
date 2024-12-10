@@ -3,7 +3,7 @@ import { ChevronDown, Code, Bolt, Star, TrendingUp,HelpCircle } from 'lucide-rea
 
 interface ServiceStatus {
   statut: string;
-  details: string;
+  details: string | boolean;
 }
 
 // Objet pour mapper les noms d'icônes aux composants Lucide
@@ -82,7 +82,7 @@ export default function ProcessusSteps() {
           <div key={phaseIndex} className="mb-16 last:mb-0">
             {/* En-tête de phase */}
             <div className="flex items-center gap-4 mb-8">
-              <div className="flex-shrink-0 w-12 h-12 bg-purple-600 text-white rounded-full flex items-center justify-center text-xl font-bold">
+              <div className="flex-shrink-0 w-12 h-12 bg-purple-600 text-white rounded-lg flex items-center justify-center text-xl font-bold">
                 {phaseIndex + 1}
               </div>
               <h2 className="text-2xl font-bold text-gray-900">
@@ -142,7 +142,7 @@ export default function ProcessusSteps() {
             <div>
               <h4 className="text-xl font-semibold mb-4">Support et Maintenance</h4>
               <p className="text-purple-100 mb-4">
-                Durée : {siteConfig.garanties.duree}
+                {siteConfig.garanties.duree}
               </p>
               <ul className="space-y-3">
                 {(siteConfig.garanties as Garanties).inclus.map((garantie: string, index: number) => (
@@ -220,18 +220,34 @@ export default function ProcessusSteps() {
                       >
                         <div className="space-y-3">
                           <StatusBadge status={
-                            (typeof service[formuleKey as keyof typeof service] !== 'string' && 
-                            'statut' in (service[formuleKey as keyof typeof service] as object) && 
-                            ((service[formuleKey as keyof typeof service] as ServiceStatus).statut)) || ''
+                            (service[formuleKey as keyof typeof service] && 
+                             typeof service[formuleKey as keyof typeof service] === 'object' && 
+                             'statut' in (service[formuleKey as keyof typeof service] as object) && 
+                             ((service[formuleKey as keyof typeof service] as ServiceStatus).statut)) || ''
                           } />
-                          <p className="text-sm text-gray-600 whitespace-pre-line">
-                            {(() => {
-                              const serviceValue = service[formuleKey as keyof typeof service];
-                              return (typeof serviceValue === 'object' && serviceValue && 'details' in serviceValue) 
-                                ? (serviceValue as ServiceStatus).details 
-                                : '';
-                            })()}
-                          </p>
+                          {(() => {
+                            const serviceValue = service[formuleKey as keyof typeof service];
+                            if (typeof serviceValue === 'object' && serviceValue && 'details' in serviceValue) {
+                              const details = (serviceValue as ServiceStatus).details;
+                              if (typeof details === 'boolean') {
+                                return (
+                                  <div className="flex items-center">
+                                    {details ? (
+                                      <svg className="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                                      </svg>
+                                    ) : (
+                                      <svg className="w-5 h-5 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                                      </svg>
+                                    )}
+                                  </div>
+                                );
+                              }
+                              return <p className="text-sm text-gray-600 whitespace-pre-line">{details}</p>;
+                            }
+                            return '';
+                          })()}
                         </div>
                       </td>
                     ))}
@@ -273,19 +289,37 @@ export default function ProcessusSteps() {
                             <HelpCircle className="w-4 h-4 text-gray-400" />
                           </div>
                           <StatusBadge status={
-                            (typeof service[key as keyof typeof service] !== 'string' && 
-                            'statut' in (service[key as keyof typeof service] as object) && 
-                            ((service[key as keyof typeof service] as ServiceStatus).statut)) || ''
+                            (service[key as keyof typeof service] && 
+                             typeof service[key as keyof typeof service] === 'object' && 
+                             'statut' in (service[key as keyof typeof service] as object) && 
+                             ((service[key as keyof typeof service] as ServiceStatus).statut)) || ''
                           } />
                         </div>
-                        <p className="text-sm text-gray-600 " >
+                        <div className="text-sm text-gray-600">
                           {(() => {
                             const serviceValue = service[key as keyof typeof service];
-                            return (typeof serviceValue === 'object' && serviceValue && 'details' in serviceValue) 
-                              ? (serviceValue as ServiceStatus).details 
-                              : '';
+                            if (typeof serviceValue === 'object' && serviceValue && 'details' in serviceValue) {
+                              const details = (serviceValue as ServiceStatus).details;
+                              if (typeof details === 'boolean') {
+                                return (
+                                  <span className="flex items-center">
+                                    {details ? (
+                                      <svg className="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                                      </svg>
+                                    ) : (
+                                      <svg className="w-5 h-5 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                                      </svg>
+                                    )}
+                                  </span>
+                                );
+                              }
+                              return <span>{details}</span>;
+                            }
+                            return '';
                           })()}
-                        </p>
+                        </div>
                       </div>
                     ))}
                   </div>

@@ -1,85 +1,34 @@
-import { Quote } from 'lucide-react';
-import Image from 'next/image';
+import TestimonialCarousel from './TestimonialCarousel';
+import Highlight from './Highlight';
 
 export default function Testimonials() {
   const testimonials = [
     {
-      name: "Marie Laurent",
-      role: "Fondatrice de BeautySpace",
-      content: "Benjamin a su transformer notre vision en un site e-commerce performant et élégant. Son expertise technique et sa capacité d&apos;écoute ont fait toute la différence.",
+      name: "Quentin Mousset",
+      role: "CEO @Bedev & Administrator @HDM Network ASBL",
+      content: <p>Benjamin est un <Highlight color="purple">super collaborateur</Highlight> Durant son stage au sein de notre ASBL, il a su se démarquer par <Highlight color="pink">sa motivation</Highlight>, sa <Highlight color="pink">détermination</Highlight> et son <Highlight color="pink">professionnalisme</Highlight>. Nous l'avons d'ailleurs sélectionné pour s'associer avec nous sur l'un de nos projets. Il a depuis repris les rênes du développement de cette application. Si nous engagions, il ne fait aucun doute qu'il aurait déjà rejoint notre équipe. Ben est un <Highlight color="purple">développeur talentueux</Highlight> avec une grande volonté d'apprendre et d'évoluer, un curieux dans l'âme que je recommande aux entreprises en recherche de <Highlight color="purple">ninja du code</Highlight>.</p>,
     },
     {
-      name: "Thomas Dubois",
-      role: "Directeur de RestoPro",
-      content: "La refonte de notre site a eu un impact immédiat sur notre visibilité. Le SEO est excellent et le site est ultra rapide. Un vrai professionnel !",
+      name: "Membre Jury",
+      role: "DREATS",
+      content: <p>Ton <Highlight color="pink">enthousiasme</Highlight> et ton <Highlight color="pink">professionnalisme</Highlight> ont clairement marqué le jury. Ces qualités sont des atouts majeurs dans le monde professionnel, surtout dans le secteur du développement web et web mobile. Elles témoignent de ta capacité à <Highlight color="pink">t'engager pleinement dans tes projets</Highlight> et à <Highlight color="pink">travailler en équipe</Highlight>, des compétences très appréciées dans le milieu. Benjamin, tu as démontré une très <Highlight color="pink">belle personnalité</Highlight> et un gros <Highlight color="pink">potentiel</Highlight> lors de ta présentation. Le jury a été impressionné par ta démarche et ton parcours. Ta passion et ta détermination sont les clés de ton succès futur. Félicitations encore pour ton admission.</p>,
     },
-    {
-      name: "Sophie Martin",
-      role: "Architecte d&apos;intérieur",
-      content: "Un accompagnement de qualité du début à la fin. Benjamin a su créer un portfolio qui met parfaitement en valeur mes réalisations.",
-    }
+    
   ];
 
   return (
-    <section className="relative z-20 py-20 ">
-      {/* Effet de grille */}
-
+    <section className="relative z-20 py-20">
       <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* En-tête */}
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-purple-800 to-pink-700 inline-block tracking-tight">
-            Ils ont choisi BennyDev
+            Ils ont aimé ou choisi BennyDev
           </h2>
           <p className="mt-4 text-gray-600 max-w-2xl mx-auto">
             Découvrez les retours d&apos;expérience de nos clients satisfaits
           </p>
         </div>
 
-        {/* Grille de témoignages */}
-        <ul className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {testimonials.map((testimonial, index) => (
-            <li key={index} className="relative bg-white rounded-2xl p-8 shadow-[0_0_50px_rgba(139,92,246,0.1)] hover:shadow-[0_0_50px_rgba(139,92,246,0.2)] transition-all duration-300">
-            <article
-              
-              
-            >
-              {/* Icône de citation */}
-              <Quote className="w-8 h-8 text-purple-200 absolute top-6 right-6" />
-
-              {/* Contenu du témoignage */}
-              <div className="relative">
-                <p className="text-gray-600 mb-6 italic">
-                  &quot;{testimonial.content}&quot;
-                </p>
-
-                {/* Informations client */}
-                <div className="flex items-center space-x-4">
-                  <div className="relative w-12 h-12 rounded-full overflow-hidden">
-                    <Image
-                      src="/moi.webp"
-                      alt={testimonial.name}
-                      width={48}
-                      height={48}
-                      className="object-cover"
-                    />
-                  </div>
-                  <div>
-                    <cite className="font-semibold text-gray-900">
-                      {testimonial.name}
-                    </cite>
-                    <p className="text-sm text-purple-600">
-                      {testimonial.role}
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              {/* Élément décoratif */}
-              <div className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-purple-600 to-pink-600 rounded-b-2xl opacity-20" />
-            </article>
-            </li>
-          ))}
-        </ul>
+        <TestimonialCarousel testimonials={testimonials} />
       </div>
     </section>
   );

@@ -19,6 +19,7 @@ export default function About() {
                 src="/Bennydev.webp"
                 alt="BennyDev workspace"
                 fill
+                sizes="(max-width: 768px) 400px, 400px"
                 className="object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-tr from-purple-900/40 to-transparent" />
@@ -28,7 +29,11 @@ export default function About() {
                 <Image
                   src="/moi.webp" // Ajoutez votre photo de profil
                   alt="Benjamin Verdès"
-                  fill
+                 
+                  width={150}
+                  height={150}
+                  sizes="(max-width: 768px) 150px, 150px"
+                  // Utilisation de style
                   className="object-cover"
                 />
               </div>
@@ -56,8 +61,8 @@ export default function About() {
             </div>
           </div>
         </div>
-        <div className="mt-32">
-          <h3 className="text-2xl font-semibold text-gray-900 text-center mb-12 tracking-tight">
+        <div className="mt-48  flex flex-col items-center gap-8">
+          <h3 className="mb-12 text-3xl md:text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-purple-800 to-pink-700 inline-block tracking-tight  mx-auto ">
             Mes Valeurs
           </h3>
           
@@ -67,8 +72,9 @@ export default function About() {
                 {/* Card 1 */}
                 <div className="w-full md:w-[50%] lg:w-[65%] relative rounded-3xl p-8 shadow-xl hover:scale-[1.02] transition-all duration-300 overflow-hidden
                   bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-gray-900 via-purple-900 to-pink-800
-                  before:absolute before:inset-0 before:bg-gradient-to-br before:from-purple-500/10 before:via-transparent before:to-pink-600/10">
-                  <div className="absolute -right-8 -top-8">
+                  before:absolute before:inset-0 before:bg-gradient-to-br before:from-purple-500/10 before:via-transparent before:to-pink-600/10
+                  after:absolute after:inset-0 after:backdrop-blur-[100px] after:z-0">
+                  <div className="absolute -right-8 -top-8 z-20">
                     <svg className="w-32 h-32 text-white/10" fill="currentColor" viewBox="0 0 24 24">
                       <path d="M14 10h4.764a2 2 0 011.789 2.894l-3.5 7A2 2 0 0115.263 21h-4.017c-.163 0-.326-.02-.485-.06L7 20m7-10V5a2 2 0 00-2-2h-.095c-.5 0-.905.405-.905.905 0 .714-.211 1.412-.608 2.006L7 11v9m7-10h-2M7 20H5a2 2 0 01-2-2v-6a2 2 0 012-2h2.5" />
                     </svg>
@@ -86,8 +92,9 @@ export default function About() {
                 {/* Card 2 */}
                 <div className="w-full md:w-[50%] lg:w-[35%] relative rounded-3xl p-8 shadow-xl hover:scale-[1.02] transition-all duration-300 overflow-hidden
                   bg-[linear-gradient(110deg,_var(--tw-gradient-stops))] from-gray-800 via-purple-800 to-pink-700
-                  before:absolute before:inset-0 before:bg-gradient-to-tr before:from-white/5 before:to-transparent">
-                  <div className="absolute -right-8 -top-8">
+                  before:absolute before:inset-0 before:bg-gradient-to-tr before:from-white/5 before:to-transparent
+                  after:absolute after:inset-0 after:backdrop-blur-[100px] after:z-0">
+                  <div className="absolute -right-8 -top-8 z-20">
                     <svg className="w-32 h-32 text-white/10" fill="currentColor" viewBox="0 0 24 24">
                       <path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
                     </svg>
@@ -108,8 +115,9 @@ export default function About() {
                 {/* Card 3 */}
                 <div className="w-full md:w-[50%] lg:w-[35%] relative rounded-3xl p-8 shadow-xl hover:scale-[1.02] transition-all duration-300 overflow-hidden
                   bg-[conic-gradient(at_top_right,_var(--tw-gradient-stops))] from-slate-900 via-purple-900 to-pink-800
-                  before:absolute before:inset-0 before:bg-gradient-to-bl before:from-white/5 before:via-purple-500/10 before:to-transparent">
-                  <div className="absolute -right-8 -top-8">
+                  before:absolute before:inset-0 before:bg-gradient-to-bl before:from-white/5 before:via-purple-500/10 before:to-transparent
+                  after:absolute after:inset-0 after:backdrop-blur-[100px] after:z-0">
+                  <div className="absolute -right-8 -top-8 z-20">
                     <svg className="w-32 h-32 text-white/10" fill="currentColor" viewBox="0 0 24 24">
                       <path d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z" />
                     </svg>
@@ -127,8 +135,9 @@ export default function About() {
                 {/* Card 4 */}
                 <div className="w-full md:w-[50%] lg:w-[65%] relative rounded-3xl p-8 shadow-xl hover:scale-[1.02] transition-all duration-300 overflow-hidden
                   bg-[radial-gradient(circle_at_bottom_left,_var(--tw-gradient-stops))] from-gray-900 via-purple-800 to-pink-800
-                  before:absolute before:inset-0 before:bg-[linear-gradient(40deg,rgba(139,92,246,0.05),transparent_30%,rgba(219,39,119,0.05))]">
-                  <div className="absolute -right-8 -top-8">
+                  before:absolute before:inset-0 before:bg-[linear-gradient(40deg,rgba(139,92,246,0.05),transparent_30%,rgba(219,39,119,0.05))]
+                  after:absolute after:inset-0 after:backdrop-blur-[100px] after:z-0">
+                  <div className="absolute -right-8 -top-8 z-20">
                     <svg className="w-32 h-32 text-white/10" fill="currentColor" viewBox="0 0 24 24">
                       <path d="M13 10V3L4 14h7v7l9-11h-7z" />
                     </svg>

@@ -13,12 +13,12 @@ export default function WhyChooseUs() {
       title: "Performance Garantie",
       icon: <Gauge className="w-6 h-6 text-purple-600" />,
       description: "Sites web optimisés pour une vitesse de chargement maximale et une expérience utilisateur fluide",
-      metrics: ["Score PageSpeed > 90", "Temps de chargement < 3s", "Optimisation des ressources"]
+      metrics: ["Score PageSpeed > 90 minimum", "Temps de chargement < 3s", "Optimisation des ressources"]
     },
     {
       title: "SEO Optimisé",
       icon: <Search className="w-6 h-6 text-purple-600" />,
-      description: "Maximisez votre visibilité en ligne grâce à nos pratiques SEO avancées",
+      description: "Maximisez votre visibilité en ligne grâce à mes pratiques SEO avancées",
       metrics: ["Structure optimisée", "Balisage sémantique", "Meta-données optimisées"]
     },
     {
@@ -28,28 +28,29 @@ export default function WhyChooseUs() {
       metrics: ["Devis détaillé", "Pas de coûts cachés", "Paiement échelonné"]
     },
     {
-      title: "Support & Maintenance",
+      title: "Espace Collaboratif & Support",
       icon: <Shield className="w-6 h-6 text-purple-600" />,
-      description: "Choisissez le niveau de support qui correspond à vos besoins",
+      description: "Un accompagnement personnalisé via notre plateforme CRM collaborative",
       comparison: {
         standard: {
-          title: "Support Classique",
+          title: "Aperçu des Services",
           icon: <HeadphonesIcon className="w-5 h-5 text-gray-600" />,
           features: [
-            "Support par email",
-            "Réponse sous 48h",
-            "Maintenance corrective",
+            "Espace projet CRM dédié",
+            "Suivi en temps réel",
+            "Support selon formule choisie",
+            "Maintenance adaptée à vos besoins"
           ]
         },
         premium: {
-          title: "Support Premium",
+          title: "Options Premium",
           icon: <Shield className="w-5 h-5 text-purple-600" />,
           features: [
-            "Support prioritaire 6j/7",
-            "Réponse sous 24h",
-            "Maintenance préventive",
-            "Rapport mensuel",
-            "Optimisations continues"
+            "Formules annuelles flexibles",
+            "Support personnalisé",
+            "Maintenance sur mesure",
+            "Accompagnement privilégié",
+            "Contactez-moi pour plus de détails"
           ]
         }
       }

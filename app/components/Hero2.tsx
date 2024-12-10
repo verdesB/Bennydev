@@ -14,6 +14,7 @@ export default function Hero2({ title, subtitle }: { title: string; subtitle: st
           priority
           className="absolute inset-0 w-full h-full object-cover"
           quality={90}
+          sizes="(max-width: 768px) 1200px, 1200px"
         />
         
         {/* Overlay pour assurer la lisibilité du texte */}
