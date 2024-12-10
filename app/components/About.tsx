@@ -74,10 +74,10 @@ export default function About() {
                     </svg>
                   </div>
                   <div className="relative z-10">
-                    <h4 className="text-2xl md:text-3xl font-bold text-white mb-4 tracking-tight">
+                    <h4 className="text-2xl md:text-3xl font-bold text-white mb-4 tracking-tight h-24">
                       L&apos;Humain au Cœur de Chaque Projet
                     </h4>
-                    <p className="text-white/90 text-base leading-relaxed">
+                    <p className="text-white/90 text-base leading-relaxed my-auto">
                       Au-delà de la technique, je crois profondément en l&apos;importance des relations humaines dans chaque projet. Mon approche personnalisée me permet de vraiment comprendre vos besoins, vos aspirations et vos contraintes. Je ne suis pas qu&apos;un simple prestataire, mais un véritable partenaire qui s&apos;investit dans votre réussite.
                     </p>
                   </div>
@@ -134,7 +134,7 @@ export default function About() {
                     </svg>
                   </div>
                   <div className="relative z-10">
-                    <h4 className="text-2xl font-bold text-white mb-4 tracking-tight">
+                    <h4 className="text-2xl font-bold text-white mb-4 tracking-tight h-16">
                       Un Engagement sur le Long Terme
                     </h4>
                     <p className="text-white/90 text-base leading-relaxed">
@@ -145,7 +145,7 @@ export default function About() {
             </div>
           </div>
         </div>
-        <div className="mt-20 bg-white rounded-2xl p-8 shadow-[0_0_50px_rgba(139,92,246,0.1)] bg-gradient-to-bl from-gray-100 to-white border border-gray-200">
+        {/* <div className="mt-20 bg-white rounded-2xl p-8 shadow-[0_0_50px_rgba(139,92,246,0.1)] bg-gradient-to-bl from-gray-100 to-white border border-gray-200">
           <h3 className="text-2xl font-semibold text-gray-900 mb-6 tracking-tight">
             Mon Histoire
           </h3>
@@ -157,7 +157,7 @@ export default function About() {
               En 2024, guidé par mon désir d&apos;avoir un contact direct avec les clients, j&apos;ai créé BennyDev, ma propre micro-entreprise de développement web
             </p>
           </div>
-        </div>
+        </div> */}
       </div>
     </section>
   );
