@@ -8,7 +8,7 @@ type FormState = {
 } | null;
 
 interface FormSubmitButtonProps {
-    formAction: (formData: FormData) => Promise<{ message: string }>;
+    formAction: (formData: FormData) => Promise<{ message: string } | void>;
   disabled?: boolean;
 }
 
@@ -19,7 +19,10 @@ export default function FormSubmitButton({ formAction, disabled }: FormSubmitBut
   const handleSubmit = async (formData: FormData) => {
     try {
       const result = await formAction(formData);
-      setState({ status: 'success', message: result.message });
+      setState({ 
+        status: 'success', 
+        message: result?.message || 'Opération réussie' 
+      });
     } catch (error) {
       setState({ 
         status: 'error', 
