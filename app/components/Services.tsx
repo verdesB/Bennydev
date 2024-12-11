@@ -25,7 +25,7 @@ export default function Services() {
   ];
 
   return (
-    <section className="relative z-20 py-20 overflow-hidden">
+    <section className="relative z-20 py-10 md:py-14 lg:py-20 overflow-hidden">
       
 
       {/* Effet de grille en arrière-plan */}

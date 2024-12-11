@@ -62,7 +62,7 @@ export default function WhyChooseUs() {
 
       <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-purple-800 to-pink-700 inline-block tracking-tight">
+          <h2 className="text-3xl md:text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-purple-800 to-pink-700 inline-block tracking-tight max-w-[250px] md:max-w-[350px] lg:max-w-[450px] mx-auto">
             Pourquoi Choisir BennyDev ?
           </h2>
           <p className="mt-4 text-gray-600 max-w-2xl mx-auto">

@@ -4,7 +4,7 @@ export default function About() {
   
 
   return (
-    <section className="relative z-20 py-20 ">
+    <section className="relative z-20 py-10 md:py-14 lg:py-20 ">
       <div className="absolute inset-0 bg-[linear-radient(rgba(139,92,246,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(139,92,246,0.02)_1px,transparent_1px)] bg-[size:4rem_4rem]" />
       <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
@@ -51,7 +51,7 @@ export default function About() {
             </div>
           </div>
           <div className="space-y-6 mt-16 lg:mt-0">
-            <p className="text-gray-700 leading-relaxed">
+            <p className="text-gray-700 leading-relaxed mt-12">
             En tant que créateur de BennyDev, je fais plus que développer des solutions digitales , je construis de véritables partenariats avec les entrepreneurs ambitieux. Ma mission ? Rendre le digital accessible aux petites entreprises grâce à des tarifs adaptés et un accompagnement personnalisé. Du site vitrine à l&apos;e-commerce, en passant par les applications web et le référencement SEO, je mets mon expertise technique au service de votre croissance.
             </p>
             <div className="border-l-4 border-purple-600 pl-4 my-8">
@@ -61,7 +61,7 @@ export default function About() {
             </div>
           </div>
         </div>
-        <div className="mt-48  flex flex-col items-center gap-8">
+        <div className="mt-24 md:mt-24 lg:mt-48  flex flex-col items-center gap-8">
           <h3 className="mb-12 text-3xl md:text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-purple-800 to-pink-700 inline-block tracking-tight  mx-auto ">
             Mes Valeurs
           </h3>
