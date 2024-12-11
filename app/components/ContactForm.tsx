@@ -69,7 +69,6 @@ export default function ContactForm() {
         csrfToken
       }
 
-      // Log pour debug
       console.log('Données à envoyer:', data);
 
       const response = await fetch('/api/contact', {
@@ -94,6 +93,7 @@ export default function ContactForm() {
     } finally {
       setIsSubmitting(false);
     }
+
   }
 
   return (
@@ -177,10 +177,12 @@ export default function ContactForm() {
         </label>
       </div>
 
-      <ReCAPTCHA
-        sitekey={process.env.NEXT_PUBLIC_GOOGLE_RECAPTCHA || ''}
-        onChange={handleCaptchaChange}
-      />
+      {process.env.NEXT_PUBLIC_GOOGLE_RECAPTCHA && (
+        <ReCAPTCHA
+          sitekey={process.env.NEXT_PUBLIC_GOOGLE_RECAPTCHA}
+          onChange={handleCaptchaChange}
+        />
+      )}
 
       <FormSubmitButton 
         formAction={handleSubmit}
