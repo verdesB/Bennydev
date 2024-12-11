@@ -37,7 +37,7 @@ export default function TestimonialCarousel({ testimonials }: TestimonialCarouse
                 {testimonials.map((testimonial, index) => (
                     <li
                         key={`testimonial-${index}`}
-                        className="flex-none w-[320px] md:w-[450px] lg:w-[600px] snap-center first:ml-16 last:mr-16"
+                        className="flex-none  w-[350px] md:w-[450px] lg:w-[600px] snap-center first:ml-16 last:mr-0 sm:last:mr-16"
                         role="listitem"
                     >
                         <article className="bg-white rounded-xl p-6 shadow-[0_0_30px_rgba(139,92,246,0.08)] hover:shadow-[0_0_40px_rgba(139,92,246,0.15)] transition-all duration-300">
