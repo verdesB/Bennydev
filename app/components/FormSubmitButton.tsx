@@ -8,7 +8,7 @@ type FormState = {
 } | null;
 
 interface FormSubmitButtonProps {
-  formAction: any;
+    formAction: (formData: FormData) => Promise<{ message: string }>;
   disabled?: boolean;
 }
 
