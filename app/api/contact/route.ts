@@ -36,7 +36,7 @@ export async function POST(req: Request) {
     console.log('Données validées:', validatedData)
 
     try {
-      const emailResult = await resend.emails.send({
+        await resend.emails.send({
         from: 'contact@bennydev.fr',
         to: 'verdesb.devacc@gmail.com',
         subject: `Nouveau message de contact: ${validatedData.subject}`,

@@ -4,17 +4,8 @@ import { useEffect, useRef, useState } from 'react'
 import { toast } from 'sonner'
 import FormSubmitButton from './FormSubmitButton'
 import ReCAPTCHA from 'react-google-recaptcha'
-import { z } from 'zod'
-import DOMPurify from 'dompurify'
 
-// Schéma de validation
-const contactSchema = z.object({
-  name: z.string().min(2).max(100),
-  email: z.string().email(),
-  subject: z.string().min(2).max(200),
-  message: z.string().min(10).max(1000),
-  csrfToken: z.string()
-});
+
 
 export default function ContactForm() {
   const formRef = useRef<HTMLFormElement>(null)
@@ -33,11 +24,7 @@ export default function ContactForm() {
     fetchCsrfToken()
   }, [])
 
-  // Validation email
-  const validateEmail = (email: string) => {
-    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return regex.test(email);
-  }
+  
 
   const handleCaptchaChange = (token: string | null) => {
     setCaptchaToken(token)

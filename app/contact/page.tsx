@@ -1,13 +1,10 @@
 import { Mail, MapPin, Linkedin, Github, Clock } from 'lucide-react';
 import { siteConfig } from '../lib/site-config';
-import { sendEmail } from './actions';
 import Hero2 from '@/app/components/Hero2';
 import Header from '../components/Header';
 import ChatButton from '../components/ChatButton';
 import Footer from '../components/Footer';
  
-import { ReactNode } from 'react';
-import FormSubmitButton from '../components/FormSubmitButton';
 import ContactForm from '@/app/components/ContactForm';
 
 export const metadata = {

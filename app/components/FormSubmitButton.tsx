@@ -21,7 +21,11 @@ export default function FormSubmitButton({ formAction, disabled }: FormSubmitBut
       const result = await formAction(formData);
       setState({ status: 'success', message: result.message });
     } catch (error) {
-      setState({ status: 'error', message: error.message });
+      setState({ 
+        status: 'error', 
+        message: error instanceof Error ? error.message : 'Une erreur est survenue'
+      });
+      console.log(state);
     }
   };
 
