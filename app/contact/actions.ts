@@ -7,18 +7,22 @@ const resend = new Resend(process.env.RESEND_API_KEY);
 
 export async function sendEmail(formData: FormData) {
   try {
-    const name = formData.get('name') as string;
-    const email = formData.get('email') as string;
-    const subject = formData.get('subject') as string;
-    const message = formData.get('message') as string;
+    const name = formData.get('name');
+    const email = formData.get('email');
+    const subject = formData.get('subject');
+    const message = formData.get('message');
 
     if (!name || !email || !subject || !message) {
-      throw new Error('Tous les champs sont requis');
+      return;
     }
 
-    await resend.emails.send({
-      from: 'Contact Form <onboarding@resend.dev>',
-      to: ['votre-email@example.com'],
+    if (!process.env.RESEND_API_KEY) {
+      throw new Error('La clé API Resend n\'est pas configurée');
+    }
+
+    const result = await resend.emails.send({
+      from: 'verdesb.devacc@gmail.com',
+      to: ['verdesb.devacc@gmail.com'],
       subject: `Nouveau message de ${name}: ${subject}`,
       html: `
         <h2>Nouveau message de contact</h2>
@@ -30,12 +34,11 @@ export async function sendEmail(formData: FormData) {
       `,
     });
 
-    // Rediriger vers une page de succès
-    redirect('/contact/success');
+    if (result.error) {
+      console.error("Une erreur est survenue lors de l'envoi du message");
+    }
 
   } catch (error) {
-    console.log(error)
-    // Rediriger vers une page d'erreur
-    redirect('/contact/error');
+    console.error('Erreur lors de l\'envoi:', error);
   }
-} 
+}

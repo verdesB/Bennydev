@@ -2,8 +2,34 @@ import { createMiddlewareClient } from '@supabase/auth-helpers-nextjs';
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 
+// Map pour stocker les requêtes
+const requestMap = new Map<string, number[]>();
+
 export async function middleware(req: NextRequest) {
   const res = NextResponse.next();
+
+  // Rate limiting pour /api/contact
+  if (req.nextUrl.pathname === '/api/contact') {
+    const ip = req.headers.get('x-forwarded-for') || 'unknown';
+    const now = Date.now();
+    const windowMs = 15 * 60 * 1000; // 15 minutes
+    
+    const requestLog = requestMap.get(ip) || [];
+    const recentRequests = requestLog.filter(time => time > now - windowMs);
+    
+    if (recentRequests.length >= 5) {
+      return NextResponse.json(
+        { message: 'Trop de requêtes' },
+        { status: 429 }
+      );
+    }
+    
+    recentRequests.push(now);
+    requestMap.set(ip, recentRequests);
+    return res; // Retourne directement pour /api/contact
+  }
+
+  // Reste de votre middleware existant
   const supabase = createMiddlewareClient({ req, res });
 
   const {
@@ -39,6 +65,7 @@ export const config = {
   matcher: [
     '/admin/:path*', 
     '/client/:path*',
-    '/api/admin/:path*'
+    '/api/admin/:path*',
+    '/api/contact' // Ajout du path pour le rate limiting
   ]
 }; 
