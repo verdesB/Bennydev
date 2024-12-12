@@ -1,19 +1,26 @@
 import { SlideWrapper } from "../SlideWrapper";
 
 interface WebsiteDetails {
-  title?: string;
-  description?: string;
-  pages?: number;
-  features?: string[];
-  hasDesign?: boolean;
+  title: string;
+  description: string;
+  pages: string[];
+  features: Record<string, boolean>;
+  hasDesign: boolean;
   designUrl?: string;
 }
 
 interface WebsiteSlideProps {
   formData: {
-    website_details?: WebsiteDetails;
+    website_details?: {
+      title: string;
+      description: string;
+      features: Record<string, boolean>;
+      pages: string[];
+      hasDesign: boolean;
+      designUrl?: string;
+    };
   };
-  setFormData: (data: { website_details?: WebsiteDetails }) => void;
+  setFormData: (data: { website_details?: { title: string; description: string; features: Record<string, boolean>; pages: string[]; hasDesign: boolean; designUrl?: string } }) => void;
   onNext: () => void;
   onPrevious: () => void;
 }
@@ -22,23 +29,45 @@ export function WebsiteSlide({ formData, setFormData, onNext, onPrevious }: Webs
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
     const { name, value, type } = e.target;
     
-    if (type === 'checkbox') {
+    if (name === 'pages') {
+      const pagesArray = value.split(',').map(page => page.trim());
+      setFormData({
+        ...formData,
+        website_details: {
+          title: formData.website_details?.title || '',
+          description: formData.website_details?.description || '',
+          features: formData.website_details?.features || {},
+          pages: pagesArray,
+          hasDesign: formData.website_details?.hasDesign || false,
+          designUrl: formData.website_details?.designUrl
+        }
+      });
+    } else if (type === 'checkbox') {
       const checkbox = e.target as HTMLInputElement;
       setFormData({
         ...formData,
         website_details: {
-          ...formData.website_details,
+          title: formData.website_details?.title || '',
+          description: formData.website_details?.description || '',
           features: {
-            ...formData.website_details?.features || [],
+            ...formData.website_details?.features || {},
             [name]: checkbox.checked
-          }
+          },
+          pages: formData.website_details?.pages || [],
+          hasDesign: formData.website_details?.hasDesign || false,
+          designUrl: formData.website_details?.designUrl
         }
       });
     } else {
       setFormData({
         ...formData,
         website_details: {
-          ...formData.website_details,
+          title: formData.website_details?.title || '',
+          description: formData.website_details?.description || '',
+          features: formData.website_details?.features || {},
+          pages: formData.website_details?.pages || [],
+          hasDesign: formData.website_details?.hasDesign || false,
+          designUrl: formData.website_details?.designUrl,
           [name]: value
         }
       });
@@ -46,16 +75,20 @@ export function WebsiteSlide({ formData, setFormData, onNext, onPrevious }: Webs
   };
 
   const handleFeatureChange = (featureId: string, checked: boolean) => {
-    const currentFeatures = formData.website_details?.features || [];
+    const currentFeatures = formData.website_details?.features || {};
     const newFeatures = checked 
-      ? [...currentFeatures, featureId]
-      : currentFeatures.filter(f => f !== featureId);
+      ? { ...currentFeatures, [featureId]: true }
+      : Object.fromEntries(Object.entries(currentFeatures).filter(([key]) => key !== featureId));
     
     setFormData({
       ...formData,
       website_details: {
-        ...formData.website_details,
-        features: newFeatures
+        title: formData.website_details?.title || '',
+        description: formData.website_details?.description || '',
+        features: newFeatures,
+        pages: formData.website_details?.pages || [],
+        hasDesign: formData.website_details?.hasDesign || false,
+        designUrl: formData.website_details?.designUrl
       }
     });
   };
@@ -103,15 +136,15 @@ export function WebsiteSlide({ formData, setFormData, onNext, onPrevious }: Webs
 
         <div className="bg-gray-50 p-6 rounded-lg">
           <label className="block text-sm font-medium text-gray-700 mb-2">
-            Nombre de pages approximatif
+            Pages du site (séparées par des virgules)
           </label>
           <input
-            type="number"
+            type="text"
             name="pages"
-            min="1"
             className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-violet-500"
-            value={formData.website_details?.pages || ''}
+            value={formData.website_details?.pages?.join(', ') || ''}
             onChange={handleChange}
+            placeholder="Accueil, À propos, Contact"
           />
         </div>
 
@@ -125,7 +158,7 @@ export function WebsiteSlide({ formData, setFormData, onNext, onPrevious }: Webs
                 <input
                   type="checkbox"
                   name={feature.id}
-                  checked={formData.website_details?.features?.includes(feature.id) || false}
+                  checked={Boolean(formData.website_details?.features?.[feature.id as keyof typeof formData.website_details.features]) || false}
                   onChange={(e) => {
                     handleFeatureChange(feature.id, e.target.checked);
                   }}

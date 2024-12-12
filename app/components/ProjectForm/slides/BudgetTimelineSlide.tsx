@@ -12,21 +12,17 @@ export function BudgetTimelineSlide({ formData, setFormData, onNext, onPrevious 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     
-    console.log('Changement détecté:', name, value);
-    
     setFormData({
       ...formData,
-      [name]: name === 'budget' ? parseInt(value.split('-')[0]) : value
+      [name]: name === 'budget' ? Number(value) : value
     });
-
-    console.log('FormData après mise à jour:', formData);
   };
 
   const budgetRanges = [
-    { value: '1000-3000', label: '1 000€ - 3 000€' },
-    { value: '3000-5000', label: '3 000€ - 5 000€' },
-    { value: '5000-10000', label: '5 000€ - 10 000€' },
-    { value: '10000+', label: 'Plus de 10 000€' }
+    { value: 1000, label: '1 000€ - 3 000€' },
+    { value: 3000, label: '3 000€ - 5 000€' },
+    { value: 5000, label: '5 000€ - 10 000€' },
+    { value: 10000, label: 'Plus de 10 000€' }
   ];
 
   const timelineOptions = [
@@ -52,7 +48,7 @@ export function BudgetTimelineSlide({ formData, setFormData, onNext, onPrevious 
           <select
             name="budget"
             className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-violet-500"
-            value={formData.budget?.toString() || ''}
+            value={formData.budget || ''}
             onChange={handleChange}
             required
           >

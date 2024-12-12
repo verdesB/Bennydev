@@ -10,22 +10,19 @@ export const metadata = {
 }
 
 const DemarrerUnProjet = () => {
-  return(
-    <> 
-    <Header pathname={'/demarrer-un-projet'} />
-    <main className="relative bg-gradient-to-b from-purple-50 to-white min-h-screen">
-      <Hero2 
-        title="Démarrer un projet"
-        subtitle="Comment démarrer un projet avec Bennydev ?"
-      />
-      <ProjectForm />
-      
-      
-      
-      <div className="absolute inset- bg-[linear-gradient(rgba(139,92,246,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(139,92,246,0.02)_1px,transparent_1px)] bg-[size:4rem_4rem] z-1" />
-    </main>
-    <Footer />
-    <ChatButton />
+  return (
+    <>
+      <Header pathname={'/demarrer-un-projet'} />
+      <main className="relative bg-gradient-to-b from-purple-50 to-white min-h-screen">
+        <Hero2
+          title="Démarrer un projet"
+          subtitle="Comment démarrer un projet avec Bennydev ?"
+        />
+        <ProjectForm />
+        <div className="absolute inset- bg-[linear-gradient(rgba(139,92,246,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(139,92,246,0.02)_1px,transparent_1px)] bg-[size:4rem_4rem] z-1" />
+      </main>
+      <Footer />
+      <ChatButton />
     </>
   )
 }

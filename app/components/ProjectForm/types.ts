@@ -17,7 +17,7 @@ export interface SlideProps {
 
 export interface FormData {
   step: number;
-  projectType: ProjectType;
+  projectType: ProjectType | null;
   
   // Informations générales
   company: string;
@@ -30,8 +30,8 @@ export interface FormData {
   website_details?: {
     title: string;
     description: string;
-    features: string[];
-    pages: number;
+    features: Record<string, boolean>;
+    pages: string[];
     hasDesign: boolean;
     designUrl?: string;
   };
@@ -141,5 +141,3 @@ export interface FormData {
     };
   };
 }
-
-// Ajoutez les autres interfaces selon vos besoins

@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
+
 import { WelcomeSlide } from './slides/WelcomeSlide';
 import { IntroductionSlide } from './slides/IntroductionSlide';
 import { ServiceChoiceSlide } from './slides/ServiceChoiceSlide';
@@ -13,14 +13,7 @@ import { SEOSlide } from './slides/specific/SEOSlide';
 import { APISlide } from './slides/specific/APISlide';
 import { BudgetTimelineSlide } from './slides/BudgetTimelineSlide';
 import { FinalizationSlide } from './slides/FinalizationSlide';
-
-type ProjectType = 'website' | 'ecommerce' | 'webapp' | 'redesign' | 'seo' | 'api' | null;
-
-interface FormData {
-  step: number;
-  projectType: ProjectType;
-  // Autres champs selon les besoins
-}
+import {  FormData } from './types';
 
 const STORAGE_KEY = 'project_form_data';
 
@@ -34,10 +27,18 @@ interface SlideProps {
 }
 
 export default function ProjectForm() {
-  const router = useRouter();
+
   const [formData, setFormData] = useState<FormData>({
     step: 0,
     projectType: null,
+    company: '',
+    businessSector: '',
+    website: 'no',
+    contact: {
+      name: '',
+      email: '',
+      preferredContact: 'email'
+    }
   });
 
   // Chargement des données sauvegardées
@@ -78,7 +79,7 @@ export default function ProjectForm() {
 
   const slides = [
     {
-      id: 'welcome',
+      id: 'Bonjour',
       component: WelcomeSlide as React.FC<SlideProps>,
     },
     {
@@ -86,20 +87,20 @@ export default function ProjectForm() {
       component: IntroductionSlide as unknown as React.FC<SlideProps>,
     },
     {
-      id: 'service-choice',
+      id: 'Type de projet',
       component: ServiceChoiceSlide as unknown as React.FC<SlideProps>,
     },
     {
-      id: 'specific',
+      id: 'Détails du projet',
       component: getSpecificSlide() as React.FC<SlideProps> | null,
       condition: () => formData.projectType !== null,
     },
     {
-      id: 'budget',
+      id: 'Budget',
       component: BudgetTimelineSlide as unknown as React.FC<SlideProps>,
     },
     {
-      id: 'finalization',
+      id: 'Validation',
       component: FinalizationSlide as unknown as React.FC<SlideProps>,
     },
   ].filter(slide => !slide.condition || slide.condition());
@@ -118,13 +119,24 @@ export default function ProjectForm() {
 
   const handleSubmit = async () => {
     try {
-      // Envoi des données au serveur
-      const response = await fetch('/api/submit-project', {
+      // Transformer les données avant l'envoi
+      const transformedData = {
+        ...formData,
+        website_details: formData.website_details ? {
+          ...formData.website_details,
+          // Convertir l'objet features en tableau de strings
+          features: Object.keys(formData.website_details.features).filter(key => 
+            formData.website_details?.features[key]
+          )
+        } : undefined
+      };
+
+      const response = await fetch('/api/demandes/projet', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify(transformedData)
       });
 
       if (!response.ok) {
@@ -135,20 +147,18 @@ export default function ProjectForm() {
       localStorage.removeItem(STORAGE_KEY);
 
       // Redirection vers la page de confirmation
-      router.push('/project/confirmation');
+      
     } catch (error) {
       console.error('Erreur:', error);
       // Gérer l'erreur (afficher un message à l'utilisateur)
     }
   };
 
- 
-
   return (
-    <div className="max-w-6xl mx-auto px-4 py-12 relative z-30">
-      {/* Barre de progression */}
-      <div className="mb-8 bg-white rounded-lg shadow-sm p-6">
-        <div className="flex items-center justify-between mb-4">
+    <div className="max-w-6xl mx-auto mt-4 mb-8 relative z-30 px-4 xl:px-0">
+      {/* Barre de progression améliorée */}
+      <div className="mb-6 bg-white/80 backdrop-blur-sm rounded-2xl shadow-sm p-5">
+        <div className="flex items-center justify-between mb-3">
           {slides.map((slide, index) => (
             <div
               key={slide.id}
@@ -157,29 +167,29 @@ export default function ProjectForm() {
               }`}
             >
               <div
-                className={`w-6 h-6 md:w-8 md:h-8 rounded-full flex items-center justify-center text-sm md:text-base ${
+                className={`w-5 h-5 rounded-full flex items-center justify-center text-xs font-medium transition-all duration-300 ${
                   index <= formData.step
-                    ? 'bg-violet-600 text-white'
-                    : 'bg-gray-200 text-gray-400'
+                    ? 'bg-violet-600 text-white scale-110'
+                    : 'bg-gray-100 text-gray-400'
                 }`}
               >
                 {index + 1}
               </div>
               {index !== slides.length - 1 && (
                 <div
-                  className={`flex-1 h-1 mx-2 md:mx-4 ${
-                    index < formData.step ? 'bg-violet-600' : 'bg-gray-200'
+                  className={`flex-1 h-0.5 mx-2 transition-all duration-300 ${
+                    index < formData.step ? 'bg-violet-600' : 'bg-gray-100'
                   }`}
                 />
               )}
             </div>
           ))}
         </div>
-        <div className="flex justify-between">
+        <div className="flex justify-between pt-">
           {slides.map((slide, index) => (
             <div
               key={`label-${slide.id}`}
-              className={`text-sm hidden md:block ${
+              className={`text-xs font-medium tracking-wide hidden md:block transition-all duration-300 ${
                 index <= formData.step ? 'text-violet-600' : 'text-gray-400'
               }`}
             >
@@ -189,15 +199,17 @@ export default function ProjectForm() {
         </div>
       </div>
 
-      {/* Container pour le slide actif */}
-      <div className="bg-white rounded-lg shadow-lg p-8 min-h-[600px]  flex flex-col">
-        {slides[formData.step]?.component?.({
-          formData,
-          setFormData,
-          onNext: handleNext,
-          onPrevious: handlePrevious,
-          onSubmit: handleSubmit,
-        })}
+      {/* Container principal amélioré */}
+      <div className="bg-white/90 backdrop-blur-sm rounded-2xl shadow-lg p-6 min-h-[500px] flex flex-col transition-all duration-300">
+        <div className="max-w-2xl mx-auto w-full py-12">
+          {slides[formData.step]?.component?.({
+            formData,
+            setFormData,
+            onNext: handleNext,
+            onPrevious: handlePrevious,
+            onSubmit: handleSubmit,
+          })}
+        </div>
       </div>
     </div>
   );

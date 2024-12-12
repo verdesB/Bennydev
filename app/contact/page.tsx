@@ -6,6 +6,7 @@ import ChatButton from '../components/ChatButton';
 import Footer from '../components/Footer';
  
 import ContactForm from '@/app/components/ContactForm';
+import { SparklesCore } from '../components/ui/sparkles';
 
 export const metadata = {
   title: 'Contact',
@@ -89,16 +90,47 @@ export default async function ContactPage() {
               >
                 <Linkedin className="w-6 h-6" />
               </a>
-              <a 
-                title='Github' 
-                href={siteConfig.companyInfo.contact.github} 
-                target="_blank" 
-                rel="noopener noreferrer" 
-                className="p-4 bg-gray-50 rounded-xl hover:bg-gray-100 hover:text-gray-900 transition-all duration-300"
-              >
-                <Github className="w-6 h-6" />
-              </a>
+              
             </div>
+          </div>
+        </div>
+      </div>
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-0 pb-32 relative z-20">
+        <div className="bg-gradient-to-r from-black to-purple-900 rounded-2xl p-8 sm:p-12 relative overflow-hidden">
+          {/* Effet de lumière violette */}
+          <div className="absolute -right-36 bottom-0 w-64 h-64 bg-pink-500/100 rounded-full blur-[80px] z-9"></div>
+          
+          {/* Déplacer SparklesCore avant le backdrop-blur */}
+          <SparklesCore
+        className="absolute inset-0 w-full h-full rounded-2xl pointer-events-none z-10 "
+        background="transparent"
+        particleColor="#8b5cf6"
+        particleDensity={100}
+        speed={2}
+        minSize={0.6}
+        maxSize={1.4}
+      />
+          
+          {/* Effet de blur/glow */}
+          <div className="absolute inset-0 bg-purple-500/20 backdrop-blur-xl"></div>
+          
+          {/* Contenu */}
+          <div className="relative z-30">
+            <h3 className="text-2xl sm:text-3xl font-medium text-white mb-4">
+              Démarrez un projet
+            </h3>
+            <p className="text-purple-100 text-lg max-w-2xl mb-8">
+              Remplissez le formulaire "Démarrer un projet" pour me permettre de bien comprendre vos besoins et vous proposer une solution adaptée à votre projet.
+            </p>
+            <a 
+              href="/demarrer-un-projet" 
+              className="inline-flex items-center px-6 py-3 bg-purple-600 hover:bg-purple-700 text-white font-medium rounded-lg transition-colors duration-200"
+            >
+              Démarrer un projet
+              <svg className="w-5 h-5 ml-2" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
+            </a>
           </div>
         </div>
       </div>
