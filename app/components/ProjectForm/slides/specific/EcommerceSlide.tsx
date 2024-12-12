@@ -1,3 +1,4 @@
+import { SlideProps } from "../../types";
 import { SlideWrapper } from "../SlideWrapper";
 
 interface EcommerceDetails {
@@ -20,36 +21,53 @@ interface EcommerceSlideProps {
   isSubmitting: boolean;
 }
 
+type FeatureId = 'stockManagement' | 'loyaltyProgram' | 'promoCodes' | 'multiCurrency' | 'multiLanguage';
+
+const features: Array<{ id: FeatureId; label: string }> = [
+  { id: 'stockManagement', label: 'Gestion des stocks' },
+  { id: 'loyaltyProgram', label: 'Programme de fidélité' },
+  { id: 'promoCodes', label: 'Codes promotionnels' },
+  { id: 'multiCurrency', label: 'Multi-devise' },
+  { id: 'multiLanguage', label: 'Multi-langue' }
+];
+
 export function EcommerceSlide({ 
   formData, 
   setFormData, 
   onNext, 
   onPrevious,
-  isSubmitting 
-}: EcommerceSlideProps) {
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+  isSubmitting ,
+  ...props
+}: SlideProps) {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
     const { name, value, type } = e.target;
     
     if (type === 'checkbox') {
       const checkbox = e.target as HTMLInputElement;
-      setFormData({
-        ...formData,
+      setFormData(prev => ({
+        ...prev,
         ecommerce_details: {
-          ...formData.ecommerce_details,
+          title: prev.ecommerce_details?.title || '',
+          description: prev.ecommerce_details?.description || '',
+          productType: prev.ecommerce_details?.productType || 'physical',
+          productCount: prev.ecommerce_details?.productCount || 0,
           features: {
-            ...(formData.ecommerce_details?.features || {}),
-            [name]: checkbox.checked
-          }
+            ...(prev.ecommerce_details?.features || {}),
+            [checkbox.value]: checkbox.checked
+          },
+          paymentMethods: prev.ecommerce_details?.paymentMethods || [],
+          hasInventory: prev.ecommerce_details?.hasInventory || false,
+          shippingRegions: prev.ecommerce_details?.shippingRegions || []
         }
-      });
+      }));
     } else {
-      setFormData({
-        ...formData,
+      setFormData(prev => ({
+        ...prev,
         ecommerce_details: {
-          ...formData.ecommerce_details,
+          ...prev.ecommerce_details,
           [name]: value
         }
-      });
+      }));
     }
   };
 
@@ -99,13 +117,7 @@ export function EcommerceSlide({
             Fonctionnalités souhaitées
           </label>
           <div className="grid grid-cols-2 gap-4">
-            {[
-              { id: 'stockManagement', label: 'Gestion des stocks' },
-              { id: 'loyaltyProgram', label: 'Programme de fidélité' },
-              { id: 'promoCodes', label: 'Codes promotionnels' },
-              { id: 'multiCurrency', label: 'Multi-devise' },
-              { id: 'multiLanguage', label: 'Multi-langue' }
-            ].map(feature => (
+            {features.map(feature => (
               <label key={feature.id} className="flex items-center space-x-3">
                 <input
                   type="checkbox"
@@ -145,8 +157,14 @@ export function EcommerceSlide({
                     setFormData({
                       ...formData,
                       ecommerce_details: {
-                        ...formData.ecommerce_details,
-                        paymentMethods: updatedMethods
+                        title: formData.ecommerce_details?.title || '',
+                        description: formData.ecommerce_details?.description || '',
+                        productType: formData.ecommerce_details?.productType || 'physical',
+                        productCount: formData.ecommerce_details?.productCount || 0,
+                        features: formData.ecommerce_details?.features || {},
+                        paymentMethods: updatedMethods,
+                        hasInventory: formData.ecommerce_details?.hasInventory || false,
+                        shippingRegions: formData.ecommerce_details?.shippingRegions || []
                       }
                     });
                   }}
@@ -183,7 +201,13 @@ export function EcommerceSlide({
                     setFormData({
                       ...formData,
                       ecommerce_details: {
-                        ...formData.ecommerce_details,
+                        title: formData.ecommerce_details?.title || '',
+                        description: formData.ecommerce_details?.description || '',
+                        productType: formData.ecommerce_details?.productType || 'physical',
+                        productCount: formData.ecommerce_details?.productCount || 0,
+                        features: formData.ecommerce_details?.features || {},
+                        paymentMethods: formData.ecommerce_details?.paymentMethods || [],
+                        hasInventory: formData.ecommerce_details?.hasInventory || false,
                         shippingRegions: updatedRegions
                       }
                     });

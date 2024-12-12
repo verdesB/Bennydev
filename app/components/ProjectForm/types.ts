@@ -17,6 +17,27 @@ export interface SlideProps {
   setCsrfToken: (token: string) => void;
 }
 
+export interface WebAppData {
+  appType: 'internal' | 'customer' | 'collaborative' | 'other';
+  appTypeOther?: string;
+  userCount: number;
+  accessLevel: 'mixed' | 'public' | 'private';
+  keyFeatures: Record<string, boolean>;
+  integrations: Record<string, boolean>;
+  technicalNeeds: Record<string, boolean>;
+}
+
+export interface EcommerceData {
+  title: string;
+  description: string;
+  productType: 'physical' | 'digital' | 'services' | 'mixed';
+  productCount: number;
+  features: Record<string, boolean>;
+  paymentMethods: string[];
+  hasInventory: boolean;
+  shippingRegions: string[];
+}
+
 export interface ProjectFormData {
   step: number;
   projectType: ProjectType | null;
@@ -40,22 +61,7 @@ export interface ProjectFormData {
   };
 
   // Projet E-commerce
-  ecommerce_details?: {
-    title: string;
-    description: string;
-    productType: 'physical' | 'digital' | 'services' | 'mixed';
-    productCount: number;
-    features: {
-      stockManagement?: boolean;
-      loyaltyProgram?: boolean;
-      promoCodes?: boolean;
-      multiCurrency?: boolean;
-      multiLanguage?: boolean;
-    };
-    paymentMethods: string[];
-    hasInventory: boolean;
-    shippingRegions: string[];
-  };
+  ecommerce_details?: Partial<EcommerceData>;
 
   // Projet API
   api_details?: {
@@ -116,29 +122,7 @@ export interface ProjectFormData {
   };
 
   // Projet WebApp
-  webapp?: {
-    appType: 'internal' | 'customer' | 'collaborative' | 'other';
-    appTypeOther?: string;
-    userCount: number;
-    accessLevel: 'public' | 'private' | 'mixed';
-    keyFeatures: {
-      authentication?: boolean;
-      rightsManagement?: boolean;
-      notifications?: boolean;
-      externalApi?: boolean;
-    };
-    integrations: {
-      crm?: boolean;
-      erp?: boolean;
-      externalTools?: boolean;
-    };
-    technicalNeeds: {
-      realtime?: boolean;
-      dataStorage?: boolean;
-      heavyProcessing?: boolean;
-      mobileFirst?: boolean;
-    };
-  };
+  webapp?: Partial<WebAppData>;
 }
 // Ajoutez les autres interfaces selon vos besoins
 

@@ -1,48 +1,69 @@
 import { SlideWrapper } from "../SlideWrapper";
+import { ProjectFormData } from "../../types";
 
 interface WebAppData {
-  appType?: string;
+  appType: 'internal' | 'customer' | 'collaborative' | 'other';
   appTypeOther?: string;
-  userCount?: number;
-  accessLevel?: string;
-  keyFeatures?: Record<string, boolean>;
-  integrations?: Record<string, boolean>;
-  technicalNeeds?: Record<string, boolean>;
+  userCount: number;
+  accessLevel: 'mixed' | 'public' | 'private';
+  keyFeatures: {
+    authentication?: boolean;
+    rightsManagement?: boolean;
+    notifications?: boolean;
+    externalApi?: boolean;
+  };
+  integrations: {
+    crm?: boolean;
+    erp?: boolean;
+    externalTools?: boolean;
+  };
+  technicalNeeds: {
+    realtime?: boolean;
+    dataStorage?: boolean;
+    heavyProcessing?: boolean;
+    mobileFirst?: boolean;
+  };
 }
 
 interface WebAppSlideProps {
-  formData: { webapp: WebAppData };
-  setFormData: (data: { webapp: WebAppData }) => void;
+  formData: ProjectFormData;
+  setFormData: (data: ProjectFormData | ((prev: ProjectFormData) => ProjectFormData)) => void;
   onNext: () => void;
   onPrevious: () => void;
   isSubmitting: boolean;
 }
 
 export function WebAppSlide({ formData, setFormData, onNext, onPrevious, isSubmitting }: WebAppSlideProps) {
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value, type } = e.target;
-    type WebAppDataKeys = keyof WebAppData;
 
     if (type === 'checkbox') {
       const checkbox = e.target as HTMLInputElement;
-      setFormData({
-        ...formData,
+      const category = name as keyof WebAppData;
+      
+      setFormData(prev => ({
+        ...prev,
         webapp: {
-          ...formData.webapp,
-          [name as WebAppDataKeys]: {
-            ...(formData.webapp[name as WebAppDataKeys] as Record<string, boolean>),
+          appType: prev.webapp?.appType || 'internal',
+          userCount: prev.webapp?.userCount || 0,
+          accessLevel: prev.webapp?.accessLevel || 'private',
+          keyFeatures: prev.webapp?.keyFeatures || {},
+          integrations: prev.webapp?.integrations || {},
+          technicalNeeds: prev.webapp?.technicalNeeds || {},
+          [category]: {
+            ...(prev.webapp?.[category] as Record<string, boolean> || {}),
             [checkbox.value]: checkbox.checked
           }
         }
-      });
+      }));
     } else {
-      setFormData({
-        ...formData,
+      setFormData(prev => ({
+        ...prev,
         webapp: {
-          ...formData.webapp,
-          [name as WebAppDataKeys]: value
+          ...prev.webapp,
+          [name]: value
         }
-      });
+      }));
     }
   };
 

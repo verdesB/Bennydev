@@ -1,5 +1,6 @@
 'use client';
 
+import React from 'react';
 import { useState, useEffect} from 'react';
 
 import { WelcomeSlide } from './slides/WelcomeSlide';
@@ -201,7 +202,7 @@ export default function ProjectForm() {
 
       <div className="bg-white/90 backdrop-blur-sm rounded-2xl shadow-lg p-6 min-h-[500px] flex flex-col transition-all duration-300">
         <div className="max-w-2xl mx-auto w-full py-12">
-          {slides[formData.step]?.component({
+          {React.createElement(slides[formData.step]?.component, {
             formData,
             setFormData,
             onNext: handleNext,
