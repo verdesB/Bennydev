@@ -1,13 +1,6 @@
 import { SlideWrapper } from "../SlideWrapper";
 
-interface WebsiteDetails {
-  title: string;
-  description: string;
-  pages: string[];
-  features: Record<string, boolean>;
-  hasDesign: boolean;
-  designUrl?: string;
-}
+
 
 interface WebsiteSlideProps {
   formData: {

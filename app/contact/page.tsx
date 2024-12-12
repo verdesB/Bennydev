@@ -1,4 +1,4 @@
-import { Mail, MapPin, Linkedin, Github, Clock } from 'lucide-react';
+import { Mail, MapPin, Linkedin, Clock } from 'lucide-react';
 import { siteConfig } from '../lib/site-config';
 import Hero2 from '@/app/components/Hero2';
 import Header from '../components/Header';
@@ -120,7 +120,7 @@ export default async function ContactPage() {
               Démarrez un projet
             </h3>
             <p className="text-purple-100 text-lg max-w-2xl mb-8">
-              Remplissez le formulaire "Démarrer un projet" pour me permettre de bien comprendre vos besoins et vous proposer une solution adaptée à votre projet.
+              Remplissez le formulaire &quot;Démarrer un projet&quot; pour me permettre de bien comprendre vos besoins et vous proposer une solution adaptée à votre projet.
             </p>
             <a 
               href="/demarrer-un-projet" 
