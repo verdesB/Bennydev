@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, Dispatch, SetStateAction } from 'react';
+import { useState, useEffect} from 'react';
 
 import { WelcomeSlide } from './slides/WelcomeSlide';
 import { IntroductionSlide } from './slides/IntroductionSlide';
@@ -18,7 +18,7 @@ import { ProjectFormData, SlideProps } from './types';
 const STORAGE_KEY = 'project_form_data';
 type SlideConfig = {
   id: string;
-  component: FC<SlideProps>;
+  component: React.FC<SlideProps>;
   condition?: () => boolean;
 }
 export default function ProjectForm() {

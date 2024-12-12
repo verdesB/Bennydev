@@ -1,5 +1,5 @@
 import { SlideWrapper } from "../SlideWrapper";
-import { ProjectFormData, SlideProps } from "../../types";
+import { ProjectFormData} from "../../types";
 
 interface RedesignSlideProps {
   formData: ProjectFormData;

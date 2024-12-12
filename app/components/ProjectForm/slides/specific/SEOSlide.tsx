@@ -1,13 +1,7 @@
 import { ProjectFormData } from "../../types";
 import { SlideWrapper } from "../SlideWrapper";
 
-interface SEODetails {
-  services?: {
-    [key: string]: boolean;
-  };
-  websiteUrl?: string;
-  objectives?: string;
-}
+
 
 
 

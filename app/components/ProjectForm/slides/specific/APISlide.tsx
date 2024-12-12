@@ -1,4 +1,4 @@
-import { ProjectFormData, SlideProps } from "../../types";
+import { ProjectFormData} from "../../types";
 import { SlideWrapper } from "../SlideWrapper";
 
 interface APISlideProps {
