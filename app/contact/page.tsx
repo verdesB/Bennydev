@@ -34,7 +34,6 @@ export default async function ContactPage() {
           <ContactForm />
         </div>
 
-        {/* Section contact à droite */}
         <div className="grid grid-cols-2 sm:grid-cols-1 gap-8">
           <div className="col-span-2 sm:col-span-1 bg-white/80 backdrop-blur-2xl rounded-xl p-8 sm:p-10 shadow-[0_0_50px_rgba(0,0,0,0.08)] hover:shadow-[0_0_60px_rgba(0,0,0,0.12)] transition-all duration-500">
             <h3 className="text-lg sm:text-xl font-medium text-gray-900 mb-6 sm:mb-8">
