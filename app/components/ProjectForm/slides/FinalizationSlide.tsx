@@ -1,14 +1,31 @@
 import { SlideWrapper } from "./SlideWrapper";
 import { FormData } from "../types";
+import ReCAPTCHA from "react-google-recaptcha";
 
 interface FinalizationSlideProps {
   formData: FormData;
-  setFormData: (data: FormData) => void;
-  onSubmit: () => void;
+  setFormData: (data: FormData | ((prev: FormData) => FormData)) => void;
+  onNext: () => void;
   onPrevious: () => void;
+  onSubmit: () => void;
+  isSubmitting: boolean;
 }
 
-export function FinalizationSlide({ formData, setFormData, onSubmit, onPrevious }: FinalizationSlideProps) {
+export function FinalizationSlide({ 
+  formData, 
+  setFormData,
+  onNext, 
+  onPrevious, 
+  onSubmit,
+  isSubmitting
+}: FinalizationSlideProps) {
+  const handleCaptchaChange = (value: string | null) => {
+    setFormData({
+      ...formData,
+      captchaToken: value
+    });
+  };
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     setFormData({
@@ -23,10 +40,11 @@ export function FinalizationSlide({ formData, setFormData, onSubmit, onPrevious 
   return (
     <SlideWrapper
       title="Finalisation"
-      subtitle="Dernière étape : vos informations de contact pour vous recontacter"
+      subtitle="Dernière étape avant l'envoi"
       onNext={onSubmit}
       onPrevious={onPrevious}
-    
+      isSubmitting={isSubmitting}
+      nextDisabled={!formData.captchaToken}
     >
       <div className="space-y-6">
         <div className="bg-gray-50 p-6 rounded-lg">
@@ -109,6 +127,13 @@ export function FinalizationSlide({ formData, setFormData, onSubmit, onPrevious 
             className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-violet-500"
             value={formData.contact?.role || ''}
             onChange={handleChange}
+          />
+        </div>
+
+        <div className="flex justify-center mt-6">
+          <ReCAPTCHA
+            sitekey={process.env.NEXT_PUBLIC_GOOGLE_RECAPTCHA || ''}
+            onChange={handleCaptchaChange}
           />
         </div>
       </div>

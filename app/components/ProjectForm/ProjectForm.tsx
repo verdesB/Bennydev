@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import ReCAPTCHA from 'react-google-recaptcha';
 
 import { WelcomeSlide } from './slides/WelcomeSlide';
 import { IntroductionSlide } from './slides/IntroductionSlide';
@@ -24,10 +25,11 @@ interface SlideProps {
   onNext: () => void;
   onPrevious: () => void;
   onSubmit: () => void;
+  isSubmitting: boolean;
 }
 
 export default function ProjectForm() {
-
+  // Tous les useState au début
   const [formData, setFormData] = useState<FormData>({
     step: 0,
     projectType: null,
@@ -38,22 +40,26 @@ export default function ProjectForm() {
       name: '',
       email: '',
       preferredContact: 'email'
-    }
+    },
+    captchaToken: null
   });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [csrfToken, setCsrfToken] = useState<string>('');
 
-  // Chargement des données sauvegardées
+  // Tous les useEffect ensuite
   useEffect(() => {
-    const savedData = localStorage.getItem(STORAGE_KEY);
-    if (savedData) {
+    const fetchCsrfToken = async () => {
       try {
-        setFormData(JSON.parse(savedData));
-      } catch (e) {
-        console.error('Erreur lors du chargement des données:', e);
+        const response = await fetch('/api/csrf');
+        const data = await response.json();
+        setCsrfToken(data.csrfToken);
+      } catch (error) {
+        console.error('Erreur lors de la récupération du CSRF token:', error);
       }
-    }
+    };
+    fetchCsrfToken();
   }, []);
 
-  // Sauvegarde automatique
   useEffect(() => {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(formData));
   }, [formData]);
@@ -80,28 +86,28 @@ export default function ProjectForm() {
   const slides = [
     {
       id: 'Bonjour',
-      component: WelcomeSlide as React.FC<SlideProps>,
+      component: WelcomeSlide,
     },
     {
       id: 'introduction',
-      component: IntroductionSlide as unknown as React.FC<SlideProps>,
+      component: IntroductionSlide,
     },
     {
       id: 'Type de projet',
-      component: ServiceChoiceSlide as unknown as React.FC<SlideProps>,
+      component: ServiceChoiceSlide,
     },
     {
       id: 'Détails du projet',
-      component: getSpecificSlide() as React.FC<SlideProps> | null,
+      component: getSpecificSlide(),
       condition: () => formData.projectType !== null,
     },
     {
       id: 'Budget',
-      component: BudgetTimelineSlide as unknown as React.FC<SlideProps>,
+      component: BudgetTimelineSlide,
     },
     {
       id: 'Validation',
-      component: FinalizationSlide as unknown as React.FC<SlideProps>,
+      component: FinalizationSlide,
     },
   ].filter(slide => !slide.condition || slide.condition());
 
@@ -119,22 +125,28 @@ export default function ProjectForm() {
 
   const handleSubmit = async () => {
     try {
-      // Transformer les données avant l'envoi
+      setIsSubmitting(true);
+
+      if (!formData.captchaToken) {
+        throw new Error('Veuillez valider le captcha');
+      }
+
       const transformedData = {
         ...formData,
         website_details: formData.website_details ? {
           ...formData.website_details,
-          // Convertir l'objet features en tableau de strings
           features: Object.keys(formData.website_details.features).filter(key => 
             formData.website_details?.features[key]
           )
-        } : undefined
+        } : undefined,
+        csrfToken
       };
 
       const response = await fetch('/api/demandes/projet', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          'X-CSRF-Token': csrfToken
         },
         body: JSON.stringify(transformedData)
       });
@@ -143,14 +155,11 @@ export default function ProjectForm() {
         throw new Error('Erreur lors de l\'envoi du formulaire');
       }
 
-      // Nettoyage du stockage local
       localStorage.removeItem(STORAGE_KEY);
-
-      // Redirection vers la page de confirmation
-      
     } catch (error) {
       console.error('Erreur:', error);
-      // Gérer l'erreur (afficher un message à l'utilisateur)
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -208,7 +217,10 @@ export default function ProjectForm() {
             onNext: handleNext,
             onPrevious: handlePrevious,
             onSubmit: handleSubmit,
+            isSubmitting: isSubmitting
           })}
+
+         
         </div>
       </div>
     </div>

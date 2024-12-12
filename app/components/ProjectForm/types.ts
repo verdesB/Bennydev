@@ -140,4 +140,8 @@ export interface FormData {
       mobileFirst?: boolean;
     };
   };
+
+  captchaToken?: string | null;
 }
+// Ajoutez les autres interfaces selon vos besoins
+

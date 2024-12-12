@@ -1,17 +1,31 @@
 import { SlideWrapper } from "./SlideWrapper";
 
 interface WelcomeSlideProps {
+  formData: FormData;
+  setFormData: (data: FormData | ((prev: FormData) => FormData)) => void;
   onNext: () => void;
+  onPrevious: () => void;
+  onSubmit: () => void;
+  isSubmitting: boolean;
+  setCsrfToken: (token: string) => void;
 }
 
-export function WelcomeSlide({ onNext }: WelcomeSlideProps) {
+export function WelcomeSlide({ 
+  formData, 
+  setFormData, 
+  onNext, 
+  onPrevious, 
+  isSubmitting,
+  setCsrfToken
+}: WelcomeSlideProps) {
   return (
     <SlideWrapper
-      title="Bienvenue dans votre espace projet"
-      subtitle="Nous sommes ravis de vous accompagner dans la réalisation de votre projet digital."
+      title="Bienvenue"
+      subtitle="Commençons votre projet ensemble"
       onNext={onNext}
-      onPrevious={() => {}}
-     
+      onPrevious={onPrevious}
+      isSubmitting={isSubmitting}
+      setCsrfToken={setCsrfToken}
     >
       <div className="flex flex-col items-center justify-center text-center min-h-[300px]">
         <p className="text-lg text-gray-600 max-w-2xl mb-8">

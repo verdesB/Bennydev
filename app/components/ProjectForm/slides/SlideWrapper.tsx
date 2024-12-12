@@ -1,12 +1,16 @@
+import React, { useState, useEffect } from 'react';
+
 interface SlideWrapperProps {
   title: string;
   subtitle: string;
   children: React.ReactNode;
   onNext: () => void;
   onPrevious: () => void;
+  isSubmitting: boolean;
+  nextDisabled?: boolean;
 }
 
-export function SlideWrapper({ title, subtitle, children, onNext, onPrevious }: SlideWrapperProps) {
+export function SlideWrapper({ title, subtitle, children, onNext, onPrevious, isSubmitting, nextDisabled }: SlideWrapperProps) {
   return (
     <div className="flex flex-col h-full min-h-[600px]">
       {/* En-tête */}
@@ -37,6 +41,7 @@ export function SlideWrapper({ title, subtitle, children, onNext, onPrevious }: 
           type="button"
           onClick={onNext}
           className="px-6 py-2 bg-violet-600 text-white rounded-lg hover:bg-violet-700 transition-colors duration-200 flex items-center gap-2"
+         
         >
           Suivant
           <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
