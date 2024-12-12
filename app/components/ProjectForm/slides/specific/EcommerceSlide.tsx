@@ -11,15 +11,7 @@ interface EcommerceDetails {
   shippingRegions?: string[];
 }
 
-interface EcommerceSlideProps {
-  formData: {
-    ecommerce_details?: EcommerceDetails;
-  };
-  setFormData: (data: { ecommerce_details?: EcommerceDetails }) => void;
-  onNext: () => void;
-  onPrevious: () => void;
-  isSubmitting: boolean;
-}
+
 
 type FeatureId = 'stockManagement' | 'loyaltyProgram' | 'promoCodes' | 'multiCurrency' | 'multiLanguage';
 
@@ -37,7 +29,7 @@ export function EcommerceSlide({
   onNext, 
   onPrevious,
   isSubmitting ,
-  ...props
+
 }: SlideProps) {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
     const { name, value, type } = e.target;
