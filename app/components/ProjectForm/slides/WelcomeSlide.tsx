@@ -1,22 +1,12 @@
+import { SlideProps } from '../types';
 import { SlideWrapper } from "./SlideWrapper";
 
-interface WelcomeSlideProps {
-  formData: FormData;
-  setFormData: (data: FormData | ((prev: FormData) => FormData)) => void;
-  onNext: () => void;
-  onPrevious: () => void;
-  onSubmit: () => void;
-  isSubmitting: boolean;
-  setCsrfToken: (token: string) => void;
-}
-
 export function WelcomeSlide({ 
-  
   onNext, 
   onPrevious, 
   isSubmitting,
  
-}: WelcomeSlideProps) {
+}: SlideProps) {
   return (
     <SlideWrapper
       title="Bienvenue"

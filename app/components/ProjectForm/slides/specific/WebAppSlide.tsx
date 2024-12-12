@@ -15,9 +15,10 @@ interface WebAppSlideProps {
   setFormData: (data: { webapp: WebAppData }) => void;
   onNext: () => void;
   onPrevious: () => void;
+  isSubmitting: boolean;
 }
 
-export function WebAppSlide({ formData, setFormData, onNext, onPrevious }: WebAppSlideProps) {
+export function WebAppSlide({ formData, setFormData, onNext, onPrevious, isSubmitting }: WebAppSlideProps) {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
     const { name, value, type } = e.target;
     type WebAppDataKeys = keyof WebAppData;
@@ -84,6 +85,7 @@ export function WebAppSlide({ formData, setFormData, onNext, onPrevious }: WebAp
       subtitle="Définissons ensemble les caractéristiques de votre application web."
       onNext={onNext}
       onPrevious={onPrevious}
+      isSubmitting={isSubmitting}
     >
       <div className="space-y-8">
         {/* Type d'application */}

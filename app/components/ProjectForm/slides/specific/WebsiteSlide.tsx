@@ -1,24 +1,13 @@
+import { SlideProps } from '../../types';
 import { SlideWrapper } from "../SlideWrapper";
 
-
-
-interface WebsiteSlideProps {
-  formData: {
-    website_details?: {
-      title: string;
-      description: string;
-      features: Record<string, boolean>;
-      pages: string[];
-      hasDesign: boolean;
-      designUrl?: string;
-    };
-  };
-  setFormData: (data: { website_details?: { title: string; description: string; features: Record<string, boolean>; pages: string[]; hasDesign: boolean; designUrl?: string } }) => void;
-  onNext: () => void;
-  onPrevious: () => void;
-}
-
-export function WebsiteSlide({ formData, setFormData, onNext, onPrevious }: WebsiteSlideProps) {
+export function WebsiteSlide({ 
+  formData, 
+  setFormData, 
+  onNext, 
+  onPrevious,
+  isSubmitting 
+}: SlideProps) {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
     const { name, value, type } = e.target;
     
@@ -99,6 +88,7 @@ export function WebsiteSlide({ formData, setFormData, onNext, onPrevious }: Webs
       subtitle="Précisons les détails de votre site web vitrine pour vous proposer la meilleure solution"
       onNext={onNext}
       onPrevious={onPrevious}
+      isSubmitting={isSubmitting}
     >
       <div className="space-y-6">
         <div className="bg-gray-50 p-6 rounded-lg">

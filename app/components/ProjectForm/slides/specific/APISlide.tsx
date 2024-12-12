@@ -1,14 +1,21 @@
+import { ProjectFormData, SlideProps } from "../../types";
 import { SlideWrapper } from "../SlideWrapper";
-import { FormData } from "../../types";
 
 interface APISlideProps {
-  formData: FormData;
-  setFormData: (data: FormData) => void;
+  formData: ProjectFormData;
+  setFormData: (data: ProjectFormData) => void;
   onNext: () => void;
   onPrevious: () => void;
+  isSubmitting: boolean;
 }
 
-export function APISlide({ formData, setFormData, onNext, onPrevious }: APISlideProps) {
+export function APISlide({ 
+  formData, 
+  setFormData, 
+  onNext, 
+  onPrevious,
+  isSubmitting 
+}: APISlideProps) {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
     const { name, value, type } = e.target;
     
@@ -50,6 +57,7 @@ export function APISlide({ formData, setFormData, onNext, onPrevious }: APISlide
       subtitle="Précisons les détails de votre API pour vous proposer la meilleure solution"
       onNext={onNext}
       onPrevious={onPrevious}
+      isSubmitting={isSubmitting}
     >
       <div className="space-y-6">
         <div className="bg-gray-50 p-6 rounded-lg">

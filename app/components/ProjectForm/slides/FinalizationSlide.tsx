@@ -1,10 +1,10 @@
 import { SlideWrapper } from "./SlideWrapper";
-import { FormData } from "../types";
+import { ProjectFormData } from "../types";
 import ReCAPTCHA from "react-google-recaptcha";
 
 interface FinalizationSlideProps {
-  formData: FormData;
-  setFormData: (data: FormData | ((prev: FormData) => FormData)) => void;
+  formData: ProjectFormData;
+  setFormData: (data: ProjectFormData | ((prev: ProjectFormData) => ProjectFormData)) => void;
   onNext: () => void;
   onPrevious: () => void;
   onSubmit: () => void;

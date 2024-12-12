@@ -17,9 +17,16 @@ interface EcommerceSlideProps {
   setFormData: (data: { ecommerce_details?: EcommerceDetails }) => void;
   onNext: () => void;
   onPrevious: () => void;
+  isSubmitting: boolean;
 }
 
-export function EcommerceSlide({ formData, setFormData, onNext, onPrevious }: EcommerceSlideProps) {
+export function EcommerceSlide({ 
+  formData, 
+  setFormData, 
+  onNext, 
+  onPrevious,
+  isSubmitting 
+}: EcommerceSlideProps) {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value, type } = e.target;
     
@@ -52,6 +59,7 @@ export function EcommerceSlide({ formData, setFormData, onNext, onPrevious }: Ec
       subtitle="Précisons les détails de votre boutique en ligne pour vous proposer la meilleure solution"
       onNext={onNext}
       onPrevious={onPrevious}
+      isSubmitting={isSubmitting}
     >
       <div className="space-y-6">
         <div className="bg-gray-50 p-6 rounded-lg">

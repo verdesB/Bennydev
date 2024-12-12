@@ -1,7 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-
+import { useState, useEffect, Dispatch, SetStateAction } from 'react';
 
 import { WelcomeSlide } from './slides/WelcomeSlide';
 import { IntroductionSlide } from './slides/IntroductionSlide';
@@ -14,15 +13,16 @@ import { SEOSlide } from './slides/specific/SEOSlide';
 import { APISlide } from './slides/specific/APISlide';
 import { BudgetTimelineSlide } from './slides/BudgetTimelineSlide';
 import { FinalizationSlide } from './slides/FinalizationSlide';
-import {  FormData } from './types';
+import { ProjectFormData, SlideProps } from './types';
 
 const STORAGE_KEY = 'project_form_data';
-
-
-
+type SlideConfig = {
+  id: string;
+  component: FC<SlideProps>;
+  condition?: () => boolean;
+}
 export default function ProjectForm() {
-  // Tous les useState au début
-  const [formData, setFormData] = useState<FormData>({
+  const [formData, setFormData] = useState<ProjectFormData>({
     step: 0,
     projectType: null,
     company: '',
@@ -38,7 +38,6 @@ export default function ProjectForm() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [csrfToken, setCsrfToken] = useState<string>('');
 
-  // Tous les useEffect ensuite
   useEffect(() => {
     const fetchCsrfToken = async () => {
       try {
@@ -75,7 +74,8 @@ export default function ProjectForm() {
     }
   };
 
-  const slides = [
+  const slides: Array<SlideConfig> = [
+  
     {
       id: 'Bonjour',
       component: WelcomeSlide,
@@ -90,7 +90,7 @@ export default function ProjectForm() {
     },
     {
       id: 'Détails du projet',
-      component: getSpecificSlide(),
+      component: getSpecificSlide() || (() => null) as React.FC<SlideProps>,
       condition: () => formData.projectType !== null,
     },
     {
@@ -157,7 +157,6 @@ export default function ProjectForm() {
 
   return (
     <div className="max-w-6xl mx-auto mt-4 mb-8 relative z-30 px-4 xl:px-0">
-      {/* Barre de progression améliorée */}
       <div className="mb-6 bg-white/80 backdrop-blur-sm rounded-2xl shadow-sm p-5">
         <div className="flex items-center justify-between mb-3">
           {slides.map((slide, index) => (
@@ -200,19 +199,17 @@ export default function ProjectForm() {
         </div>
       </div>
 
-      {/* Container principal amélioré */}
       <div className="bg-white/90 backdrop-blur-sm rounded-2xl shadow-lg p-6 min-h-[500px] flex flex-col transition-all duration-300">
         <div className="max-w-2xl mx-auto w-full py-12">
-          {slides[formData.step]?.component?.({
+          {slides[formData.step]?.component({
             formData,
             setFormData,
             onNext: handleNext,
             onPrevious: handlePrevious,
             onSubmit: handleSubmit,
-            isSubmitting: isSubmitting
+            isSubmitting,
+            setCsrfToken
           })}
-
-         
         </div>
       </div>
     </div>

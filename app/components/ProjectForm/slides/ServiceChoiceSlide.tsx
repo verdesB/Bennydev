@@ -1,4 +1,4 @@
-import { ProjectType } from "../types";
+import { ProjectType, SlideProps } from "../types";
 import { SlideWrapper } from "./SlideWrapper";
 
 interface ServiceOption {
@@ -8,19 +8,13 @@ interface ServiceOption {
   description: string;
 }
 
-interface FormData {
-  projectType?: ProjectType;
-  [key: string]: ProjectType | undefined;
-}
-
-interface ServiceChoiceSlideProps {
-  formData: FormData;
-  setFormData: (data: FormData) => void;
-  onNext: () => void;
-  onPrevious: () => void;
-}
-
-export function ServiceChoiceSlide({ formData, setFormData, onNext, onPrevious }: ServiceChoiceSlideProps) {
+export function ServiceChoiceSlide({ 
+  formData, 
+  setFormData, 
+  onNext, 
+  onPrevious,
+  isSubmitting
+}: SlideProps) {
   const serviceOptions: ServiceOption[] = [
     {
       id: 'website',
@@ -74,6 +68,7 @@ export function ServiceChoiceSlide({ formData, setFormData, onNext, onPrevious }
       subtitle="Nous avons une variété de services pour répondre à tous vos besoins"
       onNext={onNext}
       onPrevious={onPrevious}
+      isSubmitting={isSubmitting}
     >
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {serviceOptions.map(service => (

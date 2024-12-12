@@ -8,14 +8,16 @@ export enum ProjectType {
 }
 
 export interface SlideProps {
-  formData: FormData;
-  setFormData: (data: FormData) => void;
+  formData: ProjectFormData;
+  setFormData: (data: ProjectFormData | ((prev: ProjectFormData) => ProjectFormData)) => void;
   onNext: () => void;
   onPrevious: () => void;
-  onSubmit?: () => void;
+  onSubmit: () => void;
+  isSubmitting: boolean;
+  setCsrfToken: (token: string) => void;
 }
 
-export interface FormData {
+export interface ProjectFormData {
   step: number;
   projectType: ProjectType | null;
   
@@ -25,6 +27,7 @@ export interface FormData {
   website: 'yes' | 'no';
   budget?: number;
   deadline?: string;
+  captchaToken: string | null;
   
   // Projet Website
   website_details?: {
@@ -81,11 +84,7 @@ export interface FormData {
     websiteUrl: string;
     objectives: string;
     services: {
-      audit?: boolean;
-      optimization?: boolean;
-      content?: boolean;
-      local?: boolean;
-      monitoring?: boolean;
+      [key: string]: boolean;
     };
   };
 
@@ -140,8 +139,6 @@ export interface FormData {
       mobileFirst?: boolean;
     };
   };
-
-  captchaToken?: string | null;
 }
 // Ajoutez les autres interfaces selon vos besoins
 

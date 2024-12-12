@@ -1,14 +1,15 @@
 import { SlideWrapper } from "./SlideWrapper";
-import { FormData } from "../types";
+import { ProjectFormData } from "../types";
 
 interface BudgetTimelineSlideProps {
-  formData: FormData;
-  setFormData: (data: FormData) => void;
+  formData: ProjectFormData;
+  setFormData: (data: ProjectFormData) => void;
   onNext: () => void;
   onPrevious: () => void;
+  isSubmitting: boolean;
 }
 
-export function BudgetTimelineSlide({ formData, setFormData, onNext, onPrevious }: BudgetTimelineSlideProps) {
+export function BudgetTimelineSlide({ formData, setFormData, onNext, onPrevious, isSubmitting }: BudgetTimelineSlideProps) {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     
@@ -38,6 +39,7 @@ export function BudgetTimelineSlide({ formData, setFormData, onNext, onPrevious 
       subtitle="Pour mieux vous accompagner, parlons de vos contraintes budgétaires et temporelles."
       onNext={onNext}
       onPrevious={onPrevious}
+      isSubmitting={isSubmitting}
     >
       <div className="space-y-6">
         {/* Budget */}

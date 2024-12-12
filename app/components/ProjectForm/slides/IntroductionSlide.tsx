@@ -1,20 +1,13 @@
+import { SlideProps } from '../types';
 import { SlideWrapper } from "./SlideWrapper";
 
-// Définition d'une interface pour la structure de formData
-interface FormData {
-  company: string;
-  businessSector: string;
-  website: 'yes' | 'no' | '';
-}
-
-interface IntroductionSlideProps {
-  formData: FormData;
-  setFormData: (data: FormData) => void;
-  onNext: () => void;
-  onPrevious: () => void;
-}
-
-export function IntroductionSlide({ formData, setFormData, onNext, onPrevious }: IntroductionSlideProps) {
+export function IntroductionSlide({ 
+  formData, 
+  setFormData, 
+  onNext, 
+  onPrevious, 
+  isSubmitting 
+}: SlideProps) {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData({
@@ -29,6 +22,7 @@ export function IntroductionSlide({ formData, setFormData, onNext, onPrevious }:
       subtitle="Quelques informations pour mieux vous connaître"
       onNext={onNext}
       onPrevious={onPrevious}
+      isSubmitting={isSubmitting}
     >
       <div className="space-y-6">
         <div className="bg-gray-50 p-6 rounded-lg">

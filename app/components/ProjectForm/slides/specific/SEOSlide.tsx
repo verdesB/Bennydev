@@ -1,3 +1,4 @@
+import { ProjectFormData } from "../../types";
 import { SlideWrapper } from "../SlideWrapper";
 
 interface SEODetails {
@@ -8,18 +9,23 @@ interface SEODetails {
   objectives?: string;
 }
 
-interface FormData {
-  seo_details?: SEODetails;
-}
+
 
 interface SEOSlideProps {
-  formData: FormData;
-  setFormData: (data: FormData) => void;
+  formData: ProjectFormData;
+  setFormData: (data: ProjectFormData) => void;
   onNext: () => void;
   onPrevious: () => void;
+  isSubmitting: boolean;
 }
 
-export function SEOSlide({ formData, setFormData, onNext, onPrevious }: SEOSlideProps) {
+export function SEOSlide({ 
+  formData, 
+  setFormData, 
+  onNext, 
+  onPrevious,
+  isSubmitting 
+}: SEOSlideProps) {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
     const { name, value, type } = e.target;
     
@@ -28,18 +34,31 @@ export function SEOSlide({ formData, setFormData, onNext, onPrevious }: SEOSlide
       setFormData({
         ...formData,
         seo_details: {
-          ...formData.seo_details,
-          services: {
-            ...(formData.seo_details?.services || {}),
-            [name]: checkbox.checked
-          }
+          title: formData.seo_details?.title || '',
+          description: formData.seo_details?.description || '',
+          keywords: formData.seo_details?.keywords || [],
+          competitors: formData.seo_details?.competitors || [],
+          targetMarket: formData.seo_details?.targetMarket || '',
+          websiteUrl: formData.seo_details?.websiteUrl || '',
+          objectives: formData.seo_details?.objectives || '',
+          currentRanking: formData.seo_details?.currentRanking,
+          services: formData.seo_details?.services || {},
+          [name]: checkbox.checked
         }
       });
     } else {
       setFormData({
         ...formData,
         seo_details: {
-          ...formData.seo_details,
+          title: formData.seo_details?.title || '',
+          description: formData.seo_details?.description || '',
+          keywords: formData.seo_details?.keywords || [],
+          competitors: formData.seo_details?.competitors || [],
+          targetMarket: formData.seo_details?.targetMarket || '',
+          websiteUrl: formData.seo_details?.websiteUrl || '',
+          objectives: formData.seo_details?.objectives || '',
+          currentRanking: formData.seo_details?.currentRanking,
+          services: formData.seo_details?.services || {},
           [name]: value
         }
       });
@@ -52,6 +71,7 @@ export function SEOSlide({ formData, setFormData, onNext, onPrevious }: SEOSlide
       subtitle="Définissons vos besoins en référencement naturel"
       onNext={onNext}
       onPrevious={onPrevious}
+      isSubmitting={isSubmitting}
     >
       <div className="space-y-6">
         <div className="bg-gray-50 p-6 rounded-lg">
