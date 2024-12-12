@@ -268,7 +268,9 @@ ${Object.entries(details.technicalNeeds || {})
 `;
   }
 
-  private getProjectTypeName(type: ProjectType): string {
+  private getProjectTypeName(type: ProjectType | null): string {
+    if (!type) return 'Non spécifié';
+    
     const types = {
       [ProjectType.WEBSITE]: 'Site Web',
       [ProjectType.ECOMMERCE]: 'E-commerce',
