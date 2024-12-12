@@ -1,15 +1,7 @@
 import { SlideProps } from "../../types";
 import { SlideWrapper } from "../SlideWrapper";
 
-interface EcommerceDetails {
-  productType?: string;
-  productCount?: number;
-  features?: {
-    [key: string]: boolean;
-  };
-  paymentMethods?: string[];
-  shippingRegions?: string[];
-}
+
 
 
 
