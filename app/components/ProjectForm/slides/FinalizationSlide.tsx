@@ -14,7 +14,7 @@ interface FinalizationSlideProps {
 export function FinalizationSlide({ 
   formData, 
   setFormData,
-  onNext, 
+
   onPrevious, 
   onSubmit,
   isSubmitting

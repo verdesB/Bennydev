@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 
 interface SlideWrapperProps {
   title: string;
@@ -10,7 +10,7 @@ interface SlideWrapperProps {
   nextDisabled?: boolean;
 }
 
-export function SlideWrapper({ title, subtitle, children, onNext, onPrevious, isSubmitting, nextDisabled }: SlideWrapperProps) {
+export function SlideWrapper({ title, subtitle, children, onNext, onPrevious }: SlideWrapperProps) {
   return (
     <div className="flex flex-col h-full min-h-[600px]">
       {/* En-tête */}

@@ -34,13 +34,13 @@ export default function LoginPage() {
             options: {
               emailRedirectTo: `${window.location.origin}/login`,
             },
-          })
+          });
 
-          if (resendError) throw resendError
+          if (resendError) throw resendError;
           
-          throw new Error('Email non confirmé. Un nouveau lien de confirmation vous a été envoyé.')
+          throw new Error('Email non confirmé. Un nouveau lien de confirmation vous a été envoyé.');
         }
-        throw signInError
+        throw signInError;
       }
 
       if (!session) throw new Error('Pas de session');
@@ -90,55 +90,62 @@ export default function LoginPage() {
   };
 
   return (
-    <main className="min-h-screen bg-gradient-to-b from-purple-50 to-white pt-32">
-      <div className="max-w-md mx-auto px-4">
-        <div className="bg-white rounded-2xl shadow-lg p-8">
-          <h1 className="text-2xl font-bold mb-6">Connexion</h1>
-          
-          {error && (
-            <div className="bg-red-50 text-red-600 p-4 rounded-lg mb-6">
-              {error}
-            </div>
-          )}
+    <main className="h-screen w-screen relative flex items-center justify-center overflow-hidden">
+      {/* Arrière-plan divisé en deux parties droites */}
+      <div className="absolute inset-0 flex">
+        {/* Partie gauche - Noir */}
+        <div className="w-1/2 h-full bg-black"></div>
+        {/* Partie droite - Violet */}
+        <div className="w-1/2 h-full bg-purple-600"></div>
+      </div>
 
-          <form onSubmit={handleSubmit} className="space-y-6 relative z-30">
-            <div>
-              <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
-                Email
-              </label>
-              <input
-                type="email"
-                id="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600"
-                required
-              />
-            </div>
+      {/* Conteneur du formulaire de connexion */}
+      <div className="relative z-10 bg-white/90 backdrop-blur-sm rounded-2xl shadow-2xl p-8 max-w-md w-full mx-4">
+        <h1 className="text-3xl font-bold mb-6 text-center">Connexion</h1>
+        
+        {error && (
+          <div className="bg-red-50 text-red-600 p-4 rounded-lg mb-6">
+            {error}
+          </div>
+        )}
 
-            <div>
-              <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1">
-                Mot de passe
-              </label>
-              <input
-                type="password"
-                id="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600"
-                required
-              />
-            </div>
+        <form onSubmit={handleSubmit} className="space-y-6">
+          <div>
+            <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
+              Email
+            </label>
+            <input
+              type="email"
+              id="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600"
+              required
+            />
+          </div>
 
-            <button
-              type="submit"
-              disabled={loading}
-              className="w-full bg-purple-600 text-white py-3 rounded-lg hover:bg-purple-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-            >
-              {loading ? 'Connexion en cours...' : 'Se connecter'}
-            </button>
-          </form>
-        </div>
+          <div>
+            <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1">
+              Mot de passe
+            </label>
+            <input
+              type="password"
+              id="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600"
+              required
+            />
+          </div>
+
+          <button
+            type="submit"
+            disabled={loading}
+            className="w-full bg-purple-600 text-white py-3 rounded-lg hover:bg-purple-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            {loading ? 'Connexion en cours...' : 'Se connecter'}
+          </button>
+        </form>
       </div>
     </main>
   );

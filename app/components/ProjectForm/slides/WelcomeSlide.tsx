@@ -11,12 +11,11 @@ interface WelcomeSlideProps {
 }
 
 export function WelcomeSlide({ 
-  formData, 
-  setFormData, 
+  
   onNext, 
   onPrevious, 
   isSubmitting,
-  setCsrfToken
+ 
 }: WelcomeSlideProps) {
   return (
     <SlideWrapper
@@ -25,7 +24,7 @@ export function WelcomeSlide({
       onNext={onNext}
       onPrevious={onPrevious}
       isSubmitting={isSubmitting}
-      setCsrfToken={setCsrfToken}
+      
     >
       <div className="flex flex-col items-center justify-center text-center min-h-[300px]">
         <p className="text-lg text-gray-600 max-w-2xl mb-8">

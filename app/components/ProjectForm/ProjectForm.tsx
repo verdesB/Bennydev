@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import ReCAPTCHA from 'react-google-recaptcha';
+
 
 import { WelcomeSlide } from './slides/WelcomeSlide';
 import { IntroductionSlide } from './slides/IntroductionSlide';
@@ -18,15 +18,7 @@ import {  FormData } from './types';
 
 const STORAGE_KEY = 'project_form_data';
 
-// Ajoutez cette interface pour définir le type des slides
-interface SlideProps {
-  formData: FormData;
-  setFormData: (data: FormData | ((prev: FormData) => FormData)) => void;
-  onNext: () => void;
-  onPrevious: () => void;
-  onSubmit: () => void;
-  isSubmitting: boolean;
-}
+
 
 export default function ProjectForm() {
   // Tous les useState au début
