@@ -6,7 +6,7 @@ import { generateProjectCode } from '@/app/utils/generateCode';
 export async function POST(request: Request) {
   try {
     // Récupérer les headers et vérifier le CSRF token
-    const headersList = headers();
+    const headersList = await headers();
     const csrfToken = headersList.get('X-CSRF-Token');
 
     if (!csrfToken) {
