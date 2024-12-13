@@ -5,7 +5,14 @@ import Head from "next/head";
 import { AuthProvider } from './context/AuthContext';
 import JsonLd from "./components/JsonLd";
 import { Toaster } from "sonner";
-
+import { Poppins } from 'next/font/google';
+   
+const poppins = Poppins({
+  subsets: ['latin'],
+  weight: ['400', '700'],
+  style: ['normal', 'italic'],
+  display: 'swap',
+});
 
 
 
@@ -19,6 +26,8 @@ const geistMono = localFont({
   variable: "--font-geist-mono",
   weight: "100 900",
 });
+
+
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://www.bennydev.fr'),
@@ -89,7 +98,7 @@ export default async function RootLayout({
         <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
         <JsonLd />
       </Head>
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased relative`}>
+      <body className={`${poppins.className} antialiased relative`}>
         <AuthProvider>
           {children}
         </AuthProvider>
