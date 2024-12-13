@@ -89,12 +89,12 @@ class BeamEffect {
 
 class Beam {
   canvas: HTMLCanvasElement;
-  x: number;
-  y: number;
-  width: number;
-  height: number;
-  speed: number;
-  opacity: number;
+  x!: number;
+  y!: number;
+  width!: number;
+  height!: number;
+  speed!: number;
+  opacity!: number;
 
   constructor(canvas: HTMLCanvasElement) {
     this.canvas = canvas;
