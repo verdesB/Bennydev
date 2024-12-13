@@ -23,49 +23,35 @@ export default function LoginPage() {
     setLoading(true);
 
     try {
-      // 1. Connexion
       const { data: { session }, error: signInError } = await supabase.auth.signInWithPassword({
         email,
         password,
       });
 
       if (signInError) {
-        // Gestion spéciale pour l'erreur d'email non confirmé
-        if (signInError.message.includes('Email not confirmed')) {
-          // Renvoyer l'email de confirmation
-          const { error: resendError } = await supabase.auth.resend({
-            type: 'signup',
-            email: email,
-            options: {
-              emailRedirectTo: `${window.location.origin}/login`,
-            },
-          });
-
-          if (resendError) throw resendError;
-          
-          throw new Error('Email non confirmé. Un nouveau lien de confirmation vous a été envoyé.');
-        }
+        // Gestion des erreurs de connexion existante...
         throw signInError;
       }
 
       if (!session) throw new Error('Pas de session');
 
-      console.log('Session utilisateur:', session.user);
-
-      // 2. Vérifier si le profil existe
+      // Vérifier le profil
       const { data: profile, error: profileError } = await supabase
         .from('profiles')
-        .select('*') // Sélectionnons tous les champs pour déboguer
+        .select('*')
         .eq('id', session.user.id)
         .single();
 
-      console.log('Profil récupéré:', profile);
-      console.log('Erreur profil:', profileError);
-
       if (profileError) throw profileError;
 
+      // Si c'est un admin, on le déconnecte silencieusement
+      if (profile?.role === 'admin') {
+        await supabase.auth.signOut();
+        throw new Error('Identifiants invalides');
+      }
+
+      // Création du profil client si nécessaire
       if (!profile) {
-        console.log('Création d\'un nouveau profil client');
         await supabase
           .from('profiles')
           .insert([{
@@ -73,21 +59,13 @@ export default function LoginPage() {
             email: session.user.email,
             role: 'client'
           }]);
-        router.push('/client');
-        return;
       }
 
-      console.log('Rôle détecté:', profile.role);
-
-      // 4. Redirection basée sur le rôle
-      if (profile.role === 'admin') {
-        router.push('/admin');
-      } else {
-        router.push('/client');
-      }
+      // Redirection vers l'espace client
+      router.push('/client');
 
     } catch (err) {
-      console.error('Erreur complète:', err);
+      console.error('Erreur:', err);
       setError(err instanceof Error ? err.message : 'Erreur de connexion');
     } finally {
       setLoading(false);
@@ -185,7 +163,7 @@ export default function LoginPage() {
                 <div className="text-gray-400 text-sm text-center">
                   <p className="mb-2">Vous souhaitez accéder au CRM ?</p>
                   <motion.a
-                    href="/contact"
+                    href="/demarrer-un-projet"
                     whileHover={{ scale: 1.05 }}
                     className="inline-block px-4 py-2 bg-gradient-to-r from-purple-500/20 to-pink-500/20 border border-purple-500/50 rounded-md text-purple-400 hover:text-purple-300 transition-colors"
                   >
