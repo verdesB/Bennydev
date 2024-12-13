@@ -1,11 +1,11 @@
 'use client';
 
 import { useState } from 'react';
-import { useRouter } from 'next/navigation';
+
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 import { motion } from 'framer-motion';
 import { BackgroundBeams } from "../components/ui/background-beams";
-import { log } from 'console';
+
 
 export default function AdminLoginPage() {
   const [email, setEmail] = useState('');
