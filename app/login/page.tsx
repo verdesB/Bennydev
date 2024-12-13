@@ -202,7 +202,7 @@ export default function LoginPage() {
                 </div>
                 <div>
                   <h3 className="text-lg lg:text-xl font-semibold mb-2">Suivi en temps réel</h3>
-                  <p className="text-sm lg:text-base text-gray-400">Suivez l'avancement de votre projet web et restez informé de chaque étape de développement.</p>
+                  <p className="text-sm lg:text-base text-gray-400">Suivez l&apos;avancement de votre projet web et restez informé de chaque étape de développement.</p>
                 </div>
               </motion.div>
 

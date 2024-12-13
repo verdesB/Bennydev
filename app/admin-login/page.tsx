@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 import { motion } from 'framer-motion';
 import { BackgroundBeams } from "../components/ui/background-beams";
+import { log } from 'console';
 
 export default function AdminLoginPage() {
   const [email, setEmail] = useState('');
@@ -13,10 +14,10 @@ export default function AdminLoginPage() {
   const [showOTP, setShowOTP] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
-  const router = useRouter();
+  
   const supabase = createClientComponentClient();
   const [challengeId, setChallengeId] = useState<string>('');
-
+console.log(challengeId)
   const handleFirstStep = async (e: React.FormEvent) => {
     e.preventDefault();
     setError(null);
