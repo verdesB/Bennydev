@@ -77,7 +77,7 @@ export async function POST(request: Request) {
         }
 
         const { error } = await resend.emails.send({
-            from: 'onboarding@resend.dev',
+            from: 'contact@bennydev.fr',
             to: testEmail,
             subject: `Accès à votre session - ${fileName.split('.md')[0]}`,
             html: `

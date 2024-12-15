@@ -25,8 +25,33 @@ export async function POST(req: Request) {
             return NextResponse.json({ error: "Non autorisé" }, { status: 401 });
         }
 
-        const body = await req.json();
-        const { user, profile, project } = body;
+        const { user, profile, project } = await req.json();
+
+        // Vérifier si le projet existe déjà
+        const { data: existingProject, error: checkError } = await supabaseAdmin
+            .from('projects')
+            .select('id')
+            .eq('code_project', project.projectCode)
+            .single();
+
+        if (existingProject) {
+            return NextResponse.json(
+                { error: 'Un projet avec ce code existe déjà' },
+                { status: 409 }
+            );
+        }
+
+        // Vérifier si l'email existe déjà
+        const { data: existingUser, error: userCheckError } = await supabaseAdmin
+            .auth.admin.listUsers();
+
+        const emailExists = existingUser?.users.some(u => u.email === user.email);
+        if (emailExists) {
+            return NextResponse.json(
+                { error: 'Un utilisateur avec cet email existe déjà' },
+                { status: 409 }
+            );
+        }
 
         // 1. Créer l'utilisateur auth
         const { data: newUser, error: createUserError } = await supabaseAdmin.auth.admin.createUser({
@@ -186,10 +211,10 @@ export async function POST(req: Request) {
         }, { status: 201 });
 
     } catch (error) {
-        console.error('Erreur détaillée:', error);
-        return NextResponse.json({
-            error: "Erreur lors de la création du compte",
-            details: error
-        }, { status: 500 });
+        console.error('Erreur:', error);
+        return NextResponse.json(
+            { error: 'Erreur serveur' },
+            { status: 500 }
+        );
     }
 }

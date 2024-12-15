@@ -29,7 +29,7 @@ export default async function ContactPage() {
       <div className="relative z-20 grid grid-cols-1 lg:grid-cols-[1.8fr,1fr] gap-12 max-w-6xl mx-auto px-4 sm:px-6 lg:px-0 pb-32">
     
         <div className="bg-white/80 backdrop-blur-2xl rounded-xl p-8 sm:p-16 shadow-[0_0_50px_rgba(0,0,0,0.08)] hover:shadow-[0_0_60px_rgba(0,0,0,0.12)] transition-all duration-500">
-          <h2 className="text-2xl sm:text-3xl font-medium text-gray-900 mb-2">Parlons de votre projet</h2>
+          <h2 className="text-2xl sm:text-3xl font-medium text-gray-900 mb-2">Vous avez des questions ?</h2>
           <p className="text-gray-500 mb-8 sm:mb-12">Remplissez le formulaire ci-dessous, je vous répondrai dans les plus brefs délais.</p>
           <ContactForm />
         </div>

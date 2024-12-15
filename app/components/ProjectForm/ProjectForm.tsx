@@ -132,6 +132,39 @@ export default function ProjectForm() {
             formData.website_details?.features[key]
           )
         } : undefined,
+        
+        ecommerce_details: formData.ecommerce_details ? {
+          ...formData.ecommerce_details,
+          features: Object.keys(formData.ecommerce_details?.features ?? {}).filter(key =>
+            formData.ecommerce_details?.features?.[key]
+          )
+        } : undefined,
+
+        webapp: formData.webapp ? {
+          ...formData.webapp,
+          keyFeatures: Object.keys(formData.webapp?.keyFeatures ?? {}).filter(key =>
+            formData.webapp?.keyFeatures?.[key]
+          ),
+          integrations: Object.keys(formData.webapp?.integrations ?? {}).filter(key =>
+            formData.webapp?.integrations?.[key]
+          ),
+          technicalNeeds: Object.keys(formData.webapp?.technicalNeeds ?? {}).filter(key =>
+            formData.webapp?.technicalNeeds?.[key]
+          )
+        } : undefined,
+
+        seo_details: formData.seo_details ? {
+          ...formData.seo_details
+        } : undefined,
+
+        api_details: formData.api_details ? {
+          ...formData.api_details
+        } : undefined,
+
+        redesign_details: formData.redesign_details ? {
+          ...formData.redesign_details
+        } : undefined,
+
         csrfToken
       };
 

@@ -105,7 +105,8 @@ export function EcommerceSlide({
               <label key={feature.id} className="flex items-center space-x-3">
                 <input
                   type="checkbox"
-                  name={feature.id}
+                  name="features"
+                  value={feature.id}
                   checked={formData.ecommerce_details?.features?.[feature.id] || false}
                   onChange={handleChange}
                   className="rounded border-gray-300 text-violet-600 focus:ring-violet-500"

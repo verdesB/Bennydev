@@ -35,9 +35,10 @@ export function SEOSlide({
           targetMarket: formData.seo_details?.targetMarket || '',
           websiteUrl: formData.seo_details?.websiteUrl || '',
           objectives: formData.seo_details?.objectives || '',
-          currentRanking: formData.seo_details?.currentRanking,
-          services: formData.seo_details?.services || {},
-          [name]: checkbox.checked
+          services: {
+            ...(formData.seo_details?.services || {}),
+            [name]: checkbox.checked
+          }
         }
       });
     } else {
@@ -51,7 +52,6 @@ export function SEOSlide({
           targetMarket: formData.seo_details?.targetMarket || '',
           websiteUrl: formData.seo_details?.websiteUrl || '',
           objectives: formData.seo_details?.objectives || '',
-          currentRanking: formData.seo_details?.currentRanking,
           services: formData.seo_details?.services || {},
           [name]: value
         }
