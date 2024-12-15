@@ -143,7 +143,7 @@ export default function LoginPage() {
             </h2>
       
         {/* Section Gauche - Login */}
-        <div className="w-full lg:w-1/2 flex items-center  justify-end sm:justify-center p-4 lg:p-8">
+        <div className="w-full lg:w-1/2 flex items-center  justify-end sm:justify-center p-4 lg:p-8 mt-16">
         
           <motion.div 
             initial={{ opacity: 0, x: -20 }}
