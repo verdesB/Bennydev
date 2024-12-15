@@ -173,7 +173,7 @@ ${formData.projectType === 'redesign' ? `### 🎨 Détails Redesign
 
 **Points d'amélioration souhaités**:
 ${Object.entries(formData.redesign_details?.improvements || {})
-  .filter(([_, value]) => value === true)
+  .filter(([, value]) => value === true)
   .map(([key]) => `- ${key}`)
   .join('\n') || '- Non spécifié'}
 

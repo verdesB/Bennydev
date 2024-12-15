@@ -318,7 +318,7 @@ const DemandeContent = ({
                                 <div className="space-y-4">
                                     <div className="grid grid-cols-2 gap-4">
                                         <div className="space-y-2">
-                                            <Label htmlFor="displayName">Nom d'affichage</Label>
+                                            <Label htmlFor="displayName">Nom d&apos;affichage</Label>
                                             <Input
                                                 id="displayName"
                                                 value={userForm.displayName}
@@ -491,7 +491,7 @@ const DemandeContent = ({
                         <div className="space-y-6">
                             <Alert>
                                 <AlertDescription>
-                                    L'utilisateur, le profil et le projet ont été créés avec succès!
+                                    L&apos;utilisateur, le profil et le projet ont été créés avec succès!
                                 </AlertDescription>
                             </Alert>
                         </div>
