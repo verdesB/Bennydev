@@ -158,7 +158,7 @@ ${formData.api_details?.endpoints?.length > 0
 
 **Fonctionnalités**:
 ${Object.entries(formData.api_details?.features || {})
-  .filter(([_, value]) => value === true)
+  .filter(([, value]) => value === true)
   .map(([key]) => `- ${key}`)
   .join('\n') || '- Non spécifié'}
 
@@ -201,7 +201,7 @@ ${formData.seo_details?.competitors?.map((competitor: string) => `- ${competitor
 
 **Services requis**:
 ${Object.entries(formData.seo_details?.services || {})
-  .filter(([_, value]) => value === true)
+  .filter(([, value]) => value === true)
   .map(([key]) => `- ${key}`)
   .join('\n') || '- Non spécifié'}
 

@@ -26,7 +26,7 @@ export default function LoginPage() {
 
     try {
       // Vérifier d'abord si les identifiants existent sans créer de session
-      const { data, error: signInError } = await supabase.auth.signInWithPassword({
+      const { error: signInError } = await supabase.auth.signInWithPassword({
         email,
         password,
       });

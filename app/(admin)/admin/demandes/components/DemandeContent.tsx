@@ -1,13 +1,13 @@
 import { TabsContent } from "@/components/ui/tabs"
 import { Card } from "@/components/ui/card"
 import ReactMarkdown from 'react-markdown'
-import { Calendar, FileText, UserPlus, Ban } from 'lucide-react'
+import { Calendar, FileText} from 'lucide-react'
 import { Button } from "@/components/ui/button"
 import { Label } from "@/components/ui/label"
-import { Separator } from "@/components/ui/separator"
+
 import { Alert, AlertDescription } from "@/components/ui/alert"
 import { useState } from "react"
-import { Loader2 } from "lucide-react"
+
 import { toast } from "sonner"
 import { Input } from "@/components/ui/input"
 import { ChevronRight } from "lucide-react"
@@ -80,15 +80,14 @@ const formatDateToISO = (dateStr: string) => {
 
 const DemandeContent = ({
     file,
-    expandedFiles,
-    toggleExpand,
     markFileAsViewed,
-    takenRequests
+    
 }: DemandeContentProps) => {
     const [step, setStep] = useState<'user' | 'profile' | 'project'>('user');
     const [isUserValid, setIsUserValid] = useState(false);
     const [isProfileValid, setIsProfileValid] = useState(false);
     const [submissionSuccess, setSubmissionSuccess] = useState(false);
+    
     const [updating, setUpdating] = useState(false);
     const [error, setError] = useState<string | null>(null);
 
@@ -480,8 +479,9 @@ const DemandeContent = ({
                                     <Button 
                                         onClick={handleSubmit}
                                         className="w-full"
+                                        disabled={updating}
                                     >
-                                        Suivant
+                                        {updating ? "En cours..." : "Suivant"}
                                         <ChevronRight className="ml-2 h-4 w-4" />
                                     </Button>
                                 </div>

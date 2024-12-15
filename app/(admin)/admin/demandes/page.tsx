@@ -6,7 +6,7 @@ import { Search } from 'lucide-react'
 import { useState, Suspense } from 'react'
 import { Badge } from '@/components/ui/badge'
 import { Card } from '@/components/ui/card'
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { Tabs,TabsList, TabsTrigger } from "@/components/ui/tabs"
 import Loading from './Loading'
 import Error from './Error'
 import DemandeContent from './components/DemandeContent'

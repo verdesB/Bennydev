@@ -28,7 +28,7 @@ export async function POST(req: Request) {
         const { user, profile, project } = await req.json();
 
         // Vérifier si le projet existe déjà
-        const { data: existingProject, error: checkError } = await supabaseAdmin
+        const { data: existingProject } = await supabaseAdmin
             .from('projects')
             .select('id')
             .eq('code_project', project.projectCode)
@@ -42,7 +42,7 @@ export async function POST(req: Request) {
         }
 
         // Vérifier si l'email existe déjà
-        const { data: existingUser, error: userCheckError } = await supabaseAdmin
+        const { data: existingUser } = await supabaseAdmin
             .auth.admin.listUsers();
 
         const emailExists = existingUser?.users.some(u => u.email === user.email);
