@@ -121,7 +121,7 @@ export default function LoginPage() {
       <Header pathname="/login" />
      
       
-      <div className="relative z-10 w-full px-4 sm:px-6 lg:px-8 min-h-screen flex flex-col-reverse lg:flex-row-reverse max-w-6xl mx-auto mt-28 bg-gradient-to-r from-purple-500 to-pink-500 rounded-lg mb-10 pb-10">
+      <div className="relative z-10 w-full px-4 sm:px-6 lg:px-8 min-h-screen flex flex-col-reverse lg:flex-row-reverse max-w-6xl mx-auto mt-28 bg-gradient-to-r from-purple-500 to-pink-500 rounded-lg mb-10 pb-10 pt-16">
       <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[80%] h-[2px] bg-transparent">
         <div className="absolute inset-0 h-96 -top-60 bg-purple-600/30 blur-[100px] rounded-full"></div>
         <div className="absolute inset-0 h-96 -top-60 bg-fuchsia-600/20 blur-[150px] rounded-full animate-pulse"></div>
