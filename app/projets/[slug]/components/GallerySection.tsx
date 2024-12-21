@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import * as Dialog from '@radix-ui/react-dialog';
+import Image from 'next/image';
 
 interface GalleryImage {
   image: string;
@@ -56,10 +57,14 @@ export default function ProjectGallery({ images }: ProjectGalleryProps) {
                 >
                   ✕
                 </button>
-                <img
+                <Image
                   src={selectedImage?.image}
                   alt={selectedImage?.caption}
+                  width={1920}
+                  height={1080}
                   className="w-full h-auto rounded-lg object-contain max-h-[80vh]"
+                  priority
+                  quality={90}
                 />
                 {selectedImage?.caption && (
                   <p className="text-white text-center mt-4 text-lg">{selectedImage.caption}</p>
