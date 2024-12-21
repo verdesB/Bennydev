@@ -292,7 +292,7 @@ const DemandeContent = ({
                                 <h2 className="text-2xl font-bold mb-6">Informations Utilisateur</h2>
                                 <div className="grid grid-cols-2 gap-6">
                                     <div className="space-y-2">
-                                        <Label htmlFor="displayName">Nom d'affichage</Label>
+                                        <Label htmlFor="displayName">Nom d&apos;affichage</Label>
                                         <Input
                                             id="displayName"
                                             value={userForm.displayName}

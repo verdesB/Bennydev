@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { filters, projects, ProjectType, Technology } from '../projets/projets.data';
+import { filters, projects, ProjectType } from '../projets/projets.data';
 
 
 
