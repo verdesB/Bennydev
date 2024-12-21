@@ -18,9 +18,10 @@ export async function generateStaticParams() {
 
 
 // Page du projet
-export default async function ProjectPage({ params }: { params: { slug: string } }) {
+export default async function ProjectPage({ params }: { params: Promise<{ slug: string }> }) {
+  const resolvedParams = await params;
   const project = projects.find(
-    (p) => p.title.toLowerCase().replace(/\s+/g, '-') === params.slug
+    (p) => p.title.toLowerCase().replace(/\s+/g, '-') === resolvedParams.slug
   );
 
   if (!project) {
