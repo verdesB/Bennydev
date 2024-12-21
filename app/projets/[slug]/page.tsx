@@ -1,5 +1,5 @@
 import { notFound } from 'next/navigation';
-
+import Image from 'next/image';
 import { projects } from '../projets.data';
 import Header from '@/app/components/Header';
 import Footer from '@/app/components/Footer';
@@ -15,11 +15,7 @@ export async function generateStaticParams() {
   }));
 }
 
-// Mise à jour du type avec les types corrects de Next.js
-type PageProps = {
-  params: { slug: string }
-  searchParams?: { [key: string]: string | string[] | undefined }
-}
+
 
 // Page du projet
 export default async function ProjectPage({ params }: { params: { slug: string } }) {
@@ -40,10 +36,14 @@ export default async function ProjectPage({ params }: { params: { slug: string }
       <main className="max-w-6xl mx-auto  mt-32">
         <div className="relative h-[60vh] w-full mx-auto overflow-hidden  rounded-xl z-10">
           <div className="absolute inset-0">
-            <img
+            <Image
               src={project.image}
               alt={project.title}
               className="w-full h-full object-cover"
+              width={1920}
+              height={1080} 
+              quality={90}
+              priority
             />
             <div className="absolute inset-0 bg-gradient-to-b from-black/50 to-black/20" />
           </div>
