@@ -34,7 +34,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
 
 
 
-      <main className="max-w-6xl mx-auto  mt-32">
+      <main className="m-4 xl:max-w-6xl xl:mx-auto  mt-32">
         <div className="relative h-[60vh] w-full mx-auto overflow-hidden  rounded-xl z-10">
           <div className="absolute inset-0">
             <Image
