@@ -53,7 +53,7 @@ export async function POST(request: Request) {
         const { email, fileId, fileName } = await request.json()
         
         // En mode test, on force l'email de test
-        const testEmail = 'verdesb.devacc@gmail.com'
+        
         
         const sessionToken = crypto.randomUUID()
         const sessionUrl = `${process.env.NEXT_PUBLIC_SITE_URL}/session/${sessionToken}`
@@ -78,7 +78,7 @@ export async function POST(request: Request) {
 
         const { error } = await resend.emails.send({
             from: 'contact@bennydev.fr',
-            to: testEmail,
+            to: email,
             subject: `Accès à votre session - ${fileName.split('.md')[0]}`,
             html: `
                 <!DOCTYPE html>

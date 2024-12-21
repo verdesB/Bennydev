@@ -79,19 +79,19 @@ const DemandePage = () => {
             </aside>
 
             {/* Contenu principal */}
-            <main className="flex-1 bg-white overflow-y-auto">
+            <main className="flex-1 bg-white">
                 <Suspense fallback={<div>Chargement...</div>}>
                     {selectedDemande ? (
                         <Tabs defaultValue="apercu" className="w-full h-full">
                             <div className="p-6 border-b border-[#E7E7E7]">
-                                <TabsList className="grid w-full max-w-[400px] grid-cols-3">
+                                <TabsList className="grid w-full max-w-[400px] grid-cols-2">
                                     <TabsTrigger value="apercu">Aperçu</TabsTrigger>
-                                    <TabsTrigger value="details">Détails</TabsTrigger>
+                                    
                                     <TabsTrigger value="actions">Actions</TabsTrigger>
                                 </TabsList>
                             </div>
 
-                            <div className="p-6">
+                            <div className="p-6 overflow-y-scroll h-[calc(100vh-10rem)]">
                                 <DemandeContent 
                                     file={files.find(f => f.id === selectedDemande)!}
                                     expandedFiles={expandedFiles}

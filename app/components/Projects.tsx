@@ -2,83 +2,17 @@
 import React, { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { filters, projects, ProjectType, Technology } from '../projets/projets.data';
 
 
-// Définition des types
-type ProjectType = 'ecommerce' | 'vitrine' | 'application' | 'mobile';
 
-interface Technology {
-  name: string;
-  color: string;
-}
-
-interface Project {
-  id: number;
-  title: string;
-  type: ProjectType;
-  image: string;
-  description: string;
-  technologies: Technology[];
-  link: string;
-  year: number;
-}
-
-interface FilterOption {
-  id: ProjectType | 'tous';
-  label: string;
-}
 
 const Projets: React.FC = () => {
   const [activeFilter, setActiveFilter] = useState<'tous' | ProjectType>('tous');
 
-  const technologies: { [key: string]: Technology } = {
-    react: { name: 'React', color: 'bg-blue-100 text-blue-600' },
-    node: { name: 'Node.js', color: 'bg-green-100 text-green-600' },
-    typescript: { name: 'TypeScript', color: 'bg-indigo-100 text-indigo-600' },
-    mongodb: { name: 'MongoDB', color: 'bg-emerald-100 text-emerald-600' },
-    firebase: { name: 'Firebase', color: 'bg-yellow-100 text-yellow-600' },
-  };
 
-  const projects: Project[] = [
-    {
-      id: 1,
-      title: "Marketplace Artisanale",
-      type: "ecommerce",
-      image: "/Bennydev.webp",
-      description: "Plateforme de vente pour artisans locaux avec système de paiement intégré",
-      technologies: [technologies.react, technologies.node, technologies.mongodb],
-      link: "#",
-      year: 2024
-    },
-    {
-      id: 2,
-      title: "Portfolio Photographe",
-      type: "vitrine",
-      image: "/Bennydev.webp",
-      description: "Site vitrine moderne avec galerie photos interactive",
-      technologies: [technologies.react, technologies.typescript],
-      link: "#",
-      year: 2024
-    },
-    {
-      id: 3,
-      title: "Application de Gestion",
-      type: "application",
-      image: "/Bennydev.webp",
-      description: "Dashboard complet pour la gestion d'entreprise",
-      technologies: [technologies.react, technologies.typescript, technologies.firebase],
-      link: "#",
-      year: 2023
-    }
-  ];
 
-  const filters: FilterOption[] = [
-    { id: 'tous', label: 'Tous les projets' },
-    { id: 'ecommerce', label: 'E-commerce' },
-    { id: 'vitrine', label: 'Site Vitrine' },
-    { id: 'application', label: 'Application Web' },
-    { id: 'mobile', label: 'Application Mobile' }
-  ];
+  
 
   const filteredProjects = activeFilter === 'tous' 
     ? projects 
@@ -127,7 +61,7 @@ const Projets: React.FC = () => {
                <div className="absolute bottom-4 left-4 right-4">
                  <Link 
                    title={project.title}
-                   href={project.link}
+                   href={`/projets/${project.title.toLowerCase().replace(/\s+/g, '-')}`}
                    className="inline-block px-6 py-2 bg-white text-gray-900 rounded-full hover:bg-purple-600 hover:text-white transition-colors duration-300"
                  >
                    Découvrir le projet

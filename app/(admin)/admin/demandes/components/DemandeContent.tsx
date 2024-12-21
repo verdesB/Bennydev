@@ -199,8 +199,8 @@ const DemandeContent = ({
 
     return (
         <>
-            <TabsContent value="apercu" className="mt-0">
-                <Card className="p-6">
+            <TabsContent value="apercu" className="mt-0 ">
+                <Card className="p-6 max-w-3xl">
                     <div className="flex items-center space-x-4 text-sm text-muted-foreground mb-4">
                         <div className="flex items-center space-x-1">
                             <Calendar className="h-4 w-4" />
@@ -271,14 +271,10 @@ const DemandeContent = ({
                 </Card>
             </TabsContent>
 
-            <TabsContent value="details" className="mt-0">
-                <Card className="p-6">
-                    {/* Ajouter ici les détails spécifiques au projet */}
-                </Card>
-            </TabsContent>
+        
 
-            <TabsContent value="actions" className="mt-0">
-                <Card className="p-6">
+            <TabsContent value="actions" className="mt-0 overflow-y-auto">
+                <Card className="min-h-[600px] bg-gradient-to-b from-gray-50 to-white dark:from-gray-900 dark:to-gray-800">
                     {error && (
                         <Alert variant="destructive" className="mb-6">
                             <AlertDescription>{error}</AlertDescription>
@@ -286,206 +282,193 @@ const DemandeContent = ({
                     )}
 
                     {!submissionSuccess ? (
-                        <div className="space-y-6">
-                            {/* Étapes de progression */}
-                            <div className="flex justify-between relative">
-                                {['user', 'profile', 'project'].map((stepName, index) => (
-                                    <div key={stepName} className="flex flex-col items-center relative z-10">
-                                        <div className={`
-                                            w-8 h-8 rounded-full flex items-center justify-center text-sm
-                                            ${step === stepName ? 'bg-primary text-primary-foreground' :
-                                            index < ['user', 'profile', 'project'].indexOf(step) ? 'bg-primary/20 text-primary' :
-                                            'bg-muted text-muted-foreground'}
-                                        `}>
-                                            {index + 1}
-                                        </div>
-                                        <span className="text-xs mt-1 text-muted-foreground capitalize">
-                                            {stepName}
-                                        </span>
+                        <div className="p-6">
+                            {/* Barre de progression comme avant */}
+                            
+                            {/* Étape 1 : Utilisateur */}
+                            <Card className={`p-8 mb-6 transition-all duration-300 max-w-3xl ${
+                                step === 'user' ? 'opacity-100' : 'opacity-50'
+                            }`}>
+                                <h2 className="text-2xl font-bold mb-6">Informations Utilisateur</h2>
+                                <div className="grid grid-cols-2 gap-6">
+                                    <div className="space-y-2">
+                                        <Label htmlFor="displayName">Nom d'affichage</Label>
+                                        <Input
+                                            id="displayName"
+                                            value={userForm.displayName}
+                                            onChange={(e) => setUserForm({...userForm, displayName: e.target.value})}
+                                            disabled={step !== 'user'}
+                                        />
                                     </div>
-                                ))}
-                                <div className="absolute top-4 left-0 w-full h-[2px] bg-muted -z-0">
-                                    <div className={`h-full bg-primary transition-all duration-300
-                                        ${step === 'user' ? 'w-0' : 
-                                          step === 'profile' ? 'w-1/2' : 
-                                          'w-full'}
-                                    `}/>
+                                    <div className="space-y-2">
+                                        <Label htmlFor="email">Email</Label>
+                                        <Input
+                                            id="email"
+                                            type="email"
+                                            value={userForm.email}
+                                            onChange={(e) => setUserForm({...userForm, email: e.target.value})}
+                                            disabled={step !== 'user'}
+                                        />
+                                    </div>
+                                    <div className="space-y-2">
+                                        <Label htmlFor="password">Mot de passe</Label>
+                                        <Input
+                                            id="password"
+                                            type="password"
+                                            value={userForm.password}
+                                            onChange={(e) => setUserForm({...userForm, password: e.target.value})}
+                                            disabled={step !== 'user'}
+                                        />
+                                    </div>
+                                    <div className="space-y-2">
+                                        <Label htmlFor="phone">Téléphone</Label>
+                                        <Input
+                                            id="phone"
+                                            value={userForm.phone}
+                                            onChange={(e) => setUserForm({...userForm, phone: e.target.value})}
+                                            disabled={step !== 'user'}
+                                        />
+                                    </div>
                                 </div>
-                            </div>
-
-                            {/* Formulaires */}
-                            {step === 'user' && (
-                                <div className="space-y-4">
-                                    <div className="grid grid-cols-2 gap-4">
-                                        <div className="space-y-2">
-                                            <Label htmlFor="displayName">Nom d&apos;affichage</Label>
-                                            <Input
-                                                id="displayName"
-                                                value={userForm.displayName}
-                                                onChange={(e) => setUserForm({...userForm, displayName: e.target.value})}
-                                            />
-                                        </div>
-                                        <div className="space-y-2">
-                                            <Label htmlFor="email">Email</Label>
-                                            <Input
-                                                id="email"
-                                                type="email"
-                                                value={userForm.email}
-                                                onChange={(e) => setUserForm({...userForm, email: e.target.value})}
-                                            />
-                                        </div>
-                                        <div className="space-y-2">
-                                            <Label htmlFor="password">Mot de passe</Label>
-                                            <Input
-                                                id="password"
-                                                type="password"
-                                                value={userForm.password}
-                                                onChange={(e) => setUserForm({...userForm, password: e.target.value})}
-                                            />
-                                        </div>
-                                        <div className="space-y-2">
-                                            <Label htmlFor="phone">Téléphone</Label>
-                                            <Input
-                                                id="phone"
-                                                value={userForm.phone}
-                                                onChange={(e) => setUserForm({...userForm, phone: e.target.value})}
-                                            />
-                                        </div>
-                                    </div>
+                                {step === 'user' && (
                                     <Button 
                                         onClick={handleUserSubmit}
-                                        className="w-full"
+                                        className="w-full mt-6"
                                     >
-                                        Suivant
+                                        Continuer vers le profil
                                         <ChevronRight className="ml-2 h-4 w-4" />
                                     </Button>
-                                </div>
-                            )}
+                                )}
+                            </Card>
 
-                            {step === 'profile' && (
-                                <div className="space-y-4">
-                                    <div className="grid grid-cols-2 gap-4">
-                                        <div className="space-y-2">
-                                            <Label htmlFor="firstName">Prénom</Label>
-                                            <Input
-                                                id="firstName"
-                                                value={profileForm.firstName}
-                                                onChange={(e) => setProfileForm({...profileForm, firstName: e.target.value})}
-                                            />
-                                        </div>
-                                        <div className="space-y-2">
-                                            <Label htmlFor="lastName">Nom</Label>
-                                            <Input
-                                                id="lastName"
-                                                value={profileForm.lastName}
-                                                onChange={(e) => setProfileForm({...profileForm, lastName: e.target.value})}
-                                            />
-                                        </div>
-                                        <div className="space-y-2">
-                                            <Label htmlFor="company">Entreprise</Label>
-                                            <Input
-                                                id="company"
-                                                value={profileForm.company}
-                                                onChange={(e) => setProfileForm({...profileForm, company: e.target.value})}
-                                            />
-                                        </div>
-                                        <div className="space-y-2">
-                                            <Label htmlFor="projectCode">Code projet</Label>
-                                            <Input
-                                                id="projectCode"
-                                                value={profileForm.projectCode}
-                                                onChange={(e) => setProfileForm({...profileForm, projectCode: e.target.value})}
-                                            />
-                                        </div>
+                            {/* Étape 2 : Profil */}
+                            <Card className={`p-8 mb-6 transition-all duration-300 max-w-3xl ${
+                                step === 'profile' ? 'opacity-100' : 'opacity-50'
+                            }`}>
+                                <h2 className="text-2xl font-bold mb-6">Profil</h2>
+                                <div className="grid grid-cols-2 gap-6">
+                                    <div className="space-y-2">
+                                        <Label htmlFor="firstName">Prénom</Label>
+                                        <Input
+                                            id="firstName"
+                                            value={profileForm.firstName}
+                                            onChange={(e) => setProfileForm({...profileForm, firstName: e.target.value})}
+                                            disabled={step !== 'profile'}
+                                        />
                                     </div>
+                                    <div className="space-y-2">
+                                        <Label htmlFor="lastName">Nom</Label>
+                                        <Input
+                                            id="lastName"
+                                            value={profileForm.lastName}
+                                            onChange={(e) => setProfileForm({...profileForm, lastName: e.target.value})}
+                                            disabled={step !== 'profile'}
+                                        />
+                                    </div>
+                                    <div className="space-y-2">
+                                        <Label htmlFor="company">Entreprise</Label>
+                                        <Input
+                                            id="company"
+                                            value={profileForm.company}
+                                            onChange={(e) => setProfileForm({...profileForm, company: e.target.value})}
+                                            disabled={step !== 'profile'}
+                                        />
+                                    </div>
+                                    <div className="space-y-2">
+                                        <Label htmlFor="projectCode">Code projet</Label>
+                                        <Input
+                                            id="projectCode"
+                                            value={profileForm.projectCode}
+                                            onChange={(e) => setProfileForm({...profileForm, projectCode: e.target.value})}
+                                            disabled={step !== 'profile'}
+                                        />
+                                    </div>
+                                </div>
+                                {step === 'profile' && (
                                     <Button 
                                         onClick={handleProfileSubmit}
-                                        className="w-full"
+                                        className="w-full mt-6"
                                     >
-                                        Suivant
+                                        Continuer vers le projet
                                         <ChevronRight className="ml-2 h-4 w-4" />
                                     </Button>
-                                </div>
-                            )}
+                                )}
+                            </Card>
 
-                            {step === 'project' && (
-                                <div className="space-y-4">
-                                    <div className="grid grid-cols-2 gap-4">
-                                        <div className="space-y-2">
-                                            <Label htmlFor="name">Nom du projet</Label>
-                                            <Input
-                                                id="name"
-                                                value={projectForm.name}
-                                                onChange={(e) => setProjectForm({...projectForm, name: e.target.value})}
-                                            />
-                                        </div>
-                                        <div className="space-y-2">
-                                            <Label htmlFor="description">Description</Label>
-                                            <Input
-                                                id="description"
-                                                value={projectForm.description}
-                                                onChange={(e) => setProjectForm({...projectForm, description: e.target.value})}
-                                            />
-                                        </div>
-                                        <div className="space-y-2">
-                                            <Label htmlFor="type">Type</Label>
-                                            <Input
-                                                id="type"
-                                                value={projectForm.type}
-                                                onChange={(e) => setProjectForm({...projectForm, type: e.target.value})}
-                                            />
-                                        </div>
-                                        <div className="space-y-2">
-                                            <Label htmlFor="state">État</Label>
-                                            <Input
-                                                id="state"
-                                                value={projectForm.state}
-                                                onChange={(e) => setProjectForm({...projectForm, state: e.target.value})}
-                                            />
-                                        </div>
-                                        <div className="space-y-2">
-                                            <Label htmlFor="starterDate">Date de début</Label>
-                                            <Input
-                                                id="starterDate"
-                                                value={projectForm.starterDate}
-                                                onChange={(e) => setProjectForm({...projectForm, starterDate: e.target.value})}
-                                            />
-                                        </div>
-                                        <div className="space-y-2">
-                                            <Label htmlFor="focusDate">Date de fin</Label>
-                                            <Input
-                                                id="focusDate"
-                                                value={projectForm.focusDate}
-                                                onChange={(e) => setProjectForm({...projectForm, focusDate: e.target.value})}
-                                            />
-                                        </div>
-                                        <div className="space-y-2">
-                                            <Label htmlFor="budget">Budget</Label>
-                                            <Input
-                                                id="budget"
-                                                value={projectForm.budget}
-                                                onChange={(e) => setProjectForm({...projectForm, budget: Number(e.target.value)})}
-                                            />
-                                        </div>
-                                        <div className="space-y-2">
-                                            <Label htmlFor="projectCode">Code projet</Label>
-                                            <Input
-                                                id="projectCode"
-                                                value={projectForm.projectCode}
-                                                onChange={(e) => setProjectForm({...projectForm, projectCode: e.target.value})}
-                                            />
-                                        </div>
+                            {/* Étape 3 : Projet */}
+                            <Card className={`p-8 transition-all duration-300 max-w-3xl ${
+                                step === 'project' ? 'opacity-100' : 'opacity-50'
+                            }`}>
+                                <h2 className="text-2xl font-bold mb-6">Projet</h2>
+                                <div className="grid grid-cols-2 gap-6">
+                                    <div className="space-y-2">
+                                        <Label htmlFor="projectName">Nom du projet</Label>
+                                        <Input
+                                            id="projectName"
+                                            value={projectForm.name}
+                                            onChange={(e) => setProjectForm({...projectForm, name: e.target.value})}
+                                            disabled={step !== 'project'}
+                                        />
                                     </div>
+                                    <div className="space-y-2">
+                                        <Label htmlFor="projectType">Type</Label>
+                                        <Input
+                                            id="projectType"
+                                            value={projectForm.type}
+                                            onChange={(e) => setProjectForm({...projectForm, type: e.target.value})}
+                                            disabled={step !== 'project'}
+                                        />
+                                    </div>
+                                    <div className="space-y-2">
+                                        <Label htmlFor="starterDate">Date de début</Label>
+                                        <Input
+                                            id="starterDate"
+                                            value={projectForm.starterDate}
+                                            onChange={(e) => setProjectForm({...projectForm, starterDate: e.target.value})}
+                                            disabled={step !== 'project'}
+                                        />
+                                    </div>
+                                    <div className="space-y-2">
+                                        <Label htmlFor="focusDate">Date de fin</Label>
+                                        <Input
+                                            id="focusDate"
+                                            value={projectForm.focusDate}
+                                            onChange={(e) => setProjectForm({...projectForm, focusDate: e.target.value})}
+                                            disabled={step !== 'project'}
+                                        />
+                                    </div>
+                                    <div className="space-y-2">
+                                        <Label htmlFor="budget">Budget</Label>
+                                        <Input
+                                            id="budget"
+                                            type="number"
+                                            value={projectForm.budget}
+                                            onChange={(e) => setProjectForm({...projectForm, budget: Number(e.target.value)})}
+                                            disabled={step !== 'project'}
+                                        />
+                                    </div>
+                                    <div className="col-span-2 space-y-2">
+                                        <Label htmlFor="description">Description</Label>
+                                        <textarea
+                                            id="description"
+                                            value={projectForm.description}
+                                            onChange={(e) => setProjectForm({...projectForm, description: e.target.value})}
+                                            disabled={step !== 'project'}
+                                            className="w-full h-32 p-2 border rounded-md"
+                                        />
+                                    </div>
+                                </div>
+                                {step === 'project' && (
                                     <Button 
                                         onClick={handleSubmit}
-                                        className="w-full"
+                                        className="w-full mt-6"
                                         disabled={updating}
                                     >
-                                        {updating ? "En cours..." : "Suivant"}
+                                        {updating ? "En cours..." : "Finaliser la création"}
                                         <ChevronRight className="ml-2 h-4 w-4" />
                                     </Button>
-                                </div>
-                            )}
+                                )}
+                            </Card>
                         </div>
                     ) : (
                         <div className="space-y-6">

@@ -174,7 +174,41 @@ export async function POST(req: Request) {
             );
         }
 
-        // 4.1 Création du bucket Supabase
+        // 5.1 Création du profile_project_codes
+        const { error: profileProjectCodeError } = await supabaseAdmin
+            .from('profile_project_codes')
+            .insert({
+                profile_id: newUser.user.id,
+                project_id: newProject.id,
+                project_code: project.projectCode
+            });
+
+        if (profileProjectCodeError) {
+            // Nettoyer en cas d'erreur
+            await supabaseAdmin.auth.admin.deleteUser(newUser.user.id);
+            await supabaseAdmin
+                .from('projects')
+                .delete()
+                .match({ id: newProject.id });
+
+            return NextResponse.json(
+                { error: profileProjectCodeError.message },
+                { status: 400 }
+            );
+        }
+
+        // 5.2 Suppression de la demande dans le bucket bennydev.projets
+        const { error: deleteError } = await supabaseAdmin
+            .storage
+            .from('bennydev.projets')
+            .remove([`${project.projectCode}`]);
+
+        if (deleteError) {
+            console.error('Erreur lors de la suppression dans le bucket:', deleteError);
+            // On continue malgré l'erreur car ce n'est pas critique
+        }
+
+        // 6. Création du bucket Supabase
         const bucketName = `Bennydev.${project.projectCode}`;
         const { error: bucketError } = await supabaseAdmin
             .storage

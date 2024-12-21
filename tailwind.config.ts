@@ -78,17 +78,27 @@ const config: Config = {
   			}
   		},
   		animation: {
-  			aurora: 'aurora 60s linear infinite'
+  			'fade-in': 'fade-in 0.3s ease-out',
+  			'scale-up': 'scale-up 0.3s ease-out',
+  			'aurora': 'aurora 60s linear infinite'
   		},
   		keyframes: {
-  			aurora: {
-  				from: {
-  					backgroundPosition: '50% 50%, 50% 50%'
-  				},
-  				to: {
-  					backgroundPosition: '350% 50%, 350% 50%'
-  				}
-  			}
+			'fade-in': {
+				'0%': { opacity: '0' },
+				'100%': { opacity: '1' },
+			  },
+			  'scale-up': {
+				'0%': { transform: 'scale(0.95)', opacity: '0' },
+				'100%': { transform: 'scale(1)', opacity: '1' },
+			  },
+			  'aurora': {
+				from: {
+				  backgroundPosition: '50% 50%, 50% 50%'
+				},
+				to: {
+				  backgroundPosition: '350% 50%, 350% 50%'
+				}
+			  }
   		},
   		borderRadius: {
   			lg: 'var(--radius)',
