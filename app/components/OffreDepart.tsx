@@ -1,4 +1,5 @@
 import React from 'react';
+import { SparklesCore } from './ui/sparkles';
 
 interface EtapeProps {
   numero: string;
@@ -29,13 +30,25 @@ const Etape: React.FC<EtapeProps> = ({ numero, titre, description }) => (
 export default function OffreDepart({ titre, sousTitre, prix, etapes, inclus }: OffreDepartProps) {
   return (
     <section className="py-16 px-4 max-w-6xl mx-auto">
-      <div className="max-w-6xl bg-gradient-to-br from-purple-600 to-purple-800 text-white py-12 mx-auto rounded-2xl mb-16 shadow-xl">
-        <h2 className="text-4xl font-bold text-center mb-6">{titre}</h2>
-        <p className="text-purple-100 text-center mb-8 max-w-2xl mx-auto text-lg">
+      <div className="relative z-10 max-w-6xl bg-gradient-to-br from-black via-purple-900 to-purple-800 text-white py-12 mx-auto rounded-2xl mb-16 shadow-2xl border border-purple-500/20">
+        <h2 className="text-4xl font-bold text-center mb-6 bg-gradient-to-r from-purple-200 to-purple-400  w-1/2 text-transparent bg-clip-text w-1/2 mx-auto">{titre}</h2>
+        <p className="text-purple-200 text-center mb-8 max-w-2xl mx-auto text-lg">
           {sousTitre}
         </p>
+        <SparklesCore
+        particleDensity={100}
+        particleSize={0.1}
+        maxSize={0.8}
+        minSize={0.7}
+        particleColor="#ffffff"
+        speed={1}
+        className=" absolute top-0 left-0 w-full h-full -z-1"
+        background="transparent"
+
+        />
+
         <div className="flex justify-center">
-          <div className="bg-white text-purple-800 px-6 py-3 rounded-full font-semibold hover:bg-purple-100 transition-colors cursor-pointer">
+          <div className="bg-gradient-to-r from-purple-500 to-purple-700 text-white px-8 py-4 rounded-full font-semibold hover:from-purple-600 hover:to-purple-800 transition-all duration-300 cursor-pointer shadow-lg">
             {prix}
           </div>
         </div>

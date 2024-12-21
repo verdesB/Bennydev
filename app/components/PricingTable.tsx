@@ -45,7 +45,7 @@ const PricingTable: React.FC<PricingTableProps> = ({ plans, features }) => {
               {plans.map((plan) => (
                 <th key={plan.id} className="py-6 px-6 bg-gray-50">
                   <span className="text-sm font-semibold text-gray-900">{plan.name}</span>
-                  <div className="mt-2 text-2xl font-bold text-blue-600">{plan.price}</div>
+                  <div className="mt-2 text-2xl font-bold text-purple-600">{plan.price}</div>
                 </th>
               ))}
             </tr>
