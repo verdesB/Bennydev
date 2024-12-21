@@ -22,7 +22,7 @@ type PageProps = {
 }
 
 // Page du projet
-export default async function ProjectPage({ params }: PageProps) {
+export default async function ProjectPage({ params }: { params: { slug: string } }) {
   const project = projects.find(
     (p) => p.title.toLowerCase().replace(/\s+/g, '-') === params.slug
   );
@@ -35,7 +35,6 @@ export default async function ProjectPage({ params }: PageProps) {
     <>
       <Header pathname={'/projets'} />
 
-      {/* Hero Section avec image en parallaxe */}
 
 
       <main className="max-w-6xl mx-auto  mt-32">
