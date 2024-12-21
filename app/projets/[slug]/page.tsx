@@ -15,14 +15,14 @@ export async function generateStaticParams() {
   }));
 }
 
-// Ajout du type SearchParams
-type Props = {
+// Mise à jour du type avec les types corrects de Next.js
+type PageProps = {
   params: { slug: string }
-  searchParams: { [key: string]: string | string[] | undefined }
+  searchParams?: { [key: string]: string | string[] | undefined }
 }
 
 // Page du projet
-export default function ProjectPage({ params }: Props) {
+export default async function ProjectPage({ params }: PageProps) {
   const project = projects.find(
     (p) => p.title.toLowerCase().replace(/\s+/g, '-') === params.slug
   );

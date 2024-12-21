@@ -26,9 +26,13 @@ export default function ProjectGallery({ images }: ProjectGalleryProps) {
             onClick={() => setSelectedImage(image)}
             className="group relative aspect-square rounded-lg overflow-hidden cursor-pointer hover:shadow-xl transition-all duration-300 border-2 border-purple-200"
           >
-            <img
+            <Image
               src={image.image}
               alt={image.caption}
+              width={1920}
+              height={1080} 
+              quality={90}
+              priority
               className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
             />
             <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
