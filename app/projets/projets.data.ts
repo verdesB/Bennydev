@@ -71,11 +71,11 @@ export const projects: Project[] = [
       gallery: [
         {
           image: '/webtune-1.webp',
-          caption: 'Page d\'accueil Webtune'
+          caption: 'Dashboard analytics'
         },
         {
           image: '/webtune-2.webp',
-          caption: 'Dashboard analytics'
+          caption: 'Calendrier éditorial'
         },
         {
           image: '/webtune-3.webp',
@@ -83,7 +83,7 @@ export const projects: Project[] = [
         },
         {
           image: '/webtune-4.webp',
-          caption: 'Calendrier éditorial'
+          caption: 'Gestion des publications'
         }
       ],
       keyPoints: [
