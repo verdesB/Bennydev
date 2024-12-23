@@ -117,6 +117,7 @@ export async function POST(req: Request) {
             }, { status: 400 });
         }
 
+       
         // 4. Création du projet
         const { data: newProject, error: projectError } = await supabaseAdmin
             .from('projects')
@@ -128,7 +129,7 @@ export async function POST(req: Request) {
                 starter_date: project.starterDate,
                 focus_date: project.focusDate,
                 budget: project.budget,
-                code_project: project.projectCode
+                
             })
             .select()
             .single();
@@ -173,26 +174,36 @@ export async function POST(req: Request) {
                 { status: 400 }
             );
         }
+        
 
         // 5.1 Création du profile_project_codes
         const { error: profileProjectCodeError } = await supabaseAdmin
             .from('profile_project_codes')
-            .insert({
+            .insert([{
                 profile_id: newUser.user.id,
                 project_id: newProject.id,
-                project_code: project.projectCode
-            });
+                project_code: profile.projectCode,
+               
+                created_at: new Date().toISOString()
+            }]);
 
         if (profileProjectCodeError) {
-            // Nettoyer en cas d'erreur
+            console.error('Erreur profile_project_codes:', profileProjectCodeError);
             await supabaseAdmin.auth.admin.deleteUser(newUser.user.id);
             await supabaseAdmin
                 .from('projects')
                 .delete()
                 .match({ id: newProject.id });
+            await supabaseAdmin
+                .from('user_projects')
+                .delete()
+                .match({ project_id: newProject.id });
 
             return NextResponse.json(
-                { error: profileProjectCodeError.message },
+                { 
+                    error: profileProjectCodeError.message,
+                    details: 'Erreur lors de la création de l\'association profile-project-code'
+                },
                 { status: 400 }
             );
         }
@@ -209,7 +220,7 @@ export async function POST(req: Request) {
         }
 
         // 6. Création du bucket Supabase
-        const bucketName = `Bennydev.${project.projectCode}`;
+        const bucketName = `Bennydev.${profile.projectCode}`;
         const { error: bucketError } = await supabaseAdmin
             .storage
             .createBucket(bucketName, {

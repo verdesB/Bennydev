@@ -102,19 +102,19 @@ const DemandeContent = ({
         firstName: '',
         lastName: '',
         company: '',
-        projectCode: file.projectCode || '',
+        projectCode: file?.projectCode || '',
         role: 'client'
     });
     
     const [projectForm, setProjectForm] = useState<ProjectFormData>({
         name: '',
-        description: file.content || '',
+        description: file?.content || '',
         type: '',
         state: 'draft',
         starterDate: '',
         focusDate: '',
         budget: 0,
-        projectCode: file.projectCode || ''
+        projectCode: file?.projectCode || ''
     });
 
     const handleUserSubmit = () => {
@@ -143,21 +143,19 @@ const DemandeContent = ({
 
         setUpdating(true);
         try {
-            const temporaryPassword = Math.random().toString(36).slice(-10);
-
             const formattedProject = {
                 ...projectForm,
                 starterDate: formatDateToISO(projectForm.starterDate),
                 focusDate: formatDateToISO(projectForm.focusDate)
             };
 
+            // Création de l'utilisateur, profil et projet
             const response = await fetch('/api/create-user-profile-project', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
                     user: {
                         ...userForm,
-                        password: temporaryPassword,
                         needsPasswordChange: true
                     },
                     profile: profileForm,
@@ -166,7 +164,12 @@ const DemandeContent = ({
             });
 
             if (!response.ok) throw new Error('Erreur lors de la création');
+            
+            const responseData = await response.json();
 
+           
+
+            // Envoi de l'email
             const sendSessionResponse = await fetch('/api/send-session', {
                 method: 'POST',
                 headers: {
@@ -184,6 +187,21 @@ const DemandeContent = ({
                 const error = await sendSessionResponse.json();
                 throw new Error(error.error || 'Erreur lors de l\'envoi');
             }
+             // Suppression du fichier du bucket
+             const projectCode = projectForm.projectCode;
+             console.log(projectCode);
+             
+             const deleteResponse = await fetch(`/api/delete-project-file`, {
+                 method: 'DELETE',
+                 headers: { 'Content-Type': 'application/json' },
+                 body: JSON.stringify({
+                    projectIdentifier:  profileForm.projectCode
+                 })
+             });
+ 
+             if (!deleteResponse.ok) {
+                 throw new Error('Erreur lors de la suppression du fichier');
+             }
 
             setSubmissionSuccess(true);
             toast.success('Compte créé et email envoyé avec succès !');

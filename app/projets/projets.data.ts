@@ -1,5 +1,5 @@
 // Définition des types
-export type ProjectType = 'ecommerce' | 'vitrine' | 'application' | 'SEO' | 'Projets Personnels';
+export type ProjectType = 'ecommerce' | 'vitrine' | 'application' | 'SEO' | 'personnel';
 export const technologies: { [key: string]: Technology } = {
     react: { name: 'React', color: 'bg-blue-100 text-blue-600' },
     node: { name: 'Node.js', color: 'bg-green-100 text-green-600' },
@@ -62,7 +62,7 @@ export const projects: Project[] = [
     {
       id: 1,
       title: "Webtune",
-      type: "application",
+      type: "personnel",
       image: "https://iskqpfzwkuwtheuclxjq.supabase.co/storage/v1/object/sign/bennydev/homepage2.png?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJiZW5ueWRldi9ob21lcGFnZTIucG5nIiwiaWF0IjoxNzM0NTU2NTQ5LCJleHAiOjE4OTIyMzY1NDl9.fExb2DwN_bQFc8cATeq_UK2vfJW-nNP4PZSvxHHArvs&t=2024-12-18T21%3A19%3A30.442Z",
       description: "Application de gestion de contenu sociale (Facebook, Instagram, linkedin...). Cette application est en développement avec une entreprise belge, le projet est toujours en cours de développement mais à été mis en standBy pour le moment.",
       technologies: [technologies.react, technologies.nest, technologies.graphql],
@@ -105,7 +105,7 @@ export const projects: Project[] = [
     {
       id: 2,
       title: "Monokrom",
-      type: "application",
+      type: "personnel",
       image: "https://iskqpfzwkuwtheuclxjq.supabase.co/storage/v1/object/sign/bennydev/showroomRTF.png?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJiZW5ueWRldi9zaG93cm9vbVJURi5wbmciLCJpYXQiOjE3MzQ1NjA5NzksImV4cCI6MTg5MjI0MDk3OX0.Q7b_TGUfmGrJonH9c8Qi1LBeOrUQz9lcNODtataJSKM&t=2024-12-18T22%3A33%3A20.751Z",
       description: "Site de création/visite de galeries d'art 3D, une version bêta à été développer afin de tester la 3D sur le web, le projet prendra une nouvelle tourne dans le futur.",
       technologies: [technologies.next, technologies.tailwind, technologies.threejs],
@@ -146,5 +146,5 @@ export const projects: Project[] = [
     { id: 'vitrine', label: 'Site Vitrine' },
     { id: 'application', label: 'Application Web' },
     { id: 'SEO', label: 'SEO' },
-    { id: 'Projets Personnels', label: 'Projets Personnels' }
+    { id: 'personnel', label: 'Projets Personnels' }
   ];

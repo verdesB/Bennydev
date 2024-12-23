@@ -64,7 +64,7 @@ export const siteConfig = {
           {
             name: 'Design responsive',
             values: {
-              essential: 'Template optimisé',
+              essential: 'Design simple',
               business: 'Design personnalisé',
               premium: 'Design sur-mesure'
             }
@@ -90,7 +90,7 @@ export const siteConfig = {
             values: {
               essential: '1 formulaire contact',
               business: '3 formulaires',
-              premium: 'Illimités + CRM'
+              premium: 'Illimités'
             }
           },
           {
@@ -109,28 +109,21 @@ export const siteConfig = {
               premium: '3 langues'
             }
           },
-          {
-            name: 'Analytics & Rapports',
-            values: {
-              essential: 'Google Analytics',
-              business: '+ Events tracking',
-              premium: '+ Dashboard personnalisé'
-            }
-          },
+         
           {
             name: 'Support technique',
             values: {
-              essential: 'Email (48h)',
-              business: 'Email prioritaire (24h)',
-              premium: 'Support dédié (4h)'
+              essential: 'Support bennydev',
+              business: 'Support bennydev',
+              premium: 'Support bennydev'
             }
           },
           {
             name: 'Maintenance',
             values: {
-              essential: 'Trimestrielle',
-              business: 'Mensuelle',
-              premium: 'Hebdomadaire'
+              essential: 'Selon formule',
+              business: 'Selon formule',
+              premium: 'Selon formule'
             }
           },
           {
@@ -244,20 +237,13 @@ export const siteConfig = {
               premium: 'Templates sur-mesure'
             }
           },
-          {
-            name: 'Analytics & Rapports',
-            values: {
-              starter: 'Basique',
-              business: '+ Rapports avancés',
-              premium: '+ Dashboard personnalisé'
-            }
-          },
+          
           {
             name: 'Support technique',
             values: {
-              starter: 'Email (48h)',
-              business: 'Email prioritaire (24h)',
-              premium: 'Support dédié (4h)'
+              starter: 'Support bennydev',
+              business: 'Support bennydev',
+              premium: 'Support bennydev'
             }
           },
           {
@@ -271,19 +257,12 @@ export const siteConfig = {
           {
             name: 'Maintenance',
             values: {
-              starter: 'Trimestrielle',
-              business: 'Mensuelle',
-              premium: 'Hebdomadaire'
+              starter: 'Selon formule',
+              business: 'Selon formule',
+              premium: 'Selon formule'
             }
           },
-          {
-            name: 'Import produits',
-            values: {
-              starter: 'Manuel',
-              business: 'CSV/Excel',
-              premium: 'API + automatisation'
-            }
-          },
+         
           {
             name: 'Hébergement',
             values: {
@@ -307,15 +286,15 @@ export const siteConfig = {
 
     webApp: {
       title: "Solutions sur Mesure",
-      description: "Développements spécifiques adaptés à vos besoins",
+      description: "Applications web modernes avec Next.js et Supabase",
       features: [
-        "Architecture sur-mesure",
-        "Développement d'API personnalisées",
-        "Intégration de services tiers",
+        "Architecture Next.js 14",
+        "Base de données Supabase",
+        "Authentication sécurisée",
         "Solutions métier spécifiques",
-        "Scalabilité et performance"
+        "Performance optimisée"
       ],
-      startingPrice: 4999,
+      startingPrice: 4900,
       pricing: {
         plans: [
           { id: 'basic', name: 'Application Simple', price: 'À partir de 4900€' },
@@ -332,42 +311,42 @@ export const siteConfig = {
             }
           },
           {
-            name: 'Authentification',
+            name: 'Authentification Supabase',
             values: {
               basic: 'Email + Social Auth',
-              advanced: '+ Rôles et permissions',
-              enterprise: '+ SSO & Auth personnalisée'
+              advanced: '+ RLS et permissions',
+              enterprise: '+ Auth personnalisée & SSO'
             }
           },
           {
             name: 'Base de données',
             values: {
-              basic: 'PostgreSQL simple',
-              advanced: '+ Cache + Indexation',
-              enterprise: '+ Clustering & Réplication'
+              basic: 'Supabase basique + 2-3 tables',
+              advanced: '+ Relations complexes + Storage',
+              enterprise: '+ Edge Functions & Realtime'
             }
           },
           {
-            name: 'API',
+            name: 'Architecture Next.js',
             values: {
-              basic: 'REST API basique',
-              advanced: '+ GraphQL',
-              enterprise: '+ API Gateway & Microservices'
+              basic: 'Pages statiques + API Routes',
+              advanced: '+ Server Components + Streaming',
+              enterprise: '+ Architecture micro-frontends'
             }
           },
           {
             name: 'Interface utilisateur',
             values: {
-              basic: 'UI Components standards',
-              advanced: 'UI Components personnalisés',
-              enterprise: 'Design système complet'
+              basic: 'UI Kit standard (Shadcn/UI)',
+              advanced: 'Components personnalisés + animations',
+              enterprise: 'Design système complet + Storybook'
             }
           },
           {
-            name: 'Temps réel',
+            name: 'Fonctionnalités temps réel',
             values: {
-              basic: 'Notifications simples',
-              advanced: '+ WebSocket temps réel',
+              basic: 'Notifications basiques',
+              advanced: '+ Supabase Realtime',
               enterprise: '+ Synchronisation complète'
             }
           },
@@ -375,32 +354,32 @@ export const siteConfig = {
             name: 'Intégrations',
             values: {
               basic: '1-2 services externes',
-              advanced: '3-5 services externes',
+              advanced: '+ Stripe + autres APIs',
               enterprise: 'Intégrations illimitées'
             }
           },
           {
             name: 'Tests',
             values: {
-              basic: 'Tests unitaires',
-              advanced: '+ Tests E2E',
-              enterprise: '+ Tests de charge & QA'
+              basic: 'Tests composants (Vitest)',
+              advanced: '+ Cypress E2E',
+              enterprise: '+ Tests de charge & monitoring'
             }
           },
           {
             name: 'Déploiement',
             values: {
-              basic: 'Environnement unique',
-              advanced: 'Dev/Staging/Prod',
-              enterprise: '+ Infrastructure HA'
+              basic: 'Vercel + Supabase Cloud',
+              advanced: '+ Environnements de staging',
+              enterprise: '+ CI/CD personnalisé'
             }
           },
           {
-            name: 'Monitoring',
+            name: 'Performance',
             values: {
-              basic: 'Logs basiques',
-              advanced: '+ APM & Alerting',
-              enterprise: '+ Dashboard personnalisé'
+              basic: 'Optimisation basique',
+              advanced: '+ ISR + cache Redis',
+              enterprise: '+ CDN + optimisation edge'
             }
           },
           {
@@ -414,21 +393,20 @@ export const siteConfig = {
           {
             name: 'Formation',
             values: {
-              basic: '4h de formation',
-              advanced: '8h + documentation',
-              enterprise: 'Formation sur mesure'
+              basic: '4h formation admin',
+              advanced: '8h + documentation technique',
+              enterprise: 'Formation complète équipe'
             }
           },
           {
             name: 'Documentation',
             values: {
-              basic: 'Documentation utilisateur',
+              basic: 'Guide utilisateur',
               advanced: '+ Documentation technique',
-              enterprise: '+ Architecture & API'
+              enterprise: '+ Architecture & API docs'
             }
-          },
+          }
         ]
-      
       }
     },
 

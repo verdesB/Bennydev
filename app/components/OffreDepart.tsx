@@ -29,7 +29,7 @@ const Etape: React.FC<EtapeProps> = ({ numero, titre, description }) => (
 
 export default function OffreDepart({ titre, sousTitre, prix, etapes, inclus }: OffreDepartProps) {
   return (
-    <section className="py-16 px-4 max-w-6xl mx-auto">
+    <section className="py-16 px-4 lg:px-0 max-w-6xl mx-auto">
       <div className="relative z-10 max-w-6xl bg-gradient-to-br from-black via-purple-900 to-purple-800 text-white py-12 mx-auto rounded-2xl mb-16 shadow-2xl border border-purple-500/20">
         <h2 className="text-4xl font-bold text-center mb-6 bg-gradient-to-r from-purple-200 to-purple-400  w-1/2 text-transparent bg-clip-text w-1/2 mx-auto">{titre}</h2>
         <p className="text-purple-200 text-center mb-8 max-w-2xl mx-auto text-lg">

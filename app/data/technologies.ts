@@ -1,7 +1,7 @@
 export interface Technology {
   name: string;
   icon: string;
-  category: 'frontend' | 'backend' | 'cms' | 'deployment' | 'ecommerce';
+  category: 'frontend' | 'backend' | 'cms' | 'deployment' | 'ecommerce' | 'hybride';
   description: string;
   whyUseIt: string[];
   documentation: string;
@@ -12,7 +12,7 @@ export const vitrinesTechnologies: Technology[] = [
   {
     name: 'Next.js',
     icon: '/next.webp',
-    category: 'frontend',
+    category: 'hybride',
     description: 'Framework React moderne pour créer des sites vitrines performants et optimisés',
     whyUseIt: [
       'Performances optimales avec le rendu hybride',
