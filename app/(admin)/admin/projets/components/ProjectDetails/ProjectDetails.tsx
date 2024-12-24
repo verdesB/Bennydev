@@ -8,7 +8,7 @@ import { UrlsSection } from './UrlsSection';
 
 
 import Link from 'next/link';
-import { KanbanIcon, CreditCard as PaymentIcon, ArrowUpRight, ImageIcon, FileIcon } from 'lucide-react';
+import { KanbanIcon, CreditCard as PaymentIcon, ArrowUpRight, FileIcon } from 'lucide-react';
 
 interface ProjectDetailsProps {
   selectedProject: Project;

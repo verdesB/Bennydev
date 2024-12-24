@@ -32,14 +32,14 @@ export default function ContactSuccessPage() {
               <div className="w-16 h-1 bg-purple-500 rounded mb-6"></div>
               
               <p className="text-lg text-gray-600 text-center mb-8 max-w-2xl">
-                Je vous remercie de m'avoir contacté. Je m'engage à vous répondre dans les plus brefs délais, généralement sous 24-48 heures ouvrées.
+                Je vous remercie de m&apos;avoir contacté. Je m&apos;engage à vous répondre dans les plus brefs délais, généralement sous 24-48 heures ouvrées.
               </p>
 
               <div className="flex flex-col sm:flex-row gap-6 w-full max-w-md">
                 <Link href="/" className="flex-1">
                   <Button variant="outline" className="w-full group">
                     <span className="mr-2">←</span>
-                    Retour à l'accueil
+                    Retour à l&apos;accueil
                   </Button>
                 </Link>
                

@@ -24,7 +24,7 @@ export default function CGV() {
             <section className="col-span-1 md:col-span-2 lg:col-span-4 bg-white/80 backdrop-blur-2xl rounded-xl p-4 sm:p-8 shadow-[0_0_20px_rgba(0,0,0,0.08)] hover:shadow-[0_0_60px_rgba(0,0,0,0.12)] transition-all duration-500">
               <h2 className="text-2xl font-semibold mb-4">Article 1 - Préambule</h2>
               <div className="space-y-4 text-gray-600">
-                <p>Les présentes conditions générales de vente s'appliquent à toutes les prestations de services conclues entre BennyDev, micro-entreprise représentée par M. Verdès Benjamin, et ses clients professionnels ou particuliers.</p>
+                <p>Les présentes conditions générales de vente s&apos;appliquent à toutes les prestations de services conclues entre BennyDev, micro-entreprise représentée par M. Verdès Benjamin, et ses clients professionnels ou particuliers.</p>
                 <p>Ces conditions générales de vente sont systématiquement communiquées avant toute conclusion de contrat de prestations de services.</p>
               </div>
             </section>
@@ -89,7 +89,7 @@ export default function CGV() {
             <section className="col-span-1 md:col-span-2 lg:col-span-4 bg-white/80 backdrop-blur-2xl rounded-xl p-4 sm:p-8 shadow-[0_0_20px_rgba(0,0,0,0.08)] hover:shadow-[0_0_60px_rgba(0,0,0,0.12)] transition-all duration-500">
               <h2 className="text-2xl font-semibold mb-4">Article 5 - Propriété intellectuelle</h2>
               <div className="space-y-4 text-gray-600">
-                <p>Le transfert des droits de propriété intellectuelle s'effectue à compter du paiement intégral du prix.</p>
+                <p>Le transfert des droits de propriété intellectuelle s&apos;effectue à compter du paiement intégral du prix.</p>
                 <p>Le client devient propriétaire du code source et des éléments développés spécifiquement pour son projet.</p>
                 <p>Les éléments génériques, bibliothèques et frameworks utilisés restent soumis à leurs licences respectives.</p>
               </div>

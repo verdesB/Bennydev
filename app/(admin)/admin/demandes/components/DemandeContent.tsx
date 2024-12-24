@@ -165,7 +165,7 @@ const DemandeContent = ({
 
             if (!response.ok) throw new Error('Erreur lors de la création');
             
-            const responseData = await response.json();
+           
 
            
 

@@ -80,7 +80,7 @@ export default function PolitiqueConfidentialite() {
               <h2 className="text-2xl font-semibold mb-4">Protection des données</h2>
               <div className="space-y-4 text-gray-600">
                 <p>Nous mettons en œuvre des mesures de sécurité appropriées pour protéger vos données personnelles contre tout accès, modification, divulgation ou destruction non autorisée.</p>
-                <p>Vos données sont stockées sur des serveurs sécurisés et ne sont accessibles qu'aux personnes autorisées.</p>
+                <p>Vos données sont stockées sur des serveurs sécurisés et ne sont accessibles qu&apos;aux personnes autorisées.</p>
               </div>
             </section>
 
@@ -90,9 +90,9 @@ export default function PolitiqueConfidentialite() {
               <div className="space-y-4 text-gray-600">
                 <p>Conformément au RGPD, vous disposez des droits suivants :</p>
                 <ul className="list-disc pl-5 space-y-2">
-                  <li>Droit d'accès à vos données</li>
+                  <li>Droit d&apos;accès à vos données</li>
                   <li>Droit de rectification</li>
-                  <li>Droit à l'effacement</li>
+                  <li>Droit à l&apos;effacement</li>
                   <li>Droit à la portabilité</li>
                 </ul>
               </div>
