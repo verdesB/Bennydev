@@ -113,7 +113,7 @@ const PricingTable: React.FC<PricingTableProps> = ({ plans, features }) => {
             </div>
 
             <div className="text-center mb-6 pb-4 border-b border-gray-200">
-              <span className="text-4xl font-bold text-blue-600">
+              <span className="text-4xl font-bold text-purple-600">
                 {plans[currentPlanIndex].price}
               </span>
             </div>
@@ -144,7 +144,7 @@ const PricingTable: React.FC<PricingTableProps> = ({ plans, features }) => {
               ))}
             </div>
 
-            <button className="w-full mt-6 bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors">
+            <button className="w-full mt-6 bg-purple-600 text-white py-2 px-4 rounded-lg hover:bg-purple-700 transition-colors">
               Choisir ce plan
             </button>
           </div>
@@ -156,7 +156,7 @@ const PricingTable: React.FC<PricingTableProps> = ({ plans, features }) => {
             <button
               key={index}
               className={`h-2 rounded-full transition-all ${
-                index === currentPlanIndex ? 'w-4 bg-blue-600' : 'w-2 bg-gray-300'
+                index === currentPlanIndex ? 'w-4 bg-purple-600' : 'w-2 bg-gray-300'
               }`}
               onClick={() => setCurrentPlanIndex(index)}
               aria-label={`Voir l'offre ${index + 1}`}
