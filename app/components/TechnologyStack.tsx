@@ -12,7 +12,7 @@ export default function TechnologyStack({ technologies, selectedCategory }: Tech
     : technologies;
 
   return (
-    <section className="grid gap-8 relative z-20 max-w-6xl mx-auto my-16">
+    <section className="grid gap-8 relative z-20 max-w-6xl mx-auto my-16 px-4 lg:px-0">
       {filteredTechnologies.map((tech) => (
         <article
           key={tech.name}
