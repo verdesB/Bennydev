@@ -5,7 +5,7 @@ export const siteConfig = {
     founded: 2024,
     location: "Achères, France",
     contact: {
-      email: "verdesb.devacc@gmail.com",
+      email: "verdes.benjamin@bennydev.fr",
       discord: true,
       supportHours: "Lundi au vendredi, 9h-18h",
       responseTime: "4h ouvrées",
