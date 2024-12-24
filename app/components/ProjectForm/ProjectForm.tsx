@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { useState, useEffect} from 'react';
+import { useRouter } from 'next/navigation';
 
 import { WelcomeSlide } from './slides/WelcomeSlide';
 import { IntroductionSlide } from './slides/IntroductionSlide';
@@ -23,6 +24,7 @@ type SlideConfig = {
   condition?: () => boolean;
 }
 export default function ProjectForm() {
+  const router = useRouter();
   const [formData, setFormData] = useState<ProjectFormData>({
     step: 0,
     projectType: null,
@@ -182,6 +184,8 @@ export default function ProjectForm() {
       }
 
       localStorage.removeItem(STORAGE_KEY);
+      router.push('/contact-success');
+      
     } catch (error) {
       console.error('Erreur:', error);
     } finally {

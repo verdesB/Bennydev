@@ -54,7 +54,7 @@ export const StatusSection = ({
         </Select>
         <Button
           onClick={handleUpdateStatus}
-          className="bg-blue-600 hover:bg-blue-700 text-white whitespace-nowrap"
+          className="bg-purple-600 hover:bg-purple-700 text-white whitespace-nowrap"
           disabled={!tempStatus || tempStatus === selectedProject.status}
         >
           Mettre à jour

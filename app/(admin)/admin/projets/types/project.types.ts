@@ -2,6 +2,7 @@ export interface Project {
   id: string;
   name: string;
   description: string;
+  company: string;
   type: string;
   status: string;
   startDate: string;
@@ -14,6 +15,7 @@ export interface Project {
     displayName: string;
     user_id: string;
   }[];
+  state: 'active' | 'completed' | 'pending';
 }
 
 export interface ChatMessage {

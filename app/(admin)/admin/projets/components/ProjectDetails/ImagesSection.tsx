@@ -15,7 +15,7 @@ export const ImagesSection = ({ projectId }: ImagesSectionProps) => {
   const { images, loading, error } = useProjectImages(projectId);
 
   return (
-    <Card className="border-t pt-6 bg-white p-4 shadow-[0_4px_20px_-1px_rgba(147,51,234,0.2)] hover:shadow-[0_4px_20px_-1px_rgba(147,51,234,0.3)] transition-shadow h-full flex flex-col flex-1">
+    <Card className="border-t pt-6 bg-white p-4 shadow-[0_4px_20px_-1px_rgba(147,51,234,0.2)] hover:shadow-[0_4px_20px_-1px_rgba(147,51,234,0.3)] transition-shadow h-full flex flex-col flex-1 min-h-[50vh]">
       <div className="flex-1 flex flex-col space-y-4">
         <div className="flex items-center justify-between">
           <Label className="text-sm text-gray-500">

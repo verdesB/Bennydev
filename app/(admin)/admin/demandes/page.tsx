@@ -70,7 +70,7 @@ const DemandePage = () => {
                                     {file.content?.slice(0, 100)}...
                                 </p>
                                 <div className="text-xs text-muted-foreground mt-2">
-                                    {new Date(file.created_at).toLocaleDateString('fr-FR')}
+                                    {file.created_at ? new Date(file.created_at).toLocaleDateString('fr-FR') : 'Date inconnue'}
                                 </div>
                             </Card>
                         ))}
@@ -92,13 +92,15 @@ const DemandePage = () => {
                             </div>
 
                             <div className="p-6 overflow-y-scroll h-[calc(100vh-10rem)]">
-                                <DemandeContent 
-                                    file={files.find(f => f.id === selectedDemande)!}
-                                    expandedFiles={expandedFiles}
-                                    toggleExpand={toggleExpand}
-                                    markFileAsViewed={markFileAsViewed}
-                                    takenRequests={takenRequests}
-                                />
+                                {selectedDemande && (
+                                    <DemandeContent 
+                                        file={files.find(f => f.id === selectedDemande)}
+                                        expandedFiles={expandedFiles}
+                                        toggleExpand={toggleExpand}
+                                        markFileAsViewed={markFileAsViewed}
+                                        takenRequests={takenRequests}
+                                    />
+                                )}
                             </div>
                         </Tabs>
                     ) : (
