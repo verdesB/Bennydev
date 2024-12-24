@@ -92,9 +92,9 @@ const DemandePage = () => {
                             </div>
 
                             <div className="p-6 overflow-y-scroll h-[calc(100vh-10rem)]">
-                                {selectedDemande && (
+                                {selectedDemande && files.find(f => f.id === selectedDemande) && (
                                     <DemandeContent 
-                                        file={files.find(f => f.id === selectedDemande)}
+                                        file={files.find(f => f.id === selectedDemande)!}
                                         expandedFiles={expandedFiles}
                                         toggleExpand={toggleExpand}
                                         markFileAsViewed={markFileAsViewed}
