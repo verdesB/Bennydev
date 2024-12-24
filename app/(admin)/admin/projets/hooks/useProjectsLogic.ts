@@ -92,7 +92,7 @@ export const useProjectsLogic = () => {
         }));
 
         console.log('Projets formatés:', formattedProjects);
-        setProjects(formattedProjects);
+        setProjects(formattedProjects as Project[]);
       } catch (error) {
         console.error('Erreur lors de la récupération des projets:', error);
       }
