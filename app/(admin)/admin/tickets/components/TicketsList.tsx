@@ -1,10 +1,12 @@
 import { memo } from 'react'
 import { TicketCard } from './TicketCard'
 
+type StatusType = 'open' | 'in_progress' | 'resolved' | 'closed'
+
 type TicketsListProps = {
   tickets: Array<{
     id: string
-    status: string
+    status: StatusType
     created_at: string
     title: string
     description: string
