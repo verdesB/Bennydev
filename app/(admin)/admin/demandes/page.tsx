@@ -96,7 +96,7 @@ const DemandePage = () => {
                                         expandedFiles={expandedFiles}
                                         toggleExpand={toggleExpand}
                                         markFileAsViewed={markFileAsViewed}
-                                        takenRequests={takenRequests}
+                                    
                                     />
                                 )}
                             </div>

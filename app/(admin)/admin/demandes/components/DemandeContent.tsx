@@ -25,7 +25,7 @@ interface DemandeContentProps {
     expandedFiles: Set<string>
     toggleExpand: (fileId: string) => void
     markFileAsViewed: (fileId: string) => void
-    takenRequests: Set<string>
+   
 }
 
 interface UserFormData {
