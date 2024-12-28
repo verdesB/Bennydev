@@ -1,10 +1,11 @@
 import { useRouter } from 'next/navigation'
-import { TicketStatus } from '@/components/TicketStatus'
+
+type StatusType = 'open' | 'in_progress' | 'resolved' | 'closed'
 
 type TicketCardProps = {
   ticket: {
     id: string
-    status: string
+    status: StatusType
     created_at: string
     title: string
     description: string
