@@ -6,7 +6,15 @@ import { Button } from "@/components/ui/button"
 import {useState } from "react";
 import useClientsLogic from "./hooks/useClientsLogic";
 
-
+export interface Client {
+  id: string;
+  nom: string;
+  prenom: string;
+  email: string;
+  telephone: string;
+  dateInscription: string;
+  statutContrat?: 'en_attente' | 'accepté' | 'refusé';
+}
 
 const ClientsPage = () => {
   const {
@@ -102,7 +110,7 @@ const ClientsPage = () => {
                       </label>
                       <select 
                         className="w-full border-gray-300 rounded-md shadow-sm focus:border-purple-500 focus:ring-purple-500"
-                       
+        
                       >
                         <option value="">Sélectionner un type de support</option>
                         <option value="standard">Support Standard</option>

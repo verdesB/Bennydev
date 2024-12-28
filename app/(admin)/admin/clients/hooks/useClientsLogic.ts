@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-
+import { Client } from '../page';
 const useClientsLogic = () => {
   const [clients, setClients] = useState<Client[]>([]);
   const [selectedClient, setSelectedClient] = useState<Client | null>(null);
