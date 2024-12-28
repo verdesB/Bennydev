@@ -6,14 +6,7 @@ import { Button } from "@/components/ui/button"
 import {useState } from "react";
 import useClientsLogic from "./hooks/useClientsLogic";
 
-interface Client {
-  id: string;
-  nom: string;
-  email: string;
-  telephone: string;
-  dateInscription: string;
-  statutContrat?: 'en_attente' | 'accepté' | 'refusé';
-}
+
 
 const ClientsPage = () => {
   const {
@@ -94,7 +87,7 @@ const ClientsPage = () => {
                     <p className="text-lg">{selectedClient.telephone}</p>
                   </div>
                   <div className="bg-gray-50 p-4 rounded-lg border border-purple-200">
-                    <h3 className="text-sm font-medium text-gray-500 mb-2">Date d'inscription</h3>
+                    <h3 className="text-sm font-medium text-gray-500 mb-2">Date d&apos;inscription</h3>
                     <p className="text-lg">{new Date(selectedClient.dateInscription).toLocaleDateString('fr-FR')}</p>
                   </div>
                 </div>
@@ -109,7 +102,7 @@ const ClientsPage = () => {
                       </label>
                       <select 
                         className="w-full border-gray-300 rounded-md shadow-sm focus:border-purple-500 focus:ring-purple-500"
-                        onChange={(e) => {/* Logique pour changer le support */}}
+                       
                       >
                         <option value="">Sélectionner un type de support</option>
                         <option value="standard">Support Standard</option>

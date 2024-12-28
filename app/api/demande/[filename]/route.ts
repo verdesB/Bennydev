@@ -1,4 +1,3 @@
-
 import { NextResponse } from 'next/server';
 import { supabaseAdmin } from '@/app/lib/supabase-admin';
 
@@ -28,8 +27,8 @@ export async function GET(
 
     return NextResponse.json({ content });
 
-  } catch (error) {
-     return NextResponse.json(
+  } catch (err) {
+    return NextResponse.json(
       { error: 'Erreur lors de la récupération du contenu du fichier' },
       { status: 500 }
     );

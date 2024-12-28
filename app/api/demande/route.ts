@@ -4,23 +4,29 @@ import { NextResponse } from 'next/server';
 import { supabaseAdmin } from '@/app/lib/supabase-admin';
 
 // Create a middleware function to handle cookie store
-async function getSupabaseClient(requestCookies: any) {
+function getSupabaseClient(requestCookies: ReturnType<typeof cookies>) {
   return createRouteHandlerClient({ 
     cookies: () => requestCookies
   });
 }
 
-export async function GET(req: Request) {
+export async function GET(_req: Request) {
   try {
     // Utilisation des cookies de la requête avec await
-    const cookieStore = await cookies();
-    const supabase = await getSupabaseClient(cookieStore);
+    const cookieStore = cookies();
+    const supabase = getSupabaseClient(cookieStore);
     
     // Get and verify session
     const { data: { session }, error: sessionError } = await supabase.auth.getSession();
     
     if (sessionError || !session) {
+      console.error('Erreur de session:', sessionError);
       return NextResponse.json({ error: 'Non authentifié' }, { status: 401 });
+    }
+
+    // Ajout de vérification supplémentaire pour session.user
+    if (!session.user) {
+      return NextResponse.json({ error: 'Données utilisateur manquantes' }, { status: 401 });
     }
 
     // Verify admin role
@@ -30,7 +36,12 @@ export async function GET(req: Request) {
       .eq('id', session.user.id)
       .single();
 
-    if (profileError || profile?.role !== 'admin') {
+    if (profileError) {
+      console.error('Erreur de profil:', profileError);
+      return NextResponse.json({ error: 'Erreur lors de la vérification du profil' }, { status: 500 });
+    }
+
+    if (!profile || profile.role !== 'admin') {
       return NextResponse.json({ error: 'Accès non autorisé' }, { status: 403 });
     }
 

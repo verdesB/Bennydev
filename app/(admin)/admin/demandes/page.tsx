@@ -62,9 +62,7 @@ const DemandePage = () => {
                             >
                                 <div className="flex justify-between items-start mb-2">
                                     <h3 className="font-medium">Demande #{file.name.slice(-7, -3)}</h3>
-                                    <Badge variant={takenRequests.has(file.name.slice(-7, -3)) ? "secondary" : "default"}>
-                                        {takenRequests.has(file.name.slice(-7, -3)) ? "Traité" : "Nouveau"}
-                                    </Badge>
+                                   
                                 </div>
                                 <p className="text-sm text-muted-foreground line-clamp-2">
                                     {file.content?.slice(0, 100)}...

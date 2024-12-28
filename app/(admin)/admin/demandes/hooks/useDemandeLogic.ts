@@ -17,7 +17,7 @@ export default function useDemandeLogic() {
     const [error, setError] = useState<string | null>(null)
     const [expandedFiles, setExpandedFiles] = useState<Set<string>>(new Set())
     const [viewedFiles, setViewedFiles] = useState<Set<string>>(new Set())
-    const [takenRequests, setTakenRequests] = useState<Set<string>>(new Set())
+   
 
     useEffect(() => {
         const loadViewedFiles = () => {
@@ -120,7 +120,7 @@ export default function useDemandeLogic() {
         loading,
         error,
         expandedFiles,
-        takenRequests,
+      
         toggleExpand,
         markFileAsViewed
     }
