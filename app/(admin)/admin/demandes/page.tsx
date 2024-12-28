@@ -4,7 +4,7 @@ import useDemandeLogic from './hooks/useDemandeLogic'
 import { Input } from '@/components/ui/input'
 import { Search } from 'lucide-react'
 import { useState, Suspense } from 'react'
-import { Badge } from '@/components/ui/badge'
+
 import { Card } from '@/components/ui/card'
 import { Tabs,TabsList, TabsTrigger } from "@/components/ui/tabs"
 import Loading from './Loading'
@@ -17,7 +17,7 @@ const DemandePage = () => {
         loading,
         error,
         expandedFiles,
-        takenRequests,
+
         toggleExpand,
         markFileAsViewed
     } = useDemandeLogic()

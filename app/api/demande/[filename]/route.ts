@@ -29,7 +29,7 @@ export async function GET(
 
   } catch (err) {
     return NextResponse.json(
-      { error: 'Erreur lors de la récupération du contenu du fichier' },
+      { error: 'Erreur lors de la récupération du contenu du fichier', err },
       { status: 500 }
     );
   }

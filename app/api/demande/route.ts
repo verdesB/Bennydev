@@ -10,7 +10,7 @@ function getSupabaseClient(requestCookies: ReturnType<typeof cookies>) {
   });
 }
 
-export async function GET(_req: Request) {
+export async function GET(_: Request) {
   try {
     // Utilisation des cookies de la requête avec await
     const cookieStore = cookies();
