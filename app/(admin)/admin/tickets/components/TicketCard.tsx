@@ -1,3 +1,4 @@
+import { TicketStatus } from '@/components/TicketStatus'
 import { useRouter } from 'next/navigation'
 
 type StatusType = 'open' | 'in_progress' | 'resolved' | 'closed'
