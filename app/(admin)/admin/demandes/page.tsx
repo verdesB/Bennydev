@@ -7,7 +7,7 @@ import { useState, Suspense } from 'react'
 
 import { Card } from '@/components/ui/card'
 import { Tabs,TabsList, TabsTrigger } from "@/components/ui/tabs"
-import Loading from './Loading'
+
 import Error from './Error'
 import DemandeContent from './components/DemandeContent'
 
