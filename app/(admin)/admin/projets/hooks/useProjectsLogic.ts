@@ -19,20 +19,7 @@ export interface Profile {
 export const useProjectsLogic = () => {
   const [projects, setProjects] = useState<Project[]>([]);
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
-  const [messages, setMessages] = useState<ChatMessage[]>([
-    {
-      id: 1,
-      sender_id: "John Doe",
-      message: "Premier message concernant le projet",
-      created_at: new Date().toISOString(),
-      profiles: {
-        id: "1",
-        first_name: "John",
-        last_name: "Doe"
-      }
-    },
-    // ... autres messages
-  ]);
+  const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [newMessage, setNewMessage] = useState('');
   const [tempStagingUrl, setTempStagingUrl] = useState<string>('');
   const [tempFigmaUrl, setTempFigmaUrl] = useState<string>('');
@@ -197,43 +184,48 @@ export const useProjectsLogic = () => {
         status: tempStatus
       } : null);
 
-      const client = selectedProject.users.find(user => user.role === 'member');
-      if (client) {
-        console.log('ID du client:', client.user_id);
-
-        try {
-          const statusLabel = PROJECT_STATUSES.find(
-            status => status.value === tempStatus
-          )?.label || tempStatus;
-
-          const response = await fetch('/api/create-notification', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              user_id: client.user_id,
-              title: 'Mise à jour du statut',
-              message: `Le statut du projet ${selectedProject.name} a été mis à jour vers "${statusLabel}"`,
-              type: 'STATUS_UPDATE',
-              project_id: selectedProject.id
-            })
-          });
-
-          const data = await response.json();
-          
-          if (!response.ok) {
-            throw new Error(data.error || 'Erreur lors de la création de la notification');
-          }
-
-          console.log('Notification créée avec succès:', data);
-        } catch (error) {
-          console.error('Erreur détaillée:', error);
-          toast.error('Erreur lors de l\'envoi de la notification');
-        }
+      console.log('selectedProject:', selectedProject);
+      console.log('selectedProject.users:', selectedProject.users);
       
+      const memberUserProject = selectedProject.users.find(u => u.role === "member");
+      console.log('memberUserProject trouvé:', memberUserProject);
+      
+      if (!memberUserProject) {
+        throw new Error('Aucun utilisateur membre trouvé');
       }
+
+      const statusLabel = PROJECT_STATUSES.find(
+        status => status.value === tempStatus
+      )?.label || tempStatus;
+
+      // Gardons la structure UserProject originale
+      
+      const notificationData = {
+        user_id: memberUserProject.user_id || memberUserProject.id, // Essayons les deux possibilités
+        title: 'Mise à jour du statut',
+        message: `Le statut du projet ${selectedProject.name} a été mis à jour vers "${statusLabel}"`,
+        type: 'STATUS_UPDATE',
+        project_id: selectedProject.id
+      };
+
+      console.log('Données de notification à envoyer:', notificationData);
+
+      const notificationResponse = await fetch('/api/create-notification', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(notificationData)
+      });
+
+      
+      
+      if (!notificationResponse.ok) {
+        throw new Error(notificationData.error || 'Erreur lors de la création de la notification');
+      }
+
       setTempStatus('');
       toast.success('Statut mis à jour avec succès');
-    } catch (error: Error | unknown) {
+
+    } catch (error) {
       console.error('Erreur complète:', error);
       toast.error(error instanceof Error ? error.message : 'Erreur lors de la mise à jour');
     }

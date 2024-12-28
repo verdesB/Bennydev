@@ -60,25 +60,17 @@ export default function useDemandeLogic() {
         setExpandedFiles(newExpanded)
     }
 
-    const checkIfRequestTaken = async (projectCode: string) => {
-        try {
-            const response = await fetch('/api/check-existing-user', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ projectCode })
-            });
-            const { data } = await response.json();
-            return !!data;
-        } catch (error) {
-            console.error('Erreur lors de la vérification:', error);
-            return false;
-        }
-    };
 
     useEffect(() => {
         const fetchFiles = async () => {
             try {
-                const response = await fetch('/api/demande')
+                const response = await fetch('/api/demande', {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        credentials: 'include',
+                    }
+                })
                 const data = await response.json()
                 
                 if (!response.ok) {
@@ -121,25 +113,7 @@ export default function useDemandeLogic() {
         fetchFiles()
     }, [viewedFiles])
 
-    useEffect(() => {
-        const checkAllRequests = async () => {
-            const takenCodes = new Set<string>();
-            
-            for (const file of files) {
-                const projectCode = file.name.slice(-7, -3);
-                const isTaken = await checkIfRequestTaken(projectCode);
-                if (isTaken) {
-                    takenCodes.add(projectCode);
-                }
-            }
-            
-            setTakenRequests(takenCodes);
-        };
-
-        if (files.length > 0) {
-            checkAllRequests();
-        }
-    }, [files]);
+   
 
     return {
         files,

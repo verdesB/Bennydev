@@ -36,6 +36,24 @@ export async function middleware(req: NextRequest) {
     data: { session },
   } = await supabase.auth.getSession();
 
+  // Nouvelle vérification pour /api/demande
+  if (req.nextUrl.pathname.startsWith('/api/demande')) {
+    if (!session) {
+      return NextResponse.json({ error: 'Non authentifié' }, { status: 401 });
+    }
+    
+    const { data: profile } = await supabase
+      .from('profiles')
+      .select('role')
+      .eq('id', session.user.id)
+      .single();
+
+    if (!profile || profile.role !== 'admin') {
+      return NextResponse.json({ error: 'Accès non autorisé' }, { status: 403 });
+    }
+  }
+
+  // Le reste du middleware existant pour /admin et /client
   if (!session) {
     return NextResponse.redirect(new URL('/login', req.url));
   }
@@ -66,6 +84,7 @@ export const config = {
     '/admin/:path*', 
     '/client/:path*',
     '/api/admin/:path*',
-    '/api/contact' // Ajout du path pour le rate limiting
+    '/api/contact',
+    '/api/demande/:path*'  // Ajout du nouveau matcher
   ]
 }; 

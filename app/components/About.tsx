@@ -27,13 +27,11 @@ export default function About() {
             <div className="absolute -bottom-28 left-1/2 transform -translate-x-1/2 flex flex-col items-center">
               <div className="relative w-24 h-24 rounded-full border-4 border-white shadow-xl overflow-hidden mb-4">
                 <Image
-                  src="/moi.webp" // Ajoutez votre photo de profil
+                  src="/moi.webp"
                   alt="Benjamin Verdès"
-                 
-                  width={150}
-                  height={150}
-                  sizes="(max-width: 768px) 150px, 150px"
-                  // Utilisation de style
+                  width={96}
+                  height={96}
+                  sizes="96px"
                   className="object-cover"
                 />
               </div>

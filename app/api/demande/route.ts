@@ -3,19 +3,27 @@ import { cookies } from 'next/headers';
 import { NextResponse } from 'next/server';
 import { supabaseAdmin } from '@/app/lib/supabase-admin';
 
-export async function GET() {
+// Create a middleware function to handle cookie store
+async function getSupabaseClient(requestCookies: any) {
+  return createRouteHandlerClient({ 
+    cookies: () => requestCookies
+  });
+}
+
+export async function GET(req: Request) {
   try {
-    // Vérification de l'authentification
-    const cookieStore = cookies();
-    const supabase = createRouteHandlerClient({ cookies: () => cookieStore });
+    // Utilisation des cookies de la requête avec await
+    const cookieStore = await cookies();
+    const supabase = await getSupabaseClient(cookieStore);
     
+    // Get and verify session
     const { data: { session }, error: sessionError } = await supabase.auth.getSession();
     
     if (sessionError || !session) {
       return NextResponse.json({ error: 'Non authentifié' }, { status: 401 });
     }
 
-    // Vérification du rôle admin
+    // Verify admin role
     const { data: profile, error: profileError } = await supabaseAdmin
       .from('profiles')
       .select('role')
@@ -26,37 +34,33 @@ export async function GET() {
       return NextResponse.json({ error: 'Accès non autorisé' }, { status: 403 });
     }
 
-    // Récupération des fichiers MD depuis le bucket Supabase
+    // Get files from Supabase bucket
     const { data: files, error: filesError } = await supabaseAdmin
       .storage
-      .from('bennydev.projets') // Assurez-vous que le nom du bucket est correct
+      .from('bennydev.projets')
       .list();
 
     if (filesError) {
-      console.error('Erreur lors de la récupération des fichiers:', filesError);
       return NextResponse.json({ error: filesError.message }, { status: 500 });
     }
 
-    console.log('Fichiers récupérés:', files); // Log pour vérifier les fichiers récupérés
+    // Filter and format MD files
+    const mdFiles = files
+      .filter(file => file.name.endsWith('.md'))
+      .map(file => ({
+        id: file.id,
+        name: file.name,
+        created_at: file.created_at,
+        size: file.metadata?.size || 0
+      }));
 
-    // Filtrer uniquement les fichiers .md
-    const mdFiles = files.filter(file => file.name.endsWith('.md'));
-
-    // Formater les données des fichiers
-    const formattedFiles = mdFiles.map(file => ({
-      id: file.id,
-      name: file.name,
-      created_at: file.created_at,
-      size: file.metadata?.size || 0
-    }));
-
-    return NextResponse.json({ files: formattedFiles });
+    return NextResponse.json({ files: mdFiles });
 
   } catch (error) {
-    console.error('Erreur complète:', error);
+    console.error('Route handler error:', error);
     return NextResponse.json(
       { error: 'Erreur lors de la récupération des fichiers' },
       { status: 500 }
     );
   }
-} 
+}

@@ -226,7 +226,6 @@ ${formData.contact?.comments || 'Aucune note additionnelle'}`;
       });
 
     if (uploadError) {
-      console.error('Erreur upload:', uploadError);
       return NextResponse.json(
         { error: 'Erreur lors de la sauvegarde du fichier' },
         { status: 500 }
@@ -247,7 +246,6 @@ ${formData.contact?.comments || 'Aucune note additionnelle'}`;
     });
 
   } catch (error) {
-    console.error('Erreur complète:', error);
     return NextResponse.json(
       { 
         error: 'Erreur lors du traitement de la demande',
