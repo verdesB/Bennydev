@@ -201,7 +201,7 @@ export const useProjectsLogic = () => {
       // Gardons la structure UserProject originale
       
       const notificationData = {
-        user_id: memberUserProject.user_id || memberUserProject.id, // Essayons les deux possibilités
+        user_id: memberUserProject.user_id || memberUserProject.user_id, // Essayons les deux possibilités
         title: 'Mise à jour du statut',
         message: `Le statut du projet ${selectedProject.name} a été mis à jour vers "${statusLabel}"`,
         type: 'STATUS_UPDATE',
@@ -219,7 +219,8 @@ export const useProjectsLogic = () => {
       
       
       if (!notificationResponse.ok) {
-        throw new Error(notificationData.error || 'Erreur lors de la création de la notification');
+        const errorData = await notificationResponse.json();
+        throw new Error(errorData.error || 'Erreur lors de la création de la notification');
       }
 
       setTempStatus('');
