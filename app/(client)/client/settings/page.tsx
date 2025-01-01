@@ -1,73 +1,65 @@
 "use client"
 
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-
-
 import { ProfileForm } from "./components/profile-form"
 import { AccountForm } from "./components/account-form"
 import { NotificationForm } from "./components/notifications-form"
 import { SecurityForm } from "./components/security-form"
+import { useState } from "react"
 
 export default function SettingsPage() {
+  const [activeSection, setActiveSection] = useState<string>("profile")
+
   return (
-    <div>
-      <div className="max-w-[1000px] mr-auto py-10">
-        <div className="space-y-0.5 mb-8">
-          <h2 className="text-2xl font-medium tracking-tight text-gray-900 dark:text-gray-100">Paramètres</h2>
+    <div className="h-[calc(100vh-4rem)] flex overflow-hidden rounded-2xl shadow-[0_4px_20px_-1px_rgba(147,51,234,0.2)]">
+      {/* Panneau latéral gauche */}
+      <aside className="w-[300px] border-r border-[#E7E7E7] bg-white flex flex-col">
+        <div className="shrink-0 p-6 border-b border-[#E7E7E7]">
+          <h2 className="text-2xl font-medium tracking-tight">Paramètres</h2>
           <p className="text-muted-foreground text-sm">
-            Gérez les paramètres de votre compte et définissez vos préférences.
+            Gérez les paramètres de votre compte
           </p>
         </div>
         
-        <div className="backdrop-blur-sm bg-white/30 dark:bg-gray-900/30 rounded-xl border border-gray-200 dark:border-gray-800 shadow-sm">
-          <Tabs defaultValue="profile" className="w-full">
-            <TabsList className="w-full justify-start gap-2 rounded-none border-b border-gray-200 dark:border-gray-800 px-4 h-16">
-              <TabsTrigger 
-                value="profile"
-                className="data-[state=active]:bg-transparent data-[state=active]:border-b-2 data-[state=active]:border-gray-900 dark:data-[state=active]:border-gray-100 rounded-none"
-              >
-                Profil
-              </TabsTrigger>
-              <TabsTrigger 
-                value="account"
-                className="data-[state=active]:bg-transparent data-[state=active]:border-b-2 data-[state=active]:border-gray-900 dark:data-[state=active]:border-gray-100 rounded-none"
-              >
-                Compte
-              </TabsTrigger>
-              <TabsTrigger 
-                value="notifications"
-                className="data-[state=active]:bg-transparent data-[state=active]:border-b-2 data-[state=active]:border-gray-900 dark:data-[state=active]:border-gray-100 rounded-none"
-              >
-                Notifications
-              </TabsTrigger>
-              <TabsTrigger 
-                value="security"
-                className="data-[state=active]:bg-transparent data-[state=active]:border-b-2 data-[state=active]:border-gray-900 dark:data-[state=active]:border-gray-100 rounded-none"
-              >
-                Sécurité
-              </TabsTrigger>
-            </TabsList>
+        <nav className="flex-1 overflow-y-auto p-4">
+          <div className="flex flex-col gap-1">
+            <button 
+              onClick={() => setActiveSection("profile")}
+              className={`w-full text-left px-4 py-2 rounded-lg transition-colors ${
+                activeSection === "profile" ? "bg-gray-100" : "hover:bg-gray-50"
+              }`}
+            >
+              Profil
+            </button>
+            
+            <button 
+              onClick={() => setActiveSection("notifications")}
+              className={`w-full text-left px-4 py-2 rounded-lg transition-colors ${
+                activeSection === "notifications" ? "bg-gray-100" : "hover:bg-gray-50"
+              }`}
+            >
+              Notifications
+            </button>
+            <button 
+              onClick={() => setActiveSection("security")}
+              className={`w-full text-left px-4 py-2 rounded-lg transition-colors ${
+                activeSection === "security" ? "bg-gray-100" : "hover:bg-gray-50"
+              }`}
+            >
+              Sécurité
+            </button>
+          </div>
+        </nav>
+      </aside>
 
-            <div className="p-6">
-              <TabsContent value="profile">
-                <ProfileForm />
-              </TabsContent>
-
-              <TabsContent value="account">
-                <AccountForm />
-              </TabsContent>
-
-              <TabsContent value="notifications">
-                <NotificationForm />
-              </TabsContent>
-
-              <TabsContent value="security">
-                <SecurityForm />
-              </TabsContent>
-            </div>
-          </Tabs>
+      {/* Contenu principal */}
+      <main className="flex-1 bg-white">
+        <div className="p-6 overflow-y-auto h-[calc(100vh-4rem)]">
+          {activeSection === "profile" && <ProfileForm />}
+          
+          {activeSection === "notifications" && <NotificationForm />}
+          {activeSection === "security" && <SecurityForm />}
         </div>
-      </div>
+      </main>
     </div>
   )
 }

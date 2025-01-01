@@ -13,12 +13,14 @@ import {
   FormMessage,
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
+import { useState } from "react"
+import { toast } from "sonner"
 
 const securityFormSchema = z.object({
-  currentPassword: z.string().min(8, {
-    message: "Le mot de passe doit faire au moins 8 caractères.",
+  currentPassword: z.string().min(4, {
+    message: "Le mot de passe doit faire au moins 4 caractères.",
   }),
-  newPassword: z.string().min(8, {
+  newPassword: z.string().min(4, {
     message: "Le mot de passe doit faire au moins 8 caractères.",
   }),
   confirmPassword: z.string(),
@@ -30,6 +32,7 @@ const securityFormSchema = z.object({
 type SecurityFormValues = z.infer<typeof securityFormSchema>
 
 export function SecurityForm() {
+  const [isLoading, setIsLoading] = useState(false)
   const form = useForm<SecurityFormValues>({
     resolver: zodResolver(securityFormSchema),
     defaultValues: {
@@ -39,8 +42,32 @@ export function SecurityForm() {
     },
   })
 
-  function onSubmit(data: SecurityFormValues) {
-    console.log(data)
+  async function onSubmit(data: SecurityFormValues) {
+    setIsLoading(true)
+    try {
+      const response = await fetch("/api/user/password", {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          currentPassword: data.currentPassword,
+          newPassword: data.newPassword,
+        }),
+      })
+
+      if (!response.ok) {
+        throw new Error("Erreur lors de la mise à jour du mot de passe")
+      }
+
+      toast.success("Mot de passe mis à jour avec succès")
+      form.reset()
+    } catch (error) {
+      toast.error("Erreur lors de la mise à jour du mot de passe")
+      console.error(error)
+    } finally {
+      setIsLoading(false)
+    }
   }
 
   return (
@@ -88,7 +115,9 @@ export function SecurityForm() {
           )}
         />
 
-        <Button type="submit">Mettre à jour le mot de passe</Button>
+        <Button type="submit" disabled={isLoading}>
+          {isLoading ? "Mise à jour..." : "Mettre à jour le mot de passe"}
+        </Button>
       </form>
     </Form>
   )

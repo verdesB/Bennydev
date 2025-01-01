@@ -109,7 +109,8 @@ export async function POST(
         *,
         profiles:sender_id (
           first_name,
-          last_name
+          last_name,
+          avatar
         )
       `)
       .single();
@@ -154,7 +155,8 @@ export async function GET(
       *,
       profiles:sender_id (
         first_name,
-        last_name
+        last_name,
+        avatar
       )
     `)
     .eq('project_id', id)

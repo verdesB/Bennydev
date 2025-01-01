@@ -13,6 +13,7 @@ import {
   FormLabel,
 } from "../../../../../components/ui/form"
 import { Switch } from "../../../../../components/ui/switch"
+import { Badge } from "@/components/ui/badge"
 
 const notificationFormSchema = z.object({
   emailNotifications: z.boolean(),
@@ -85,17 +86,21 @@ export function NotificationForm() {
           control={form.control}
           name="smsNotifications"
           render={({ field }) => (
-            <FormItem className="flex flex-row items-center justify-between rounded-lg border p-4">
+            <FormItem className="flex flex-row items-center justify-between rounded-lg border p-4 bg-muted/50">
               <div className="space-y-0.5">
-                <FormLabel className="text-base">Notifications SMS</FormLabel>
-                <FormDescription>
+                <div className="flex items-center gap-2">
+                  <FormLabel className="text-base text-muted-foreground">Notifications SMS</FormLabel>
+                  <Badge variant="secondary">Bientôt disponible</Badge>
+                </div>
+                <FormDescription className="text-muted-foreground">
                   Recevez des notifications par SMS.
                 </FormDescription>
               </div>
               <FormControl>
                 <Switch
-                  checked={field.value}
+                  checked={false}
                   onCheckedChange={field.onChange}
+                  disabled={true}
                 />
               </FormControl>
             </FormItem>

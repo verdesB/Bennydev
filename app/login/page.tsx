@@ -25,15 +25,21 @@ export default function LoginPage() {
     setLoading(true);
 
     try {
-      // Vérifier d'abord si les identifiants existent sans créer de session
+      // Vérifier les identifiants avec Supabase
       const { error: signInError } = await supabase.auth.signInWithPassword({
         email,
         password,
       });
 
-      if (signInError) throw signInError;
+      if (signInError) {
+        // Être plus spécifique sur l'erreur
+        if (signInError.message.includes('Invalid login credentials')) {
+          throw new Error('Email ou mot de passe incorrect');
+        }
+        throw signInError;
+      }
 
-      // Déconnecter immédiatement l'utilisateur
+      // Si la connexion réussit, déconnecter l'utilisateur
       await supabase.auth.signOut();
 
       // Générer et envoyer l'OTP
@@ -56,7 +62,8 @@ export default function LoginPage() {
 
     } catch (err) {
       console.error('Erreur:', err);
-      setError(err instanceof Error ? err.message : 'Erreur de connexion');
+      // Afficher un message d'erreur plus explicite
+      setError(err instanceof Error ? err.message : 'Identifiants invalides');
     } finally {
       setLoading(false);
     }

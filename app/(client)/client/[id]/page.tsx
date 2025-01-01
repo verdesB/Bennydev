@@ -187,7 +187,7 @@ export default function ProjectDetailPage() {
       </div>
 
       {/* Section chat */}
-      <div className="min-w-[300px] max-w-[600px] border-l border-gray-200 bg-white p-6 rounded-2xl relative shadow-inner">
+      <div className="min-w-[500px] max-w-[600px] border-l border-gray-200 bg-white p-6 rounded-2xl relative shadow-inner">
       <div className="absolute inset-0 rounded-2xl overflow-hidden z-0">
                   <SparklesCore 
                     className="w-full h-full"
@@ -200,7 +200,7 @@ export default function ProjectDetailPage() {
                     particleSize={1}
                   />
                 </div>
-        <div className="h-full rounded-2xl bg-gray-50 overflow-hidden border border-gray-200 z-20 relative
+        <div className="h-full rounded-2xl bg-gray-50 overflow-hidden border border-gray-200 z-20 relative 
         shadow-[0_4px_20px_-1px_rgba(147,51,234,0.2)] hover:shadow-[0_4px_20px_-1px_rgba(147,51,234,0.3)] transition-shadow">
           <ChatComponent projectId={params.id as string} />
         </div>
