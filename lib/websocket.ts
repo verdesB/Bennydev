@@ -1,6 +1,14 @@
 import { RealtimeChannel } from '@supabase/supabase-js';
 import { supabase } from '@/app/lib/supabase';
-import type { ProjectMessage } from '@/components/chat/ChatComponent'
+
+
+export interface ProjectMessage {
+  id: string;
+  project_id: string;
+  content: string;
+  created_at: string;
+  // ajoutez d'autres champs nécessaires
+}
 
 export class ChatWebSocket {
   private channel: RealtimeChannel | null = null;
