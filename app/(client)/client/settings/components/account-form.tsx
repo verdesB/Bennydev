@@ -75,7 +75,7 @@ export function AccountForm() {
                 
                 <span className="font-medium text-destructive">
                   ATTENTION : La suppression de votre compte pendant la période de développement 
-                  du projet et après l'engagement contractuel ne met pas fin au contrat en cours. 
+                  du projet et après l&apos;engagement contractuel ne met pas fin au contrat en cours. 
                   Vos obligations contractuelles restent en vigueur.
                 </span>
               </AlertDialogDescription>

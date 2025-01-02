@@ -62,7 +62,7 @@ export function ProfileForm() {
       }
     }
     fetchUserData()
-  }, [])
+  }, [form])
 
   async function onSubmitUsername(data: { username: string }) {
     try {

@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 import { Button } from '@/components/ui/button';
 import { PlusIcon, CheckIcon, XIcon } from 'lucide-react';
@@ -27,7 +27,7 @@ export default function ProjectHistory({ params }: { params: Promise<{ id: strin
   const [isModalOpen, setIsModalOpen] = useState(false);
   const supabase = createClientComponentClient();
 
-  const fetchHistory = async () => {
+  const fetchHistory = useCallback(async () => {
     const { data, error } = await supabase
       .from('project_history')
       .select('*')
@@ -40,11 +40,11 @@ export default function ProjectHistory({ params }: { params: Promise<{ id: strin
     }
 
     setHistory(data || []);
-  };
+  }, [resolvedParams.id, supabase]);
 
   useEffect(() => {
     fetchHistory();
-  }, [resolvedParams.id]);
+  }, [fetchHistory]);
 
   const handleValidation = async (entryId: string, isApproved: boolean) => {
     const { error } = await supabase

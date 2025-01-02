@@ -7,7 +7,6 @@ import { motion } from 'framer-motion';
 import { TextGenerateEffect } from "../components/ui/text-generate-effect";
 import Header from '../components/Header';
 import Footer from '../components/Footer';
-import { SparklesCore } from '../components/ui/sparkles';
 import BackgroundSparkles from '../components/BackgroundSparkles';
 
 export default function LoginPage() {

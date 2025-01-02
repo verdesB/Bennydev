@@ -70,7 +70,7 @@ export default function ProjectDetailPage() {
     };
 
     fetchHistory();
-  }, [params.id]);
+  }, [params.id, supabase]);
 
   const handleValidation = async (entryId: string, isApproved: boolean) => {
     const { error } = await supabase
@@ -269,7 +269,7 @@ export default function ProjectDetailPage() {
                         </span>
                         {entry.client_feedback && (
                           <p className="mt-2 text-gray-600 text-sm italic">
-                            "{entry.client_feedback}"
+                            &ldquo;{entry.client_feedback}&rdquo;
                           </p>
                         )}
                       </div>
