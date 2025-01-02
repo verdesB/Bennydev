@@ -1,116 +1,98 @@
 "use client"
 
-import { zodResolver } from "@hookform/resolvers/zod"
-import { useForm } from "react-hook-form"
-import * as z from "zod"
+import { useState } from "react"
+import { createClientComponentClient } from "@supabase/auth-helpers-nextjs"
+import { useRouter } from "next/navigation"
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog"
 import { Button } from "@/components/ui/button"
-import {
-  Form,
-  FormControl,
-
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form"
-import { Input } from "@/components/ui/input"
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select"
-
-const accountFormSchema = z.object({
-  language: z.string({
-    required_error: "Veuillez sélectionner une langue.",
-  }),
-  phoneNumber: z.string(),
-  timezone: z.string({
-    required_error: "Veuillez sélectionner un fuseau horaire.",
-  }),
-})
-
-type AccountFormValues = z.infer<typeof accountFormSchema>
 
 export function AccountForm() {
-  const form = useForm<AccountFormValues>({
-    resolver: zodResolver(accountFormSchema),
-    defaultValues: {
-      language: "fr",
-      phoneNumber: "",
-      timezone: "Europe/Paris",
-    },
-  })
+  const router = useRouter()
+  const supabase = createClientComponentClient()
+  const [isLoading, setIsLoading] = useState(false)
 
-  function onSubmit(data: AccountFormValues) {
-    console.log(data)
+  const handleDeleteAccount = async () => {
+    try {
+      setIsLoading(true)
+      
+      const response = await fetch('/api/delete-account', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
+
+      const data = await response.json()
+
+      if (!response.ok) {
+        throw new Error(data.details || data.error)
+      }
+
+      await supabase.auth.signOut()
+      router.push('/login')
+    } catch (error) {
+      console.error('Erreur détaillée:', error)
+      alert(`Erreur lors de la suppression du compte: ${error instanceof Error ? error.message : String(error)}`)
+    } finally {
+      setIsLoading(false)
+    }
   }
 
   return (
-    <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-        <FormField
-          control={form.control}
-          name="language"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Langue</FormLabel>
-              <Select onValueChange={field.onChange} defaultValue={field.value}>
-                <FormControl>
-                  <SelectTrigger>
-                    <SelectValue placeholder="Sélectionnez une langue" />
-                  </SelectTrigger>
-                </FormControl>
-                <SelectContent>
-                  <SelectItem value="fr">Français</SelectItem>
-                  <SelectItem value="en">English</SelectItem>
-                </SelectContent>
-              </Select>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+    <div className="space-y-6">
+      <div>
+        <h3 className="text-lg font-medium">Compte</h3>
+        <p className="text-sm text-muted-foreground">
+          Gérez les paramètres de votre compte et supprimez votre compte si nécessaire.
+        </p>
+      </div>
 
-        <FormField
-          control={form.control}
-          name="phoneNumber"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Numéro de téléphone</FormLabel>
-              <FormControl>
-                <Input placeholder="+33 6 12 34 56 78" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-
-        <FormField
-          control={form.control}
-          name="timezone"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Fuseau horaire</FormLabel>
-              <Select onValueChange={field.onChange} defaultValue={field.value}>
-                <FormControl>
-                  <SelectTrigger>
-                    <SelectValue placeholder="Sélectionnez un fuseau horaire" />
-                  </SelectTrigger>
-                </FormControl>
-                <SelectContent>
-                  <SelectItem value="Europe/Paris">Europe/Paris</SelectItem>
-                  <SelectItem value="America/New_York">America/New_York</SelectItem>
-                </SelectContent>
-              </Select>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-
-        <Button type="submit">Mettre à jour le compte</Button>
-      </form>
-    </Form>
+      <div className="border-t pt-6">
+        <h4 className="text-sm font-medium text-destructive mb-4">Zone de danger</h4>
+        
+        <AlertDialog>
+          <AlertDialogTrigger asChild>
+            <Button variant="destructive">
+              Supprimer mon compte
+            </Button>
+          </AlertDialogTrigger>
+          <AlertDialogContent>
+            <AlertDialogHeader>
+              <AlertDialogTitle>Êtes-vous absolument sûr ?</AlertDialogTitle>
+              <AlertDialogDescription className="space-y-2">
+                <span>Cette action est irréversible. Elle supprimera définitivement votre compte
+                et toutes les données associées.</span>
+                
+                <span className="font-medium text-destructive">
+                  ATTENTION : La suppression de votre compte pendant la période de développement 
+                  du projet et après l'engagement contractuel ne met pas fin au contrat en cours. 
+                  Vos obligations contractuelles restent en vigueur.
+                </span>
+              </AlertDialogDescription>
+            </AlertDialogHeader>
+            <AlertDialogFooter>
+              <AlertDialogCancel>Annuler</AlertDialogCancel>
+              <AlertDialogAction
+                onClick={handleDeleteAccount}
+                className="bg-destructive hover:bg-destructive/90"
+                disabled={isLoading}
+              >
+                {isLoading ? "Suppression..." : "Supprimer mon compte"}
+              </AlertDialogAction>
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialog>
+      </div>
+    </div>
   )
 }

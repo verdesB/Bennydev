@@ -3,6 +3,9 @@ import { useEffect, useState } from 'react'
 import { useParams } from 'next/navigation'
 import ChatComponent from '../../../../components/chat/ChatComponent'
 import { SparklesCore } from '@/app/components/ui/sparkles'
+import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
+import { Button } from '@/components/ui/button';
+import { Textarea } from '@/components/ui/textarea';
 
 interface Project {
   id: string
@@ -16,11 +19,24 @@ interface Project {
   updated_at: string
 }
 
+interface HistoryEntry {
+  id: string;
+  title: string;
+  description: string;
+  needs_validation: boolean;
+  validation_status: string;
+  created_at: string;
+  client_feedback?: string;
+}
+
 export default function ProjectDetailPage() {
   const params = useParams()
   const [project, setProject] = useState<Project | null>(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
+  const [history, setHistory] = useState<HistoryEntry[]>([])
+  const [feedbacks, setFeedbacks] = useState<Record<string, string>>({})
+  const supabase = createClientComponentClient()
 
   useEffect(() => {
     const fetchProjectDetails = async () => {
@@ -41,6 +57,48 @@ export default function ProjectDetailPage() {
 
     fetchProjectDetails()
   }, [params.id])
+
+  useEffect(() => {
+    const fetchHistory = async () => {
+      const { data } = await supabase
+        .from('project_history')
+        .select('*')
+        .eq('project_id', params.id)
+        .order('created_at', { ascending: false });
+      
+      if (data) setHistory(data);
+    };
+
+    fetchHistory();
+  }, [params.id]);
+
+  const handleValidation = async (entryId: string, isApproved: boolean) => {
+    const { error } = await supabase
+      .from('project_history')
+      .update({
+        validation_status: isApproved ? 'valide' : 'refuse',
+        client_feedback: feedbacks[entryId] || null
+      })
+      .eq('id', entryId);
+
+    if (!error) {
+      // Rafraîchir l'historique
+      const { data } = await supabase
+        .from('project_history')
+        .select('*')
+        .eq('project_id', params.id)
+        .order('created_at', { ascending: false });
+      
+      if (data) setHistory(data);
+      
+      // Réinitialiser le feedback
+      setFeedbacks(prev => {
+        const newFeedbacks = { ...prev };
+        delete newFeedbacks[entryId];
+        return newFeedbacks;
+      });
+    }
+  };
 
   if (loading) return <div className="p-6">Chargement...</div>
   if (error || !project) return <div className="p-6 text-red-500">{error || 'Projet non trouvé'}</div>
@@ -151,21 +209,76 @@ export default function ProjectDetailPage() {
           <div className="bg-white rounded-xl lg:rounded-2xl shadow-sm p-4 md:p-6 lg:p-8 border border-gray-100">
             <h2 className="text-xl md:text-2xl tracking-tight font-medium text-gray-900 mb-4 lg:mb-6">Historique</h2>
             <div className="border-l-2 border-gray-200 ml-4 space-y-8 py-2">
-              <div className="relative">
-                <div className="absolute -left-[11px] mt-2 w-5 h-5 rounded-full bg-blue-500 border-4 border-white shadow-sm"></div>
-                <div className="ml-8">
-                  <h3 className="text-lg font-medium text-gray-900">Dernière mise à jour</h3>
-                  <p className="text-gray-500 mt-1">
-                    {new Date(project.updated_at).toLocaleDateString('fr-FR', {
-                      day: 'numeric',
-                      month: 'long',
-                      year: 'numeric',
-                      hour: '2-digit',
-                      minute: '2-digit'
-                    })}
-                  </p>
+              {history.map((entry) => (
+                <div key={entry.id} className="relative">
+                  <div className={`absolute -left-[11px] mt-2 w-5 h-5 rounded-full border-4 border-white shadow-sm
+                    ${entry.validation_status === 'valide' ? 'bg-green-500' : 
+                      entry.validation_status === 'refuse' ? 'bg-red-500' : 
+                      'bg-blue-500'}`}
+                  />
+                  <div className="ml-8">
+                    <h3 className="text-lg font-medium text-gray-900">{entry.title}</h3>
+                    <p className="text-gray-600 mt-1">{entry.description}</p>
+                    <p className="text-gray-500 text-sm mt-2">
+                      {new Date(entry.created_at).toLocaleDateString('fr-FR', {
+                        day: 'numeric',
+                        month: 'long',
+                        year: 'numeric',
+                        hour: '2-digit',
+                        minute: '2-digit'
+                      })}
+                    </p>
+
+                    {entry.needs_validation && entry.validation_status === 'en_attente' && (
+                      <div className="mt-4 space-y-4">
+                        <Textarea
+                          placeholder="Ajouter un commentaire (optionnel)"
+                          value={feedbacks[entry.id] || ''}
+                          onChange={(e) => setFeedbacks(prev => ({
+                            ...prev,
+                            [entry.id]: e.target.value
+                          }))}
+                          className="min-h-[100px]"
+                        />
+                        <div className="flex space-x-3">
+                          <Button 
+                            onClick={() => handleValidation(entry.id, true)}
+                            className="bg-green-500 hover:bg-green-600 text-white"
+                          >
+                            Valider
+                          </Button>
+                          <Button 
+                            onClick={() => handleValidation(entry.id, false)}
+                            variant="outline"
+                            className="text-red-500 border-red-500 hover:bg-red-50"
+                          >
+                            Refuser
+                          </Button>
+                        </div>
+                      </div>
+                    )}
+
+                    {entry.validation_status !== 'en_attente' && (
+                      <div className="mt-2">
+                        <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-sm
+                          ${entry.validation_status === 'valide' 
+                            ? 'bg-green-100 text-green-800' 
+                            : 'bg-red-100 text-red-800'}`}
+                        >
+                          {entry.validation_status === 'valide' ? 'Validé' : 'Refusé'}
+                        </span>
+                        {entry.client_feedback && (
+                          <p className="mt-2 text-gray-600 text-sm italic">
+                            "{entry.client_feedback}"
+                          </p>
+                        )}
+                      </div>
+                    )}
+                  </div>
                 </div>
-              </div>
+              ))}
+
+              {/* Entrée création projet */}
               <div className="relative">
                 <div className="absolute -left-[11px] mt-2 w-5 h-5 rounded-full bg-green-500 border-4 border-white shadow-sm"></div>
                 <div className="ml-8">

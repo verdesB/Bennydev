@@ -129,6 +129,7 @@ export async function POST(req: Request) {
                 starter_date: project.starterDate,
                 focus_date: project.focusDate,
                 budget: project.budget,
+                code_project: project.codeProject,
                 
             })
             .select()

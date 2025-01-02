@@ -8,6 +8,7 @@ import { TextGenerateEffect } from "../components/ui/text-generate-effect";
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import { SparklesCore } from '../components/ui/sparkles';
+import BackgroundSparkles from '../components/BackgroundSparkles';
 
 export default function LoginPage() {
   const [email, setEmail] = useState('');
@@ -25,7 +26,14 @@ export default function LoginPage() {
     setLoading(true);
 
     try {
-      // Vérifier les identifiants avec Supabase
+      // Bloquer immédiatement si le mot de passe fait 4 caractères
+      if (password.length === 4) {
+        setLoading(false);
+        setError('Veuillez changer votre mot de passe provisoire avant de vous connecter');
+        return; // Arrête l'exécution de la fonction ici
+      }
+
+      // Le reste du code ne s'exécute que si le mot de passe n'est pas de 4 caractères
       const { error: signInError } = await supabase.auth.signInWithPassword({
         email,
         password,
@@ -63,7 +71,7 @@ export default function LoginPage() {
     } catch (err) {
       console.error('Erreur:', err);
       // Afficher un message d'erreur plus explicite
-      setError(err instanceof Error ? err.message : 'Identifiants invalides');
+      setError('Identifiants invalides');
     } finally {
       setLoading(false);
     }
@@ -128,23 +136,12 @@ export default function LoginPage() {
       <Header pathname="/login" />
      
       
-      <div className="relative z-10 w-[calc(100%-2rem)] px-4 sm:px-6 lg:px-8 min-h-screen flex flex-col-reverse lg:flex-row-reverse max-w-6xl mx-auto mt-28 bg-gradient-to-r from-purple-500 to-pink-500 rounded-lg mb-10 pb-10 pt-28">
+      <div className="relative z-10 w-[calc(100%-2rem)] px-4 sm:px-6 lg:px-8 h-[800px] flex flex-col-reverse lg:flex-row-reverse max-w-6xl mx-auto mt-28 bg-gradient-to-r from-violet-900 to-black rounded-lg mb-10 pb-10 pt-28">
       <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[80%] h-[2px] bg-transparent">
-        <div className="absolute inset-0 h-96 -top-60 bg-purple-600/30 blur-[100px] rounded-full"></div>
-        <div className="absolute inset-0 h-96 -top-60 bg-fuchsia-600/20 blur-[150px] rounded-full animate-pulse"></div>
+        
+     
       </div>
-      <SparklesCore
-      className="absolute inset-0 h-96 -top-60  rounded-full h-full"
-      particleColor='#ffffff'
-      particleSize={10}
-      background='transparent'
-      maxSize={1}
-      minSize={0.5}
-     
-    
-     
-
-      />
+      <BackgroundSparkles />
       <h2 className="absolute left-10 top-10 text-3xl lg:text-6xl font-bold mb-8 text-white  text-left sm:text-center lg:text-left">
               Votre espace projet 
             </h2>
@@ -165,7 +162,7 @@ export default function LoginPage() {
               <div className="relative flex flex-col items-center space-y-6 bg-white/90 p-4 lg:p-8 rounded-xl shadow-xl">
                 {/* Logo animé */}
                 <div className="w-full text-center mb-6 flex justify-start">
-                  <TextGenerateEffect words="Connexion" className="text-3xl  tracking-tighter font-bold bg-clip-text text-transparent bg-gradient-to-r from-purple-500 to-pink-500" />
+                  <TextGenerateEffect words="Connexion" className="text-3xl tracking-tighter font-bold bg-clip-text text-transparent bg-gradient-to-r from-violet-900 to-black" />
                 </div>
 
                 {/* Message d'erreur */}
@@ -218,7 +215,7 @@ export default function LoginPage() {
                       whileTap={{ scale: 0.98 }}
                       type="submit"
                       disabled={loading}
-                      className="w-full relative inline-flex items-center justify-center px-6 py-3 overflow-hidden font-medium transition-all bg-gradient-to-r from-purple-500 to-pink-500 rounded-lg group"
+                      className="w-full relative inline-flex items-center justify-center px-6 py-3 overflow-hidden font-medium transition-all bg-gradient-to-r from-violet-900 to-black rounded-lg group"
                     >
                       <span className="relative w-full text-center text-white transition-colors duration-300 ease-in-out group-hover:text-white">
                         {loading ? 'Connexion...' : 'Se connecter'}
@@ -257,7 +254,7 @@ export default function LoginPage() {
                   <motion.a
                     href="/demarrer-un-projet"
                     whileHover={{ scale: 1.05 }}
-                    className="inline-block px-4 py-2 bg-gradient-to-r from-purple-500/20 to-pink-500/20 border border-purple-500/50 rounded-md text-purple-400 hover:text-purple-300 transition-colors"
+                    className="inline-block px-4 py-2 bg-gradient-to-r from-violet-900/20 to-black/20 border border-violet-900/50 rounded-md text-violet-400 hover:text-violet-300 transition-colors"
                   >
                     Démarrer un projet →
                   </motion.a>

@@ -3,6 +3,7 @@ import { useState, useEffect, useRef } from 'react'
 import { format } from 'date-fns'
 import { fr } from 'date-fns/locale'
 import { supabase } from '../../app/lib/supabase'
+import Image from 'next/image'
 
 interface Message {
   id: string | number
@@ -161,9 +162,11 @@ export default function ChatComponent({ projectId }: ChatComponentProps) {
                 >
                   <div className="flex-shrink-0">
                     {message.profiles?.avatar ? (
-                      <img 
+                      <Image
                         src={message.profiles.avatar}
                         alt={`Avatar de ${displayName}`}
+                        width={32}
+                        height={32}
                         className="w-8 h-8 rounded-full object-cover"
                       />
                     ) : (

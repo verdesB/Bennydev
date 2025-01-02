@@ -16,6 +16,16 @@ export async function PUT(request: Request) {
     const body = await request.json()
     const { currentPassword, newPassword } = body
 
+    // Vérifier le mot de passe actuel
+    const { error: signInError } = await supabase.auth.signInWithPassword({
+      email: session.user.email!,
+      password: currentPassword
+    })
+
+    if (signInError) {
+      return new NextResponse("Mot de passe actuel incorrect", { status: 400 })
+    }
+
     // Mettre à jour le mot de passe avec Supabase
     const { error } = await supabase.auth.updateUser({
       password: newPassword

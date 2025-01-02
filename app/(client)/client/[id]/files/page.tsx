@@ -54,14 +54,14 @@ export default function ProjectFilesPage() {
         throw new Error('Erreur lors de la récupération du projet')
       }
       const projectData = await projectResponse.json()
-      
+      console.log(projectData)
       const formData = new FormData()
       formData.append('file', selectedFile)
       formData.append('projectId', params.id as string)
       formData.append('title', fileTitle)
       formData.append('description', fileDescription || '')
-      formData.append('codeProject', projectData.code_project) // Ajout du code_project
-
+      formData.append('codeProject', projectData?.code_project) // Ajout du code_project
+console.log(projectData.code_project)
       const response = await fetch('/api/upload', {
         method: 'POST',
         body: formData,

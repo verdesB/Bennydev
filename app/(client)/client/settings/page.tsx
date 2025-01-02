@@ -47,19 +47,28 @@ export default function SettingsPage() {
             >
               Sécurité
             </button>
+            <button 
+              onClick={() => setActiveSection("account")}
+              className={`w-full text-left px-4 py-2 rounded-lg transition-colors ${
+                activeSection === "account" ? "bg-gray-100" : "hover:bg-gray-50"
+              }`}
+            >
+              Compte
+            </button>
           </div>
         </nav>
       </aside>
 
       {/* Contenu principal */}
-      <main className="flex-1 bg-white">
+      <section className="flex-1 bg-white max-w-[600px]">
         <div className="p-6 overflow-y-auto h-[calc(100vh-4rem)]">
           {activeSection === "profile" && <ProfileForm />}
           
           {activeSection === "notifications" && <NotificationForm />}
           {activeSection === "security" && <SecurityForm />}
+          {activeSection === "account" && <AccountForm />}
         </div>
-      </main>
+      </section>
     </div>
   )
 }

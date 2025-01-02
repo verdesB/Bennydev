@@ -6,7 +6,6 @@ export async function PATCH(request: Request) {
   try {
     const supabase = createRouteHandlerClient({ cookies })
     
-    // Vérifier l'authentification
     const { data: { user }, error: authError } = await supabase.auth.getUser()
     if (authError || !user) {
       return NextResponse.json(
@@ -15,59 +14,12 @@ export async function PATCH(request: Request) {
       )
     }
 
-    // Récupérer les données du formulaire
-    const formData = await request.formData()
-    const file = formData.get('avatar') as File
+    const { avatarUrl } = await request.json()
 
-    if (!file) {
-      return NextResponse.json(
-        { error: 'Aucun fichier fourni' },
-        { status: 400 }
-      )
-    }
-
-    // Récupérer le project_code du profil
-    const { data: profile, error: profileError } = await supabase
-      .from('profiles')
-      .select('project_code')
-      .eq('id', user.id)
-      .single()
-
-    if (profileError || !profile) {
-      return NextResponse.json(
-        { error: 'Profil non trouvé' },
-        { status: 404 }
-      )
-    }
-
-    // Créer un nom de fichier unique
-    const fileExt = file.name.split('.').pop()
-    const fileName = `${user.id}-${Date.now()}.${fileExt}`
-    const filePath = `avatar/${fileName}`
-
-    // Upload du fichier dans le bucket
-    const { error: uploadError, data } = await supabase
-      .storage
-      .from(`Bennydev.${profile.project_code}`)
-      .upload(filePath, file)
-
-    if (uploadError) {
-      return NextResponse.json(
-        { error: 'Erreur lors de l\'upload de l\'image' },
-        { status: 500 }
-      )
-    }
-
-    // Obtenir l'URL publique
-    const { data: { publicUrl } } = supabase
-      .storage
-      .from(`Bennydev.${profile.project_code}`)
-      .getPublicUrl(filePath)
-
-    // Mettre à jour l'avatar dans la table profiles
+    // Mettre à jour l'avatar dans la table profiles avec l'URL signée
     const { error: updateError } = await supabase
       .from('profiles')
-      .update({ avatar: publicUrl })
+      .update({ avatar: avatarUrl })
       .eq('id', user.id)
 
     if (updateError) {
@@ -78,7 +30,7 @@ export async function PATCH(request: Request) {
     }
 
     return NextResponse.json(
-      { message: 'Avatar mis à jour avec succès', url: publicUrl },
+      { message: 'Avatar mis à jour avec succès', url: avatarUrl },
       { status: 200 }
     )
 

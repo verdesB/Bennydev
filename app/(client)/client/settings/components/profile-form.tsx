@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form"
 import * as z from "zod"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { Textarea } from "@/components/ui/textarea"
+
 import {
   Form,
   FormControl,
@@ -118,7 +118,7 @@ export function ProfileForm() {
         throw new Error('Code projet non trouvé')
       }
 
-      const filePath = `Bennydev.${profile.project_code}/${fileName}`
+      const filePath = `avatar/${fileName}`
 
       const { error: uploadError } = await supabase.storage
         .from(`Bennydev.${profile.project_code}`)
@@ -126,16 +126,18 @@ export function ProfileForm() {
 
       if (uploadError) throw uploadError
 
-      const { data: { publicUrl } } = supabase.storage
+      const { data: urlData } = await supabase.storage
         .from(`Bennydev.${profile.project_code}`)
-        .getPublicUrl(filePath)
+        .createSignedUrl(filePath, 31536000)
 
-      setAvatarUrl(publicUrl)
+      if (!urlData?.signedUrl) throw new Error('Impossible d\'obtenir l\'URL signée')
+
+      setAvatarUrl(urlData.signedUrl)
 
       await fetch('/api/profile/avatar', {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ avatarUrl: publicUrl }),
+        body: JSON.stringify({ avatarUrl: urlData.signedUrl }),
       })
 
       toast.success("Avatar mis à jour avec succès")
@@ -147,7 +149,7 @@ export function ProfileForm() {
 
   return (
     <Form {...form}>
-      <div className="space-y-8">
+      <div className="space-y-8 ">
         <div className="flex items-center gap-x-2">
           <Avatar className="h-20 w-20">
             <AvatarImage src={avatarUrl} alt="Avatar" />

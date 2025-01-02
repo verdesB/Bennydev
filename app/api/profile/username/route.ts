@@ -37,7 +37,7 @@ export async function PATCH(req: Request) {
     return NextResponse.json({ message: 'Nom d\'utilisateur mis à jour' })
   } catch (error) {
     return NextResponse.json(
-      { error: 'Erreur lors de la mise à jour du nom d\'utilisateur' },
+      { error: 'Erreur lors de la mise à jour du nom d\'utilisateur', details: error instanceof Error ? error.message : String(error) },
       { status: 500 }
     )
   }

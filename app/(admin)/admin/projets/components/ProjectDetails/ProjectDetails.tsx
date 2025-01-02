@@ -89,6 +89,18 @@ export const ProjectDetails = ({
                     </div>
                   </div>
                 </Link>
+
+                <Link className="block w-1/3" href={`/admin/projets/${selectedProject.id}/history`}>
+                  <div className="group bg-white rounded-2xl border border-primary/10 p-2 hover:shadow-lg transition-all duration-300 h-full">
+                    <div className="flex space-x-3 flex-col gap-2">
+                      <div className="flex justify-between space-x-3">
+                        <FileIcon className="w-5 h-5 text-primary" />
+                        <ArrowUpRight className="w-4 h-4 text-primary ml-auto" />
+                      </div>
+                      <span className="font-medium">Historique</span>
+                    </div>
+                  </div>
+                </Link>
               </div>
             </div>
           </div>
@@ -115,6 +127,7 @@ export const ProjectDetails = ({
                 handleUpdateUrls={handleUpdateUrls}
               />
             </div>
+            
           </div>
         </div>
 

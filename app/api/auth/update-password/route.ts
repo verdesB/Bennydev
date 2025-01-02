@@ -4,7 +4,7 @@ import { NextResponse } from "next/server"
 
 export async function POST(request: Request) {
   try {
-    const { currentPassword, newPassword } = await request.json()
+    const {  newPassword } = await request.json()
     
     const supabase = createRouteHandlerClient({ cookies })
     
@@ -26,7 +26,7 @@ export async function POST(request: Request) {
     )
   } catch (error) {
     return NextResponse.json(
-      { error: "Erreur serveur" },
+      { error: "Erreur serveur", details: error instanceof Error ? error.message : String(error) },
       { status: 500 }
     )
   }

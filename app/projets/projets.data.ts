@@ -107,7 +107,7 @@ export const projects: Project[] = [
       title: "Monokrom",
       type: "personnel",
       image: "https://iskqpfzwkuwtheuclxjq.supabase.co/storage/v1/object/sign/bennydev/showroomRTF.png?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJiZW5ueWRldi9zaG93cm9vbVJURi5wbmciLCJpYXQiOjE3MzQ1NjA5NzksImV4cCI6MTg5MjI0MDk3OX0.Q7b_TGUfmGrJonH9c8Qi1LBeOrUQz9lcNODtataJSKM&t=2024-12-18T22%3A33%3A20.751Z",
-      description: "Site de création/visite de galeries d'art 3D, une version bêta à été développer afin de tester la 3D sur le web, le projet prendra une nouvelle tourne dans le futur.",
+      description: "Site de création/visite de galeries d'art 3D, une version bêta à été développée afin de tester la 3D sur le web, le projet prendra une nouvelle tourne dans le futur.",
       technologies: [technologies.next, technologies.tailwind, technologies.threejs],
       link: "/monokrom",
       year: 2024,
