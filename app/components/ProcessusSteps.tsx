@@ -178,7 +178,7 @@ export default function ProcessusSteps() {
           </h3>
 
           {/* Version Desktop */}
-          <div className="hidden md:block overflow-x-auto rounded-2xl">
+          <div className="hidden md:block overflow-x-auto rounded-2xl border-2 border-purple-200">
             <table className="w-full border-collapse table-fixed">
               <colgroup>
                 <col/>

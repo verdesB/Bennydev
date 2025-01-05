@@ -146,9 +146,9 @@ export const siteConfig = {
         {
           name: 'Hébergement',
           values: {
-            essential: 'Offert pendant 6 mois',
-            business: 'Offert pendant 6 mois',
-            premium: 'Offert pendant 6 mois'
+            essential: 'Offert pendant 3 mois',
+            business: 'Offert pendant 3 mois',
+            premium: 'Offert pendant 3 mois'
           }
         },
         {
@@ -266,9 +266,9 @@ export const siteConfig = {
           {
             name: 'Hébergement',
             values: {
-              starter: 'Offert pendant 6 mois',
-              business: 'Offert pendant 6 mois',
-              premium: 'Offert pendant 6 mois'
+              starter: 'Offert pendant 3 mois',
+              business: 'Offert pendant 3 mois',
+              premium: 'Offert pendant 3 mois'
             }
           },
           {
@@ -813,12 +813,12 @@ export const siteConfig = {
   },
 
   garanties: {
-    duree: "Formule Hébergement et maintenance :\n offerte pendant 6 mois après livraison",
+    duree: "Formule Hébergement et maintenance :\n offerte pendant 3 mois après livraison",
     inclus: [
       "Correction des bugs",
       "Optimisation des performances",
       "Mises à jour de sécurité critiques",
-      "Sauvegarde régulière des données"
+      
     ],
     support: {
       plateforme: "Sur le CRM BennyDev",
@@ -845,49 +845,12 @@ export const siteConfig = {
 
   postDevelopment: {
     services: {
-    legalVice: {
-    titre: "Garantie des vices cachés (2 ans)",
-    autoGeree: {
-    statut: "Inclus",
-    details: "Inclus selon la législation, couverture des défauts majeurs."
-    },
-    maintenance: {
-    statut: "Inclus",
-    details: "Inclus selon la législation, couverture des défauts majeurs."
-    },
-    toutInclus: {
-    statut: "Inclus",
-    details: "Inclus selon la législation, couverture des défauts majeurs."
-    },
-    evolution: {
-    statut: "Inclus",
-    details: "Inclus selon la législation, couverture des défauts majeurs."
-    }
-    },
-    legalConformity: {
-    titre: "Garanties de conformité",
-    autoGeree: {
-    statut: "Inclus",
-    details: "Inclus pour garantir que le produit est conforme à son usage prévu."
-    },
-    maintenance: {
-    statut: "Inclus",
-    details: "Inclus pour garantir que le produit est conforme à son usage prévu."
-    },
-    toutInclus: {
-    statut: "Inclus",
-    details: "Inclus pour garantir que le produit est conforme à son usage prévu."
-    },
-    evolution: {
-    statut: "Inclus",
-    details: "Inclus pour garantir que le produit est conforme à son usage prévu."
-    }
-    },
+    
     hebergement: {
     titre: "Hébergement",
     autoGeree: {
     statut: "Limité",
-    details: "6 mois offerts, puis à la charge du client. Nécessite gestion autonome."
+    details: "3 mois offerts, puis à la charge du client. Nécessite gestion autonome."
     },
     maintenance: {
     statut: "Inclus",
@@ -943,19 +906,19 @@ export const siteConfig = {
     sauvegarde: {
     titre: "Sauvegardes",
     autoGeree: {
-    statut: "Non inclus",
-    details: "Gestion et configuration à prévoir par le client."
+    statut: "Inclus",
+    details: "Sauvegardes hebdomadaires avec restauration."
     },
     maintenance: {
-    statut: "Basique",
+    statut: "Inclus",
     details: "Sauvegardes hebdomadaires avec option de restauration."
-    },
+    }, 
     toutInclus: {
-    statut: "Avancé",
+    statut: "Inclus",
     details: "Sauvegardes quotidiennes avec restauration rapide incluse."
     },
     evolution: {
-    statut: "Premium",
+    statut: "Inclus", 
     details: "Multi-sites avec restauration instantanée assurée."
     }
     },
