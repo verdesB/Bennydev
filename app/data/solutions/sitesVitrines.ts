@@ -1,7 +1,7 @@
 export const sitesVitrinesData = {
   titre: "Notre Offre de Départ",
   sousTitre: "Découvrez nos différentes offres pour créer votre site vitrine professionnel et performant.",
-  prix: "À partir de 800€",
+  prix: "À partir de 999€",
   etapes: [
     {
       numero: "1",

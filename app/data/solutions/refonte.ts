@@ -1,7 +1,7 @@
 export const refonteData = {
   titre: "Notre Solution de Refonte de Site",
   sousTitre: "Transformez votre site existant en une version moderne et performante avec notre processus éprouvé.",
-  prix: "À partir de 2900€",
+  prix: "À partir de 1499€",
   etapes: [
     {
       numero: "1",
