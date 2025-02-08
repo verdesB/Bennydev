@@ -45,12 +45,12 @@ export const siteConfig = {
         "Optimisation SEO",
         "Interface adaptative tous écrans"
       ],
-      startingPrice: 800,
+      startingPrice: 999,
       pricing: {
         plans: [
-          { id: 'essential', name: 'Essentiel', price: 'à partir de 800€' },
-          { id: 'business', name: 'Business', price: 'à partir de 1200€' },
-          { id: 'premium', name: 'Premium', price: 'à partir de 1800€' }
+          { id: 'essential', name: 'Essentiel', price: 'à partir de 999€' },
+          { id: 'business', name: 'Business', price: 'à partir de 1500€' },
+          { id: 'premium', name: 'Premium', price: 'à partir de 2000€' },
         ],
         features: [
           {
@@ -463,8 +463,8 @@ export const siteConfig = {
           {
             name: 'Performance',
             values: {
-              essential: 'Score > 85',
-              premium: 'Score > 90 + Optimisations',
+              essential: 'Score > 90',
+              premium: 'Score > 95 + Optimisations',
               enterprise: 'Score > 95 + CDN'
             }
           },
