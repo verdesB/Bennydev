@@ -35,8 +35,7 @@ export const metadata: Metadata = {
     default: 'BennyDev | Développeur Web Freelance',
     template: '%s | BennyDev'
   },
-  description: 'Développeur web freelance spécialisé dans la création de sites web et applications sur mesure. Expertise en React, Next.js et solutions digitales innovantes.',
-  keywords: ['développeur web', 'freelance', 'création site web', 'applications web', 'React', 'Next.js'],
+  description: 'Spécialiste en React et Next.js, création de sites web et applications modernes. Contactez-moi !',
   authors: [{ name: 'Benjamin' }],
   creator: 'Benjamin',
   publisher: 'BennyDev',
